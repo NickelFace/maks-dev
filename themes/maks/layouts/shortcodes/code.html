@@ -1,0 +1,11 @@
+{{/* {{< code lang="bash" label="example" >}}
+sudo unshare --pid bash
+{{< /code >}} */}}
+<div class="code-block">
+  <div class="code-label">
+    <span>{{ .Get "lang" | default "bash" }}</span>
+    {{ with .Get "label" }}<span style="color:var(--text3);font-size:9px;letter-spacing:1px;text-transform:uppercase">{{ . }}</span>{{ end }}
+    <button class="copy-btn" onclick="cpCode(event,this)">copy</button>
+  </div>
+  <pre>{{ .Inner | htmlEscape }}</pre>
+</div>

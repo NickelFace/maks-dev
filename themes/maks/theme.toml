@@ -1,0 +1,11 @@
+name = "maks"
+license = "MIT"
+licenselink = ""
+description = "Custom dark theme for maks.top — Linux & DevOps knowledge base"
+homepage = "https://maks.top"
+tags = ["blog", "dark", "monospace", "devops", "technical"]
+features = ["responsive", "pagefind", "dark-mode", "light-mode"]
+min_version = "0.120.0"
+
+[author]
+  name = "Maks"

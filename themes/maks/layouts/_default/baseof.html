@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode | default "en" }}" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Unbounded:wght@400;700;900&display=swap">
+<link rel="stylesheet" href="{{ "styles/global.css" | relURL }}">
+{{ if .IsHome }}<link rel="stylesheet" href="{{ "styles/home.css" | relURL }}">{{ end }}
+{{ if eq .Type "posts" }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
+<link rel="stylesheet" href="{{ "styles/mobile.css" | relURL }}">
+{{ block "head" . }}{{ end }}
+</head>
+<body>
+
+<!-- ═══ DESKTOP NAV ═══ -->
+<nav class="desk-nav">
+  <a href="{{ "/" | relURL }}" class="nav-logo">maks.top</a>
+  <ul class="nav-links">
+    <li><a href="{{ "/" | relURL }}"{{ if .IsHome }} class="active"{{ end }}>Home</a></li>
+    <li><a href="{{ "/posts/" | relURL }}"{{ if eq .Section "posts" }} class="active"{{ end }}>Blog</a></li>
+    <li><a href="{{ "/certs/" | relURL }}"{{ if eq .Section "certs" }} class="active"{{ end }}>Certs</a></li>
+    <li><a href="{{ "/kb/" | relURL }}"{{ if eq .Section "kb" }} class="active"{{ end }}>Knowledge Base</a></li>
+    <li><a href="{{ "/about/" | relURL }}"{{ if eq .RelPermalink "/about/" }} class="active"{{ end }}>About</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('en',this)">EN</button>
+      <button class="lang-btn" onclick="setLang('ru',this)">RU</button>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
+  </div>
+</nav>
+
+<!-- ═══ MOBILE NAV ═══ -->
+<nav class="mob-nav">
+  <a href="{{ "/" | relURL }}" class="nav-logo">maks.top</a>
+  <div class="mob-nav-right">
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtnMob" title="Toggle theme">🌙</button>
+    <button class="burger" id="burgerBtn" onclick="toggleMobMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ MOBILE DRAWER ═══ -->
+<div class="mob-drawer" id="mobDrawer">
+  <a href="{{ "/" | relURL }}"{{ if .IsHome }} class="active"{{ end }}>Home</a>
+  <a href="{{ "/posts/" | relURL }}"{{ if eq .Section "posts" }} class="active"{{ end }}>Blog</a>
+  <a href="{{ "/certs/" | relURL }}"{{ if eq .Section "certs" }} class="active"{{ end }}>Certs</a>
+  <a href="{{ "/kb/" | relURL }}"{{ if eq .Section "kb" }} class="active"{{ end }}>Knowledge Base</a>
+  <a href="{{ "/about/" | relURL }}"{{ if eq .RelPermalink "/about/" }} class="active"{{ end }}>About</a>
+  <div class="mob-drawer-lang">
+    <button class="lang-btn active" onclick="setLang('en',this)">EN</button>
+    <button class="lang-btn" onclick="setLang('ru',this)">RU</button>
+  </div>
+</div>
+<div class="mob-overlay" id="mobOverlay" onclick="closeMobMenu()"></div>
+
+{{ block "main" . }}{{ end }}
+
+<!-- ═══ MOBILE BOTTOM NAV ═══ -->
+<nav class="mob-bottom-nav">
+  <a href="{{ "/" | relURL }}" class="mob-bnav-item{{ if .IsHome }} active{{ end }}">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+    <span>Home</span>
+  </a>
+  <a href="{{ "/posts/" | relURL }}" class="mob-bnav-item{{ if eq .Section "posts" }} active{{ end }}">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+    <span>Blog</span>
+  </a>
+  <a href="{{ "/certs/" | relURL }}" class="mob-bnav-item{{ if eq .Section "certs" }} active{{ end }}">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+    <span>Certs</span>
+  </a>
+  <a href="{{ "/kb/" | relURL }}" class="mob-bnav-item{{ if eq .Section "kb" }} active{{ end }}">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+    <span>KB</span>
+  </a>
+</nav>
+
+<footer>
+  <span class="footer-logo">maks.top</span>
+  <span>Hugo · GitHub Pages · Pagefind</span>
+  <span>{{ .Site.Params.location }} · {{ now.Year }}</span>
+</footer>
+
+<script>
+function toggleTheme(){
+  const html=document.documentElement;
+  const isDark=html.getAttribute('data-theme')==='dark';
+  const next=isDark?'light':'dark';
+  html.setAttribute('data-theme',next);
+  localStorage.setItem('theme',next);
+  const icon=isDark?'☀️':'🌙';
+  document.querySelectorAll('#themeBtn,#themeBtnMob').forEach(b=>b.textContent=icon);
+}
+function setLang(lang,btn){
+  localStorage.setItem('lang',lang);
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach(b=>{if(b.textContent.trim()===lang.toUpperCase())b.classList.add('active')});
+}
+function toggleMobMenu(){
+  const d=document.getElementById('mobDrawer');
+  const o=document.getElementById('mobOverlay');
+  const b=document.getElementById('burgerBtn');
+  const open=d.classList.toggle('open');
+  o.classList.toggle('open',open);
+  b.classList.toggle('open',open);
+}
+function closeMobMenu(){
+  document.getElementById('mobDrawer').classList.remove('open');
+  document.getElementById('mobOverlay').classList.remove('open');
+  document.getElementById('burgerBtn').classList.remove('open');
+}
+(function(){
+  const t=localStorage.getItem('theme');
+  if(t==='light'){
+    document.documentElement.setAttribute('data-theme','light');
+    document.querySelectorAll('#themeBtn,#themeBtnMob').forEach(b=>b.textContent='☀️');
+  }
+  const lang=localStorage.getItem('lang')||'en';
+  if(lang==='ru'){
+    document.querySelectorAll('.lang-btn').forEach(b=>{
+      if(b.textContent.trim()==='RU')b.classList.add('active');
+      else b.classList.remove('active');
+    });
+  }
+})();
+</script>
+
+{{ block "scripts" . }}{{ end }}
+</body>
+</html>

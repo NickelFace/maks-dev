@@ -1,0 +1,41 @@
+{{/*
+  Usage in Markdown:
+  {{< ns-card name="PID" flag="CLONE_NEWPID" icon="⚙️" color="#7c3aed"
+      summary="Process ID isolation"
+      desc="First process gets PID 1 inside the namespace..."
+      host="PID 84521 on host"
+      ns_view="PID 1 inside"
+  >}}
+  {{< tab label="unshare" >}}
+  ```bash
+  sudo unshare --pid --fork --mount-proc bash
+  ```
+  {{< /tab >}}
+  {{< /ns-card >}}
+*/}}
+{{ $id := printf "ns-%s" (.Get "name" | lower | replaceRE "[^a-z0-9]" "-") }}
+<div class="ns-card" id="{{ $id }}" style="--card-color:{{ .Get "color" }}" onclick="toggleCard(this)">
+  <div class="ns-header">
+    <div class="ns-icon">{{ .Get "icon" }}</div>
+    <div class="ns-meta">
+      <div class="ns-name">{{ .Get "name" }} Namespace</div>
+      <div class="ns-flag">{{ .Get "flag" }}</div>
+    </div>
+    <div class="ns-summary">{{ .Get "summary" }}</div>
+    <div class="ns-toggle">›</div>
+  </div>
+  <div class="ns-body">
+    <div class="ns-desc">{{ .Get "desc" }}</div>
+    {{ if and (.Get "host") (.Get "ns_view") }}
+    <div class="vis-isolation">
+      <div class="vis-label">Isolation view</div>
+      <div class="vis-row">
+        <div class="vis-col"><div class="vis-col-lbl">Host</div><div class="vis-box"><span class="vis-tag">HOST</span> {{ .Get "host" }}</div></div>
+        <div class="vis-sep">⟷</div>
+        <div class="vis-col"><div class="vis-col-lbl">Namespace</div><div class="vis-box"><span class="vis-tag" style="color:{{ .Get "color" }};border-color:{{ .Get "color" }}">NS</span> {{ .Get "ns_view" }}</div></div>
+      </div>
+    </div>
+    {{ end }}
+    {{ .Inner }}
+  </div>
+</div>

@@ -1,0 +1,90 @@
+{{ define "main" }}
+<div class="page prose-page">
+
+  <div class="breadcrumb">
+    <a href="{{ "/" | relURL }}">maks.top</a>
+    <span>/</span>
+    <a href="{{ .Section | relURL }}">{{ .Section }}</a>
+    <span>/</span>
+    {{ .Title }}
+  </div>
+
+  <article>
+    <div class="post-header">
+      <h1>{{ .Title }}</h1>
+      <div class="post-meta">
+        <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+        {{ with .Params.readingtime }}<span class="post-date">{{ . }} min read</span>{{ end }}
+        {{ range .Params.tags }}
+        <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="tag">{{ . }}</a>
+        {{ end }}
+      </div>
+    </div>
+
+    <!-- ToC (desktop only — injected via JS) -->
+    <div class="toc-aside" id="tocAside"></div>
+
+    <div class="prose" id="articleBody">
+      {{ .Content }}
+    </div>
+
+    <div class="back-link">
+      <a href="{{ .Section | relURL }}">← Back to {{ .Section }}</a>
+    </div>
+  </article>
+
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+<script>
+/* ── Reading progress bar ── */
+const bar=document.createElement('div');
+bar.style.cssText='position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:200;transition:width .1s;width:0';
+document.body.appendChild(bar);
+window.addEventListener('scroll',()=>{
+  const h=document.body.scrollHeight-window.innerHeight;
+  bar.style.width=(h>0?Math.round(window.scrollY/h*100):0)+'%';
+});
+
+/* ── Desktop ToC ── */
+const heads=document.querySelectorAll('#articleBody h2,#articleBody h3');
+if(heads.length>2){
+  const aside=document.getElementById('tocAside');
+  aside.innerHTML='<div class="toc-inner"><div class="toc-title">Contents</div>'+
+    [...heads].map(h=>`<a href="#${h.id}" class="toc-item toc-${h.tagName.toLowerCase()}">${h.textContent}</a>`).join('')+
+  '</div>';
+
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll('.toc-item').forEach(i=>i.classList.remove('cur'));
+        const link=aside.querySelector(`a[href="#${e.target.id}"]`);
+        if(link)link.classList.add('cur');
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  heads.forEach(h=>{if(h.id)observer.observe(h);});
+}
+
+/* ── Copy buttons on all code blocks ── */
+document.querySelectorAll('pre').forEach(pre=>{
+  if(pre.closest('.code-block'))return;
+  const wrap=document.createElement('div');
+  wrap.className='code-block';
+  const lbl=document.createElement('div');
+  lbl.className='code-label';
+  lbl.innerHTML='<span>bash</span><button class="copy-btn" onclick="cpPre(this)">copy</button>';
+  pre.parentNode.insertBefore(wrap,pre);
+  wrap.appendChild(lbl);
+  wrap.appendChild(pre);
+});
+function cpPre(btn){
+  const pre=btn.closest('.code-block').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(()=>{
+    btn.textContent='ok!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='copy';btn.classList.remove('copied')},1500);
+  });
+}
+</script>
+{{ end }}

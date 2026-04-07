@@ -1,0 +1,22 @@
+baseURL = "https://maks.top/"
+languageCode = "en"
+title = "maks.top"
+theme = "maks"
+paginate = 10
+
+[params]
+  author      = "Maks"
+  description = "Linux & DevOps Knowledge Base — LPIC-2 · AWS · CKA · Networking"
+  location    = "Sydney, AU"
+  github      = "https://github.com/NickelFace"
+  linkedin    = "https://www.linkedin.com/in/lopunov/"
+  telegram    = "https://t.me/nickelface"
+
+[taxonomies]
+  tag      = "tags"
+  category = "categories"
+
+[outputs]
+  home    = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+  page    = ["HTML"]

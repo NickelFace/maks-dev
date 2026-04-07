@@ -1,0 +1,25 @@
+{{ define "main" }}
+<div class="page">
+
+  <div class="sec-title">{{ .Title | default .Section }}</div>
+
+  <div class="posts-list">
+    {{ range .Paginator.Pages }}
+    <a href="{{ .Permalink }}" class="post-card">
+      <div class="post-card-meta">
+        <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
+        {{ range first 2 .Params.tags }}
+        <span class="tag">{{ . }}</span>
+        {{ end }}
+      </div>
+      <div class="post-card-title">{{ .Title }}</div>
+      {{ with .Description }}<div class="post-card-desc">{{ . }}</div>{{ end }}
+      {{ with .Summary }}<div class="post-card-desc">{{ . | plainify | truncate 120 }}</div>{{ end }}
+    </a>
+    {{ end }}
+  </div>
+
+  {{ template "_internal/pagination.html" . }}
+
+</div>
+{{ end }}
