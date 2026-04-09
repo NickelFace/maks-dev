@@ -4,211 +4,85 @@
 
 {{ define "main" }}
 
-<!-- ════════════════════════════════════════════════════════════════
-     MOBILE VIEW  (shown on ≤720px)
-     ════════════════════════════════════════════════════════════════ -->
-<div class="art" id="art-mobile">
-  <div class="grid-bg"></div>
+<div class="ns-page-wrap">
 
-  <div class="mob-page">
-    <div style="font-size:9.5px;color:var(--text3);margin-bottom:10px">
-      <a href="{{ "/posts/" | relURL }}" style="color:var(--text3);text-decoration:none">← Back to blog</a>
+  <!-- MAIN -->
+  <div class="ns-page-main">
+
+    <div class="breadcrumb">
+      <a href="{{ "/" | relURL }}">maks.top</a><span>/</span>
+      <a href="{{ "/posts/" | relURL }}">posts</a><span>/</span>
+      <span style="color:var(--text2)">{{ .Title }}</span>
     </div>
 
-    <div class="mob-h1">{{ .Title }}</div>
-    <div class="mob-meta">
-      <span class="mob-date">{{ .Date.Format "2006-01-02" }}</span>
+    <div class="post-h1">{{ .Title }}</div>
+    <div class="post-meta">
+      <span class="p-date">{{ .Date.Format "2006-01-02" }}</span>
       {{ range .Params.tags }}
-      <span class="ptag">{{ . }}</span>
+        <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="ptag">{{ . }}</a>
       {{ end }}
     </div>
 
-    <div class="mob-intro">{{ .Content }}</div>
+    {{ .Content }}
 
-    <!-- Horizontal chip scroll -->
-    <div class="mob-map">
-      <div class="mob-map-lbl">Типы namespace</div>
-      <div class="swipe-hint">
-        <div style="display:flex;gap:3px;align-items:center">
-          <div class="swipe-dot a"></div>
-          <div class="swipe-dot b"></div>
-          <div class="swipe-dot c"></div>
-        </div>
-        <span>прокрути вправо</span>
-      </div>
-      <div class="mob-map-scroll" id="mobMapScroll"></div>
+    <!-- NS MAP -->
+    <div class="ns-map">
+      <div class="ns-map-title">Навигация по типам</div>
+      <div class="ns-map-grid" id="nsMap"></div>
     </div>
 
-    <div class="mob-sec">Все типы</div>
-    <div class="mob-ns-grid" id="mobNsGrid"></div>
+    <div class="sec">Все типы namespace</div>
+    <div class="ns-grid" id="nsGrid"></div>
+
+    <!-- CHEATSHEET -->
+    <div class="sec">Quick reference</div>
+    <div class="filter-row">
+      <span class="filter-label">Фильтр:</span>
+      <button class="f-btn on"  onclick="nsSetFilter('all',this)">All</button>
+      <button class="f-btn"     onclick="nsSetFilter('kernel',this)">Kernel</button>
+      <button class="f-btn"     onclick="nsSetFilter('proc',this)">Process</button>
+      <button class="f-btn"     onclick="nsSetFilter('net',this)">Network</button>
+      <button class="f-btn"     onclick="nsSetFilter('fs',this)">Filesystem</button>
+    </div>
+    <div class="ref-panel">
+      <div class="ref-head">lsns / unshare / nsenter cheatsheet</div>
+      <div class="ref-body">
+        <table class="ct">
+          <thead><tr><th>Command</th><th>What it does</th><th>Type</th></tr></thead>
+          <tbody id="cheatBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="back-link"><a href="{{ "/posts/" | relURL }}">← Back to posts</a></div>
   </div>
+
+  <!-- ASIDE -->
+  <div class="ns-page-aside">
+    <div class="toc-box">
+      <div class="toc-head">Содержание</div>
+      <div class="toc-body" id="tocBody"></div>
+    </div>
+    <div class="progress-box">
+      <div class="progress-lbl">Прогресс чтения</div>
+      <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+      <div class="progress-txt" id="progTxt">
+        <span>0 из 8 типов</span><span>0%</span>
+      </div>
+    </div>
+  </div>
+
 </div>
-
-
-<!-- ════════════════════════════════════════════════════════════════
-     DESKTOP VIEW  (shown on >720px)
-     ════════════════════════════════════════════════════════════════ -->
-<div class="art" id="art-desktop">
-  <div class="grid-bg"></div>
-
-  <div class="page-layout">
-
-    <!-- ── MAIN COLUMN ── -->
-    <div class="page-main">
-
-      <div class="top-bar">
-        <div class="breadcrumb">
-          <a href="{{ "/" | relURL }}">maks.top</a>
-          <span style="margin:0 5px;color:var(--text3)">/</span>
-          <a href="{{ "/posts/" | relURL }}">posts</a>
-          <span style="margin:0 5px;color:var(--text3)">/</span>
-          {{ .Title }}
-        </div>
-      </div>
-
-      <div class="post-h1">{{ .Title }}</div>
-      <div class="post-meta">
-        <span class="p-date">{{ .Date.Format "2006-01-02" }}</span>
-        {{ range .Params.tags }}
-        <a href="{{ "/tags/" | relURL }}{{ . | urlize }}/" class="ptag">{{ . }}</a>
-        {{ end }}
-      </div>
-
-      {{ .Content }}
-
-      <!-- NS Map grid -->
-      <div class="ns-map">
-        <div class="ns-map-title">Навигация по типам</div>
-        <div class="ns-map-grid" id="nsMap"></div>
-      </div>
-
-      <div class="sec">Все типы namespace</div>
-      <div class="ns-grid" id="nsGrid"></div>
-
-      <!-- Quick Reference -->
-      <div class="sec">Quick reference</div>
-
-      <div class="filter-row">
-        <span class="filter-label">Фильтр:</span>
-        <button class="f-btn on" onclick="setFilter('all',this)">All</button>
-        <button class="f-btn" onclick="setFilter('kernel',this)">Kernel</button>
-        <button class="f-btn" onclick="setFilter('proc',this)">Process</button>
-        <button class="f-btn" onclick="setFilter('net',this)">Network</button>
-        <button class="f-btn" onclick="setFilter('fs',this)">Filesystem</button>
-      </div>
-
-      <div class="ref-panel">
-        <div class="ref-head">lsns / unshare / nsenter cheatsheet</div>
-        <div class="ref-body">
-          <table class="ct" id="cheatTable">
-            <thead><tr><th>Command</th><th>What it does</th><th>Type</th></tr></thead>
-            <tbody id="cheatBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="back-link">
-        <a href="{{ "/posts/" | relURL }}">← Back to posts</a>
-      </div>
-
-    </div><!-- /page-main -->
-
-    <!-- ── SIDEBAR ── -->
-    <div class="page-aside">
-
-      <div class="toc-box">
-        <div class="toc-head">Содержание</div>
-        <div class="toc-body" id="tocBody"></div>
-      </div>
-
-      <div class="progress-box">
-        <div class="progress-lbl">Прогресс чтения</div>
-        <div class="read-progress-bar"><div class="read-progress-fill" id="progFill"></div></div>
-        <div class="progress-txt" id="progTxt">
-          <span>0 из 8 типов</span><span style="color:var(--accent)">0%</span>
-        </div>
-      </div>
-
-    </div><!-- /page-aside -->
-
-  </div><!-- /page-layout -->
-</div><!-- /art-desktop -->
 
 {{ end }}
 
-
 {{ define "scripts" }}
-<style>
-  #art-mobile  { display: none; }
-  #art-desktop { display: none; }
-</style>
 <script src="{{ "js/ns.js" | relURL }}"></script>
 <script>
-const NS = NSLib.NS_DATA;
-let curFilter = 'all';
-
-// ── Desktop ──────────────────────────────────────────────────────
-
-document.getElementById('nsMap').innerHTML = NS.map((n,i) => `
-  <button class="ns-map-btn" style="--c:${n.color}" id="mb${i}" onclick="jumpTo(${i})">
-    <div class="ns-map-icon">${n.icon}</div>
-    <div class="ns-map-name">${n.name}</div>
-    <div class="ns-map-flag">${n.flag.replace('CLONE_NEW','')}</div>
-  </button>`).join('');
-
-document.getElementById('nsGrid').innerHTML = NS.map((n,i) => NSLib.buildDesktopCard(n,i)).join('');
-
-document.getElementById('tocBody').innerHTML = NS.map((n,i) => `
-  <div class="toc-item" data-idx="${i}" onclick="jumpTo(${i})">
-    <div class="toc-dot" style="background:${n.color}"></div>
-    ${n.name} Namespace
-  </div>`).join('');
-
-NSLib.buildCheatTable('all', 'cheatBody');
-
-function setFilter(f, btn) {
-  curFilter = f;
+function nsSetFilter(f, btn) {
   document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  NSLib.buildCheatTable(f, 'cheatBody');
+  buildCheatTable(f, 'cheatBody');
 }
-
-function jumpTo(i) {
-  document.querySelectorAll('.ns-map-btn').forEach(b => b.classList.remove('sel'));
-  document.getElementById('mb'+i).classList.add('sel');
-  const card = document.getElementById('nc'+i);
-  card.classList.add('active');
-  card.scrollIntoView({ behavior:'smooth', block:'start' });
-}
-
-NSLib.initProgress(NS.length, 'progFill', 'progTxt');
-NSLib.initTocHighlight('.toc-item');
-
-// ── Mobile ───────────────────────────────────────────────────────
-
-document.getElementById('mobMapScroll').innerHTML = NS.map((n,i) => `
-  <div class="mob-map-chip" style="--c:${n.color}" id="mc${i}" onclick="jumpMob(${i})">
-    <span class="mob-map-chip-icon">${n.icon}</span>
-    <span class="mob-map-chip-name">${n.name}</span>
-  </div>`).join('');
-
-document.getElementById('mobNsGrid').innerHTML = NS.map((n,i) => NSLib.buildMobileCard(n,i)).join('');
-
-function jumpMob(i) {
-  document.querySelectorAll('.mob-map-chip').forEach(b => b.classList.remove('sel'));
-  document.getElementById('mc'+i).classList.add('sel');
-  const card = document.getElementById('mc_card'+i);
-  if (card) { card.classList.add('open'); card.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
-}
-
-// ── Layout switch ────────────────────────────────────────────────
-
-function applyLayout() {
-  const isMob = window.innerWidth <= 720;
-  document.getElementById('art-mobile').style.display  = isMob ? 'block' : 'none';
-  document.getElementById('art-desktop').style.display = isMob ? 'none'  : 'block';
-}
-applyLayout();
-window.addEventListener('resize', applyLayout);
 </script>
 {{ end }}
