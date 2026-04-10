@@ -1,0 +1,33 @@
+{{ define "main" }}
+<div class="page">
+
+  <div class="sec-title">About</div>
+
+  <div class="about-strip" style="text-decoration:none; cursor:default; margin-bottom:0; border-bottom-left-radius:0; border-bottom-right-radius:0; border-bottom:none;">
+    <div class="about-avatar">👨‍💻</div>
+    <div class="about-bio">
+      <div class="about-name">{{ .Site.Params.author }}</div>
+      <div class="about-desc">Linux sysadmin &amp; DevOps in progress · {{ .Site.Params.location }}<br>
+        Studying LPIC-2, AWS, CKA. Writing notes so I don't forget stuff.</div>
+    </div>
+    <div class="about-skills">
+      <span class="skill-tag">Linux</span><span class="skill-tag">Ubuntu</span>
+      <span class="skill-tag">Bash</span><span class="skill-tag">Docker</span>
+      <span class="skill-tag">Nginx</span><span class="skill-tag">LDAP/AD</span>
+      <span class="skill-tag">iptables</span><span class="skill-tag">Obsidian</span>
+    </div>
+    <div class="about-links">
+      <a href="{{ .Site.Params.github }}" class="about-link">GH</a>
+      <a href="{{ .Site.Params.linkedin }}" class="about-link">in</a>
+      <a href="{{ .Site.Params.telegram }}" class="about-link">✈</a>
+    </div>
+  </div>
+
+  {{ partial "certs-widget.html" . }}
+
+  <div class="prose" style="margin-top:32px;">
+    {{ .Content }}
+  </div>
+
+</div>
+{{ end }}

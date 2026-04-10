@@ -9,11 +9,12 @@
         <p>Articles, cert notes, and sysadmin references.<br>LPIC-2 · AWS · CKA · Networking.</p>
       </div>
       <div class="tag-cloud">
-        {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
-        <a href="{{ "/tags/" | relURL }}{{ $name | urlize }}/" class="tag">
-          {{ $name }} <span class="count">{{ len $taxonomy }}</span>
+        {{ range first 10 .Site.Taxonomies.tags.ByCount }}
+        <a href="{{ "/tags/" | relURL }}{{ .Page.Title | urlize }}/" class="tag">
+          {{ .Page.Title }} <span class="count">{{ .Count }}</span>
         </a>
         {{ end }}
+        <a href="{{ "/tags/" | relURL }}" class="tag tag-more">all tags →</a>
       </div>
     </div>
 
@@ -100,7 +101,8 @@
 
     <!-- Certs (spans 2 cols) -->
     <div class="panel certs-section">
-      <div class="panel-head">
+      {{ partial "certs-widget.html" . }}
+<!--       <div class="panel-head">
         <span class="panel-title">Certification Notes</span>
         <a href="{{ "/certs/" | relURL }}" class="panel-more">all →</a>
       </div>
@@ -129,31 +131,14 @@
           <div class="progress-bar"><div class="progress-fill" style="width:5%"></div></div>
           <div class="progress-label"><span>Queued</span><span class="pct">5%</span></div>
         </a>
-      </div>
+      </div> -->
     </div>
 
   </div><!-- /main-grid -->
 
   <!-- ABOUT STRIP -->
-  <div class="sec-title">About</div>
-  <a href="{{ "/about/" | relURL }}" class="about-strip">
-    <div class="about-avatar">👨‍💻</div>
-    <div class="about-bio">
-      <div class="about-name">{{ .Site.Params.author }}</div>
-      <div class="about-desc">Linux sysadmin &amp; DevOps in progress · {{ .Site.Params.location }}<br>Studying LPIC-2, AWS, CKA. Writing notes so I don't forget stuff.</div>
-    </div>
-    <div class="about-skills">
-      <span class="skill-tag">Linux</span><span class="skill-tag">Ubuntu</span>
-      <span class="skill-tag">Bash</span><span class="skill-tag">Docker</span>
-      <span class="skill-tag">Nginx</span><span class="skill-tag">LDAP/AD</span>
-      <span class="skill-tag">iptables</span><span class="skill-tag">Obsidian</span>
-    </div>
-    <div class="about-links">
-      <a href="{{ .Site.Params.github }}" class="about-link" onclick="event.stopPropagation()">GH</a>
-      <a href="{{ .Site.Params.linkedin }}" class="about-link">in</a>
-      <a href="{{ .Site.Params.telegram }}" class="about-link">✈</a>
-    </div>
-  </a>
+<!--   <div class="sec-title">About</div>
+  {{ partial "certs-widget.html" . }} -->
 
 </div><!-- /page -->
 

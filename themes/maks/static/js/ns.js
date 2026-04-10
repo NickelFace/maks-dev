@@ -199,26 +199,69 @@ boottime   0  0</span>`
 ];
 
 const CHEAT_DATA = [
-  { cmd:"ls -la /proc/$$/ns/",            desc:"List namespaces of current process",          cat:"proc"   },
-  { cmd:"lsns",                            desc:"List all namespaces in the system",            cat:"proc"   },
-  { cmd:"lsns -t net",                     desc:"Filter by type (net/pid/mnt/user…)",           cat:"net"    },
-  { cmd:"unshare --uts bash",              desc:"New UTS namespace",                             cat:"kernel" },
-  { cmd:"unshare --pid --fork --mount-proc", desc:"New PID namespace + isolated /proc",         cat:"kernel" },
-  { cmd:"unshare --net bash",              desc:"New network namespace",                         cat:"net"    },
-  { cmd:"unshare --user --map-root-user",  desc:"New user namespace (no sudo)",                 cat:"kernel" },
-  { cmd:"nsenter --target PID --all bash", desc:"Enter all namespaces of a process",            cat:"proc"   },
-  { cmd:"nsenter --target PID --net bash", desc:"Enter only net namespace",                     cat:"net"    },
-  { cmd:"ip netns add myns",               desc:"Create named network namespace",               cat:"net"    },
-  { cmd:"ip netns exec myns bash",         desc:"Run bash in named network namespace",          cat:"net"    },
-  { cmd:"readlink /proc/PID/ns/net",       desc:"Get namespace inode by PID",                  cat:"fs"     },
-  { cmd:"cat /proc/$$/mountinfo",          desc:"Show mount table for current process",         cat:"fs"     },
+  // General — inspection and cross-namespace tools
+  { cmd:"ls -la /proc/$$/ns/",                    desc:"List all namespaces of current process",           cat:"general" },
+  { cmd:"lsns",                                   desc:"List all namespaces on the system",                cat:"general" },
+  { cmd:"lsns -t uts",                            desc:"Filter lsns by type (uts/pid/net/mnt/ipc/user/cgroup/time)", cat:"general" },
+  { cmd:"nsenter --target PID --all bash",        desc:"Enter all namespaces of a process",               cat:"general" },
+  { cmd:"nsenter --target PID --uts bash",        desc:"Enter only the UTS namespace of a process",       cat:"general" },
+  { cmd:"readlink /proc/PID/ns/uts",              desc:"Get namespace inode by PID (replace uts with type)", cat:"general" },
+  // UTS
+  { cmd:"unshare --uts bash",                     desc:"Start a new UTS namespace",                       cat:"uts"     },
+  { cmd:"hostname newname",                       desc:"Change hostname inside the UTS namespace",         cat:"uts"     },
+  { cmd:"lsns -t uts",                            desc:"List all UTS namespaces",                         cat:"uts"     },
+  // PID
+  { cmd:"unshare --pid --fork --mount-proc bash", desc:"New PID namespace with isolated /proc",           cat:"pid"     },
+  { cmd:"nsenter --target PID --pid bash",        desc:"Enter PID namespace of a running process",        cat:"pid"     },
+  { cmd:"lsns -t pid",                            desc:"List all PID namespaces",                         cat:"pid"     },
+  // NET
+  { cmd:"unshare --net bash",                     desc:"Start a new network namespace",                   cat:"net"     },
+  { cmd:"ip netns add myns",                      desc:"Create a named network namespace",                cat:"net"     },
+  { cmd:"ip netns exec myns bash",                desc:"Run a command inside a named network namespace",  cat:"net"     },
+  { cmd:"ip netns list",                          desc:"List all named network namespaces",               cat:"net"     },
+  { cmd:"ip link add veth0 type veth peer name veth1", desc:"Create a veth pair to connect namespaces",  cat:"net"     },
+  { cmd:"ip link set veth1 netns myns",           desc:"Move one veth end into a network namespace",      cat:"net"     },
+  { cmd:"lsns -t net",                            desc:"List all network namespaces",                     cat:"net"     },
+  // MNT
+  { cmd:"unshare --mount bash",                   desc:"Start a new mount namespace",                     cat:"mnt"     },
+  { cmd:"mount -t tmpfs tmpfs /mnt",              desc:"Mount tmpfs (visible only in this namespace)",    cat:"mnt"     },
+  { cmd:"cat /proc/$$/mountinfo",                 desc:"Show mount table for the current process",        cat:"mnt"     },
+  { cmd:"nsenter --target PID --mount bash",      desc:"Enter mount namespace of a process",              cat:"mnt"     },
+  { cmd:"lsns -t mnt",                            desc:"List all mount namespaces",                       cat:"mnt"     },
+  // IPC
+  { cmd:"unshare --ipc bash",                     desc:"Start a new IPC namespace",                       cat:"ipc"     },
+  { cmd:"ipcs -a",                                desc:"Show all IPC objects (queues, semaphores, shm)",  cat:"ipc"     },
+  { cmd:"ipcs -m",                                desc:"List shared memory segments",                     cat:"ipc"     },
+  { cmd:"ipcmk -M 1024",                          desc:"Create a 1024-byte shared memory segment",        cat:"ipc"     },
+  { cmd:"lsns -t ipc",                            desc:"List all IPC namespaces",                         cat:"ipc"     },
+  // USER
+  { cmd:"unshare --user --map-root-user bash",    desc:"New user namespace — become root without sudo",   cat:"user"    },
+  { cmd:"id",                                     desc:"Show UID/GID (uid=0 inside user namespace)",      cat:"user"    },
+  { cmd:"cat /proc/$$/uid_map",                   desc:"Show UID mapping (inside → outside)",             cat:"user"    },
+  { cmd:"sysctl kernel.unprivileged_userns_clone",desc:"Check if unprivileged user namespaces are allowed", cat:"user"  },
+  { cmd:"lsns -t user",                           desc:"List all user namespaces",                        cat:"user"    },
+  // CGROUP
+  { cmd:"unshare --cgroup bash",                  desc:"Start a new cgroup namespace",                    cat:"cgroup"  },
+  { cmd:"cat /proc/$$/cgroup",                    desc:"Show cgroup path (/ inside cgroup namespace)",    cat:"cgroup"  },
+  { cmd:"lsns -t cgroup",                         desc:"List all cgroup namespaces",                      cat:"cgroup"  },
+  { cmd:"readlink /proc/$$/ns/cgroup",            desc:"Get cgroup namespace inode of current process",   cat:"cgroup"  },
+  // TIME
+  { cmd:"readlink /proc/$$/ns/time",              desc:"Get time namespace inode (kernel 5.6+)",          cat:"time"    },
+  { cmd:"cat /proc/self/timens_offsets",          desc:"Show CLOCK_MONOTONIC and CLOCK_BOOTTIME offsets", cat:"time"    },
+  { cmd:"lsns -t time",                           desc:"List all time namespaces",                        cat:"time"    },
+  { cmd:"uname -r",                               desc:"Check kernel version (time NS needs 5.6+)",       cat:"time"    },
 ];
 
 const STAG_HTML = {
-  kernel: '<span class="stag stag-kernel">kernel</span>',
-  proc:   '<span class="stag stag-proc">process</span>',
-  net:    '<span class="stag stag-net">network</span>',
-  fs:     '<span class="stag stag-fs">files</span>',
+  general: '<span class="stag stag-general">general</span>',
+  uts:     '<span class="stag stag-uts">UTS</span>',
+  pid:     '<span class="stag stag-pid">PID</span>',
+  net:     '<span class="stag stag-net">NET</span>',
+  mnt:     '<span class="stag stag-mnt">MNT</span>',
+  ipc:     '<span class="stag stag-ipc">IPC</span>',
+  user:    '<span class="stag stag-user">User</span>',
+  cgroup:  '<span class="stag stag-cgroup">Cgroup</span>',
+  time:    '<span class="stag stag-time">Time</span>',
 };
 
 /* ─── CARD BUILDER ──────────────────────────────────────── */
@@ -310,7 +353,7 @@ function nsUpdateProgress() {
   const fill   = document.getElementById('progFill');
   const txt    = document.getElementById('progTxt');
   if (fill) fill.style.width = pct + '%';
-  if (txt)  txt.innerHTML = `<span>${opened} из ${NS_DATA.length} типов</span><span style="color:var(--accent)">${pct}%</span>`;
+  if (txt)  txt.innerHTML = `<span>${opened} of ${NS_DATA.length} types</span><span style="color:var(--accent)">${pct}%</span>`;
 }
 
 /* ─── SCROLL PROGRESS ───────────────────────────────────── */
@@ -328,7 +371,7 @@ function nsInitScrollProgress() {
     const fill = document.getElementById('progFill');
     const txt  = document.getElementById('progTxt');
     if (fill) fill.style.width = combined + '%';
-    if (txt)  txt.innerHTML = `<span>${opened} из ${NS_DATA.length} типов</span><span style="color:var(--accent)">${combined}%</span>`;
+    if (txt)  txt.innerHTML = `<span>${opened} of ${NS_DATA.length} types</span><span style="color:var(--accent)">${combined}%</span>`;
   });
 }
 

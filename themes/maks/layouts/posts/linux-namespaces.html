@@ -27,22 +27,27 @@
 
     <!-- NS MAP -->
     <div class="ns-map">
-      <div class="ns-map-title">Навигация по типам</div>
+      <div class="ns-map-title">Namespace Map</div>
       <div class="ns-map-grid" id="nsMap"></div>
     </div>
 
-    <div class="sec">Все типы namespace</div>
+    <div class="sec">All Namespace Types</div>
     <div class="ns-grid" id="nsGrid"></div>
 
     <!-- CHEATSHEET -->
     <div class="sec">Quick reference</div>
     <div class="filter-row">
-      <span class="filter-label">Фильтр:</span>
-      <button class="f-btn on"  onclick="nsSetFilter('all',this)">All</button>
-      <button class="f-btn"     onclick="nsSetFilter('kernel',this)">Kernel</button>
-      <button class="f-btn"     onclick="nsSetFilter('proc',this)">Process</button>
-      <button class="f-btn"     onclick="nsSetFilter('net',this)">Network</button>
-      <button class="f-btn"     onclick="nsSetFilter('fs',this)">Filesystem</button>
+      <span class="filter-label">Filter:</span>
+      <button class="f-btn on"  style="--c:var(--accent)"      onclick="nsSetFilter('all',this)">All</button>
+      <button class="f-btn"     style="--c:#94a3b8"            onclick="nsSetFilter('general',this)">General</button>
+      <button class="f-btn"     style="--c:#00d4ff"            onclick="nsSetFilter('uts',this)">UTS</button>
+      <button class="f-btn"     style="--c:#7c3aed"            onclick="nsSetFilter('pid',this)">PID</button>
+      <button class="f-btn"     style="--c:#10b981"            onclick="nsSetFilter('net',this)">NET</button>
+      <button class="f-btn"     style="--c:#f59e0b"            onclick="nsSetFilter('mnt',this)">MNT</button>
+      <button class="f-btn"     style="--c:#f472b6"            onclick="nsSetFilter('ipc',this)">IPC</button>
+      <button class="f-btn"     style="--c:#818cf8"            onclick="nsSetFilter('user',this)">User</button>
+      <button class="f-btn"     style="--c:#34d399"            onclick="nsSetFilter('cgroup',this)">Cgroup</button>
+      <button class="f-btn"     style="--c:#fb923c"            onclick="nsSetFilter('time',this)">Time</button>
     </div>
     <div class="ref-panel">
       <div class="ref-head">lsns / unshare / nsenter cheatsheet</div>
@@ -60,14 +65,14 @@
   <!-- ASIDE -->
   <div class="ns-page-aside">
     <div class="toc-box">
-      <div class="toc-head">Содержание</div>
+      <div class="toc-head">Contents</div>
       <div class="toc-body" id="tocBody"></div>
     </div>
     <div class="progress-box">
-      <div class="progress-lbl">Прогресс чтения</div>
+      <div class="progress-lbl">Reading Progress</div>
       <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
       <div class="progress-txt" id="progTxt">
-        <span>0 из 8 типов</span><span>0%</span>
+        <span>0 of 8 types</span><span>0%</span>
       </div>
     </div>
   </div>

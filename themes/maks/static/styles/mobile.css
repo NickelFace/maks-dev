@@ -161,6 +161,12 @@
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
+  max-height: calc(100vh - 96px);
+  display: flex;
+  flex-direction: column;
+}
+/* Sticky is on the grid item, not the inner box */
+.prose-page.has-toc .toc-aside {
   position: sticky;
   top: 72px;
 }
@@ -172,6 +178,14 @@
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--text3);
+  flex-shrink: 0;
+}
+.toc-links {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  padding: 4px 0;
 }
 .toc-item {
   display: block;
@@ -285,6 +299,45 @@
 }
 
 /* ═══════════════════════════════════════
+   PAGINATION
+═══════════════════════════════════════ */
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.page-btn {
+  color: var(--text3);
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  text-decoration: none;
+  transition: color .15s;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+a.page-btn:hover {
+  color: var(--accent);
+}
+
+.page-btn.active {
+  color: var(--accent);
+  font-weight: 600;
+  cursor: default;
+}
+
+.page-btn.disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════
    TABLET — 860px
 ═══════════════════════════════════════ */
 @media (max-width: 860px) {
@@ -365,15 +418,16 @@
    LARGE DESKTOP — prose + ToC layout
 ═══════════════════════════════════════ */
 @media (min-width: 860px) {
-  .prose-page {
+  /* Two-column layout only when JS detects enough headings */
+  .prose-page.has-toc {
     display: grid;
     grid-template-columns: 1fr 220px;
     gap: 32px;
     align-items: start;
   }
-  .prose-page .breadcrumb { grid-column: 1 / -1; }
-  .prose-page article { min-width: 0; }
-  .toc-aside { display: block; }
+  .prose-page.has-toc .breadcrumb { grid-column: 1 / -1; }
+  .prose-page.has-toc article { min-width: 0; }
+  .prose-page.has-toc .toc-aside { display: block; }
 }
 
 /* ═══════════════════════════════════════

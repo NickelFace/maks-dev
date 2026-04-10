@@ -1,5 +1,5 @@
 {{ define "main" }}
-<div class="page prose-page">
+<div class="page prose-page" id="prosePage">
 
   <div class="breadcrumb">
     <a href="{{ "/" | relURL }}">maks.top</a>
@@ -21,9 +21,6 @@
       </div>
     </div>
 
-    <!-- ToC (desktop only — injected via JS) -->
-    <div class="toc-aside" id="tocAside"></div>
-
     <div class="prose" id="articleBody">
       {{ .Content }}
     </div>
@@ -32,6 +29,9 @@
       <a href="{{ .Section | relURL }}">← Back to {{ .Section }}</a>
     </div>
   </article>
+
+  <!-- ToC sidebar — populated by JS, visible on desktop only -->
+  <div class="toc-aside" id="tocAside"></div>
 
 </div>
 {{ end }}
@@ -51,19 +51,33 @@ window.addEventListener('scroll',()=>{
 const heads=document.querySelectorAll('#articleBody h2,#articleBody h3');
 if(heads.length>2){
   const aside=document.getElementById('tocAside');
-  aside.innerHTML='<div class="toc-inner"><div class="toc-title">Contents</div>'+
-    [...heads].map(h=>`<a href="#${h.id}" class="toc-item toc-${h.tagName.toLowerCase()}">${h.textContent}</a>`).join('')+
-  '</div>';
+  const page=document.getElementById('prosePage');
 
+  aside.innerHTML='<div class="toc-inner"><div class="toc-title">Contents</div><div class="toc-links">'+
+    [...heads].map(h=>`<a href="#${h.id}" class="toc-item toc-${h.tagName.toLowerCase()}">${h.textContent}</a>`).join('')+
+  '</div></div>';
+
+  // Activate two-column layout only when TOC exists
+  if(window.innerWidth>=860) page.classList.add('has-toc');
+  window.addEventListener('resize',()=>{
+    page.classList.toggle('has-toc', window.innerWidth>=860);
+  });
+
+  // Highlight active heading
+  let active=null;
   const observer=new IntersectionObserver(entries=>{
     entries.forEach(e=>{
+      const link=aside.querySelector(`a[href="#${e.target.id}"]`);
+      if(!link)return;
       if(e.isIntersecting){
-        document.querySelectorAll('.toc-item').forEach(i=>i.classList.remove('cur'));
-        const link=aside.querySelector(`a[href="#${e.target.id}"]`);
-        if(link)link.classList.add('cur');
+        if(active)active.classList.remove('cur');
+        active=link;
+        link.classList.add('cur');
+        // Scroll the TOC link into view within the TOC container
+        link.scrollIntoView({block:'nearest'});
       }
     });
-  },{rootMargin:'-20% 0px -70% 0px'});
+  },{rootMargin:'-10% 0px -80% 0px'});
   heads.forEach(h=>{if(h.id)observer.observe(h);});
 }
 

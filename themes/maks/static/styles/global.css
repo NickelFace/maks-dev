@@ -82,7 +82,7 @@ a { color: inherit; }
 /* ═══════════════════════════════════════
    NAV
 ═══════════════════════════════════════ */
-nav {
+nav.desk-nav {
   position: sticky;
   top: 0;
   z-index: 100;
@@ -634,6 +634,98 @@ nav {
   color: var(--text3);
   font-size: 15px;
   pointer-events: none;
+}
+
+/* ═══════════════════════════════════════
+   TAGS PAGE
+═══════════════════════════════════════ */
+.tags-header {
+  margin-bottom: 28px;
+}
+
+.tags-header .sec-title {
+  margin-bottom: 16px;
+}
+
+.tags-header .search-wrap {
+  max-width: 560px;
+}
+
+.tags-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.tag-lg {
+  font-size: 12px;
+  padding: 6px 14px;
+}
+
+.tag-lg .count {
+  font-size: 11px;
+  background: var(--bg3);
+  border-radius: 3px;
+  padding: 1px 5px;
+}
+
+/* ═══════════════════════════════════════
+   PAGINATION
+═══════════════════════════════════════ */
+nav.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 32px 0 16px;
+  height: auto;
+  position: static;
+  background: none;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 10px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  text-decoration: none;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.page-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--glow);
+}
+
+.page-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  font-weight: 600;
+}
+
+.page-btn.disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+a.page-btn{
+  margin: auto;
 }
 
 /* ═══════════════════════════════════════

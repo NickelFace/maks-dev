@@ -42,6 +42,11 @@
   max-width: 340px;
 }
 
+.tag-more {
+  opacity: 0.5;
+  font-style: italic;
+}
+
 /* ── MAIN GRID ── */
 .main-grid {
   display: grid;
