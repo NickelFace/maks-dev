@@ -89,12 +89,10 @@
           </div>
         </a>
         {{ else }}
-        <a href="/kb/iptables/" class="kb-item"><div class="kb-icon">📋</div><div><div class="kb-title">iptables cheatsheet</div><div class="kb-meta">Netfilter · NAT · chains</div></div></a>
-        <a href="/kb/pam/" class="kb-item"><div class="kb-icon">🔐</div><div><div class="kb-title">PAM config reference</div><div class="kb-meta">pam_unix · pam_ldap</div></div></a>
-        <a href="/posts/linux-namespaces/" class="kb-item"><div class="kb-icon">🌐</div><div><div class="kb-title">Linux Namespaces</div><div class="kb-meta">UTS · PID · NET · MNT</div></div></a>
-        <a href="/kb/nfs/" class="kb-item"><div class="kb-icon">📁</div><div><div class="kb-title">NFS exports guide</div><div class="kb-meta">options · security · automount</div></div></a>
-        <a href="/kb/systemd/" class="kb-item"><div class="kb-icon">⚙️</div><div><div class="kb-title">Systemd unit syntax</div><div class="kb-meta">service · timer · target</div></div></a>
-        <a href="/kb/openssl/" class="kb-item"><div class="kb-icon">🔒</div><div><div class="kb-title">OpenSSL commands</div><div class="kb-meta">certs · keys · inspection</div></div></a>
+        <div class="cert-coming-soon">
+          <div class="coming-icon">🚧</div>
+          <div>References coming soon</div>
+        </div>
         {{ end }}
       </div>
     </div>
@@ -142,7 +140,6 @@
 
 </div><!-- /page -->
 
-{{ partial "search.html" . }}
 {{ end }}
 
 {{ define "scripts" }}
