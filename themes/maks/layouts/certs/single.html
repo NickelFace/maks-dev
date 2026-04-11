@@ -1,0 +1,109 @@
+{{ define "head" }}
+<link rel="stylesheet" href="{{ "styles/cert.css" | relURL }}">
+{{ end }}
+
+{{ define "main" }}
+{{ $allPosts := where .Site.RegularPages "Section" "posts" }}
+{{ $prefix   := .Params.post_prefix }}
+
+<div class="page cert-page">
+
+  <div class="breadcrumb">
+    <a href="{{ "/" | relURL }}">maks.top</a>
+    <span>/</span>
+    <span style="color:var(--text2)">{{ .Title }}</span>
+  </div>
+
+  <div class="cert-hero" style="--cert-color:{{ .Params.cert_color }}">
+    <div class="cert-hero-badge">{{ .Params.cert_badge }}</div>
+    <div>
+      <div class="cert-hero-name">{{ .Title }}</div>
+      <div class="cert-hero-desc">{{ .Params.description }}</div>
+    </div>
+  </div>
+
+  {{ if .Params.exams }}
+
+    {{/* count total posts for this cert */}}
+    {{ $total := 0 }}
+    {{ range $allPosts }}
+      {{ if strings.HasPrefix .File.BaseFileName $prefix }}
+        {{ $total = add $total 1 }}
+      {{ end }}
+    {{ end }}
+
+    <div class="cert-stats">
+      <span>{{ len .Params.exams }} exams</span>
+      <span>·</span>
+      {{ $topicCount := 0 }}
+      {{ range .Params.exams }}{{ $topicCount = add $topicCount (len .topics) }}{{ end }}
+      <span>{{ $topicCount }} topics</span>
+      <span>·</span>
+      <span>{{ $total }} articles</span>
+    </div>
+
+    {{ range .Params.exams }}
+    {{ $exam := . }}
+    <div class="exam-block">
+      <div class="exam-label">Exam {{ $exam.code }} — {{ $exam.title }}</div>
+
+      {{ range $exam.topics }}
+      {{ $topic := . }}
+      {{ $topicPattern := printf "%s-%s-" $prefix $topic.num }}
+      {{ $topicPosts := slice }}
+      {{ range $allPosts }}
+        {{ if strings.HasPrefix .File.BaseFileName $topicPattern }}
+          {{ $topicPosts = $topicPosts | append . }}
+        {{ end }}
+      {{ end }}
+
+      <div class="cert-topic{{ if $topicPosts }} has-posts{{ end }}">
+        <button class="cert-topic-head" onclick="toggleTopic(this)">
+          <span class="topic-num">{{ $topic.num }}</span>
+          <span class="topic-title">{{ $topic.title }}</span>
+          <span class="topic-meta">
+            {{ if $topicPosts }}
+              {{ len $topicPosts }} {{ if eq (len $topicPosts) 1 }}article{{ else }}articles{{ end }}
+            {{ else }}
+              <span class="topic-empty">no articles yet</span>
+            {{ end }}
+          </span>
+          <span class="topic-chevron">›</span>
+        </button>
+        {{ if $topicPosts }}
+        <div class="cert-topic-body">
+          {{ range $topicPosts }}
+          <a href="{{ .Permalink }}" class="cert-post-link">
+            <span class="cert-post-title">{{ .Title }}</span>
+            {{ with .Description }}<span class="cert-post-desc">{{ . }}</span>{{ end }}
+          </a>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+
+      {{ end }}
+    </div>
+    {{ end }}
+
+  {{ else }}
+  <div class="cert-coming-soon">
+    <div class="coming-icon">🚧</div>
+    <div>Articles coming soon</div>
+  </div>
+  {{ end }}
+
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+<script>
+function toggleTopic(btn) {
+  const topic = btn.closest('.cert-topic');
+  const body  = topic.querySelector('.cert-topic-body');
+  if (!body) return;
+  const open = topic.classList.toggle('open');
+  body.style.maxHeight = open ? body.scrollHeight + 'px' : '0';
+}
+</script>
+{{ end }}
