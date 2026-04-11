@@ -2,7 +2,7 @@
 title: "JavaScript — Functions & Event Reference"
 date: 2026-04-11
 description: "All JavaScript functions, where they're defined, called from, and what they do"
-lang: "en"
+page_lang: "en"
 lang_pair: "/docs/ru/javascript/"
 tags: ["docs"]
 ---

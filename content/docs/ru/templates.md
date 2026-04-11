@@ -2,7 +2,7 @@
 title: "Шаблоны — Справочник по Layout'ам"
 date: 2026-04-11
 description: "Каждый файл шаблона Hugo: что рендерит, контекст данных, структура блоков"
-lang: "ru"
+page_lang: "ru"
 lang_pair: "/docs/templates/"
 pagefind_ignore: true
 tags: ["docs"]

@@ -2,7 +2,7 @@
 title: "Templates — Layout Reference"
 date: 2026-04-11
 description: "Every Hugo template file: what it renders, data context, block structure"
-lang: "en"
+page_lang: "en"
 lang_pair: "/docs/ru/templates/"
 tags: ["docs"]
 ---

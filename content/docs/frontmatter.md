@@ -2,7 +2,7 @@
 title: "Frontmatter — Fields Reference"
 date: 2026-04-11
 description: "All frontmatter fields by content type with types, required status, and descriptions"
-lang: "en"
+page_lang: "en"
 lang_pair: "/docs/ru/frontmatter/"
 tags: ["docs"]
 ---
@@ -138,7 +138,7 @@ The `.md` body is rendered into `.prose` in `about/single.html`.
 title: "Page title"
 date: 2026-04-11
 description: "Description for meta"
-lang: "en"
+page_lang: "en"
 lang_pair: "/docs/ru/frontmatter/"
 tags: ["docs"]
 ---

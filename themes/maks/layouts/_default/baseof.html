@@ -13,7 +13,7 @@
 {{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "docs") }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
 <link rel="stylesheet" href="{{ "styles/mobile.css" | relURL }}">
 {{ block "head" . }}{{ end }}
-{{ if .Params.lang }}<meta id="page-lang" data-lang="{{ .Params.lang }}" data-lang-pair="{{ .Params.lang_pair }}">{{ end }}
+{{ if .Params.page_lang }}<meta id="page-lang" data-lang="{{ .Params.page_lang }}" data-lang-pair="{{ .Params.lang_pair }}">{{ end }}
 </head>
 <body{{ if .Params.pagefind_ignore }} data-pagefind-ignore="all"{{ end }}>
 

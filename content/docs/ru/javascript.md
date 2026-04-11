@@ -2,7 +2,7 @@
 title: "JavaScript — Функции и Справочник Событий"
 date: 2026-04-11
 description: "Все JavaScript функции: где определены, откуда вызываются и что делают"
-lang: "ru"
+page_lang: "ru"
 lang_pair: "/docs/javascript/"
 pagefind_ignore: true
 tags: ["docs"]
