@@ -3,7 +3,7 @@ title: "Project Overview — Architecture & Pipeline"
 date: 2026-04-11
 description: "Hugo pipeline, directory structure, and deployment flow for maks.top"
 page_lang: "en"
-lang_pair: "/kb/ru/overview/"
+lang_pair: "/docs/ru/overview/"
 tags: ["docs"]
 ---
 
@@ -192,7 +192,7 @@ Each template has access to `.` (dot) — the current page context:
 
 ## Related pages
 
-- [Templates](/kb/templates/) — each layout file in detail
-- [CSS](/kb/css/) — style architecture and class reference
-- [Frontmatter](/kb/frontmatter/) — all fields by content type
-- [JavaScript](/kb/javascript/) — functions and event listeners
+- [Templates](/docs/templates/) — each layout file in detail
+- [CSS](/docs/css/) — style architecture and class reference
+- [Frontmatter](/docs/frontmatter/) — all fields by content type
+- [JavaScript](/docs/javascript/) — functions and event listeners

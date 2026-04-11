@@ -3,8 +3,11 @@ title: "Обзор проекта — Архитектура и Pipeline"
 date: 2026-04-11
 description: "Hugo pipeline, структура директорий и процесс деплоя maks.top"
 page_lang: "ru"
-lang_pair: "/kb/overview/"
+lang_pair: "/docs/overview/"
 pagefind_ignore: true
+_build:
+  list: never
+  render: always
 tags: ["docs"]
 ---
 
@@ -193,7 +196,7 @@ paginate = 10                   # Постов на страницу в лист
 
 ## Связанные страницы
 
-- [Шаблоны](/kb/ru/templates/)
-- [CSS](/kb/ru/css/)
-- [Frontmatter](/kb/ru/frontmatter/)
-- [JavaScript](/kb/ru/javascript/)
+- [Шаблоны](/docs/ru/templates/)
+- [CSS](/docs/ru/css/)
+- [Frontmatter](/docs/ru/frontmatter/)
+- [JavaScript](/docs/ru/javascript/)

@@ -3,8 +3,11 @@ title: "CSS — Архитектура и Справочник Классов"
 date: 2026-04-11
 description: "Структура CSS файлов, переменные темы и полный справочник классов maks.top"
 page_lang: "ru"
-lang_pair: "/kb/css/"
+lang_pair: "/docs/css/"
 pagefind_ignore: true
+_build:
+  list: never
+  render: always
 tags: ["docs"]
 ---
 
@@ -259,7 +262,7 @@ tags: ["docs"]
 
 ## Связанные страницы
 
-- [Обзор проекта](/kb/ru/overview/)
-- [Шаблоны](/kb/ru/templates/)
-- [Frontmatter](/kb/ru/frontmatter/)
-- [JavaScript](/kb/ru/javascript/)
+- [Обзор проекта](/docs/ru/overview/)
+- [Шаблоны](/docs/ru/templates/)
+- [Frontmatter](/docs/ru/frontmatter/)
+- [JavaScript](/docs/ru/javascript/)

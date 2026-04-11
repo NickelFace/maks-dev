@@ -1,0 +1,53 @@
+{{ define "main" }}
+<div class="page">
+
+  <h1 class="sec-title">Knowledge Base</h1>
+
+  <!-- ═══ SITE DOCUMENTATION ═══ -->
+  <div class="kb-section-title">Site Documentation</div>
+  <div class="kb-cards">
+    {{ range where .Site.RegularPages "Section" "docs" }}
+    <a href="{{ .Permalink }}" class="kb-card">
+      <div class="kb-card-title">{{ .Title }}</div>
+      {{ with .Description }}<div class="kb-card-desc">{{ . }}</div>{{ end }}
+    </a>
+    {{ else }}
+    <a href="/docs/overview/" class="kb-card">
+      <div class="kb-card-title">Project Overview</div>
+      <div class="kb-card-desc">Hugo pipeline, directory structure, deployment flow</div>
+    </a>
+    <a href="/docs/templates/" class="kb-card">
+      <div class="kb-card-title">Templates</div>
+      <div class="kb-card-desc">Every Hugo template file: what it renders, block structure</div>
+    </a>
+    <a href="/docs/css/" class="kb-card">
+      <div class="kb-card-title">CSS</div>
+      <div class="kb-card-desc">Architecture, theme variables, full class reference</div>
+    </a>
+    <a href="/docs/frontmatter/" class="kb-card">
+      <div class="kb-card-title">Frontmatter</div>
+      <div class="kb-card-desc">All fields by content type with types and descriptions</div>
+    </a>
+    <a href="/docs/javascript/" class="kb-card">
+      <div class="kb-card-title">JavaScript</div>
+      <div class="kb-card-desc">All functions, where defined, called from, what they do</div>
+    </a>
+    {{ end }}
+  </div>
+
+  <!-- ═══ QUICK REFERENCES ═══ -->
+  <div class="kb-section-title">Quick References</div>
+  <div class="kb-cards">
+    {{ range where .Site.RegularPages "Section" "kb" }}
+    <a href="{{ .Permalink }}" class="kb-card">
+      <div class="kb-card-icon">{{ with .Params.icon }}{{ . }}{{ else }}📋{{ end }}</div>
+      <div class="kb-card-title">{{ .Title }}</div>
+      {{ with .Description }}<div class="kb-card-desc">{{ . }}</div>{{ end }}
+    </a>
+    {{ else }}
+    <div class="kb-empty">No references yet — coming soon.</div>
+    {{ end }}
+  </div>
+
+</div>
+{{ end }}

@@ -3,7 +3,7 @@ title: "Templates — Layout Reference"
 date: 2026-04-11
 description: "Every Hugo template file: what it renders, data context, block structure"
 page_lang: "en"
-lang_pair: "/kb/ru/templates/"
+lang_pair: "/docs/ru/templates/"
 tags: ["docs"]
 ---
 
@@ -286,7 +286,7 @@ Renders `.code-block` with a copy button. `.Inner` — body between tags, passed
 
 ## Related pages
 
-- [Project Overview](/kb/overview/)
-- [CSS](/kb/css/)
-- [Frontmatter](/kb/frontmatter/)
-- [JavaScript](/kb/javascript/)
+- [Project Overview](/docs/overview/)
+- [CSS](/docs/css/)
+- [Frontmatter](/docs/frontmatter/)
+- [JavaScript](/docs/javascript/)
