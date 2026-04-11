@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Unbounded:wght@400;700;900&display=swap">
 <link rel="stylesheet" href="{{ "styles/global.css" | relURL }}">
 {{ if .IsHome }}<link rel="stylesheet" href="{{ "styles/home.css" | relURL }}">{{ end }}
-{{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "docs") }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
+{{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "kb") }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
 <link rel="stylesheet" href="{{ "styles/mobile.css" | relURL }}">
 {{ block "head" . }}{{ end }}
 {{ if .Params.page_lang }}<meta id="page-lang" data-lang="{{ .Params.page_lang }}" data-lang-pair="{{ .Params.lang_pair }}">{{ end }}
@@ -25,7 +25,6 @@
     <li><a href="{{ "/posts/" | relURL }}"{{ if eq .Section "posts" }} class="active"{{ end }}>Blog</a></li>
     <li><a href="{{ "/certs/" | relURL }}"{{ if eq .Section "certs" }} class="active"{{ end }}>Certs</a></li>
     <li><a href="{{ "/kb/" | relURL }}"{{ if eq .Section "kb" }} class="active"{{ end }}>Knowledge Base</a></li>
-    <li><a href="{{ "/docs/" | relURL }}"{{ if eq .Section "docs" }} class="active"{{ end }}>Docs</a></li>
     <li><a href="{{ "/about/" | relURL }}"{{ if eq .RelPermalink "/about/" }} class="active"{{ end }}>About</a></li>
   </ul>
   <div class="nav-right">
@@ -54,7 +53,6 @@
   <a href="{{ "/posts/" | relURL }}"{{ if eq .Section "posts" }} class="active"{{ end }}>Blog</a>
   <a href="{{ "/certs/" | relURL }}"{{ if eq .Section "certs" }} class="active"{{ end }}>Certs</a>
   <a href="{{ "/kb/" | relURL }}"{{ if eq .Section "kb" }} class="active"{{ end }}>Knowledge Base</a>
-  <a href="{{ "/docs/" | relURL }}"{{ if eq .Section "docs" }} class="active"{{ end }}>Docs</a>
   <a href="{{ "/about/" | relURL }}"{{ if eq .RelPermalink "/about/" }} class="active"{{ end }}>About</a>
   <div class="mob-drawer-lang">
     <button class="lang-btn{{ if ne .Params.page_lang "ru" }} active{{ end }}" onclick="setLang('en',this)">EN</button>

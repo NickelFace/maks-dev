@@ -3,7 +3,7 @@ title: "CSS — Architecture & Class Reference"
 date: 2026-04-11
 description: "CSS file structure, theme variables, and full class reference for maks.top"
 page_lang: "en"
-lang_pair: "/docs/ru/css/"
+lang_pair: "/kb/ru/css/"
 tags: ["docs"]
 ---
 
@@ -258,7 +258,7 @@ Applied to `.prose` (article body). Styles standard HTML elements from markdown:
 
 ## Related pages
 
-- [Project Overview](/docs/overview/)
-- [Templates](/docs/templates/)
-- [Frontmatter](/docs/frontmatter/)
-- [JavaScript](/docs/javascript/)
+- [Project Overview](/kb/overview/)
+- [Templates](/kb/templates/)
+- [Frontmatter](/kb/frontmatter/)
+- [JavaScript](/kb/javascript/)

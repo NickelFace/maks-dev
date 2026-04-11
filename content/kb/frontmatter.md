@@ -3,7 +3,7 @@ title: "Frontmatter — Fields Reference"
 date: 2026-04-11
 description: "All frontmatter fields by content type with types, required status, and descriptions"
 page_lang: "en"
-lang_pair: "/docs/ru/frontmatter/"
+lang_pair: "/kb/ru/frontmatter/"
 tags: ["docs"]
 ---
 
@@ -139,7 +139,7 @@ title: "Page title"
 date: 2026-04-11
 description: "Description for meta"
 page_lang: "en"
-lang_pair: "/docs/ru/frontmatter/"
+lang_pair: "/kb/ru/frontmatter/"
 tags: ["docs"]
 ---
 ```
@@ -165,7 +165,7 @@ Available in templates as `.Site.Params.*`:
 
 ## Related pages
 
-- [Project Overview](/docs/overview/)
-- [Templates](/docs/templates/)
-- [CSS](/docs/css/)
-- [JavaScript](/docs/javascript/)
+- [Project Overview](/kb/overview/)
+- [Templates](/kb/templates/)
+- [CSS](/kb/css/)
+- [JavaScript](/kb/javascript/)

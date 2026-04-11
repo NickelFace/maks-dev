@@ -3,7 +3,7 @@ title: "JavaScript — Функции и Справочник Событий"
 date: 2026-04-11
 description: "Все JavaScript функции: где определены, откуда вызываются и что делают"
 page_lang: "ru"
-lang_pair: "/docs/javascript/"
+lang_pair: "/kb/javascript/"
 pagefind_ignore: true
 tags: ["docs"]
 ---
@@ -57,7 +57,7 @@ function setLang(lang, btn)
 3. Добавляет `.active` кнопке с текстом = `lang.toUpperCase()`
 4. Если страница билингвальная (есть `<meta id="page-lang">`) и выбранный язык отличается от текущего — перенаправляет на `data-lang-pair` URL
 
-> **Билингвальные страницы:** страницы документации имеют `lang: "en"` и `lang_pair: "/docs/ru/..."` во frontmatter. baseof вставляет `<meta id="page-lang">` с этими значениями. При переключении языка `setLang()` делает `window.location.href` на парную страницу.
+> **Билингвальные страницы:** страницы документации имеют `lang: "en"` и `lang_pair: "/kb/ru/..."` во frontmatter. baseof вставляет `<meta id="page-lang">` с этими значениями. При переключении языка `setLang()` делает `window.location.href` на парную страницу.
 
 ---
 
@@ -255,7 +255,7 @@ function toggleTopic(btn) {
 
 ## Связанные страницы
 
-- [Обзор проекта](/docs/ru/overview/)
-- [Шаблоны](/docs/ru/templates/)
-- [CSS](/docs/ru/css/)
-- [Frontmatter](/docs/ru/frontmatter/)
+- [Обзор проекта](/kb/ru/overview/)
+- [Шаблоны](/kb/ru/templates/)
+- [CSS](/kb/ru/css/)
+- [Frontmatter](/kb/ru/frontmatter/)

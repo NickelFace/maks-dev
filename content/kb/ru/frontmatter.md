@@ -3,7 +3,7 @@ title: "Frontmatter — Справочник Полей"
 date: 2026-04-11
 description: "Все поля frontmatter по типам контента с типами, обязательностью и описаниями"
 page_lang: "ru"
-lang_pair: "/docs/frontmatter/"
+lang_pair: "/kb/frontmatter/"
 pagefind_ignore: true
 tags: ["docs"]
 ---
@@ -140,7 +140,7 @@ title: "Название страницы"
 date: 2026-04-11
 description: "Описание для meta"
 page_lang: "en"
-lang_pair: "/docs/ru/frontmatter/"
+lang_pair: "/kb/ru/frontmatter/"
 tags: ["docs"]
 ---
 ```
@@ -166,7 +166,7 @@ tags: ["docs"]
 
 ## Связанные страницы
 
-- [Обзор проекта](/docs/ru/overview/)
-- [Шаблоны](/docs/ru/templates/)
-- [CSS](/docs/ru/css/)
-- [JavaScript](/docs/ru/javascript/)
+- [Обзор проекта](/kb/ru/overview/)
+- [Шаблоны](/kb/ru/templates/)
+- [CSS](/kb/ru/css/)
+- [JavaScript](/kb/ru/javascript/)
