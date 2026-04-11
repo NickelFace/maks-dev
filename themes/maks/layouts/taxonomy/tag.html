@@ -12,43 +12,102 @@
   </div>
 
   <div class="tags-grid">
+    <button class="tag tag-lg tag-filter active" data-tag="">
+      All <span class="count">{{ len .Site.RegularPages }}</span>
+    </button>
     {{ range .Site.Taxonomies.tags.ByCount }}
-    <a href="{{ "/tags/" | relURL }}{{ .Page.Title | urlize }}/" class="tag tag-lg">
+    <button class="tag tag-lg tag-filter" data-tag="{{ .Page.Title | urlize }}">
       {{ .Page.Title }} <span class="count">{{ .Count }}</span>
-    </a>
+    </button>
     {{ end }}
   </div>
+
+  <div id="tagArticles" class="posts-list"></div>
 
 </div>
 {{ end }}
 
 {{ define "scripts" }}
 <script>
-const searchResults=document.createElement('div');
-searchResults.id='searchResults';
-searchResults.style.cssText='position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--bg2);border:1px solid var(--border);border-radius:8px;z-index:50;max-height:400px;overflow-y:auto;display:none;box-shadow:var(--shadow)';
+const POSTS = [
+  {{ range .Site.RegularPages }}{{ if eq .Section "posts" -}}
+  {
+    url:     {{ .Permalink | jsonify }},
+    title:   {{ .Title | jsonify }},
+    date:    "{{ .Date.Format "2006-01-02" }}",
+    tags:    [{{ range .Params.tags }}"{{ . | urlize }}",{{ end }}],
+    tagLabels: [{{ range .Params.tags }}{{ . | jsonify }},{{ end }}],
+    summary: {{ with .Description }}{{ . | jsonify }}{{ else }}{{ .Summary | plainify | truncate 120 | jsonify }}{{ end }}
+  },
+  {{ end }}{{ end }}
+];
+
+/* ── search (Pagefind) ── */
+const searchResults = document.createElement('div');
+searchResults.id = 'searchResults';
+searchResults.style.cssText = 'position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--bg2);border:1px solid var(--border);border-radius:8px;z-index:50;max-height:400px;overflow-y:auto;display:none;box-shadow:var(--shadow)';
 document.querySelector('.search-wrap').appendChild(searchResults);
 
-let pf=null;
-async function loadPagefind(){
-  if(pf)return;
-  try{pf=await import('/pagefind/pagefind.js');await pf.init();}catch(e){console.warn('Pagefind not ready');}
+let pf = null;
+async function loadPagefind() {
+  if (pf) return;
+  try { pf = await import('/pagefind/pagefind.js'); await pf.init(); } catch(e) { console.warn('Pagefind not ready'); }
 }
 
-document.getElementById('searchInput').addEventListener('input',async function(){
-  const q=this.value.trim();
-  if(!q){searchResults.style.display='none';return;}
+document.getElementById('searchInput').addEventListener('input', async function() {
+  const q = this.value.trim();
+  if (!q) { searchResults.style.display = 'none'; return; }
   await loadPagefind();
-  if(!pf){searchResults.style.display='none';return;}
-  const res=await pf.search(q);
-  if(!res.results.length){
-    searchResults.innerHTML='<div style="padding:14px 18px;font-size:12px;color:var(--text3)">No results for "'+q+'"</div>';
-    searchResults.style.display='block';return;
+  if (!pf) { searchResults.style.display = 'none'; return; }
+  const res = await pf.search(q);
+  if (!res.results.length) {
+    searchResults.innerHTML = '<div style="padding:14px 18px;font-size:12px;color:var(--text3)">No results for "' + q + '"</div>';
+    searchResults.style.display = 'block'; return;
   }
-  const items=await Promise.all(res.results.slice(0,8).map(r=>r.data()));
-  searchResults.innerHTML=items.map(item=>`<a href="${item.url}" style="display:flex;flex-direction:column;padding:10px 18px;text-decoration:none;border-bottom:1px solid var(--border);transition:background .1s" onmouseover="this.style.background='var(--bg3)'" onmouseout="this.style.background=''"><span style="font-size:12.5px;color:var(--accent)">${item.meta?.title||item.url}</span><span style="font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5">${item.excerpt}</span></a>`).join('');
-  searchResults.style.display='block';
+  const items = await Promise.all(res.results.slice(0, 8).map(r => r.data()));
+  searchResults.innerHTML = items.map(item =>
+    `<a href="${item.url}" style="display:flex;flex-direction:column;padding:10px 18px;text-decoration:none;border-bottom:1px solid var(--border);transition:background .1s" onmouseover="this.style.background='var(--bg3)'" onmouseout="this.style.background=''">
+      <span style="font-size:12.5px;color:var(--accent)">${item.meta?.title || item.url}</span>
+      <span style="font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5">${item.excerpt}</span>
+    </a>`
+  ).join('');
+  searchResults.style.display = 'block';
 });
-document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap'))searchResults.style.display='none';});
+document.addEventListener('click', e => { if (!e.target.closest('.search-wrap')) searchResults.style.display = 'none'; });
+
+/* ── tag filter ── */
+let activeTag = '';
+
+function renderArticles() {
+  const list = document.getElementById('tagArticles');
+  const filtered = activeTag ? POSTS.filter(p => p.tags.includes(activeTag)) : POSTS;
+  if (!filtered.length) {
+    list.innerHTML = '<div style="color:var(--text3);font-size:13px;padding:16px 0">No articles found.</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(p => {
+    const tagHtml = p.tagLabels.slice(0, 2)
+      .map((label, i) => `<span class="tag">${label}</span>`)
+      .join('');
+    return `<a href="${p.url}" class="post-card">
+      <div class="post-card-meta">
+        <span class="post-date">${p.date}</span>${tagHtml}
+      </div>
+      <div class="post-card-title">${p.title}</div>
+      ${p.summary ? `<div class="post-card-desc">${p.summary}</div>` : ''}
+    </a>`;
+  }).join('');
+}
+
+document.querySelectorAll('.tag-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tag-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTag = btn.dataset.tag;
+    renderArticles();
+  });
+});
+
+renderArticles();
 </script>
 {{ end }}
