@@ -134,6 +134,10 @@ function closeMobMenu(){
       else b.classList.remove('active');
     });
   }
+  const m=document.getElementById('page-lang');
+  if(m&&m.dataset.lang&&m.dataset.langPair&&lang!==m.dataset.lang){
+    window.location.replace(m.dataset.langPair);
+  }
 })();
 </script>
 
