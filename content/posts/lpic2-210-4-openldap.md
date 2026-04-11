@@ -511,3 +511,11 @@ ldapmodify -Y EXTERNAL -H ldapi:/// -f tls.ldif
 | Unix user objectClasses | `inetOrgPerson` + `posixAccount` + `shadowAccount` |
 | rootdn ACL | Always has full access regardless of olcAccess rules |
 | TLS import | `ldapmodify -Y EXTERNAL -H ldapi:///` |
+
+---
+
+## Практика
+
+Для работы с OpenLDAP через GUI и пошагового развёртывания стенда:
+
+**[phpLDAPadmin — практика и траблшутинг](/posts/phpldapadmin-practice/)** — установка phpLDAPadmin на Ubuntu 24.04, решение конфликта `mpm_event` с PHP-FPM, работа с деревом каталога через интерфейс, тренировочные задачи с `ldapsearch`, `ldapmodify`, `ldappasswd`.
