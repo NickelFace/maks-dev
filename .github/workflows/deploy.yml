@@ -33,6 +33,10 @@ jobs:
       - name: Build
         run: hugo --minify --gc
 
+      - name: Check generated HTML
+        run: grep -r "stylesheet" public/index.html | head -20
+        
+
       - name: Index with Pagefind
         run: |
           npm install -g pagefind
@@ -54,10 +58,6 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Build
-        run: hugo --minify --gc
 
-      - name: Check generated HTML
-        run: grep -r "stylesheet" public/index.html | head -20
 
     
