@@ -1,24 +1,54 @@
 {{ $p := .Paginator }}
 {{ if gt $p.TotalPages 1 }}
-<nav class="pagination" aria-label="Page navigation">
+<nav class="pagination" aria-label="Pagination">
+
+  {{/* Prev */}}
   {{ if $p.HasPrev }}
-  <a class="page-btn" href="{{ $p.Prev.URL }}" aria-label="Previous">←</a>
+  <a class="pg-btn pg-arrow" href="{{ $p.Prev.URL }}" aria-label="Previous">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="7.5,2 3.5,6 7.5,10"/></svg>
+  </a>
   {{ else }}
-  <span class="page-btn disabled" aria-disabled="true">←</span>
+  <span class="pg-btn pg-arrow pg-disabled" aria-disabled="true">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="7.5,2 3.5,6 7.5,10"/></svg>
+  </span>
   {{ end }}
+
+  {{/* Page numbers with ellipsis */}}
+  {{ $cur  := $p.PageNumber }}
+  {{ $total := $p.TotalPages }}
 
   {{ range $p.Pagers }}
-  {{ if eq .PageNumber $p.PageNumber }}
-  <span class="page-btn active" aria-current="page">{{ .PageNumber }}</span>
-  {{ else }}
-  <a class="page-btn" href="{{ .URL }}">{{ .PageNumber }}</a>
-  {{ end }}
+    {{ $n := .PageNumber }}
+    {{ $show := or
+        (eq $n 1)
+        (eq $n $total)
+        (and (ge $n (sub $cur 1)) (le $n (add $cur 1)))
+    }}
+
+    {{ if $show }}
+      {{ if eq $n $cur }}
+        <span class="pg-btn pg-active" aria-current="page">{{ $n }}</span>
+      {{ else }}
+        <a class="pg-btn" href="{{ .URL }}">{{ $n }}</a>
+      {{ end }}
+    {{ else if or (eq $n (sub $cur 2)) (eq $n (add $cur 2)) }}
+      <span class="pg-ellipsis">···</span>
+    {{ end }}
   {{ end }}
 
+  {{/* Next */}}
   {{ if $p.HasNext }}
-  <a class="page-btn" href="{{ $p.Next.URL }}" aria-label="Next">→</a>
+  <a class="pg-btn pg-arrow" href="{{ $p.Next.URL }}" aria-label="Next">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4.5,2 8.5,6 4.5,10"/></svg>
+  </a>
   {{ else }}
-  <span class="page-btn disabled" aria-disabled="true">→</span>
+  <span class="pg-btn pg-arrow pg-disabled" aria-disabled="true">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4.5,2 8.5,6 4.5,10"/></svg>
+  </span>
   {{ end }}
+
+  {{/* Page counter */}}
+  <span class="pg-info">{{ $cur }} / {{ $total }}</span>
+
 </nav>
 {{ end }}

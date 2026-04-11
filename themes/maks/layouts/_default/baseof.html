@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Unbounded:wght@400;700;900&display=swap">
 <link rel="stylesheet" href="{{ "styles/global.css" | relURL }}">
 {{ if .IsHome }}<link rel="stylesheet" href="{{ "styles/home.css" | relURL }}">{{ end }}
-{{ if eq .Type "posts" }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
+{{ if or (eq .Type "posts") (eq .Type "about") }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
 <link rel="stylesheet" href="{{ "styles/mobile.css" | relURL }}">
 {{ block "head" . }}{{ end }}
 </head>

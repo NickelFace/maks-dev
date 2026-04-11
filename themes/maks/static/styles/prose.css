@@ -134,10 +134,15 @@
 .cheat-table .mono { color: var(--accent); }
 .cheat-table .desc { color: var(--text2); }
 .stag { display: inline-block; font-size: 10px; padding: 2px 7px; border-radius: 3px; font-weight: 600; }
-.stag-kernel { background: rgba(124,58,237,.2); color: #a78bfa; border: 1px solid rgba(124,58,237,.3); }
-.stag-proc { background: rgba(0,212,255,.1); color: #67e8f9; border: 1px solid rgba(0,212,255,.2); }
-.stag-net { background: rgba(16,185,129,.1); color: #6ee7b7; border: 1px solid rgba(16,185,129,.2); }
-.stag-fs { background: rgba(245,158,11,.1); color: #fcd34d; border: 1px solid rgba(245,158,11,.2); }
+.stag-general { background: rgba(148,163,184,.12); color: #94a3b8; border: 1px solid rgba(148,163,184,.25); }
+.stag-uts     { background: rgba(0,212,255,.10);   color: #67e8f9; border: 1px solid rgba(0,212,255,.25); }
+.stag-pid     { background: rgba(124,58,237,.12);  color: #a78bfa; border: 1px solid rgba(124,58,237,.3); }
+.stag-net     { background: rgba(16,185,129,.10);  color: #6ee7b7; border: 1px solid rgba(16,185,129,.25); }
+.stag-mnt     { background: rgba(245,158,11,.10);  color: #fcd34d; border: 1px solid rgba(245,158,11,.25); }
+.stag-ipc     { background: rgba(244,114,182,.10); color: #f9a8d4; border: 1px solid rgba(244,114,182,.25); }
+.stag-user    { background: rgba(129,140,248,.10); color: #a5b4fc; border: 1px solid rgba(129,140,248,.25); }
+.stag-cgroup  { background: rgba(52,211,153,.10);  color: #6ee7b7; border: 1px solid rgba(52,211,153,.25); }
+.stag-time    { background: rgba(251,146,60,.10);  color: #fdba74; border: 1px solid rgba(251,146,60,.25); }
 
 /* NS map */
 .ns-map { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; margin-bottom: 24px; }

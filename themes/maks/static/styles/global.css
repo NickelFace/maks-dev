@@ -673,59 +673,75 @@ nav.desk-nav {
 /* ═══════════════════════════════════════
    PAGINATION
 ═══════════════════════════════════════ */
-nav.pagination {
+
+
+.pagination {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 32px 0 16px;
-  height: auto;
-  position: static;
-  background: none;
-  border: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  gap: 4px;
+  margin: 32px 0 16px;
+  flex-wrap: wrap;
 }
-
-.page-btn {
+ 
+.pg-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-width: 32px;
   height: 32px;
-  padding: 0 10px;
+  padding: 0 8px;
   background: var(--bg2);
   border: 1px solid var(--border);
   border-radius: 5px;
   color: var(--text3);
   font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
+  font-size: 11px;
   text-decoration: none;
-  transition: all 0.15s;
   cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s;
+  user-select: none;
 }
-
-.page-btn:hover {
-  border-color: var(--accent);
+ 
+.pg-btn:hover:not(.pg-disabled):not(.pg-active) {
   color: var(--accent);
+  border-color: var(--accent);
   background: var(--glow);
 }
-
-.page-btn.active {
+ 
+.pg-active {
   background: var(--accent);
   border-color: var(--accent);
   color: #000;
   font-weight: 600;
-}
-
-.page-btn.disabled {
-  opacity: 0.3;
   cursor: default;
-  pointer-events: none;
 }
-
-a.page-btn{
-  margin: auto;
+ 
+.pg-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+ 
+.pg-arrow {
+  color: var(--text3);
+}
+ 
+.pg-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 1px;
+  user-select: none;
+}
+ 
+.pg-info {
+  margin-left: 8px;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 1px;
 }
 
 /* ═══════════════════════════════════════
