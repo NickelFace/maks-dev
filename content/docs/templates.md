@@ -290,3 +290,4 @@ Renders `.code-block` with a copy button. `.Inner` — body between tags, passed
 - [CSS](/docs/css/)
 - [Frontmatter](/docs/frontmatter/)
 - [JavaScript](/docs/javascript/)
+- [Tags & Search](/docs/tags-and-search/)

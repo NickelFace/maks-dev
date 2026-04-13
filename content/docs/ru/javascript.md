@@ -262,3 +262,4 @@ function toggleTopic(btn) {
 - [Шаблоны](/docs/ru/templates/)
 - [CSS](/docs/ru/css/)
 - [Frontmatter](/docs/ru/frontmatter/)
+- [Теги и поиск](/docs/ru/tags-and-search/)

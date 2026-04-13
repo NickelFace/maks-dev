@@ -258,3 +258,4 @@ Contains:
 - [Templates](/docs/templates/)
 - [CSS](/docs/css/)
 - [Frontmatter](/docs/frontmatter/)
+- [Tags & Search](/docs/tags-and-search/)
