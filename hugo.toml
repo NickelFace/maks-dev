@@ -2,7 +2,8 @@ baseURL = "https://maks.top"
 languageCode = "en"
 title = "maks.top"
 theme = "maks"
-paginate = 10
+[pagination]
+  pagerSize = 10
 
 [params]
   author      = "Maks"
