@@ -30,4 +30,4 @@ paginate = 10
     [markup.goldmark.renderer]
       unsafe = true
     [markup.goldmark.extensions]
-      strikethrough = false
+      strikethrough = true
