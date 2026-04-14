@@ -4,7 +4,7 @@
 
 .prose { font-size: 13px; line-height: 1.85; color: var(--text2); }
 
-.prose img { max-width: 100%; height: auto; display: block; border-radius: 6px; margin: 16px 0; }
+.prose img { max-width: 100%; height: auto; display: block; border-radius: 6px; margin: 16px 0; aspect-ratio: auto; }
 
 .prose h2 {
   font-family: 'Unbounded', sans-serif;
@@ -93,12 +93,14 @@
 .intro-card strong { color: var(--accent); }
 
 /* Code block with label + copy */
-.code-block { background: #0d1520; border: 1px solid var(--border); border-radius: 6px; margin: 12px 0; overflow: hidden; }
-.code-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text3); padding: 7px 14px 6px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.code-block { background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; margin: 12px 0; overflow: hidden; }
+.code-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text3); padding: 7px 14px 6px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--code-bg); }
 .copy-btn { background: none; border: 1px solid var(--border); color: var(--text3); font-size: 10px; font-family: inherit; padding: 2px 8px; border-radius: 3px; cursor: pointer; transition: color .15s, border-color .15s; }
 .copy-btn:hover { color: var(--accent); border-color: var(--accent); }
 .copy-btn.copied { color: var(--accent3); border-color: var(--accent3); }
-.code-block pre { padding: 14px; font-size: 12px; line-height: 1.7; overflow-x: auto; color: #a5f3fc; margin: 0; }
+/* Bare pre fallback (non-Chroma) */
+.code-block pre:not(.chroma) { padding: 14px; font-size: 12px; line-height: 1.7; overflow-x: auto; color: #a5f3fc; margin: 0; font-family: 'JetBrains Mono', monospace; }
+[data-theme="light"] .code-block pre:not(.chroma) { color: #0369a1; }
 
 /* NS cards (reused from linux-namespaces.html) */
 .ns-grid { display: grid; gap: 12px; margin-bottom: 40px; }

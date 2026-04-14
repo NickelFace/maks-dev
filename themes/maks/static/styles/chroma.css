@@ -1,0 +1,185 @@
+/* ═══════════════════════════════════════
+   CHROMA — Adaptive Syntax Highlighting
+   Dark default : Dracula (on #0d1520)
+   Light        : GitHub  (on #f6f8fa)
+═══════════════════════════════════════ */
+
+/* ── Structure helpers ── */
+.code-block .highlight { margin: 0; display: block; }
+.code-block .chroma    { border-radius: 0 0 6px 6px; }
+
+/* Fenced code blocks in prose (not wrapped by shortcode) */
+.prose .highlight {
+  margin: 16px 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.prose .highlight .chroma { border-radius: 0; }
+
+/* ── Common pre/code ── */
+.chroma {
+  display: block;
+  overflow-x: auto;
+  padding: 14px;
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+.chroma code { padding: 0; background: none; font-size: inherit; }
+
+/* ════════════════════════════════════
+   DARK THEME — Dracula (default)
+════════════════════════════════════ */
+.chroma                 { color: #f8f8f2; background-color: #0d1520; }
+.chroma .err            { }
+.chroma .lnlinks        { outline: none; text-decoration: none; color: inherit }
+.chroma .lntd           { vertical-align: top; padding: 0; margin: 0; border: 0; }
+.chroma .lntable        { border-spacing: 0; padding: 0; margin: 0; border: 0; }
+.chroma .hl             { background-color: #1e2d45 }
+.chroma .lnt            { white-space: pre; user-select: none; margin-right: .4em; padding: 0 .4em; color: #3d5166 }
+.chroma .ln             { white-space: pre; user-select: none; margin-right: .4em; padding: 0 .4em; color: #3d5166 }
+.chroma .line           { display: flex; }
+/* Keywords */
+.chroma .k              { color: #ff79c6 }
+.chroma .kc             { color: #ff79c6 }
+.chroma .kd             { color: #8be9fd; font-style: italic }
+.chroma .kn             { color: #ff79c6 }
+.chroma .kp             { color: #ff79c6 }
+.chroma .kr             { color: #ff79c6 }
+.chroma .kt             { color: #8be9fd }
+/* Names */
+.chroma .na             { color: #50fa7b }
+.chroma .nb             { color: #8be9fd; font-style: italic }
+.chroma .nc             { color: #50fa7b }
+.chroma .nf             { color: #50fa7b }
+.chroma .nl             { color: #8be9fd; font-style: italic }
+.chroma .nt             { color: #ff79c6 }
+.chroma .nv             { color: #8be9fd; font-style: italic }
+.chroma .vc             { color: #8be9fd; font-style: italic }
+.chroma .vg             { color: #8be9fd; font-style: italic }
+.chroma .vi             { color: #8be9fd; font-style: italic }
+/* Strings */
+.chroma .s              { color: #f1fa8c }
+.chroma .sa             { color: #f1fa8c }
+.chroma .sb             { color: #f1fa8c }
+.chroma .sc             { color: #f1fa8c }
+.chroma .dl             { color: #f1fa8c }
+.chroma .sd             { color: #f1fa8c }
+.chroma .s2             { color: #f1fa8c }
+.chroma .se             { color: #f1fa8c }
+.chroma .sh             { color: #f1fa8c }
+.chroma .si             { color: #f1fa8c }
+.chroma .sx             { color: #f1fa8c }
+.chroma .sr             { color: #f1fa8c }
+.chroma .s1             { color: #f1fa8c }
+.chroma .ss             { color: #f1fa8c }
+/* Numbers */
+.chroma .m              { color: #bd93f9 }
+.chroma .mb             { color: #bd93f9 }
+.chroma .mf             { color: #bd93f9 }
+.chroma .mh             { color: #bd93f9 }
+.chroma .mi             { color: #bd93f9 }
+.chroma .il             { color: #bd93f9 }
+.chroma .mo             { color: #bd93f9 }
+/* Operators */
+.chroma .o              { color: #ff79c6 }
+.chroma .ow             { color: #ff79c6 }
+/* Comments */
+.chroma .c              { color: #6272a4 }
+.chroma .ch             { color: #6272a4 }
+.chroma .cm             { color: #6272a4 }
+.chroma .c1             { color: #6272a4 }
+.chroma .cs             { color: #6272a4 }
+.chroma .cp             { color: #ff79c6 }
+.chroma .cpf            { color: #ff79c6 }
+/* Generic */
+.chroma .gd             { color: #ff5555 }
+.chroma .ge             { text-decoration: underline }
+.chroma .gh             { font-weight: bold }
+.chroma .gi             { color: #50fa7b; font-weight: bold }
+.chroma .go             { color: #44475a }
+.chroma .gu             { font-weight: bold }
+.chroma .gl             { text-decoration: underline }
+
+/* ════════════════════════════════════
+   LIGHT THEME — GitHub
+════════════════════════════════════ */
+[data-theme="light"] .chroma                 { color: #24292e; background-color: #f6f8fa; }
+[data-theme="light"] .chroma .err           { color: #a61717; background-color: #e3d2d2 }
+[data-theme="light"] .chroma .hl            { background-color: #e8eef2 }
+[data-theme="light"] .chroma .lnt           { color: #999999 }
+[data-theme="light"] .chroma .ln            { color: #999999 }
+/* Keywords */
+[data-theme="light"] .chroma .k             { color: #d73a49; font-weight: bold }
+[data-theme="light"] .chroma .kc            { color: #d73a49; font-weight: bold }
+[data-theme="light"] .chroma .kd            { color: #d73a49; font-weight: bold }
+[data-theme="light"] .chroma .kn            { color: #d73a49; font-weight: bold }
+[data-theme="light"] .chroma .kp            { color: #d73a49; font-weight: bold }
+[data-theme="light"] .chroma .kr            { color: #d73a49; font-weight: bold }
+[data-theme="light"] .chroma .kt            { color: #005cc5; font-weight: bold }
+/* Names */
+[data-theme="light"] .chroma .na            { color: #6f42c1 }
+[data-theme="light"] .chroma .nb            { color: #005cc5 }
+[data-theme="light"] .chroma .bp            { color: #005cc5 }
+[data-theme="light"] .chroma .nc            { color: #6f42c1; font-weight: bold }
+[data-theme="light"] .chroma .no            { color: #005cc5 }
+[data-theme="light"] .chroma .nd            { color: #6f42c1; font-weight: bold }
+[data-theme="light"] .chroma .ni            { color: #005cc5 }
+[data-theme="light"] .chroma .ne            { color: #d73a49; font-weight: bold }
+[data-theme="light"] .chroma .nf            { color: #6f42c1 }
+[data-theme="light"] .chroma .nl            { color: #d73a49; font-weight: bold }
+[data-theme="light"] .chroma .nn            { color: #24292e }
+[data-theme="light"] .chroma .nt            { color: #22863a }
+[data-theme="light"] .chroma .nv            { color: #e36209 }
+[data-theme="light"] .chroma .vc            { color: #e36209 }
+[data-theme="light"] .chroma .vg            { color: #e36209 }
+[data-theme="light"] .chroma .vi            { color: #e36209 }
+/* Strings */
+[data-theme="light"] .chroma .s             { color: #032f62 }
+[data-theme="light"] .chroma .sa            { color: #032f62 }
+[data-theme="light"] .chroma .sb            { color: #032f62 }
+[data-theme="light"] .chroma .sc            { color: #032f62 }
+[data-theme="light"] .chroma .dl            { color: #032f62 }
+[data-theme="light"] .chroma .sd            { color: #032f62 }
+[data-theme="light"] .chroma .s2            { color: #032f62 }
+[data-theme="light"] .chroma .se            { color: #22863a }
+[data-theme="light"] .chroma .sh            { color: #032f62 }
+[data-theme="light"] .chroma .si            { color: #005cc5 }
+[data-theme="light"] .chroma .sx            { color: #032f62 }
+[data-theme="light"] .chroma .sr            { color: #22863a }
+[data-theme="light"] .chroma .s1            { color: #032f62 }
+[data-theme="light"] .chroma .ss            { color: #005cc5 }
+/* Numbers */
+[data-theme="light"] .chroma .m             { color: #005cc5 }
+[data-theme="light"] .chroma .mb            { color: #005cc5 }
+[data-theme="light"] .chroma .mf            { color: #005cc5 }
+[data-theme="light"] .chroma .mh            { color: #005cc5 }
+[data-theme="light"] .chroma .mi            { color: #005cc5 }
+[data-theme="light"] .chroma .il            { color: #005cc5 }
+[data-theme="light"] .chroma .mo            { color: #005cc5 }
+/* Operators */
+[data-theme="light"] .chroma .o             { color: #d73a49 }
+[data-theme="light"] .chroma .ow            { color: #d73a49 }
+/* Comments */
+[data-theme="light"] .chroma .c             { color: #6a737d; font-style: italic }
+[data-theme="light"] .chroma .ch            { color: #6a737d; font-style: italic }
+[data-theme="light"] .chroma .cm            { color: #6a737d; font-style: italic }
+[data-theme="light"] .chroma .c1            { color: #6a737d; font-style: italic }
+[data-theme="light"] .chroma .cs            { color: #6a737d; font-weight: bold; font-style: italic }
+[data-theme="light"] .chroma .cp            { color: #d73a49 }
+[data-theme="light"] .chroma .cpf           { color: #d73a49 }
+/* Generic */
+[data-theme="light"] .chroma .gd            { color: #b31d28; background-color: #ffeef0 }
+[data-theme="light"] .chroma .ge            { font-style: italic }
+[data-theme="light"] .chroma .gr            { color: #b31d28 }
+[data-theme="light"] .chroma .gh            { color: #24292e; font-weight: bold }
+[data-theme="light"] .chroma .gi            { color: #22863a; background-color: #f0fff4 }
+[data-theme="light"] .chroma .go            { color: #6a737d }
+[data-theme="light"] .chroma .gp            { color: #6a737d }
+[data-theme="light"] .chroma .gs            { font-weight: bold }
+[data-theme="light"] .chroma .gu            { color: #6a737d }
+[data-theme="light"] .chroma .gt            { color: #b31d28 }
+[data-theme="light"] .chroma .gl            { text-decoration: underline }
+[data-theme="light"] .chroma .w             { color: #bbbbbb }

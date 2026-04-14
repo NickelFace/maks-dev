@@ -32,3 +32,9 @@ theme = "maks"
       unsafe = true
     [markup.goldmark.extensions]
       strikethrough = true
+  [markup.highlight]
+    noClasses   = false
+    codeFences  = true
+    guessSyntax = true
+    lineNos     = false
+    tabWidth    = 2

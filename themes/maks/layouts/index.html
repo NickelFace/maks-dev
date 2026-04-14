@@ -9,12 +9,14 @@
         <p>Articles, cert notes, and sysadmin references.<br>LPIC-2 · AWS · CKA · Networking.</p>
       </div>
       <div class="tag-cloud">
-        {{ range first 10 .Site.Taxonomies.tags.ByCount }}
-        <a href="{{ "/tags/" | relURL }}{{ .Page.Title | urlize }}/" class="tag">
-          {{ .Page.Title }} <span class="count">{{ .Count }}</span>
+        {{ range $i, $t := first 12 .Site.Taxonomies.tags.ByCount }}
+        <a href="{{ "/tags/" | relURL }}{{ $t.Page.Title | urlize }}/"
+           class="tag{{ if lt $i 3 }} tag-lg{{ else if lt $i 7 }} tag-md{{ end }}"
+           style="animation-delay:{{ mul $i 40 }}ms">
+          {{ $t.Page.Title }} <span class="count">{{ $t.Count }}</span>
         </a>
         {{ end }}
-        <a href="{{ "/tags/" | relURL }}" class="tag tag-more">all tags →</a>
+        <a href="{{ "/tags/" | relURL }}" class="tag tag-more" style="animation-delay:{{ mul 12 40 }}ms">all →</a>
       </div>
     </div>
 

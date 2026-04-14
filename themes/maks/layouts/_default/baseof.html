@@ -10,8 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Unbounded:wght@400;700;900&display=swap">
 <link rel="stylesheet" href="{{ "styles/global.css" | relURL }}">
+<link rel="stylesheet" href="{{ "styles/chroma.css" | relURL }}">
 {{ if .IsHome }}<link rel="stylesheet" href="{{ "styles/home.css" | relURL }}">{{ end }}
-{{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "docs") }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
+{{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "docs") (eq .Type "kb") }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
 <link rel="stylesheet" href="{{ "styles/mobile.css" | relURL }}">
 {{ block "head" . }}{{ end }}
 {{ if .Params.page_lang }}<meta id="page-lang" data-lang="{{ .Params.page_lang }}" data-lang-pair="{{ .Params.lang_pair }}">{{ end }}

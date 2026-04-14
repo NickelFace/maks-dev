@@ -60,10 +60,23 @@ maks.top/
 │   │   ├── lpic2-200-1-*.md         # LPIC-2 articles
 │   │   └── linux-namespaces.md      # Interactive page
 │   ├── certs/                       # /certs/ section
-│   │   ├── lpic-2.md                # LPIC-2 overview page
-│   │   ├── lpic-1.md
+│   │   ├── lpic-1.md, lpic-2.md     # LPIC cert pages
+│   │   ├── network-engineer.md      # OTUS course: 17 topics, 24 articles
 │   │   ├── aws-saa.md
 │   │   └── ccna.md
+│   ├── kb/                          # /kb/ section (quick references)
+│   │   ├── linux-network.md         # ip, ss, tcpdump, nmcli, iptables
+│   │   ├── bash.md                  # Variables, arrays, loops, functions
+│   │   ├── text-processing.md       # grep, awk, sed, cut, sort, xargs
+│   │   ├── filesystem.md            # find, du/df, lsof, chmod, LVM
+│   │   ├── processes.md             # ps, systemd, cron, journald
+│   │   ├── cisco-routing.md         # OSPF/EIGRP/BGP IOS commands
+│   │   ├── cisco-switching.md       # VLAN/STP/EtherChannel IOS commands
+│   │   ├── docker.md                # run/build/compose/volumes
+│   │   ├── git.md                   # commit/rebase/stash/cherry-pick
+│   │   ├── aws-cli.md               # EC2/S3/IAM/VPC commands
+│   │   ├── iptables-nftables.md     # Firewall rules deep-dive
+│   │   └── ssh.md                   # Keys/tunnels/config/rsync
 │   └── docs/                        # /docs/ section (this documentation)
 │
 ├── static/                          # Global static files
@@ -87,13 +100,15 @@ maks.top/
     │   │   └── single.html          # Cert overview with accordion
     │   ├── taxonomy/
     │   │   └── tag.html             # Tags with interactive filtering
+    │   ├── kb/
+    │   │   └── list.html            # KB index grouped by Params.group
     │   ├── partials/                # Reusable fragments
-    │   │   ├── certs-widget.html    # Cert cards widget
+    │   │   ├── certs-widget.html    # Cert cards (5: incl. Network Engineer)
     │   │   ├── pagination.html      # Pagination with ellipsis
-    │   │   └── search.html          # (not used directly)
+    │   │   └── breadcrumb.html      # Breadcrumb navigation
     │   └── shortcodes/              # Shortcode components for markdown
     │       ├── ns-card.html         # Linux namespace card
-    │       └── code.html            # Code block with copy button
+    │       └── code.html            # Code block with Chroma highlighting
     │
     └── static/                      # Theme static files
         ├── js/
@@ -102,8 +117,9 @@ maks.top/
         └── styles/
             ├── global.css           # Variables, nav, common components
             ├── home.css             # Home page styles
-            ├── prose.css            # Article typography
+            ├── prose.css            # Article typography and code blocks
             ├── cert.css             # Cert pages
+            ├── chroma.css           # Syntax highlighting: Dracula (dark) / GitHub (light)
             ├── ns.css               # Namespace explorer
             └── mobile.css           # Mobile nav and breakpoints
 ```
@@ -162,6 +178,13 @@ paginate = 10                   # Posts per page in listings
 
 [markup.goldmark.renderer]
   unsafe = true                 # Allows raw HTML inside markdown
+
+[markup.highlight]
+  noClasses   = false           # Class-based Chroma (CSS in chroma.css)
+  codeFences  = true            # Syntax highlight fenced code blocks
+  guessSyntax = true            # Auto-detect language if not specified
+  lineNos     = false
+  tabWidth    = 2
 ```
 
 ---

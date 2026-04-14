@@ -8,11 +8,7 @@
 
 <div class="page cert-page">
 
-  <div class="breadcrumb">
-    <a href="{{ "/" | relURL }}">maks.top</a>
-    <span>/</span>
-    <span style="color:var(--text2)">{{ .Title }}</span>
-  </div>
+  {{ partial "breadcrumb.html" . }}
 
   <div class="cert-hero" style="--cert-color:{{ .Params.cert_color }}">
     <div class="cert-hero-badge">{{ .Params.cert_badge }}</div>

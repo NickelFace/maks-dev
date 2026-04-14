@@ -1,11 +1,7 @@
 {{ define "main" }}
 <div class="page">
 
-  <div class="breadcrumb">
-    <a href="{{ "/" | relURL }}">maks.top</a>
-    <span>/</span>
-    <span>kb</span>
-  </div>
+  {{ partial "breadcrumb.html" . }}
 
   <h1 class="sec-title">Knowledge Base</h1>
 
@@ -19,52 +15,59 @@
       {{ with .Description }}<div class="kb-card-desc">{{ . }}</div>{{ end }}
     </a>
     {{ else }}
-    <a href="/docs/overview/" class="kb-card">
-      <div class="kb-card-title">Project Overview</div>
-      <div class="kb-card-desc">Hugo pipeline, directory structure, deployment flow</div>
-    </a>
-    <a href="/docs/templates/" class="kb-card">
-      <div class="kb-card-title">Templates</div>
-      <div class="kb-card-desc">Every Hugo template file: what it renders, block structure</div>
-    </a>
-    <a href="/docs/css/" class="kb-card">
-      <div class="kb-card-title">CSS</div>
-      <div class="kb-card-desc">Architecture, theme variables, full class reference</div>
-    </a>
-    <a href="/docs/frontmatter/" class="kb-card">
-      <div class="kb-card-title">Frontmatter</div>
-      <div class="kb-card-desc">All fields by content type with types and descriptions</div>
-    </a>
-    <a href="/docs/javascript/" class="kb-card">
-      <div class="kb-card-title">JavaScript</div>
-      <div class="kb-card-desc">All functions, where defined, called from, what they do</div>
-    </a>
+    <div class="kb-empty">No documentation pages yet.</div>
     {{ end }}
   </div>
 
-  <!-- ═══ QUICK REFERENCES ═══ -->
-  <div class="kb-section-title">Quick References</div>
-  <div class="panel">
-    <div class="panel-head">
-      <span class="panel-title">References</span>
-    </div>
-    <div class="panel-body">
-      {{ range where .Site.RegularPages "Section" "kb" }}
-      <a href="{{ .Permalink }}" class="kb-item">
-        <div class="kb-icon">{{ with .Params.icon }}{{ . }}{{ else }}📋{{ end }}</div>
-        <div>
-          <div class="kb-title">{{ .Title }}</div>
-          <div class="kb-meta">{{ with .Params.tags }}{{ delimit . " · " }}{{ end }}</div>
-        </div>
-      </a>
-      {{ else }}
-      <div class="cert-coming-soon">
-        <div class="coming-icon">🚧</div>
-        <div>References coming soon</div>
+  <!-- ═══ QUICK REFERENCES — grouped by Params.group ═══ -->
+  {{ $kbPages := where .Site.RegularPages "Section" "kb" }}
+  {{ if $kbPages }}
+    {{ $groups := slice "Linux Core" "Networking" "Cloud & DevOps" "Security" }}
+    {{ range $groups }}
+      {{ $group := . }}
+      {{ $gPages := where $kbPages "Params.group" $group }}
+      {{ if $gPages }}
+      <div class="kb-section-title">{{ $group }}</div>
+      <div class="kb-cards">
+        {{ range $gPages }}
+        <a href="{{ .Permalink }}" class="kb-card">
+          <div class="kb-card-icon">{{ with .Params.icon }}{{ . }}{{ else }}📋{{ end }}</div>
+          <div class="kb-card-title">{{ .Title }}</div>
+          {{ with .Description }}<div class="kb-card-desc">{{ . }}</div>{{ end }}
+          {{ with .Params.tags }}
+          <div class="kb-card-tags">
+            {{ range first 3 . }}<span class="tag">{{ . }}</span>{{ end }}
+          </div>
+          {{ end }}
+        </a>
+        {{ end }}
       </div>
       {{ end }}
+    {{ end }}
+
+    {{/* Ungrouped fallback */}}
+    {{ $ungrouped := slice }}
+    {{ range $kbPages }}
+      {{ if not .Params.group }}{{ $ungrouped = $ungrouped | append . }}{{ end }}
+    {{ end }}
+    {{ if $ungrouped }}
+    <div class="kb-section-title">References</div>
+    <div class="kb-cards">
+      {{ range $ungrouped }}
+      <a href="{{ .Permalink }}" class="kb-card">
+        <div class="kb-card-icon">{{ with .Params.icon }}{{ . }}{{ else }}📋{{ end }}</div>
+        <div class="kb-card-title">{{ .Title }}</div>
+        {{ with .Description }}<div class="kb-card-desc">{{ . }}</div>{{ end }}
+      </a>
+      {{ end }}
     </div>
+    {{ end }}
+  {{ else }}
+  <div class="cert-coming-soon" style="margin-top:40px">
+    <div class="coming-icon">🚧</div>
+    <div>Quick references coming soon</div>
   </div>
+  {{ end }}
 
 </div>
 {{ end }}

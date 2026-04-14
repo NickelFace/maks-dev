@@ -1,13 +1,8 @@
 {{ define "main" }}
 <div class="page prose-page" id="prosePage">
 
-  <div class="breadcrumb">
-    <a href="{{ "/" | relURL }}">maks.top</a>
-    <span>/</span>
-    <a href="{{ .Section | relURL }}">{{ .Section }}</a>
-    <span>/</span>
-    {{ .Title }}
-  </div>
+  <!-- ←←← Здесь был старый breadcrumb, заменяем на partial -->
+  {{ partial "breadcrumb.html" . }}
 
   <article>
     <div class="post-header">
@@ -20,19 +15,16 @@
         {{ end }}
       </div>
     </div>
-
     <div class="prose" id="articleBody">
       {{ .Content }}
     </div>
-
     <div class="back-link">
       <a href="{{ .Section | relURL }}">← Back to {{ .Section }}</a>
     </div>
   </article>
 
-  <!-- ToC sidebar — populated by JS, visible on desktop only -->
+  <!-- ToC sidebar -->
   <div class="toc-aside" id="tocAside"></div>
-
 </div>
 {{ end }}
 
@@ -82,16 +74,31 @@ if(heads.length>2){
 }
 
 /* ── Copy buttons on all code blocks ── */
-document.querySelectorAll('pre').forEach(pre=>{
+/* Wrap bare <pre> (non-Chroma) */
+document.querySelectorAll('pre:not(.chroma)').forEach(pre=>{
   if(pre.closest('.code-block'))return;
   const wrap=document.createElement('div');
   wrap.className='code-block';
   const lbl=document.createElement('div');
   lbl.className='code-label';
-  lbl.innerHTML='<span>bash</span><button class="copy-btn" onclick="cpPre(this)">copy</button>';
+  lbl.innerHTML='<span>code</span><button class="copy-btn" onclick="cpPre(this)">copy</button>';
   pre.parentNode.insertBefore(wrap,pre);
   wrap.appendChild(lbl);
   wrap.appendChild(pre);
+});
+/* Wrap Chroma .highlight blocks from fenced code in markdown */
+document.querySelectorAll('.highlight').forEach(hl=>{
+  if(hl.closest('.code-block'))return;
+  const pre=hl.querySelector('pre');
+  const lang=pre&&pre.querySelector('code[data-lang]')?pre.querySelector('code[data-lang]').dataset.lang:'code';
+  const wrap=document.createElement('div');
+  wrap.className='code-block';
+  const lbl=document.createElement('div');
+  lbl.className='code-label';
+  lbl.innerHTML='<span>'+lang+'</span><button class="copy-btn" onclick="cpPre(this)">copy</button>';
+  hl.parentNode.insertBefore(wrap,hl);
+  wrap.appendChild(lbl);
+  wrap.appendChild(hl);
 });
 function cpPre(btn){
   const pre=btn.closest('.code-block').querySelector('pre');

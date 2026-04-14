@@ -9,11 +9,7 @@
   <!-- MAIN -->
   <div class="ns-page-main">
 
-    <div class="breadcrumb">
-      <a href="{{ "/" | relURL }}">maks.top</a><span>/</span>
-      <a href="{{ "/posts/" | relURL }}">posts</a><span>/</span>
-      <span style="color:var(--text2)">{{ .Title }}</span>
-    </div>
+    {{ partial "breadcrumb.html" . }}
 
     <div class="post-h1">{{ .Title }}</div>
     <div class="post-meta">

@@ -39,12 +39,33 @@
   flex-wrap: wrap;
   gap: 6px;
   align-items: flex-start;
-  max-width: 340px;
+  max-width: 360px;
+}
+
+/* Entrance animation for each tag */
+.tag-cloud .tag {
+  animation: fadeUp 0.35s ease both;
+}
+
+/* Size tiers by count rank */
+.tag-cloud .tag-lg {
+  font-size: 13px;
+  padding: 5px 12px;
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+  color: var(--text);
+}
+.tag-cloud .tag-md {
+  font-size: 12px;
+  opacity: 0.9;
+}
+.tag-cloud .tag:not(.tag-lg):not(.tag-md):not(.tag-more) {
+  opacity: 0.75;
 }
 
 .tag-more {
-  opacity: 0.5;
+  opacity: 0.45;
   font-style: italic;
+  font-size: 11px;
 }
 
 /* ── MAIN GRID ── */

@@ -1,0 +1,26 @@
+{{/* Breadcrumb partial — unified for all pages */}}
+<div class="breadcrumb">
+  <a href="{{ "/" | relURL }}">maks.top</a>
+  <span>/</span>
+
+  {{ if eq .Section "certs" }}
+    <span style="color:var(--text2)">{{ .Title }}</span>
+
+  {{ else if .IsSection }}
+    {{/* Section list pages: maks.top / section */}}
+    <span style="color:var(--text2)">{{ .Section }}</span>
+
+  {{ else if eq .File.BaseFileName "linux-namespaces" }}
+    <a href="{{ "/posts/" | relURL }}">posts</a>
+    <span>/</span>
+    <span style="color:var(--text2)">{{ .Title }}</span>
+
+  {{ else }}
+    {{/* Regular pages (posts, docs, etc.) */}}
+    {{ with .Section }}
+      <a href="{{ . | relURL }}">{{ . }}</a>
+      <span>/</span>
+    {{ end }}
+    <span style="color:var(--text2)">{{ .Title }}</span>
+  {{ end }}
+</div>
