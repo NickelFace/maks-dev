@@ -62,16 +62,20 @@
       {{ end }}
       {{ $topicPosts = sort $topicPosts ".File.BaseFileName" }}
 
-      {{ if $topicPosts }}
-      <div class="cert-topic has-posts">
+      <div class="cert-topic{{ if $topicPosts }} has-posts{{ end }}">
         <button class="cert-topic-head" onclick="toggleTopic(this)">
           <span class="topic-num">{{ $topic.num }}</span>
           <span class="topic-title">{{ $topic.title }}</span>
           <span class="topic-meta">
-            {{ len $topicPosts }} {{ if eq (len $topicPosts) 1 }}article{{ else }}articles{{ end }}
+            {{ if $topicPosts }}
+              {{ len $topicPosts }} {{ if eq (len $topicPosts) 1 }}article{{ else }}articles{{ end }}
+            {{ else }}
+              <span class="topic-empty">no articles yet</span>
+            {{ end }}
           </span>
           <span class="topic-chevron">›</span>
         </button>
+        {{ if $topicPosts }}
         <div class="cert-topic-body">
           {{ range $topicPosts }}
           <a href="{{ .Permalink }}" class="cert-post-link">
@@ -80,8 +84,8 @@
           </a>
           {{ end }}
         </div>
+        {{ end }}
       </div>
-      {{ end }}
 
       {{ end }}
     </div>
