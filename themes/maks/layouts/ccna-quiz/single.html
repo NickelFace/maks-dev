@@ -38,11 +38,21 @@
     </div>
     {{ end }}
 
+    {{ $answerLen := len $q.answer }}
+    {{ if gt $answerLen 1 }}
+    <div class="quiz-multi-hint">Choose {{ $answerLen }} — select all that apply</div>
+    {{ end }}
+
     <div class="quiz-options" data-answer="{{ $q.answer }}">
       {{ range $letter := slice "A" "B" "C" "D" "E" }}
       {{ $opt := index $q.options $letter }}
       {{ if $opt }}
       <div class="quiz-opt" data-letter="{{ $letter }}" onclick="selectOption(this)">
+        {{ if gt $answerLen 1 }}
+        <span class="quiz-opt-check"></span>
+        {{ else }}
+        <span class="quiz-opt-radio"></span>
+        {{ end }}
         <span class="quiz-opt-letter">{{ $letter }}</span>
         <span class="quiz-opt-text">{{ $opt }}</span>
       </div>

@@ -140,6 +140,21 @@
   background: #fff;
 }
 
+/* ── multi-select hint ── */
+.quiz-multi-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-radius: 5px;
+  padding: 3px 10px;
+  margin-bottom: 10px;
+}
+
 /* ── options ── */
 .quiz-options {
   display: flex;
@@ -159,6 +174,54 @@
   transition: background 0.12s, border-color 0.12s;
   user-select: none;
 }
+
+/* radio / checkbox indicators */
+.quiz-opt-radio,
+.quiz-opt-check {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+  border: 1.5px solid var(--text3);
+  display: inline-block;
+  transition: border-color 0.12s, background 0.12s;
+}
+.quiz-opt-radio { border-radius: 50%; }
+.quiz-opt-check { border-radius: 3px; }
+
+.quiz-opt.selected .quiz-opt-radio,
+.quiz-opt.selected .quiz-opt-check {
+  border-color: var(--accent);
+  background: var(--accent);
+  position: relative;
+}
+/* checkmark for checkbox */
+.quiz-opt.selected .quiz-opt-check::after {
+  content: '';
+  position: absolute;
+  left: 2px; top: -1px;
+  width: 5px; height: 9px;
+  border: 2px solid #000;
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+/* dot for radio */
+.quiz-opt.selected .quiz-opt-radio::after {
+  content: '';
+  position: absolute;
+  left: 3px; top: 3px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #000;
+}
+.quiz-opt-radio, .quiz-opt-check { position: relative; }
+
+.quiz-opt.correct .quiz-opt-radio,
+.quiz-opt.correct .quiz-opt-check { border-color: #22c55e; background: #22c55e; }
+.quiz-opt.wrong .quiz-opt-radio,
+.quiz-opt.wrong .quiz-opt-check   { border-color: #ef4444; background: #ef4444; }
+.quiz-opt.missed .quiz-opt-radio,
+.quiz-opt.missed .quiz-opt-check  { border-color: #f59e0b; }
 
 .quiz-opt:hover:not(.correct):not(.wrong):not(.missed) {
   background: var(--bg3);
