@@ -10,18 +10,21 @@
 
 <div class="page quiz-page">
 
-  <!-- ── header ── -->
-  <div class="quiz-header">
-    <a href="{{ "/ccna-quiz/" | relURL }}" class="quiz-back">← All pages</a>
-    <div class="quiz-pager-info">Page {{ $page }} / {{ $total }}</div>
+  <!-- breadcrumb -->
+  <div class="breadcrumb">
+    <a href="{{ "/" | relURL }}">Home</a>
+    <span>›</span>
+    <a href="{{ "/ccna-quiz/" | relURL }}">CCNA Quiz</a>
+    <span>›</span>
+    <span>Page {{ $page }}</span>
   </div>
 
-  <!-- ── progress bar ── -->
+  <!-- progress bar -->
   <div class="quiz-progress-wrap">
     <div class="quiz-progress-bar" style="width:{{ mul (div (float $page) (float $total)) 100 | printf "%.1f" }}%"></div>
   </div>
 
-  <!-- ── questions ── -->
+  <!-- questions -->
   {{ range $i, $q := .Params.questions }}
   <div class="quiz-card" id="q{{ $q.num }}">
     <div class="quiz-q-header">
@@ -77,47 +80,43 @@
   </div>
   {{ end }}
 
-  <!-- ── pagination nav ── -->
-  <div class="quiz-nav">
+  <!-- pagination dot-grid (global .pg-dot-nav / .pg-dot-grid / .pg-dot) -->
+  <nav class="quiz-pg-wrap pg-dot-nav" aria-label="Quiz pages">
+
     {{ if $prev }}
-    <a href="{{ $prev | relURL }}" class="quiz-nav-btn">← Prev</a>
+    <a class="pg-btn" href="{{ $prev | relURL }}">← Prev</a>
     {{ else }}
-    <span class="quiz-nav-btn disabled">← Prev</span>
+    <span class="pg-btn pg-disabled">← Prev</span>
     {{ end }}
 
-    <div class="quiz-nav-pages">
+    <div class="pg-dot-grid">
       {{ range $i := seq 1 $total }}
       <a href="{{ printf "/ccna-quiz/p%02d/" $i | relURL }}"
-         class="quiz-nav-dot{{ if eq $i $page }} active{{ end }}"
+         class="pg-dot{{ if eq $i $page }} pg-active{{ end }}"
          title="Page {{ $i }}">{{ $i }}</a>
       {{ end }}
     </div>
 
     {{ if $next }}
-    <a href="{{ $next | relURL }}" class="quiz-nav-btn">Next →</a>
+    <a class="pg-btn" href="{{ $next | relURL }}">Next →</a>
     {{ else }}
-    <span class="quiz-nav-btn disabled">Next →</span>
+    <span class="pg-btn pg-disabled">Next →</span>
     {{ end }}
-  </div>
+
+  </nav>
 
 </div>
 
 <script>
 function selectOption(el) {
   const card = el.closest('.quiz-card');
-  // If already revealed, don't allow re-selection
   if (!card.querySelector('.quiz-answer').hidden) return;
-
-  const opts = card.querySelectorAll('.quiz-opt');
   const answerStr = card.querySelector('.quiz-options').dataset.answer;
   const isMulti = answerStr.replace(/[^A-E]/g, '').length > 1;
-
   if (isMulti) {
-    // Toggle selection for multi-answer questions
     el.classList.toggle('selected');
   } else {
-    // Single answer: deselect others
-    opts.forEach(o => o.classList.remove('selected'));
+    card.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
     el.classList.add('selected');
   }
 }
@@ -143,7 +142,6 @@ function revealAnswer(btn) {
     });
   };
 
-  // Score the selected options
   const selected = Array.from(card.querySelectorAll('.quiz-opt.selected'))
                         .map(o => o.dataset.letter);
 
@@ -151,17 +149,11 @@ function revealAnswer(btn) {
     const l = opt.dataset.letter;
     const isCorrect = correct.includes(l);
     const isSelected = selected.includes(l);
-
-    if (isCorrect && isSelected) {
-      opt.classList.add('correct');
-    } else if (!isCorrect && isSelected) {
-      opt.classList.add('wrong');
-    } else if (isCorrect && !isSelected) {
-      opt.classList.add('missed');  // correct but not selected
-    }
+    if (isCorrect && isSelected)       opt.classList.add('correct');
+    else if (!isCorrect && isSelected) opt.classList.add('wrong');
+    else if (isCorrect && !isSelected) opt.classList.add('missed');
   });
 
-  // Show score badge if user selected something
   if (selected.length > 0) {
     const allCorrect = correct.every(l => selected.includes(l)) &&
                        selected.every(l => correct.includes(l));

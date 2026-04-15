@@ -4,8 +4,20 @@
 
 {{ define "main" }}
 <div class="page">
+
+  <!-- breadcrumb -->
+  <div class="breadcrumb">
+    <a href="{{ "/" | relURL }}">Home</a>
+    <span>›</span>
+    <span>CCNA Quiz</span>
+  </div>
+
   <div class="sec-title">CCNA 200-301 Quiz</div>
-  <p style="color:var(--text2);font-size:13px;margin-bottom:28px">489 practice questions · 49 pages · 10 questions per page · answers hidden by default</p>
+  <p style="color:var(--text2);font-size:13px;margin-bottom:10px">489 practice questions · 49 pages · 10 per page</p>
+
+  <div class="quiz-disclaimer">
+    ⚠ Community dump (ITExamAnswers.net v8.6). Answers are crowd-verified but not guaranteed correct — always cross-check with official Cisco documentation before the exam.
+  </div>
 
   <div class="quiz-index-grid">
     {{ range $i := seq 1 49 }}
