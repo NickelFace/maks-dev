@@ -169,8 +169,34 @@
 
 /* ── responsive ── */
 @media (max-width: 600px) {
-  .cert-hero { padding: 16px; gap: 14px; }
-  .cert-hero-badge { font-size: 30px; }
-  .cert-hero-name { font-size: 18px; }
-  .cert-post-link { padding-left: 16px; }
+  .cert-hero {
+    padding: 16px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .cert-hero-badge { font-size: 28px; }
+  .cert-hero-name { font-size: 17px; }
+  .cert-hero-desc { font-size: 11.5px; }
+
+  /* Credly badge: hide on mobile to avoid layout break */
+  .credly-wrap { display: none; }
+
+  .cert-stats {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .cert-topic-head {
+    gap: 8px;
+    padding: 11px 12px;
+  }
+  .topic-num { min-width: 26px; font-size: 10px; }
+  .topic-title { font-size: 12px; }
+  .topic-meta { font-size: 10px; }
+
+  .cert-post-link { padding: 10px 12px; }
+  .cert-post-title { font-size: 12px; }
+  .cert-post-desc { font-size: 10.5px; }
+
+  .exam-label { font-size: 10px; }
 }
