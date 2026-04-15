@@ -40,6 +40,13 @@
   background: var(--bg3);
 }
 
+.quiz-index-card.visited {
+  border-color: color-mix(in srgb, var(--accent3) 50%, var(--border));
+}
+.quiz-index-card.visited .quiz-index-num {
+  color: var(--accent3);
+}
+
 .quiz-index-num {
   font-family: 'Unbounded', sans-serif;
   font-size: 18px;

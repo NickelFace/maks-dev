@@ -162,5 +162,17 @@ function revealAnswer(btn) {
     badge.className = 'quiz-score-badge ' + (allCorrect ? 'badge-correct' : 'badge-wrong');
   }
 }
+
+// Mark this page as visited
+(function() {
+  var page = {{ $page }};
+  var visited = JSON.parse(localStorage.getItem('quizVisited') || '[]');
+  if (!visited.includes(page)) { visited.push(page); localStorage.setItem('quizVisited', JSON.stringify(visited)); }
+})();
+
+// ?reveal=1 — auto-reveal all answers on load
+if (new URLSearchParams(location.search).get('reveal') === '1') {
+  document.querySelectorAll('.quiz-reveal-btn').forEach(function(btn) { revealAnswer(btn); });
+}
 </script>
 {{ end }}

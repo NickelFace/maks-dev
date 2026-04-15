@@ -19,16 +19,26 @@
     ⚠ Community dump (ITExamAnswers.net v8.6). Answers are crowd-verified but not guaranteed correct — always cross-check with official Cisco documentation before the exam.
   </div>
 
-  <div class="quiz-index-grid">
+  <div class="quiz-index-grid" id="quizGrid">
     {{ range $i := seq 1 49 }}
     {{ $start := add (mul (sub $i 1) 10) 1 }}
     {{ $end   := mul $i 10 }}
     {{ if gt $end 489 }}{{ $end = 489 }}{{ end }}
-    <a href="{{ printf "/ccna-quiz/p%02d/" $i | relURL }}" class="quiz-index-card">
+    <a href="{{ printf "/ccna-quiz/p%02d/" $i | relURL }}" class="quiz-index-card" data-page="{{ $i }}">
       <span class="quiz-index-num">{{ printf "%02d" $i }}</span>
       <span class="quiz-index-range">Q{{ $start }}–Q{{ $end }}</span>
     </a>
     {{ end }}
   </div>
 </div>
+
+<script>
+(function() {
+  var visited = JSON.parse(localStorage.getItem('quizVisited') || '[]');
+  visited.forEach(function(n) {
+    var el = document.querySelector('.quiz-index-card[data-page="' + n + '"]');
+    if (el) el.classList.add('visited');
+  });
+})();
+</script>
 {{ end }}

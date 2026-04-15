@@ -485,6 +485,15 @@ a.page-btn:hover {
 }
 
 /* ═══════════════════════════════════════
+   PAGINATION — small screens
+═══════════════════════════════════════ */
+@media (max-width: 480px) {
+  .pg-dot-nav { gap: 8px; }
+  .pg-dot { min-width: 22px; height: 22px; font-size: 9px; padding: 0 2px; border-radius: 4px; }
+  .pg-btn { padding: 5px 10px; font-size: 11px; }
+}
+
+/* ═══════════════════════════════════════
    SAFE AREA (iPhone notch / home bar)
 ═══════════════════════════════════════ */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {

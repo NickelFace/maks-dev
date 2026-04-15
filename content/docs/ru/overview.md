@@ -1,6 +1,6 @@
 ---
 title: "Обзор проекта — Архитектура и Pipeline"
-date: 2026-04-11
+date: 2026-04-15
 description: "Hugo pipeline, структура директорий и процесс деплоя maks.top"
 page_lang: "ru"
 lang_pair: "/docs/overview/"
@@ -40,8 +40,10 @@ Hugo ищет шаблон в таком порядке (первый найде
 | Страница | Поиск шаблонов (по порядку) |
 |---|---|
 | `/posts/lpic2-200-1/` | `layouts/posts/single.html` → `layouts/_default/single.html` |
-| `/posts/linux-namespaces/` | `layouts/posts/linux-namespaces.html` → `layouts/posts/single.html` → `layouts/_default/single.html` |
-| `/certs/lpic-2/` | `layouts/certs/single.html` → `layouts/_default/single.html` |
+| `/posts/linux-namespaces/` | `layouts/posts/linux-namespaces.html` → `layouts/posts/single.html` |
+| `/certs/ccna/` | `layouts/certs/single.html` → `layouts/_default/single.html` |
+| `/ccna-quiz/p01/` | `layouts/ccna-quiz/single.html` |
+| `/ccna-quiz/` | `layouts/ccna-quiz/list.html` |
 | `/about/` | `layouts/about/single.html` → `layouts/_default/single.html` |
 | `/` | `layouts/index.html` |
 | `/posts/` | `layouts/posts/list.html` → `layouts/_default/list.html` |
@@ -62,15 +64,32 @@ maks.top/
 │   ├── about.md                     # Страница /about/
 │   ├── posts/                       # Раздел /posts/ (блог)
 │   │   ├── lpic2-200-1-*.md         # Статьи LPIC-2
-│   │   └── linux-namespaces.md      # Интерактивная страница
+│   │   └── linux-namespaces.md      # Интерактивный explorer namespace'ов
 │   ├── certs/                       # Раздел /certs/
-│   │   ├── lpic-2.md                # Страница-оглавление LPIC-2
-│   │   ├── lpic-1.md
-│   │   ├── aws-saa.md
-│   │   └── ccna.md
+│   │   ├── ccna.md                  # Страница CCNA (аккордеон + плитки ресурсов)
+│   │   ├── lpic-1.md, lpic-2.md     # Страницы LPIC
+│   │   ├── network-engineer.md      # Курс OTUS: 17 тем, 24 статьи
+│   │   └── aws-saa.md
+│   ├── ccna-quiz/                   # Раздел /ccna-quiz/
+│   │   ├── _index.md                # Индекс квиза (сетка из 49 плиток)
+│   │   └── p01.md – p49.md          # 489 вопросов, по 10 на страницу
+│   ├── kb/                          # Раздел /kb/ (краткие справочники)
+│   │   ├── linux-network.md         # ip, ss, tcpdump, nmcli, iptables
+│   │   ├── bash.md                  # Переменные, массивы, циклы, функции
+│   │   ├── text-processing.md       # grep, awk, sed, cut, sort, xargs
+│   │   ├── filesystem.md            # find, du/df, lsof, chmod, LVM
+│   │   ├── processes.md             # ps, systemd, cron, journald
+│   │   ├── cisco-routing.md         # Команды OSPF/EIGRP/BGP IOS
+│   │   ├── cisco-switching.md       # Команды VLAN/STP/EtherChannel IOS
+│   │   ├── docker.md                # run/build/compose/volumes
+│   │   ├── git.md                   # commit/rebase/stash/cherry-pick
+│   │   ├── aws-cli.md               # Команды EC2/S3/IAM/VPC
+│   │   ├── iptables-nftables.md     # Правила фаервола
+│   │   └── ssh.md                   # Ключи/туннели/конфиг/rsync
 │   └── docs/                        # Раздел /docs/ (эта документация)
 │
 ├── static/                          # Глобальные статические файлы
+│   ├── img/quiz/                    # 247 JPEG-изображений из PDF CCNA
 │   └── CNAME                        # Кастомный домен для GitHub Pages
 │
 └── themes/maks/                     # Кастомная тема
@@ -85,30 +104,38 @@ maks.top/
     │   ├── posts/
     │   │   ├── list.html            # Листинг постов + Pagefind поиск
     │   │   └── linux-namespaces.html # Интерактивный explorer namespace'ов
+    │   ├── ccna-quiz/
+    │   │   ├── list.html            # Индекс квиза (49 плиток)
+    │   │   └── single.html          # Страница квиза: вопросы, варианты, баллы
     │   ├── about/
-    │   │   └── single.html          # Страница about с certs-widget
+    │   │   └── single.html          # Страница About с certs-widget
     │   ├── certs/
-    │   │   └── single.html          # Accordion-страница сертификата
+    │   │   └── single.html          # Cert overview: hero, плитки ресурсов, аккордеон
     │   ├── taxonomy/
     │   │   └── tag.html             # Теги с интерактивной фильтрацией
+    │   ├── kb/
+    │   │   └── list.html            # Индекс KB, сгруппированный по Params.group
     │   ├── partials/                # Переиспользуемые фрагменты
-    │   │   ├── certs-widget.html    # Виджет сертификаций (карточки)
-    │   │   ├── pagination.html      # Пагинация с ellipsis
-    │   │   └── search.html          # (не используется напрямую)
+    │   │   ├── certs-widget.html    # Карточки сертификаций для About
+    │   │   ├── pagination.html      # Dot-grid пагинация (CSS в global.css)
+    │   │   └── breadcrumb.html      # Хлебные крошки
     │   └── shortcodes/              # Shortcode-компоненты для markdown
-    │       ├── ns-card.html         # Карточка Linux namespace
-    │       └── code.html            # Code block с кнопкой copy
+    │       ├── ns-card.html         # Карточка Linux namespace (использует --c)
+    │       └── code.html            # Code block с Chroma подсветкой
     │
     └── static/                      # Статические файлы темы
         ├── js/
         │   ├── site.js              # Глобальные функции (тема, меню)
         │   └── ns.js                # Логика namespace explorer
         └── styles/
-            ├── global.css           # Переменные, nav, общие компоненты
+            ├── global.css           # Переменные, nav, общие компоненты, пагинация
             ├── home.css             # Стили главной страницы
-            ├── prose.css            # Типографика статей
-            ├── cert.css             # Страницы сертификаций
-            ├── ns.css               # Namespace explorer
+            ├── prose.css            # Типографика, NS-карточки, tabs, ref-panel
+            ├── cert.css             # Страницы сертификаций (hero, плитки, аккордеон)
+            ├── quiz.css             # CCNA квиз: карточки, варианты, баллы
+            ├── ns.css               # Только layout страницы linux-namespaces
+            ├── chroma.css           # Подсветка синтаксиса (Dracula / GitHub)
+            ├── fonts.css            # @font-face для self-hosted шрифтов
             └── mobile.css           # Мобильная навигация и breakpoints
 ```
 
@@ -166,6 +193,13 @@ paginate = 10                   # Постов на страницу в лист
 
 [markup.goldmark.renderer]
   unsafe = true                 # Разрешает сырой HTML внутри markdown
+
+[markup.highlight]
+  noClasses   = false           # Chroma на основе классов (CSS в chroma.css)
+  codeFences  = true            # Подсветка синтаксиса
+  guessSyntax = true            # Автоопределение языка
+  lineNos     = false
+  tabWidth    = 2
 ```
 
 ---
@@ -184,7 +218,7 @@ paginate = 10                   # Постов на страницу в лист
 | `.Params.tags` | []string | Из frontmatter `tags:` |
 | `.Permalink` | string | Полный URL страницы |
 | `.RelPermalink` | string | Относительный URL |
-| `.Section` | string | Раздел: "posts", "certs", "docs" |
+| `.Section` | string | Раздел: "posts", "certs", "ccna-quiz" |
 | `.IsHome` | bool | true только для главной страницы |
 | `.Site` | Site | Глобальный объект сайта |
 | `.Site.Params` | map | Параметры из `[params]` в hugo.toml |
