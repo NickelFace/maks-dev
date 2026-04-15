@@ -84,6 +84,24 @@ build:
 
 Платный профессиональный видеокурс. Хорош для тех, кто предпочитает структурированный платный вариант.
 
+### DarkMayCall — курс «Cisco с нуля» (RU)
+
+Русскоязычный структурированный курс, подходит для начинающих.
+
+- [darkmaycal-it.ru/cisco](https://darkmaycal-it.ru/cisco/)
+
+### CiscoStr demo — бесплатный превью
+
+Бесплатные демо-модули курса CiscoStr (без регистрации):
+
+- [Введение в сети (RU)](https://demo.ciscostr.ru/ITN_RU/1.0.1)
+
+### edu-cisco.org
+
+Русскоязычная Cisco-сообщество с курсами и материалами.
+
+- [edu-cisco.org](https://edu-cisco.org)
+
 ---
 
 ## Практические лаборатории
@@ -113,6 +131,25 @@ build:
 
 - [developer.cisco.com/site/sandbox/](https://developer.cisco.com/site/sandbox/)
 
+### Packet Tracer Network — коллекция лабораторных работ
+
+Готовые `.pka`-файлы, сгруппированные по темам (маршрутизация, коммутация, безопасность и др.).
+
+- [packettracernetwork.com/labs](https://www.packettracernetwork.com/labs/packettracerlabs.html)
+
+### GNS3 Vault — коллекция лабораторных работ
+
+Бесплатные GNS3-лабораторные работы уровня CCNA и выше.
+
+- [gns3vault.com/labs](https://gns3vault.com/labs)
+
+### Network Education — практические тренажёры (RU)
+
+Российская платформа с курсами по Cisco и интерактивными тренажёрами.
+
+- [networkeducation.ru/practice](https://www.networkeducation.ru/practice/)
+- [Все курсы](https://www.networkeducation.ru/courses)
+
 ---
 
 ## Подготовка и тренировочные тесты
@@ -134,6 +171,42 @@ build:
 Тренировочные вопросы, включая раздел по IPv6:
 
 - [9tut.com](https://www.9tut.com)
+
+### CertSim Cloud
+
+Бесплатный онлайн-симулятор экзамена CCNA 200-301, установка не требуется.
+
+- [certsim.cloud](https://www.certsim.cloud/)
+
+### ITExamAnswers
+
+Бесплатные дампы CCNA 200-301 с полными вопросами и руководством по изучению.
+
+- [itexamanswers.net](https://itexamanswers.net/ccna-200-301-dumps-full-questions-exam-study-guide-free.html)
+
+### VCEplus
+
+Дампы практических тестов в формате VCE.
+
+- [vceplus.io/ccna-200-301](https://vceplus.io/ccna-200-301/)
+
+### CCNA7.com
+
+Форум сообщества для обсуждения CCNA, тем безопасности и конфигурации лабораторных работ.
+
+- [ccna7.com](https://www.ccna7.com/)
+
+### infocisco.ru — тесты по главам (RU)
+
+Тесты по главам CCNA на русском языке (на основе старых материалов NetAcad, подходит для самопроверки).
+
+- [infocisco.ru](http://infocisco.ru/test_ccna1_chapter1.html)
+
+### AntiNetacad (RU)
+
+Поддерживаемое сообществом зеркало материалов NetAcad на русском языке.
+
+- [netacad.sadlab.su](https://netacad.sadlab.su/)
 
 ### Boson ExSim
 
@@ -207,22 +280,60 @@ CCNA сдаётся через Pearson VUE — как в очных центра
 
 ## Полезные ссылки
 
+**Официальные ресурсы**
+
 | Ресурс | Ссылка |
 |---|---|
-| Официальные сертификации Cisco | [cisco.com/training-certifications](https://www.cisco.com/c/en/us/training-events/training-certifications/certifications.html) |
+| Сертификации Cisco | [cisco.com/training-certifications](https://www.cisco.com/c/en/us/training-events/training-certifications/certifications.html) |
 | Cisco Learning Network | [learningnetwork.cisco.com](https://learningnetwork.cisco.com) |
+| Темы экзамена CCNA | [learningnetwork.cisco.com/s/ccna-exam-topics](https://learningnetwork.cisco.com/s/ccna-exam-topics) |
 | Темы экзамена (PDF) | [200-301-CCNA-v1.1.pdf](https://learningcontent.cisco.com/documents/marketing/exam-topics/200-301-CCNA-v1.1.pdf) |
 | NetAcad | [netacad.com](https://www.netacad.com) |
 | Скачать Packet Tracer | [netacad.com/courses/packet-tracer](https://www.netacad.com/courses/packet-tracer) |
-| Pearson VUE | [home.pearsonvue.com/cisco.aspx](https://home.pearsonvue.com/cisco.aspx) |
-| ExamTopics | [examtopics.com](https://www.examtopics.com) |
-| Anki (карточки) | [apps.ankiweb.net](https://apps.ankiweb.net) |
-| Колода CCNA для Anki | [ankiweb.net/shared/info/591991787](https://ankiweb.net/shared/info/591991787) |
 | Cisco DevNet Sandboxes | [developer.cisco.com/site/sandbox/](https://developer.cisco.com/site/sandbox/) |
-| CiscoStr (Данил) | [ciscostr.ru](https://ciscostr.ru) |
-| Плейлист CiscoStr YouTube | [youtube.com/playlist](https://www.youtube.com/playlist?list=PLHpWwR6fSBN76MvCxsfJwOnsQIloB3-Mo) |
+| Pearson VUE | [home.pearsonvue.com/cisco.aspx](https://home.pearsonvue.com/cisco.aspx) |
+
+**Курсы**
+
+| Ресурс | Ссылка |
+|---|---|
+| Jeremy's IT Lab (YouTube) | поиск "Jeremy's IT Lab CCNA" |
+| CiscoStr (RU) | [ciscostr.ru](https://ciscostr.ru) |
+| CiscoStr YouTube | [youtube.com/playlist](https://www.youtube.com/playlist?list=PLHpWwR6fSBN76MvCxsfJwOnsQIloB3-Mo) |
+| CiscoStr demo (бесплатно) | [demo.ciscostr.ru](https://demo.ciscostr.ru/ITN_RU/1.0.1) |
+| DarkMayCall Cisco (RU) | [darkmaycal-it.ru/cisco](https://darkmaycal-it.ru/cisco/) |
+| edu-cisco.org (RU) | [edu-cisco.org](https://edu-cisco.org) |
+| Network Education (RU) | [networkeducation.ru](https://www.networkeducation.ru/courses) |
+| Network Lessons | [networklessons.com](https://networklessons.com/cisco/ccna-200-301/how-to-study-for-cisco-ccna-rs) |
+
+**Лабораторные работы**
+
+| Ресурс | Ссылка |
+|---|---|
+| Packet Tracer Network labs | [packettracernetwork.com/labs](https://www.packettracernetwork.com/labs/packettracerlabs.html) |
+| GNS3 Vault labs | [gns3vault.com/labs](https://gns3vault.com/labs) |
+| EVE-NG community | [eve-ng.net](https://www.eve-ng.net) |
+
+**Практические тесты**
+
+| Ресурс | Ссылка |
+|---|---|
+| ExamTopics | [examtopics.com](https://www.examtopics.com) |
+| ITExams | [itexams.com/exam/200-301](https://www.itexams.com/exam/200-301) |
+| ITExamAnswers | [itexamanswers.net](https://itexamanswers.net/ccna-200-301-dumps-full-questions-exam-study-guide-free.html) |
+| CertSim Cloud (бесплатно) | [certsim.cloud](https://www.certsim.cloud/) |
+| VCEplus | [vceplus.io/ccna-200-301](https://vceplus.io/ccna-200-301/) |
 | 9tut | [9tut.com](https://www.9tut.com) |
-| EVE-NG | [eve-ng.net](https://www.eve-ng.net) |
+| CCNA7.com | [ccna7.com](https://www.ccna7.com/) |
+| infocisco.ru (RU) | [infocisco.ru](http://infocisco.ru/test_ccna1_chapter1.html) |
+| AntiNetacad (RU) | [netacad.sadlab.su](https://netacad.sadlab.su/) |
+
+**Карточки**
+
+| Ресурс | Ссылка |
+|---|---|
+| Anki | [apps.ankiweb.net](https://apps.ankiweb.net) |
+| Колода CCNA для Anki | [ankiweb.net/shared/info/591991787](https://ankiweb.net/shared/info/591991787) |
 
 ---
 

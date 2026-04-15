@@ -80,6 +80,24 @@ Registration: [netacad.com](https://www.netacad.com) · Module exams at the end 
 
 Paid, professional-quality video course. Good for visual learners who prefer a structured paid option.
 
+### DarkMayCall — Russian "Cisco from scratch"
+
+Russian-language structured course, beginner-friendly.
+
+- [darkmaycal-it.ru/cisco](https://darkmaycal-it.ru/cisco/)
+
+### CiscoStr demo — free preview
+
+Free demo modules from the CiscoStr course (no registration):
+
+- [Introduction to Networks (RU)](https://demo.ciscostr.ru/ITN_RU/1.0.1)
+
+### edu-cisco.org
+
+Russian Cisco community platform with courses and materials.
+
+- [edu-cisco.org](https://edu-cisco.org)
+
 ---
 
 ## Practice Labs
@@ -109,6 +127,25 @@ Free cloud-hosted lab environments. Covers more than EVE-NG for certain scenario
 
 - [developer.cisco.com/site/sandbox/](https://developer.cisco.com/site/sandbox/)
 
+### Packet Tracer Network — lab collection
+
+Ready-made `.pka` lab files grouped by topic (routing, switching, security, etc.).
+
+- [packettracernetwork.com/labs](https://www.packettracernetwork.com/labs/packettracerlabs.html)
+
+### GNS3 Vault — lab collection
+
+Free GNS3 labs covering CCNA and beyond.
+
+- [gns3vault.com/labs](https://gns3vault.com/labs)
+
+### Network Education — practice simulators (RU)
+
+Russian platform with Cisco courses and interactive practice simulators.
+
+- [networkeducation.ru/practice](https://www.networkeducation.ru/practice/)
+- [All courses](https://www.networkeducation.ru/courses)
+
 ---
 
 ## Exam Prep & Practice Tests
@@ -130,6 +167,42 @@ Another practice question database:
 Practice questions including IPv6 section:
 
 - [9tut.com](https://www.9tut.com)
+
+### CertSim Cloud
+
+Free online CCNA 200-301 exam simulator, no installation required.
+
+- [certsim.cloud](https://www.certsim.cloud/)
+
+### ITExamAnswers
+
+Free CCNA 200-301 dumps with full questions and study guide.
+
+- [itexamanswers.net](https://itexamanswers.net/ccna-200-301-dumps-full-questions-exam-study-guide-free.html)
+
+### VCEplus
+
+Practice test dumps in VCE format.
+
+- [vceplus.io/ccna-200-301](https://vceplus.io/ccna-200-301/)
+
+### CCNA7.com
+
+Community forum for CCNA discussion, security topics and lab configurations.
+
+- [ccna7.com](https://www.ccna7.com/)
+
+### infocisco.ru — Russian chapter tests
+
+Russian-language CCNA chapter practice tests (based on older NetAcad material, still useful for self-check).
+
+- [infocisco.ru](http://infocisco.ru/test_ccna1_chapter1.html)
+
+### AntiNetacad
+
+Community-maintained Russian mirror of NetAcad materials.
+
+- [netacad.sadlab.su](https://netacad.sadlab.su/)
 
 ### Boson ExSim
 
@@ -203,18 +276,59 @@ Based on community experience:
 
 ## Useful Links
 
+**Official**
+
 | Resource | URL |
 |---|---|
-| Cisco official certifications | [cisco.com/training-certifications](https://www.cisco.com/c/en/us/training-events/training-certifications/certifications.html) |
+| Cisco certifications | [cisco.com/training-certifications](https://www.cisco.com/c/en/us/training-events/training-certifications/certifications.html) |
 | Cisco Learning Network | [learningnetwork.cisco.com](https://learningnetwork.cisco.com) |
+| CCNA exam topics | [learningnetwork.cisco.com/s/ccna-exam-topics](https://learningnetwork.cisco.com/s/ccna-exam-topics) |
 | Exam topics PDF | [200-301-CCNA-v1.1.pdf](https://learningcontent.cisco.com/documents/marketing/exam-topics/200-301-CCNA-v1.1.pdf) |
 | NetAcad | [netacad.com](https://www.netacad.com) |
 | Packet Tracer download | [netacad.com/courses/packet-tracer](https://www.netacad.com/courses/packet-tracer) |
-| Pearson VUE | [home.pearsonvue.com/cisco.aspx](https://home.pearsonvue.com/cisco.aspx) |
-| ExamTopics | [examtopics.com](https://www.examtopics.com) |
-| Anki (flashcards) | [apps.ankiweb.net](https://apps.ankiweb.net) |
-| CCNA Anki deck | [ankiweb.net/shared/info/591991787](https://ankiweb.net/shared/info/591991787) |
 | Cisco DevNet Sandboxes | [developer.cisco.com/site/sandbox/](https://developer.cisco.com/site/sandbox/) |
+| Pearson VUE | [home.pearsonvue.com/cisco.aspx](https://home.pearsonvue.com/cisco.aspx) |
+
+**Courses**
+
+| Resource | URL |
+|---|---|
+| Jeremy's IT Lab (YouTube) | search "Jeremy's IT Lab CCNA" |
+| CiscoStr (RU) | [ciscostr.ru](https://ciscostr.ru) |
+| CiscoStr demo (free) | [demo.ciscostr.ru](https://demo.ciscostr.ru/ITN_RU/1.0.1) |
+| DarkMayCall Cisco (RU) | [darkmaycal-it.ru/cisco](https://darkmaycal-it.ru/cisco/) |
+| edu-cisco.org (RU) | [edu-cisco.org](https://edu-cisco.org) |
+| Network Education (RU) | [networkeducation.ru](https://www.networkeducation.ru/courses) |
+| Network Lessons | [networklessons.com](https://networklessons.com/cisco/ccna-200-301/how-to-study-for-cisco-ccna-rs) |
+
+**Labs**
+
+| Resource | URL |
+|---|---|
+| Packet Tracer Network labs | [packettracernetwork.com/labs](https://www.packettracernetwork.com/labs/packettracerlabs.html) |
+| GNS3 Vault labs | [gns3vault.com/labs](https://gns3vault.com/labs) |
+| EVE-NG community | [eve-ng.net](https://www.eve-ng.net) |
+
+**Practice Tests**
+
+| Resource | URL |
+|---|---|
+| ExamTopics | [examtopics.com](https://www.examtopics.com) |
+| ITExams | [itexams.com/exam/200-301](https://www.itexams.com/exam/200-301) |
+| ITExamAnswers | [itexamanswers.net](https://itexamanswers.net/ccna-200-301-dumps-full-questions-exam-study-guide-free.html) |
+| CertSim Cloud (free) | [certsim.cloud](https://www.certsim.cloud/) |
+| VCEplus | [vceplus.io/ccna-200-301](https://vceplus.io/ccna-200-301/) |
+| 9tut | [9tut.com](https://www.9tut.com) |
+| CCNA7.com | [ccna7.com](https://www.ccna7.com/) |
+| infocisco.ru (RU) | [infocisco.ru](http://infocisco.ru/test_ccna1_chapter1.html) |
+| AntiNetacad (RU) | [netacad.sadlab.su](https://netacad.sadlab.su/) |
+
+**Flashcards**
+
+| Resource | URL |
+|---|---|
+| Anki | [apps.ankiweb.net](https://apps.ankiweb.net) |
+| CCNA Anki deck | [ankiweb.net/shared/info/591991787](https://ankiweb.net/shared/info/591991787) |
 
 ---
 
