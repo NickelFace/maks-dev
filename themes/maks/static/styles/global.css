@@ -704,28 +704,6 @@ button.tag {
   cursor: not-allowed;
 }
  
-.pg-arrow {
-  color: var(--text3);
-}
- 
-.pg-ellipsis {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 32px;
-  height: 32px;
-  font-size: 11px;
-  color: var(--text3);
-  letter-spacing: 1px;
-  user-select: none;
-}
- 
-.pg-info {
-  margin-left: 8px;
-  font-size: 10px;
-  color: var(--text3);
-  letter-spacing: 1px;
-}
 
 /* ── dot-grid pagination (all pages visible, wraps) ── */
 .pg-dot-nav {
