@@ -1,32 +1,33 @@
 ---
-title: "phpLDAPadmin — практика и траблшутинг"
+title: "phpLDAPadmin — Practice and Troubleshooting"
 date: 2026-02-24
-description: "Установка phpLDAPadmin на Ubuntu 24.04, решение конфликта mpm_event с PHP-FPM, работа с LDAP-деревом через GUI, смена паролей и тренировочные задачи."
+description: "Installing phpLDAPadmin on Ubuntu 24.04, resolving the mpm_event conflict with PHP-FPM, working with the LDAP tree through the GUI, changing passwords, and hands-on exercises."
 tags: ["Linux", "OpenLDAP", "LDAP", "phpLDAPadmin", "Apache", "PHP", "Ubuntu"]
+lang_pair: "/posts/ru/phpldapadmin-practice/"
 ---
 
-Практическое руководство по развёртыванию phpLDAPadmin на Ubuntu 24.04 и работе с OpenLDAP через графический интерфейс. Для понимания команд рекомендуется прочитать [LPIC-2 210.4 — Configuring an OpenLDAP Server](/posts/lpic2-210-4-openldap/).
+A practical guide to deploying phpLDAPadmin on Ubuntu 24.04 and managing OpenLDAP through a graphical interface. For command-line background, see [LPIC-2 210.4 — Configuring an OpenLDAP Server](/posts/lpic2-210-4-openldap/).
 
 ---
 
-## Установка OpenLDAP на Ubuntu
+## Installing OpenLDAP on Ubuntu
 
-### Установка slapd
+### Installing slapd
 
 ```bash
 sudo apt update
 sudo apt install -y slapd ldap-utils
 ```
 
-После установки slapd запускается автоматически, но без полноценной конфигурации. Следующий шаг — настройка через `dpkg-reconfigure`.
+After installation slapd starts automatically but without a complete configuration. The next step is to configure it via `dpkg-reconfigure`.
 
-### Первоначальная настройка через dpkg-reconfigure
+### Initial setup with dpkg-reconfigure
 
 ```bash
 sudo dpkg-reconfigure slapd
 ```
 
-| Вопрос | Ответ |
+| Prompt | Answer |
 |---|---|
 | Omit OpenLDAP server configuration? | `no` |
 | DNS domain name | `lpiclab.com` |
@@ -36,7 +37,7 @@ sudo dpkg-reconfigure slapd
 | Remove database when slapd is purged? | `no` |
 | Move old database? | `yes` |
 
-Проверь что slapd запустился и отвечает:
+Verify that slapd is running and responding:
 
 ```bash
 sudo systemctl status slapd
@@ -47,17 +48,17 @@ ldapsearch -x -H ldap://localhost \
   -b "dc=lpiclab,dc=com"
 ```
 
-Результат `result: 0 Success` с базовой записью `dc=lpiclab,dc=com` подтверждает, что всё работает.
+`result: 0 Success` with the base entry `dc=lpiclab,dc=com` confirms everything is working.
 
-### Типичная ошибка MDB KEYEXIST
+### Common error: MDB KEYEXIST
 
-Если при `dpkg-reconfigure` получаешь:
+If `dpkg-reconfigure` produces:
 
 ```
 mdb_id2entry_put: mdb_put failed: MDB_KEYEXIST: Key/data pair already exists(-30799)
 ```
 
-Это означает, что старые файлы базы остались в `/var/lib/ldap/`. Чиним вручную:
+Old database files are left in `/var/lib/ldap/`. Fix manually:
 
 ```bash
 sudo systemctl stop slapd
@@ -66,7 +67,7 @@ sudo rm -rf /etc/ldap/slapd.d/*
 sudo dpkg-reconfigure slapd
 ```
 
-На этот раз обязательно отвечай "yes" на "Move old database?". Если slapd не остановился чисто:
+Answer "yes" to "Move old database?" this time. If slapd did not stop cleanly:
 
 ```bash
 sudo systemctl kill slapd
@@ -75,38 +76,38 @@ sudo rm -rf /var/lib/ldap/* /etc/ldap/slapd.d/*
 sudo dpkg-reconfigure slapd
 ```
 
-> **Important:** После `rm -rf /var/lib/ldap/*` база полностью пуста. Все ранее загруженные записи нужно добавлять заново через `ldapadd`.
+> **Important:** After `rm -rf /var/lib/ldap/*` the database is completely empty. All previously loaded entries must be re-added with `ldapadd`.
 
 ---
 
-## Структура LDAP-дерева на стенде
+## LDAP Directory Structure
 
-Стенд построен на базе домена `lpiclab.com`:
+The lab is built on the `lpiclab.com` domain:
 
 ```
 dc=lpiclab,dc=com
-├── ou=People          # пользователи
+├── ou=People          # users
 │   ├── uid=jsmith
 │   ├── uid=mjones
 │   ├── uid=akorolev
 │   └── uid=tivanova
-├── ou=Groups          # группы
+├── ou=Groups          # groups
 │   ├── cn=admins
 │   ├── cn=developers
 │   └── cn=hr
-└── ou=Services        # сервисные аккаунты
+└── ou=Services        # service accounts
     └── uid=svc-backup
 ```
 
-| UID | Имя | Группа | gidNumber |
+| UID | Name | Group | gidNumber |
 |---|---|---|---|
 | jsmith | John Smith | admins | 1001 |
 | mjones | Mary Jones | developers | 1002 |
 | akorolev | Alexei Korolev | admins, developers | 1001 |
 | tivanova | Tatiana Ivanova | developers, hr | 1002 |
-| svc-backup | Backup Service | (сервисный) | 2001 |
+| svc-backup | Backup Service | (service) | 2001 |
 
-| UID | Пароль |
+| UID | Password |
 |---|---|
 | jsmith | Smith2024! |
 | mjones | Jones2024! |
@@ -114,36 +115,36 @@ dc=lpiclab,dc=com
 
 ---
 
-## Установка phpLDAPadmin на Ubuntu 24.04
+## Installing phpLDAPadmin on Ubuntu 24.04
 
-### Установка пакетов
+### Installing packages
 
-phpLDAPadmin не входит в стандартный репозиторий Ubuntu 24.04 в рабочем состоянии. Ставь всё за один раз:
+phpLDAPadmin is not in the standard Ubuntu 24.04 repository in a working state. Install everything at once:
 
 ```bash
 sudo apt update
 sudo apt install -y phpldapadmin php php-ldap php-xml
 ```
 
-После этого Apache автоматически подхватывает конфиг phpLDAPadmin, но PHP-модуль нужно включать вручную из-за особенностей Ubuntu 24.04.
+Apache will automatically pick up the phpLDAPadmin config, but the PHP module needs to be enabled manually due to Ubuntu 24.04 specifics.
 
-### Дополнительные пакеты PHP
+### Additional PHP packages
 
-На Ubuntu 24.04 Apache по умолчанию запускается с `mpm_event`, а не `mpm_prefork`. Стандартный модуль `php8.3` несовместим с `mpm_event`, поэтому нужен PHP-FPM:
+On Ubuntu 24.04 Apache runs with `mpm_event` by default, not `mpm_prefork`. The standard `php8.3` module is incompatible with `mpm_event`, so PHP-FPM is required:
 
 ```bash
 sudo apt install -y php8.3-fpm
 ```
 
-PHP-FPM работает как отдельный процесс и общается с Apache через FastCGI, без конфликтов с `mpm_event`.
+PHP-FPM runs as a separate process and communicates with Apache via FastCGI, avoiding conflicts with `mpm_event`.
 
-### Настройка конфига phpLDAPadmin
+### Configuring phpLDAPadmin
 
 ```bash
 sudo nano /etc/phpldapadmin/config.php
 ```
 
-Найди и поправь три строки:
+Find and update three lines:
 
 ```php
 $servers->setValue('server','host','127.0.0.1');
@@ -151,9 +152,9 @@ $servers->setValue('server','base',array('dc=lpiclab,dc=com'));
 $servers->setValue('login','bind_id','cn=admin,dc=lpiclab,dc=com');
 ```
 
-> **Tip:** Строки могут быть закомментированы или иметь другой домен по умолчанию. Используй `Ctrl+W` в nano для поиска по тексту.
+> **Tip:** Lines may be commented out or have a different default domain. Use `Ctrl+W` in nano to search.
 
-### Настройка Apache
+### Configuring Apache
 
 ```bash
 sudo a2enmod proxy_fcgi setenvif
@@ -161,36 +162,36 @@ sudo a2enconf php8.3-fpm phpldapadmin
 sudo systemctl restart apache2 php8.3-fpm
 ```
 
-Проверь что оба сервиса запустились:
+Verify both services are running:
 
 ```bash
 sudo systemctl status apache2
 sudo systemctl status php8.3-fpm
 ```
 
-После этого открывай в браузере: `http://<server-ip>/phpldapadmin`
+Then open in a browser: `http://<server-ip>/phpldapadmin`
 
 ---
 
-## Траблшутинг установки
+## Troubleshooting
 
-### Ошибка 404 Not Found
+### 404 Not Found
 
-Apache запущен, но не знает про phpLDAPadmin — алиас не подключён.
+Apache is running but does not know about phpLDAPadmin — the alias is not loaded.
 
 ```bash
 ls /etc/apache2/conf-available/ | grep phpldapadmin
 ls /etc/apache2/conf-enabled/   | grep phpldapadmin
 ```
 
-Если в `conf-available` есть файл, но в `conf-enabled` нет:
+If the file exists in `conf-available` but not in `conf-enabled`:
 
 ```bash
 sudo a2enconf phpldapadmin
 sudo systemctl reload apache2
 ```
 
-Если конфига нет вообще, создай вручную:
+If the config does not exist at all, create it manually:
 
 ```bash
 sudo nano /etc/apache2/conf-available/phpldapadmin.conf
@@ -212,30 +213,30 @@ sudo a2enconf phpldapadmin
 sudo systemctl reload apache2
 ```
 
-### PHP-код отображается как текст
+### PHP code renders as plain text
 
-Apache не обрабатывает `.php` файлы. Проверь доступные модули:
+Apache is not processing `.php` files. Check available modules:
 
 ```bash
 ls /etc/apache2/mods-available/ | grep php
 ```
 
-Если видишь `php8.3.load`:
+If `php8.3.load` is listed:
 
 ```bash
 sudo a2enmod php8.3
 sudo systemctl restart apache2
 ```
 
-Если получаешь ошибку про `mpm_event` — смотри следующий раздел.
+If you get an error about `mpm_event`, see the next section.
 
-### Конфликт mpm_event и php8.3
+### mpm_event and php8.3 conflict
 
 ```
 ERROR: Module mpm_event is enabled - cannot proceed due to conflicts.
 ```
 
-`mpm_event` несовместим с модулем `php8.3` напрямую. Решение через PHP-FPM:
+`mpm_event` is incompatible with the `php8.3` module directly. Solution via PHP-FPM:
 
 ```bash
 sudo apt install -y php8.3-fpm
@@ -244,50 +245,50 @@ sudo a2enconf php8.3-fpm
 sudo systemctl restart apache2 php8.3-fpm
 ```
 
-> **Important:** Не пытайся отключать `mpm_event` и включать `mpm_prefork` на Ubuntu 24.04. PHP-FPM с `mpm_event` — правильный и производительный способ, именно его используют в продакшне.
+> **Important:** Do not try to disable `mpm_event` and enable `mpm_prefork` on Ubuntu 24.04. PHP-FPM with `mpm_event` is the correct, production-grade approach.
 
 ---
 
-## Работа в интерфейсе phpLDAPadmin
+## Using the phpLDAPadmin Interface
 
-### Вход в систему
+### Logging in
 
-На странице входа вводи:
+On the login page enter:
 
 - **Login DN:** `cn=admin,dc=lpiclab,dc=com`
 - **Password:** `Admin1234!`
 
-После входа видишь левую панель с деревом каталога и правую с содержимым выбранной записи.
+After login you see the left panel with the directory tree and the right panel with the selected entry's attributes.
 
-### Просмотр дерева каталога
+### Browsing the directory tree
 
-В левой панели раскрой `dc=lpiclab,dc=com`. Увидишь три OU: `ou=People`, `ou=Groups`, `ou=Services`. Когда кликаешь на запись пользователя, например `uid=jsmith`, в правой панели отображаются все его атрибуты.
+Expand `dc=lpiclab,dc=com` in the left panel. You will see three OUs: `ou=People`, `ou=Groups`, `ou=Services`. Clicking a user entry such as `uid=jsmith` shows all its attributes in the right panel.
 
-> **Tip:** phpLDAPadmin показывает DN каждой записи точно в том виде, в котором он используется в командах `ldapsearch`, `ldappasswd` и `ldapdelete`. Это помогает избежать опечаток при написании DN вручную.
+> **Tip:** phpLDAPadmin displays each entry's DN exactly as it is used in `ldapsearch`, `ldappasswd`, and `ldapdelete` commands — helpful for avoiding typos when writing DNs by hand.
 
-### Создание записи через интерфейс
+### Creating an entry
 
-Выбери `ou=People` в левой панели, нажми **"Create a child entry"**. Интерфейс предложит шаблоны объектных классов:
+Select `ou=People` in the left panel and click **"Create a child entry"**. The interface offers object class templates:
 
-- `inetOrgPerson` — для обычных пользователей
-- `posixAccount` — для Linux-пользователей с UID/GID
-- `organizationalUnit` — для OU
+- `inetOrgPerson` — for regular users
+- `posixAccount` — for Linux users with UID/GID
+- `organizationalUnit` — for OUs
 
-Заполни форму и нажми **"Create Object"**. phpLDAPadmin автоматически сформирует LDIF и отправит его на сервер.
+Fill in the form and click **"Create Object"**. phpLDAPadmin generates the LDIF and submits it to the server automatically.
 
-### Редактирование атрибутов
+### Editing attributes
 
-Кликни на запись → **"Modify attribute"** → измени значение → **"Save Changes"**. Под капотом это тот же `ldapmodify` с `changetype: modify`.
+Click an entry → **"Modify attribute"** → change the value → **"Save Changes"**. Under the hood this is the same as `ldapmodify` with `changetype: modify`.
 
 ---
 
-## Смена пароля
+## Changing Passwords
 
-### Через phpLDAPadmin
+### Via phpLDAPadmin
 
-Кликни на запись пользователя → найди атрибут `userPassword` → нажми иконку замка или **"change password"**. Выбирай алгоритм **SSHA** — рекомендуемый вариант.
+Click a user entry → find the `userPassword` attribute → click the lock icon or **"change password"**. Select **SSHA** as the algorithm — it is the recommended choice.
 
-### Через ldappasswd (от имени admin)
+### Via ldappasswd (as admin)
 
 ```bash
 ldappasswd -x -H ldap://localhost \
@@ -297,7 +298,7 @@ ldappasswd -x -H ldap://localhost \
   "uid=jsmith,ou=People,dc=lpiclab,dc=com"
 ```
 
-### Пользователь меняет свой пароль сам
+### User changes their own password
 
 ```bash
 ldappasswd -x -H ldap://localhost \
@@ -306,19 +307,19 @@ ldappasswd -x -H ldap://localhost \
   -s "Jones2025!"
 ```
 
-> **Warning:** Если получаешь `Result: No such object (32)`, указанный DN не существует в DIT. Проверь правильность пути через `ldapsearch` или в phpLDAPadmin.
+> **Warning:** If you get `Result: No such object (32)`, the specified DN does not exist in the DIT. Verify the path with `ldapsearch` or in phpLDAPadmin.
 
-### Смена пароля администратора через cn=config
+### Changing the admin password via cn=config
 
-Пароль `cn=admin` хранится не как запись в DIT, а в конфигурации `cn=config`. Поэтому `ldappasswd` вернёт ошибку 32. Правильный способ:
+The `cn=admin` password is stored not as a DIT entry but in `cn=config`. Running `ldappasswd` against it will return error 32. The correct approach:
 
 ```bash
-# Шаг 1: сгенерировать хэш
+# Step 1: generate the hash
 sudo slappasswd -s "Admin1234!"
 # → {SSHA}Ab12Cd34Ef56...
 ```
 
-Создай `changepass.ldif`:
+Create `changepass.ldif`:
 
 ```ldif
 dn: olcDatabase={1}mdb,cn=config
@@ -328,45 +329,45 @@ olcRootPW: {SSHA}Ab12Cd34Ef56...
 ```
 
 ```bash
-# Шаг 2: применить через Unix-сокет от root
+# Step 2: apply via Unix socket as root
 sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f changepass.ldif
 
-# Шаг 3: проверить
+# Step 3: verify
 ldapsearch -x -H ldap://localhost \
   -D "cn=admin,dc=lpiclab,dc=com" \
   -w "Admin1234!" \
   -b "dc=lpiclab,dc=com" "(objectClass=*)"
 ```
 
-> **Important:** `-Y EXTERNAL -H ldapi:///` аутентифицирует по UID процесса через Unix-сокет. Root получает права на `cn=config` без пароля. Работает только локально на сервере.
+> **Important:** `-Y EXTERNAL -H ldapi:///` authenticates by process UID via the Unix socket. Root gets access to `cn=config` without a password. Works only locally on the server.
 
 ---
 
-## Практика — пошаговый стенд
+## Hands-on Lab
 
-**Домен:** `lpiclab.com` · **Base DN:** `dc=lpiclab,dc=com` · **Admin DN:** `cn=admin,dc=lpiclab,dc=com`
+**Domain:** `lpiclab.com` · **Base DN:** `dc=lpiclab,dc=com` · **Admin DN:** `cn=admin,dc=lpiclab,dc=com`
 
-### Шаг 1. Установка OpenLDAP
+### Step 1. Install OpenLDAP
 
 ```bash
 sudo apt update && sudo apt install -y slapd ldap-utils
 sudo dpkg-reconfigure slapd
 ```
 
-**Troubleshooting перед запуском:**
+**Troubleshooting before proceeding:**
 
 ```bash
 sudo systemctl status slapd
 ldapsearch -x -H ldap://localhost -b "dc=lpiclab,dc=com"
 
-# Если нужно начать чисто:
+# If you need a clean start:
 sudo systemctl stop slapd && sudo systemctl kill slapd
 sleep 2
 sudo rm -rf /var/lib/ldap/* /etc/ldap/slapd.d/*
 sudo dpkg-reconfigure slapd
 ```
 
-### Шаг 2. Базовая структура (base.ldif)
+### Step 2. Base structure (base.ldif)
 
 ```ldif
 dn: ou=People,dc=lpiclab,dc=com
@@ -386,9 +387,9 @@ ou: Services
 ldapadd -x -H ldap://localhost -D "cn=admin,dc=lpiclab,dc=com" -w Admin1234! -f base.ldif
 ```
 
-> **Note:** Создавай `base.ldif` в `~/` через `nano base.ldif`. `ldapadd` читает путь через флаг `-f`.
+> **Note:** Create `base.ldif` in `~/` with `nano base.ldif`. `ldapadd` reads the path via the `-f` flag.
 
-### Шаг 3. Пользователи (users.ldif)
+### Step 3. Users (users.ldif)
 
 ```ldif
 dn: uid=jsmith,ou=People,dc=lpiclab,dc=com
@@ -467,7 +468,7 @@ userPassword: {SSHA}changeme
 ```bash
 ldapadd -x -H ldap://localhost -D "cn=admin,dc=lpiclab,dc=com" -w Admin1234! -f users.ldif
 
-# Задай нормальные пароли:
+# Set proper passwords:
 ldappasswd -x -H ldap://localhost -D "cn=admin,dc=lpiclab,dc=com" -w Admin1234! \
   -s "Smith2024!" "uid=jsmith,ou=People,dc=lpiclab,dc=com"
 
@@ -475,7 +476,7 @@ ldappasswd -x -H ldap://localhost -D "cn=admin,dc=lpiclab,dc=com" -w Admin1234! 
   -s "Jones2024!" "uid=mjones,ou=People,dc=lpiclab,dc=com"
 ```
 
-### Шаг 4. Группы (groups.ldif)
+### Step 4. Groups (groups.ldif)
 
 ```ldif
 dn: cn=admins,ou=Groups,dc=lpiclab,dc=com
@@ -504,47 +505,47 @@ memberUid: tivanova
 ldapadd -x -H ldap://localhost -D "cn=admin,dc=lpiclab,dc=com" -w Admin1234! -f groups.ldif
 ```
 
-### Шаг 5. Тренировочные задачи
+### Step 5. Practice tasks
 
 ```bash
-# Поиск всех пользователей
+# Search all users
 ldapsearch -x -H ldap://localhost \
   -b "ou=People,dc=lpiclab,dc=com" "(objectClass=posixAccount)"
 
-# Поиск по конкретному uid
+# Search by specific uid
 ldapsearch -x -H ldap://localhost \
   -b "dc=lpiclab,dc=com" "(uid=mjones)"
 
-# Поиск с фильтром по группе
+# Search with group filter
 ldapsearch -x -H ldap://localhost \
   -b "ou=Groups,dc=lpiclab,dc=com" "(cn=developers)"
 
-# Поиск только определённых атрибутов
+# Return specific attributes only
 ldapsearch -x -H ldap://localhost \
   -b "ou=People,dc=lpiclab,dc=com" "(objectClass=inetOrgPerson)" cn mail
 
-# Поиск всех объектов (аутентифицированный)
+# Authenticated search as admin
 ldapsearch -x -H ldap://localhost \
   -D "cn=admin,dc=lpiclab,dc=com" -w "Admin1234!" \
   -b "dc=lpiclab,dc=com" "(objectClass=*)"
 
-# Аутентифицированный поиск от имени пользователя
+# Authenticated search as a regular user
 ldapsearch -x -H ldap://localhost \
   -D "uid=jsmith,ou=People,dc=lpiclab,dc=com" -w "Smith2024!" \
   -b "dc=lpiclab,dc=com" "(uid=jsmith)"
 
-# Смена пароля пользователем самостоятельно
+# User changes their own password
 ldappasswd -x -H ldap://localhost \
   -D "uid=mjones,ou=People,dc=lpiclab,dc=com" -w "Jones2024!" \
   -s "NewJones2025!"
 
-# Удаление записи
+# Delete an entry
 ldapdelete -x -H ldap://localhost \
   -D "cn=admin,dc=lpiclab,dc=com" -w Admin1234! \
   "uid=svc-backup,ou=Services,dc=lpiclab,dc=com"
 ```
 
-**Изменение атрибута (modify.ldif):**
+**Modify an attribute (modify.ldif):**
 
 ```ldif
 dn: uid=akorolev,ou=People,dc=lpiclab,dc=com
@@ -557,7 +558,7 @@ mail: alexei.korolev@lpiclab.com
 ldapmodify -x -H ldap://localhost -D "cn=admin,dc=lpiclab,dc=com" -w Admin1234! -f modify.ldif
 ```
 
-**Добавление пользователя в группу:**
+**Add a user to a group:**
 
 ```ldif
 dn: cn=hr,ou=Groups,dc=lpiclab,dc=com
@@ -566,7 +567,7 @@ add: memberUid
 memberUid: mjones
 ```
 
-### Шаг 6. Конфигурация /etc/ldap/ldap.conf
+### Step 6. Configure /etc/ldap/ldap.conf
 
 ```bash
 sudo apt install -y ldap-utils
@@ -578,7 +579,7 @@ BASE    dc=lpiclab,dc=com
 URI     ldap://192.168.x.x
 ```
 
-После этого `ldapsearch` работает без `-H` и `-b`:
+After this `ldapsearch` works without `-H` and `-b`:
 
 ```bash
 ldapsearch -x "(uid=jsmith)"
