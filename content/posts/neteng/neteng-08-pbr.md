@@ -5,22 +5,17 @@ description: "Configuring Policy-Based Routing for the Chokurdakh office with tr
 tags: ["Networking", "PBR", "IP SLA", "Routing", "Cisco", "OTUS"]
 categories: ["Network Engineer"]
 code_toggle: true
+page_lang: "en"
 lang_pair: "/posts/neteng/ru/neteng-08-pbr/"
 ---
 
-# Policy-Based Routing (PBR)
-<p class="ru-text">Маршрутизация на основе политик (PBR)</p>
+## Policy-Based Routing (PBR)
 
-## Assignment
-<p class="ru-text">Домашнее задание</p>
-
-### PBR
+### Assignment
 
 Goal: Configure routing policy for the Chokurdakh office and distribute traffic between 2 uplinks.
-<p class="ru-text">Цель: Настроить политику маршрутизации в офисе Чокурдах. Распределить трафик между 2 линками.</p>
 
 In this lab you are expected to independently:
-<p class="ru-text">В этой самостоятельной работе мы ожидаем, что вы самостоятельно:</p>
 
 1. Configure routing policy for the Chokurdakh office networks
 2. Distribute traffic between the two provider uplinks in Chokurdakh
@@ -28,17 +23,9 @@ In this lab you are expected to independently:
 4. Configure a default route for the Labytnangi office
 5. Document the plan and changes
 
-<p class="ru-text">
+> **Note:** `verify-availability` in route-map may not work for IPv6.
 
-1. Настроите политику маршрутизации для сетей офиса Чокурдах
-2. Распределите трафик между двумя линками с провайдером в Чокурдах
-3. Настроите отслеживание линка через технологию IP SLA в Чокурдах
-4. Настройте для офиса Лабытнанги маршрут по-умолчанию
-5. План работы и изменения зафиксированы в документации
-
-</p>
-
-![PBR](/img/neteng/diplom/PBR.png)
+![PBR](/img/neteng/08/1.png)
 
 | Device | Port | IPv4             | IPv6                 | Note            | Region     |
 | ------ | ---- | ---------------- | -------------------- | --------------- | ---------- |
@@ -49,12 +36,13 @@ In this lab you are expected to independently:
 | VPC30  |      | 172.16.40.10     | 2cad:1995:b0da:9::10 |                 |            |
 | VPC31  |      | 172.16.40.11     | 2cad:1995:b0da:9::11 |                 |            |
 
+---
+
 ## Configure routing policy for the Chokurdakh office networks
-<p class="ru-text">Настроите политику маршрутизации для сетей офиса Чокурдах</p>
 
-**R28**
-
-```
+<details>
+<summary>R28 — interface addresses</summary>
+<pre><code>
 R28#show ipv6 int brief
 Ethernet0/0            [up/up]
     FE80::A8BB:CCFF:FE01:C000
@@ -65,71 +53,71 @@ Ethernet0/1            [up/up]
 Ethernet0/2            [up/up]
     FE80:21::28
     2CAD:1995:B0DA:9::28
-    
+
 R28#show ip int bri
 Interface                  IP-Address      OK? Method Status                Protocol
 Ethernet0/0                111.110.35.14   YES manual up                    up
 Ethernet0/1                111.110.35.10   YES manual up                    up
 Ethernet0/2                172.16.40.1     YES manual up                    up
+</code></pre>
+</details>
 
-```
-
-No point showing the provider side.
-<p class="ru-text">Со стороны провайдера не вижу смысла показывать.</p>
+---
 
 ## Distribute traffic between the two provider uplinks in Chokurdakh
-<p class="ru-text">Распределите трафик между двумя линками с провайдером в Чокурдах</p>
 
-**R28**
+ACL `ACL1` matches traffic from VPC30 (172.16.40.10) and the route-map steers it via R26 (e0/0). A static route to R25's loopback (215.215.215.215) is added to verify the alternate path — the provider side runs OSPF with no additional configuration required.
 
-```
+<details>
+<summary>R28</summary>
+<pre><code>
 enable
 configure terminal
 
-! On R25 we bring up a Loopback network and add a static route toward it.
-! The provider side runs OSPF — nothing was configured there except the network announcement.
 ip route 215.215.215.215 255.255.255.255 111.110.35.9
-
 
 ip access-list extended ACL1
  permit ip host 172.16.40.10 any
 
 route-map TEST permit 10
  match ip address ACL1
- set ip next-hop 111.110.35.13 
+ set ip next-hop 111.110.35.13
  set ipv6 next-hop 2CAD:1995:B0DA:7::26
 
- 
 interface Ethernet0/2
  ip policy route-map TEST
+</code></pre>
+</details>
 
-```
+VPC30 trace before and after applying the route-map:
 
-**VPC30**
-
-```
-! Before applying Route-map
-
+<details>
+<summary>VPC30</summary>
+<pre><code>
+! Before route-map
 VPCS> trace 215.215.215.215
 trace to 215.215.215.215, 8 hops max, press Ctrl+C to stop
  1   172.16.40.1   0.551 ms  0.369 ms  0.357 ms
  2   *111.110.35.9   1.014 ms (ICMP type:3, code:3, Destination port unreachable)  *
 
-! After applying Route-map
-
+! After route-map
 VPCS> trace 215.215.215.215
 trace to 215.215.215.215, 8 hops max, press Ctrl+C to stop
  1   172.16.40.1   0.629 ms  0.560 ms  0.463 ms
  2   111.110.35.13   0.902 ms  0.655 ms  0.590 ms
  3   *10.10.30.9   0.882 ms (ICMP type:3, code:3, Destination port unreachable)  *
-```
+</code></pre>
+</details>
+
+---
 
 ## Configure link tracking via IP SLA in Chokurdakh
-<p class="ru-text">Настроите отслеживание линка через технологию IP SLA в Чокурдах</p>
 
-**R28**
+Two IP SLA probes monitor reachability to each provider next-hop. Tracked objects are referenced in both the default routes and the route-map:
 
-```
+<details>
+<summary>R28</summary>
+<pre><code>
 ip sla 1
  icmp-echo 111.110.35.9 source-interface Ethernet0/1
  frequency 5
@@ -146,20 +134,17 @@ track 2 ip sla 2 reachability
 ip route 0.0.0.0 0.0.0.0 111.110.35.9 track 1
 ip route 0.0.0.0 0.0.0.0 111.110.35.13 track 2
 
-------------------------------------------------------------------------------
 ! Updated route-map with availability verification
-
 route-map TEST permit 10
  match ip address ACL1
  set ip next-hop verify-availability 111.110.35.9 10 track 1
  set ip next-hop verify-availability 111.110.35.13 15 track 2
+</code></pre>
+</details>
 
-```
-
-Verify track and route-map:
-<p class="ru-text">Проверка Track и Route-map</p>
-
-```
+<details>
+<summary>R28 — show track / show route-map</summary>
+<pre><code>
 R28#show track 1
 Track 1
   IP SLA 1 reachability
@@ -170,7 +155,6 @@ Track 1
   Tracked by:
     ROUTE-MAP 0
     STATIC-IP-ROUTING 0
-
 
 R28#show track 2
 Track 2
@@ -183,7 +167,6 @@ Track 2
     ROUTE-MAP 0
     STATIC-IP-ROUTING 0
 
-
 R28#show route-map
 route-map TEST, permit, sequence 10
   Match clauses:
@@ -193,15 +176,22 @@ route-map TEST, permit, sequence 10
     ip next-hop verify-availability 111.110.35.13 15 track 2  [up]
      ipv6 next-hop 2CAD:1995:B0DA:7::26
   Policy routing matches: 234 packets, 24284 bytes
-```
+</code></pre>
+</details>
+
+---
 
 ## Configure a default route for the Labytnangi office
-<p class="ru-text">Настройте для офиса Лабытнанги маршрут по-умолчанию</p>
 
-**R27**
-
-```
+<details>
+<summary>R27</summary>
+<pre><code>
 R27(config)#do sh run | s route
 ip route 0.0.0.0 0.0.0.0 210.110.35.1
 ipv6 route ::/0 2CAD:1995:B0DA:A::25
-```
+</code></pre>
+</details>
+
+---
+
+*Network Engineer Course | Lab 08*

@@ -40,7 +40,7 @@ In this lab you are expected to independently:
 
 </p>
 
-![EVE_Topology](/img/neteng/diplom/EVE_Topology.png)
+![EVE_Topology](/img/neteng/11/1.png)
 
 ### iBGP in the Moscow office between R14 and R15
 <p class="ru-text">iBGP в офисе Москва между маршрутизаторами R14 и R15</p>

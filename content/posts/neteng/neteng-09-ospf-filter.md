@@ -35,7 +35,7 @@ Goal: Configure OSPF in the Moscow office, divide the network into areas, and co
 
 </p>
 
-![OSPF](/img/neteng/diplom/OSPF.png)
+![OSPF](/img/neteng/09/1.png)
 
 ### R14–R15 are in area 0 — backbone
 <p class="ru-text">Маршрутизаторы R14-R15 находятся в зоне 0 - backbone</p>

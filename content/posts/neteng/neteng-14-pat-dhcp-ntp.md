@@ -47,7 +47,7 @@ In this lab you are expected to independently:
 
 </p>
 
-![](/img/neteng/diplom/EVE_Topology.png)
+![](/img/neteng/11/1.png)
 
 ### Configure NAT(PAT) on R14 and R15 — translation to AS1001 address
 <p class="ru-text">Настроите NAT(PAT) на R14 и R15. Трансляция должна осуществляться в адрес автономной системы AS1001</p>

@@ -13,7 +13,7 @@ lang_pair: "/posts/neteng/ru/neteng-07-ipv4-ipv6/"
 
 ### IPv4 — Full Network
 
-![IPv4 full topology](/img/neteng/diplom/1.png)
+![IPv4 full topology](/img/neteng/07/1.png)
 
 **Goal:** Plan and document the address space for the lab topology. Configure IPs on all active ports. Assign each VPC to its own VLAN in every office. Configure management VLANs for network devices. Optimize link usage and prevent broadcast storms. Use both IPv4 and IPv6.
 
@@ -132,7 +132,7 @@ ISP internal addressing is not our concern — they provide internet access.
 
 ### IPv6
 
-![IPv6 topology](/img/neteng/diplom/2.png)
+![IPv6 topology](/img/neteng/07/2.png)
 
 #### Moscow
 
@@ -202,7 +202,7 @@ Triada is the ISP for three of our sites, so the address pool is shared:
 
 ### Link-Local Addressing
 
-![Link-local addressing](/img/neteng/diplom/3.png)
+![Link-local addressing](/img/neteng/07/3.png)
 
 | Device  | Port | IPv6       | Note        | Region |
 | ------- | ---- | ---------- | ----------- | ------ |

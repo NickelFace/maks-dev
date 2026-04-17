@@ -33,7 +33,7 @@ In this lab you are expected to independently:
 
 </p>
 
-![OSPF](/img/neteng/diplom/OSPF.png)
+![OSPF](/img/neteng/09/1.png)
 
 Last time I forgot to configure Link-Local addresses, so fixing that now.
 <p class="ru-text">В прошлый раз я забыл прописать Link-Local адресацию, поэтому исправляюсь.</p>

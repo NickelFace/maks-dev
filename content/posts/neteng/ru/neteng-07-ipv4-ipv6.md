@@ -17,7 +17,7 @@ build:
 
 ## IPv4 — Вся сеть
 
-![image](/img/neteng/diplom/1.png)
+![image](/img/neteng/07/1.png)
 
 ## Домашнее задание
 
@@ -136,7 +136,7 @@ build:
 
 ## IPv6
 
-![image](/img/neteng/diplom/2.png)
+![image](/img/neteng/07/2.png)
 
 ### Москва
 
@@ -206,7 +206,7 @@ build:
 
 ### Link-Local адресация
 
-![3](/img/neteng/diplom/3.png)
+![3](/img/neteng/07/3.png)
 
 | Устройство | Порт | IPv6                   | Примечание  | Регион |
 | ---------- | ---- | ---------------------- | ----------- | ------ |

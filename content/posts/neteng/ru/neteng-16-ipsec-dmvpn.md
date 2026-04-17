@@ -15,7 +15,7 @@ build:
 
 # IPsec
 
-![](/img/neteng/diplom/EVE_Topology.png)
+![](/img/neteng/11/1.png)
 
 ## Домашнее задание
 

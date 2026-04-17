@@ -35,7 +35,7 @@ In this lab you are expected to independently:
 
 </p>
 
-![EVE_Topology](/img/neteng/diplom/EVE_Topology.png)
+![EVE_Topology](/img/neteng/11/1.png)
 
 I decided to add a link between R14 and R15 — first to simplify connecting them in area 0, and second to provide redundancy for traffic traversing the internet.
 <p class="ru-text">Решил добавить линк между R14 и R15, чтобы проще соединить их в area 0, во-вторых, чтобы обеспечить отказоустойчивость при прохождении пакета через интернет.</p>

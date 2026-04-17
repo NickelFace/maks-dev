@@ -10,7 +10,7 @@ lang_pair: "/posts/neteng/ru/neteng-16-ipsec-dmvpn/"
 
 # IPsec
 
-![](/img/neteng/diplom/EVE_Topology.png)
+![](/img/neteng/11/1.png)
 
 ## Assignment
 <p class="ru-text">Домашнее задание</p>

@@ -11,7 +11,7 @@ lang_pair: "/posts/neteng/ru/neteng-13-bgp-filtering/"
 # BGP Path Selection
 <p class="ru-text">BGP. Выбор пути</p>
 
-![](/img/neteng/diplom/EVE_Topology.png)
+![](/img/neteng/11/1.png)
 
 ## Assignment
 <p class="ru-text">Домашнее задание</p>

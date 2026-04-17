@@ -11,7 +11,7 @@ lang_pair: "/posts/neteng/ru/neteng-15-dmvpn/"
 # Virtual Private Networks — VPN
 <p class="ru-text">Виртуальная частные сети — VPN</p>
 
-![](/img/neteng/diplom/EVE_Topology.png)
+![](/img/neteng/11/1.png)
 
 ## Assignment
 <p class="ru-text">Домашнее задание</p>
