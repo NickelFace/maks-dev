@@ -93,7 +93,7 @@
         {{ if $topicPosts }}
         <div class="cert-topic-body">
           {{ range $topicPosts }}
-          <a href="{{ .Permalink }}" class="cert-post-link">
+          <a href="{{ .RelPermalink }}" class="cert-post-link">
             <span class="cert-post-title">{{ .Title }}</span>
             {{ with .Description }}<span class="cert-post-desc">{{ . }}</span>{{ end }}
           </a>

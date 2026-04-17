@@ -5,7 +5,7 @@
 
   <div class="posts-list">
     {{ range .Paginator.Pages }}
-    <a href="{{ .Permalink }}" class="post-card">
+    <a href="{{ .RelPermalink }}" class="post-card">
       <div class="post-card-meta">
         <span class="post-date">{{ .Date.Format "2006-01-02" }}</span>
         {{ range $i, $t := .Params.tags }}{{ if lt $i 2 }}

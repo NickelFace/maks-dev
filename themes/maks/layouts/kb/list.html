@@ -30,7 +30,7 @@
       <div class="kb-section-title">{{ $group }}</div>
       <div class="kb-cards">
         {{ range $gPages }}
-        <a href="{{ .Permalink }}" class="kb-card">
+        <a href="{{ .RelPermalink }}" class="kb-card">
           <div class="kb-card-icon">{{ with .Params.icon }}{{ . }}{{ else }}📋{{ end }}</div>
           <div class="kb-card-title">{{ .Title }}</div>
           {{ with .Description }}<div class="kb-card-desc">{{ . }}</div>{{ end }}
