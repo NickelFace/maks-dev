@@ -38,6 +38,8 @@ iBGP-сессия строится через Loopback0, доступный че
 <details>
 <summary>R14 — Loopback + OSPF + bgp summary</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback0
  ip address 1.1.1.14 255.255.255.255
 
@@ -51,12 +53,16 @@ BGP table version is 11, main routing table version 11
 Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
 1.1.1.15        4         1001      24      27       11    0    0 00:14:09        0
 100.100.100.2   4          101      28      23       11    0    0 00:18:46       10
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
 <details>
 <summary>R15 — Loopback + OSPF + bgp summary</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback0
  ip address 1.1.1.15 255.255.255.255
 
@@ -70,6 +76,8 @@ BGP table version is 21, main routing table version 21
 Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
 1.1.1.14        4         1001      31      28       21    0    0 00:18:04       10
 111.111.111.2   4          301      31      32       21    0    0 00:20:19        0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -146,6 +154,8 @@ R15 помечает все Update от R21 (Ламас) значением `loc
 <details>
 <summary>R15 — BGP конфигурация</summary>
 <pre><code>
+enable
+configure terminal
 router bgp 1001
  bgp router-id 15.15.15.15
  bgp log-neighbor-changes
@@ -162,12 +172,16 @@ route-map LP permit 10
 
 ip as-path access-list 1 permit ^$
 ip as-path access-list 1 deny .*
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
 <details>
 <summary>R14 — BGP конфигурация</summary>
 <pre><code>
+enable
+configure terminal
 router bgp 1001
  bgp router-id 14.14.14.14
  bgp log-neighbor-changes
@@ -181,6 +195,8 @@ router bgp 1001
  neighbor 1.1.1.15 peer-group MSK
  neighbor 100.100.100.2 remote-as 101
  neighbor 100.100.100.2 filter-list 1 out
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -255,6 +271,8 @@ R14#traceroute 115.115.115.115
 <details>
 <summary>R16 — конфигурация</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback0
  ip address 1.1.2.16 255.255.255.255
 
@@ -272,6 +290,8 @@ router eigrp 1
  network 10.10.20.8 0.0.0.3
  network 172.16.11.0 0.0.0.255
  passive-interface Ethernet0/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -291,6 +311,8 @@ Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State
 <details>
 <summary>R17 — конфигурация</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback0
  ip address 1.1.2.17 255.255.255.255
 
@@ -308,6 +330,8 @@ router eigrp 1
  network 10.10.20.0 0.0.0.3
  network 172.16.10.0 0.0.0.255
  passive-interface Ethernet0/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -327,6 +351,8 @@ Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State
 <details>
 <summary>R18 — конфигурация</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback0
  ip address 1.1.2.18 255.255.255.255
 
@@ -345,6 +371,8 @@ router eigrp 1
  network 1.1.2.18 0.0.0.0
  network 10.10.20.0 0.0.0.3
  network 10.10.20.4 0.0.0.3
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -366,6 +394,8 @@ Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State
 <details>
 <summary>R32 — конфигурация</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback0
  ip address 1.1.2.32 255.255.255.255
 
@@ -380,6 +410,8 @@ router bgp 2042
 router eigrp 1
  network 1.1.2.32 0.0.0.0
  network 10.10.20.8 0.0.0.3
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -435,9 +467,381 @@ R18#ping 111.110.35.10
 
 ## Документация
 
-Полные конфигурации роутеров: [SharePoint](https://e9exu-my.sharepoint.com/:f:/g/personal/nickelface_ermaon_com/Euh_hOXWUWRAr0awcVlpJVYBzobOZWNdcKt4VLkLif40EA?e=GGNmyl)
-
 Адресный план: [Google Sheets](https://docs.google.com/spreadsheets/d/1KDH3y6QoNxf8ykn9vnS4ybjlyAnmF-XwGE42wKX74wE/edit?usp=sharing)
+
+---
+
+## Полные конфигурации роутеров
+
+> R21, R22, R23, R24, R25, R26 — конфигурации не изменились по сравнению с лабораторной 11.
+
+<details>
+<summary>R14 (AS 1001) — обновлён</summary>
+<pre><code>
+enable
+configure terminal
+hostname R14
+ipv6 unicast-routing
+no ip domain-lookup
+!
+interface Loopback0
+ ip address 1.1.1.14 255.255.255.255
+!
+interface Loopback1
+ ip address 214.214.214.214 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.10.10.17 255.255.255.252
+ ipv6 enable
+ ipv6 address FE80:4::14 link-local
+ ipv6 address 2002:ACAD:DB8:4::14/64
+ ipv6 ospf 1 area 0
+ no shutdown
+!
+interface Ethernet0/1
+ ip address 10.10.10.21 255.255.255.252
+ ipv6 enable
+ ipv6 address FE80:5::14 link-local
+ ipv6 address 2002:ACAD:DB8:5::14/64
+ ipv6 ospf 1 area 0
+ no shutdown
+!
+interface Ethernet0/2
+ ip address 100.100.100.1 255.255.255.252
+ ipv6 enable
+ ipv6 address 2002:ACAD:DB8:6::14/64
+ no shutdown
+!
+interface Ethernet0/3
+ ip address 10.10.10.13 255.255.255.252
+ ipv6 enable
+ ipv6 address FE80:6::14 link-local
+ ipv6 address 2002:ACAD:DB8:7::14/64
+ ipv6 ospf 1 area 101
+ no shutdown
+!
+interface Ethernet1/0
+ ip address 10.10.10.25 255.255.255.252
+ ipv6 enable
+ ipv6 address FE80:A::14 link-local
+ ipv6 address 2002:ACAD:DB8:A::14/64
+ no shutdown
+!
+router ospf 1
+ router-id 14.14.14.14
+ area 101 stub no-summary
+ network 1.1.1.14 0.0.0.0 area 0
+ network 10.10.10.12 0.0.0.3 area 101
+ network 10.10.10.16 0.0.0.3 area 0
+ network 10.10.10.20 0.0.0.3 area 0
+ default-information originate
+!
+ipv6 router ospf 1
+ router-id 14.14.14.14
+ area 101 stub no-summary
+!
+ip as-path access-list 1 permit ^$
+ip as-path access-list 1 deny .*
+!
+router bgp 1001
+ bgp router-id 14.14.14.14
+ bgp log-neighbor-changes
+ network 214.214.214.214 mask 255.255.255.255
+ network 215.215.215.215 mask 255.255.255.255
+ network 219.219.219.219 mask 255.255.255.255
+ neighbor MSK peer-group
+ neighbor MSK remote-as 1001
+ neighbor MSK update-source Loopback0
+ neighbor MSK next-hop-self
+ neighbor 1.1.1.15 peer-group MSK
+ neighbor 100.100.100.2 remote-as 101
+ neighbor 100.100.100.2 filter-list 1 out
+!
+ip route 0.0.0.0 0.0.0.0 100.100.100.2
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R15 (AS 1001) — обновлён</summary>
+<pre><code>
+enable
+configure terminal
+hostname R15
+ipv6 unicast-routing
+no ip domain-lookup
+!
+interface Loopback0
+ ip address 1.1.1.15 255.255.255.255
+!
+interface Loopback1
+ ip address 215.215.215.215 255.255.255.255
+!
+interface Loopback2
+ ip address 219.219.219.219 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.10.10.5 255.255.255.252
+ ipv6 enable
+ ipv6 address FE80:1::15 link-local
+ ipv6 address 2002:ACAD:DB8:0::15/64
+ ipv6 ospf 1 area 0
+ no shutdown
+!
+interface Ethernet0/1
+ ip address 10.10.10.9 255.255.255.252
+ ipv6 enable
+ ipv6 address FE80:2::15 link-local
+ ipv6 address 2002:ACAD:DB8:1::15/64
+ ipv6 ospf 1 area 0
+ no shutdown
+!
+interface Ethernet0/2
+ ip address 111.111.111.1 255.255.255.252
+ ipv6 enable
+ ipv6 address 2002:ACAD:DB8:2::15/64
+ no shutdown
+!
+interface Ethernet0/3
+ ip address 10.10.10.1 255.255.255.252
+ ipv6 enable
+ ipv6 address FE80:3::15 link-local
+ ipv6 address 2002:ACAD:DB8:3::15/64
+ ipv6 ospf 1 area 102
+ no shutdown
+!
+interface Ethernet1/0
+ ip address 10.10.10.26 255.255.255.252
+ ipv6 enable
+ ipv6 address FE80:A::15 link-local
+ ipv6 address 2002:ACAD:DB8:A::15/64
+ no shutdown
+!
+router ospf 1
+ router-id 15.15.15.15
+ network 1.1.1.15 0.0.0.0 area 0
+ network 10.10.10.0 0.0.0.3 area 102
+ network 10.10.10.4 0.0.0.3 area 0
+ network 10.10.10.8 0.0.0.3 area 0
+ distribute-list prefix PL1 in
+ default-information originate
+!
+ipv6 router ospf 1
+ router-id 15.15.15.15
+ distribute-list prefix-list PL6 in
+!
+ip prefix-list PL1 seq 5 deny 10.10.10.12/30
+ip prefix-list PL1 seq 10 permit 0.0.0.0/0 le 32
+!
+ipv6 prefix-list PL6 seq 5 deny 2002:ACAD:DB8:7::/64 le 128
+ipv6 prefix-list PL6 seq 10 permit ::/0 le 128
+!
+ip as-path access-list 1 permit ^$
+ip as-path access-list 1 deny .*
+!
+route-map LP permit 10
+ set local-preference 150
+!
+router bgp 1001
+ bgp router-id 15.15.15.15
+ bgp log-neighbor-changes
+ network 215.215.215.215 mask 255.255.255.255
+ network 219.219.219.219 mask 255.255.255.255
+ neighbor 1.1.1.14 remote-as 1001
+ neighbor 1.1.1.14 update-source Loopback0
+ neighbor 1.1.1.14 next-hop-self
+ neighbor 111.111.111.2 remote-as 301
+ neighbor 111.111.111.2 route-map LP in
+ neighbor 111.111.111.2 filter-list 1 out
+!
+ip route 0.0.0.0 0.0.0.0 111.111.111.2
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R16 — Санкт-Петербург (AS 2042)</summary>
+<pre><code>
+enable
+configure terminal
+hostname R16
+!
+interface Loopback0
+ ip address 1.1.2.16 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 172.16.11.1 255.255.255.0
+ ipv6 enable
+ ipv6 address 2CAD:1995:B0DA:5::16/64
+ ipv6 address FE80:15::16 link-local
+ no shutdown
+!
+interface Ethernet0/1
+ ip address 10.10.20.6 255.255.255.252
+ ipv6 enable
+ ipv6 address 2CAD:1995:B0DA:0::16/64
+ ipv6 address FE80:10::16 link-local
+ no shutdown
+!
+interface Ethernet0/3
+ ip address 10.10.20.9 255.255.255.252
+ ipv6 enable
+ ipv6 address 2CAD:1995:B0DA:4::16/64
+ ipv6 address FE80:14::16 link-local
+ no shutdown
+!
+router eigrp 1
+ network 1.1.2.16 0.0.0.0
+ network 10.10.20.4 0.0.0.3
+ network 10.10.20.8 0.0.0.3
+ network 172.16.11.0 0.0.0.255
+ passive-interface Ethernet0/0
+!
+router bgp 2042
+ neighbor 1.1.2.18 remote-as 2042
+ neighbor 1.1.2.18 update-source Loopback0
+ neighbor 1.1.2.17 remote-as 2042
+ neighbor 1.1.2.17 update-source Loopback0
+ neighbor 1.1.2.32 remote-as 2042
+ neighbor 1.1.2.32 update-source Loopback0
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R17 — Санкт-Петербург (AS 2042)</summary>
+<pre><code>
+enable
+configure terminal
+hostname R17
+!
+interface Loopback0
+ ip address 1.1.2.17 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 172.16.10.1 255.255.255.0
+ ipv6 enable
+ ipv6 address 2CAD:1995:B0DA:6::17/64
+ ipv6 address FE80:16::17 link-local
+ no shutdown
+!
+interface Ethernet0/1
+ ip address 10.10.20.2 255.255.255.252
+ ipv6 enable
+ ipv6 address 2CAD:1995:B0DA:1::17/64
+ ipv6 address FE80:11::17 link-local
+ no shutdown
+!
+router eigrp 1
+ network 1.1.2.17 0.0.0.0
+ network 10.10.20.0 0.0.0.3
+ network 172.16.10.0 0.0.0.255
+ passive-interface Ethernet0/0
+!
+router bgp 2042
+ bgp log-neighbor-changes
+ neighbor 1.1.2.16 remote-as 2042
+ neighbor 1.1.2.16 update-source Loopback0
+ neighbor 1.1.2.18 remote-as 2042
+ neighbor 1.1.2.18 update-source Loopback0
+ neighbor 1.1.2.32 remote-as 2042
+ neighbor 1.1.2.32 update-source Loopback0
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R18 — Санкт-Петербург (AS 2042) — обновлён</summary>
+<pre><code>
+enable
+configure terminal
+hostname R18
+!
+interface Loopback0
+ ip address 1.1.2.18 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.10.20.5 255.255.255.252
+ ipv6 enable
+ ipv6 address 2CAD:1995:B0DA:0::18/64
+ ipv6 address FE80:10::18 link-local
+ no shutdown
+!
+interface Ethernet0/1
+ ip address 10.10.20.1 255.255.255.252
+ ipv6 enable
+ ipv6 address 2CAD:1995:B0DA:1::18/64
+ ipv6 address FE80:11::18 link-local
+ no shutdown
+!
+interface Ethernet0/2
+ ip address 77.77.77.10 255.255.255.252
+ ipv6 enable
+ ipv6 address 2CAD:1995:B0DA:2::18/64
+ no shutdown
+!
+interface Ethernet0/3
+ ip address 77.77.77.14 255.255.255.252
+ ipv6 enable
+ ipv6 address 2CAD:1995:B0DA:3::18/64
+ no shutdown
+!
+router eigrp 1
+ network 1.1.2.18 0.0.0.0
+ network 10.10.20.0 0.0.0.3
+ network 10.10.20.4 0.0.0.3
+!
+router bgp 2042
+ bgp log-neighbor-changes
+ neighbor 77.77.77.9 remote-as 520
+ neighbor 77.77.77.13 remote-as 520
+ neighbor 1.1.2.16 remote-as 2042
+ neighbor 1.1.2.16 update-source Loopback0
+ neighbor 1.1.2.17 remote-as 2042
+ neighbor 1.1.2.17 update-source Loopback0
+ neighbor 1.1.2.32 remote-as 2042
+ neighbor 1.1.2.32 update-source Loopback0
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R32 — Санкт-Петербург (AS 2042)</summary>
+<pre><code>
+enable
+configure terminal
+hostname R32
+!
+interface Loopback0
+ ip address 1.1.2.32 255.255.255.255
+!
+interface Ethernet0/0
+ ip address 10.10.20.10 255.255.255.252
+ ipv6 enable
+ ipv6 address 2CAD:1995:B0DA:4::32/64
+ ipv6 address FE80:14::32 link-local
+ no shutdown
+!
+router eigrp 1
+ network 1.1.2.32 0.0.0.0
+ network 10.10.20.8 0.0.0.3
+!
+router bgp 2042
+ neighbor 1.1.2.18 remote-as 2042
+ neighbor 1.1.2.18 update-source Loopback0
+ neighbor 1.1.2.17 remote-as 2042
+ neighbor 1.1.2.17 update-source Loopback0
+ neighbor 1.1.2.16 remote-as 2042
+ neighbor 1.1.2.16 update-source Loopback0
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
 ---
 

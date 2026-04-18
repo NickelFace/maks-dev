@@ -63,6 +63,8 @@ ip address 192.168.1.1 255.255.255.0
 no shutdown
 exit
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -88,6 +90,8 @@ ip address 192.168.1.2 255.255.255.0
 no shutdown
 exit
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -113,6 +117,8 @@ ip address 192.168.1.3 255.255.255.0
 no shutdown
 exit
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -148,6 +154,8 @@ Success rate is 80 percent (4/5)
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 interface range Ethernet 0/0 - 3
 shutdown
 exit
@@ -155,11 +163,15 @@ interface range Ethernet 0/0, Ethernet 0/2
 switchport trunk encapsulation dot1q
 switchport mode trunk
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 interface range Ethernet 0/0 - 3
 shutdown
 exit
@@ -167,11 +179,15 @@ interface range Ethernet 0/0, Ethernet 0/2
 switchport trunk encapsulation dot1q
 switchport mode trunk
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 interface range Ethernet 0/0 - 3
 shutdown
 exit
@@ -179,6 +195,8 @@ interface range Ethernet 0/0, Ethernet 0/2
 switchport trunk encapsulation dot1q
 switchport mode trunk
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -278,8 +296,12 @@ Et0/2               Root FWD 100       128.3    Shr
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/2
 spanning-tree cost 90
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -309,8 +331,12 @@ Et0/2               Root FWD 90        128.3    Shr
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/2
 no spanning-tree cost
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -323,10 +349,14 @@ no spanning-tree cost
 <details>
 <summary>S1, S2, S3</summary>
 <pre><code>
+enable
+configure terminal
 interface range Ethernet 0/1, Ethernet 0/3
 switchport trunk encapsulation dot1q
 switchport mode trunk
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

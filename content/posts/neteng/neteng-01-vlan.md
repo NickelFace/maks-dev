@@ -49,6 +49,8 @@ no shutdown
 exit
 hostname S1
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -62,6 +64,8 @@ no shutdown
 exit
 hostname S2
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -75,6 +79,8 @@ no shutdown
 exit
 hostname S3
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -89,12 +95,16 @@ no ip domain-lookup
 <details>
 <summary>S1, S2, S3</summary>
 <pre><code>
+enable
+configure terminal
 no ip domain-lookup
 enable secret cisco
 line console 0
 password cisco
 login
 logging synchronous
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -103,7 +113,11 @@ logging synchronous
 <details>
 <summary>S1, S2, S3</summary>
 <pre><code>
+enable
+configure terminal
 Banner motd "**This is a secure system. Authorized Access Only!
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -114,30 +128,42 @@ Banner motd "**This is a secure system. Authorized Access Only!
 <details>
 <summary>S1 (client)</summary>
 <pre><code>
+enable
+configure terminal
 vtp domain CCNA
 vtp password cisco
 vtp version 3
 vtp mode client
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S2 (server)</summary>
 <pre><code>
+enable
+configure terminal
 vtp domain CCNA
 vtp password cisco
 vtp version 3
 vtp mode server
 end
 vtp primary server force
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3 (client)</summary>
 <pre><code>
+enable
+configure terminal
 vtp domain CCNA
 vtp password cisco
 vtp version 3
 vtp mode client
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -152,9 +178,13 @@ Set S1's port toward S2 to `dynamic desirable`. S2 defaults to `dynamic auto` �
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/1
 switchport trunk encapsulation dot1q
 switchport mode dynamic desirable
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -163,28 +193,40 @@ switchport mode dynamic desirable
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/3
 switchport trunk encapsulation dot1q
 switchport mode trunk
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/3
 switchport trunk encapsulation dot1q
 switchport mode trunk
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/1
 switchport trunk encapsulation dot1q
 switchport mode trunk
 interface Ethernet 0/3
 switchport trunk encapsulation dot1q
 switchport mode trunk
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -197,9 +239,13 @@ show interfaces trunk
 <details>
 <summary>S1 output</summary>
 <pre><code>
+enable
+configure terminal
 Port        Mode             Encapsulation  Status        Native vlan
 Et0/1       desirable        802.1q         trunking      1
 Et0/3       on               802.1q         trunking      1
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -210,6 +256,8 @@ Et0/3       on               802.1q         trunking      1
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 vlan 10
 name Red
 vlan 20
@@ -218,6 +266,8 @@ vlan 30
 name Yellow
 vlan 99
 name Management
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -226,6 +276,8 @@ Verify VLANs propagated to clients:
 <details>
 <summary>S1 — show vlan brief</summary>
 <pre><code>
+enable
+configure terminal
 VLAN Name                             Status    Ports
 ---- -------------------------------- --------- -------------------------------
 1    default                          active    Et0/2
@@ -233,11 +285,15 @@ VLAN Name                             Status    Ports
 20   Blue                             active
 30   Yellow                           active
 99   Management                       active
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3 — show vlan brief</summary>
 <pre><code>
+enable
+configure terminal
 VLAN Name                             Status    Ports
 ---- -------------------------------- --------- -------------------------------
 1    default                          active    Et0/2
@@ -245,6 +301,8 @@ VLAN Name                             Status    Ports
 20   Blue                             active
 30   Yellow                           active
 99   Management                       active
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -263,34 +321,46 @@ Assign access ports and configure the Management SVI on all switches.
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/0
 switchport mode access
 switchport access vlan 10
 interface vlan 99
 ip address 192.168.99.1 255.255.255.0
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/0
 switchport mode access
 switchport access vlan 20
 interface vlan 99
 ip address 192.168.99.2 255.255.255.0
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/0
 switchport mode access
 switchport access vlan 10
 interface vlan 99
 ip address 192.168.99.3 255.255.255.0
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -317,6 +387,8 @@ Verify Management VLAN reachability from S2:
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 S2(config-if)#do ping 192.168.99.1
 Sending 5, 100-byte ICMP Echos to 192.168.99.1, timeout is 2 seconds:
 .!!!!
@@ -343,7 +415,11 @@ Switch S1 to VTP transparent:
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 vtp mode transparent
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -356,6 +432,8 @@ show vtp status
 <details>
 <summary>S1 output</summary>
 <pre><code>
+enable
+configure terminal
 VTP Version capable             : 1 to 3
 VTP version running             : 1
 VTP Domain Name                 : CCNA
@@ -367,6 +445,8 @@ VTP Operating Mode                : Transparent
 Maximum VLANs supported locally   : 255
 Number of existing VLANs          : 9
 Configuration Revision            : 0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -375,6 +455,8 @@ Create extended VLAN 2000:
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 vlan 2000
 end
 </code></pre>
@@ -389,6 +471,8 @@ show vlan brief
 <details>
 <summary>S1 output</summary>
 <pre><code>
+enable
+configure terminal
 VLAN Name                             Status    Ports
 ---- -------------------------------- --------- -------------------------------
 1    default                          active    Et0/2
@@ -401,6 +485,8 @@ VLAN Name                             Status    Ports
 1004 fddinet-default                  act/unsup
 1005 trbrf-default                    act/unsup
 2000 VLAN2000                         active
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

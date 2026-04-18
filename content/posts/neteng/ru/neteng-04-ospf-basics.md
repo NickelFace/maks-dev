@@ -78,6 +78,8 @@ interface Serial9/0
  no shutdown
 end
 write
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -110,6 +112,8 @@ interface GigabitEthernet7/0
  no shutdown
 end
 write
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -141,6 +145,8 @@ interface GigabitEthernet7/0
  ip address 192.168.3.1 255.255.255.0
  no shutdown
 do write
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -164,28 +170,40 @@ ip 192.168.3.3 24 192.168.3.1
 <details>
 <summary>R1</summary>
 <pre><code>
+enable
+configure terminal
 router ospf 1
  network 192.168.1.0 0.0.0.255 area 0
  network 192.168.12.0 0.0.0.3 area 0
  network 192.168.13.0 0.0.0.3 area 0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2</summary>
 <pre><code>
+enable
+configure terminal
 router ospf 1
  network 192.168.2.0 0.0.0.255 area 0
  network 192.168.12.0 0.0.0.3 area 0
  network 192.168.23.0 0.0.0.3 area 0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3</summary>
 <pre><code>
+enable
+configure terminal
 router ospf 1
  network 192.168.3.0 0.0.0.255 area 0
  network 192.168.13.0 0.0.0.3 area 0
  network 192.168.23.0 0.0.0.3 area 0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -344,6 +362,8 @@ Serial9/0 is up, line protocol is up
 <details>
 <summary>Ping с PC-A</summary>
 <pre><code>
+enable
+configure terminal
 C:\>ping 192.168.1.3
 
 Pinging 192.168.1.3 with 32 bytes of data:
@@ -397,28 +417,40 @@ Ping statistics for 192.168.3.3:
 <details>
 <summary>R1</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback0
  ip address 1.1.1.1 255.255.255.255
 end
 clear ip ospf process
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback0
  ip address 2.2.2.2 255.255.255.255
 end
 clear ip ospf process
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback0
  ip address 3.3.3.3 255.255.255.255
 end
 clear ip ospf process
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -463,28 +495,40 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 <details>
 <summary>R1</summary>
 <pre><code>
+enable
+configure terminal
 router ospf 1
  router-id 11.11.11.11
 end
 clear ip ospf process
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2</summary>
 <pre><code>
+enable
+configure terminal
 router ospf 1
  router-id 22.22.22.22
 end
 clear ip ospf process
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3</summary>
 <pre><code>
+enable
+configure terminal
 router ospf 1
  router-id 33.33.33.33
 end
 clear ip ospf process
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -527,10 +571,14 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 <details>
 <summary>R3 — show ip ospf neighbor</summary>
 <pre><code>
+enable
+configure terminal
 R3(config-router)#do sh ip os nei
 
 Neighbor ID     Pri   State           Dead Time   Address         Interface
 11.11.11.11       0   FULL/  -        00:00:36    192.168.13.1    Serial8/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -577,6 +625,8 @@ R1(config-router)# no passive-interface Serial9/0
 <details>
 <summary>R1 — show ip ospf interface gi7/0 (после passive)</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-router)#do show ip ospf interface gigabitEthernet 7/0
 
 GigabitEthernet7/0 is up, line protocol is up
@@ -588,6 +638,8 @@ GigabitEthernet7/0 is up, line protocol is up
   Timer intervals configured, Hello 10, Dead 40, Wait 40, Retransmit 5
     No Hellos (Passive interface)
   Neighbor Count is 0, Adjacent neighbor count is 0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -596,11 +648,15 @@ GigabitEthernet7/0 is up, line protocol is up
 <details>
 <summary>R1 — show ip ospf neighbor</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-router)#do sh ip os neig
 
 Neighbor ID     Pri   State           Dead Time   Address         Interface
 33.33.33.33       0   FULL/  -        00:00:38    192.168.13.2    Serial9/0
 22.22.22.22       0   FULL/  -        00:00:36    192.168.12.2    Serial8/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -609,6 +665,8 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 <details>
 <summary>R2 — show ip route</summary>
 <pre><code>
+enable
+configure terminal
 R2(config-router)#do sh ip rou
 Codes: C - connected, S - static, I - IGRP, R - RIP, M - mobile, B - BGP
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -632,11 +690,15 @@ O       192.168.13.0 [110/128] via 192.168.23.2, 00:01:50, Serial9/0
                      [110/128] via 192.168.12.1, 00:01:50, Serial8/0
      192.168.23.0/30 is subnetted, 1 subnets
 C       192.168.23.0 is directly connected, Serial9/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2 — show ip ospf interface S8/0 (пассивный)</summary>
 <pre><code>
+enable
+configure terminal
 R2(config-router)#do show ip ospf interface S8/0
 
 Serial8/0 is up, line protocol is up
@@ -645,11 +707,15 @@ Serial8/0 is up, line protocol is up
   Transmit Delay is 1 sec, State POINT-TO-POINT,
     No Hellos (Passive interface)
   Neighbor Count is 0, Adjacent neighbor count is 0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3 — show ip route</summary>
 <pre><code>
+enable
+configure terminal
 R3(config-router)#do sh ip route
 ...
      3.0.0.0/32 is subnetted, 1 subnets
@@ -663,6 +729,8 @@ O       192.168.12.0 [110/128] via 192.168.13.1, Serial8/0
 C       192.168.13.0 is directly connected, Serial8/0
      192.168.23.0/30 is subnetted, 1 subnets
 C       192.168.23.0 is directly connected, Serial9/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -709,11 +777,15 @@ router ospf 1
 <details>
 <summary>R1 — show ip ospf interface gi7/0 (Cost: 100)</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-if)#do sh ip os int gi7/0
 
 GigabitEthernet7/0 is up, line protocol is up
   Internet address is 192.168.1.1/24, Area 0
   Process ID 1, Router ID 11.11.11.11, Network Type BROADCAST, Cost: 100
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -747,21 +819,29 @@ R1(config-if)# bandwidth 2500
 <details>
 <summary>R1 — show interface s8/0 (BW 2500)</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-if)#do show interface serial 8/0
 Serial8/0 is up, line protocol is up (connected)
   Hardware is HD64570
   Internet address is 192.168.12.1/30
   MTU 1500 bytes, BW 2500 Kbit, DLY 20000 usec,
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R1 — show ip route ospf (после bandwidth 2500)</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-if)#do sh ip rout os
 O    192.168.2.0/24 [110/41] via 192.168.12.2, 00:01:09, Serial8/0
 O    192.168.3.0/24 [110/65] via 192.168.13.2, 00:21:54, Serial9/0
      192.168.23.0/30 is subnetted, 1 subnets
 O       192.168.23.0 [110/104] via 192.168.12.2, 00:01:09, Serial8/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -779,11 +859,15 @@ R1(config-if)# ip ospf cost 1565
 <details>
 <summary>R1 — show ip route ospf (трафик переключается на Serial9/0)</summary>
 <pre><code>
+enable
+configure terminal
 R3(config-router)#do sh ip rout os
 O    192.168.2.0/24 [110/65] via 192.168.13.2, 00:00:05, Serial9/0
 O    192.168.3.0/24 [110/65] via 192.168.13.2, 00:06:13, Serial9/0
      192.168.23.0/30 is subnetted, 1 subnets
 O       192.168.23.0 [110/128] via 192.168.13.2, 00:00:05, Serial9/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

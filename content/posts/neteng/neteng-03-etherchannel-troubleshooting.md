@@ -86,6 +86,8 @@ interface port-channel 2
  switchport trunk native vlan 99
  switchport mode access
 do wr
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -132,11 +134,15 @@ interface port-channel 3
  switchport trunk allowed vlan 1,10,99
  switchport mode trunk
 do wr
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 enab
 conf t
 hostname S3
@@ -174,6 +180,8 @@ interface port-channel 3
  switchport trunk native vlan 99
  switchport mode trunk
 do wr
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -190,27 +198,39 @@ show etherchannel summary
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+----------------------------------------------
 1      Po1(SD)           LACP   Fa0/1(I) Fa0/2(I)
 2      Po2(SU)           PAgP   Fa0/3(P) Fa0/4(P)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+----------------------------------------------
 1      Po1(SD)           PAgP   Fa0/1(I) Fa0/2(I)
 3      Po3(SD)           PAgP   Fa0/3(D) Fa0/4(D)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+----------------------------------------------
 3      Po3(SU)           PAgP   Fa0/3(P) Fa0/4(P)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -230,6 +250,8 @@ show running-config | begin Port-channel
 <details>
 <summary>S2 output</summary>
 <pre><code>
+enable
+configure terminal
 interface Port-channel1
  switchport trunk native vlan 99
  switchport trunk allowed vlan 1,99
@@ -265,6 +287,8 @@ interface FastEthernet0/4
  switchport mode trunk
  channel-group 3 mode desirable
  shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -280,6 +304,8 @@ Po2 on S1 is in `access` mode — verify with `show run interface`:
 <details>
 <summary>S1 — interface Ethernet1/2</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet1/2
  switchport access vlan 10
  switchport mode access
@@ -350,22 +376,34 @@ show etherchannel summary
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 1      Po1(SU)           LACP   Fa0/1(P) Fa0/2(P)
 2      Po2(SU)           PAgP   Fa0/3(P) Fa0/4(P)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 1      Po1(SU)           LACP   Fa0/1(P) Fa0/2(P)
 3      Po3(SU)           PAgP   Fa0/3(P) Fa0/4(P)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 2      Po2(SU)           PAgP   Fa0/3(P) Fa0/4(P)
 3      Po3(SU)           PAgP   Fa0/1(P) Fa0/2(P)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -374,6 +412,8 @@ Connectivity check — ping Management VLAN from S3:
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 S3(config-if)#do ping 192.168.1.13
 Sending 5, 100-byte ICMP Echos to 192.168.1.13, timeout is 2 seconds:
 !!!!!
@@ -396,6 +436,8 @@ Connectivity check — ping between PCs:
 <details>
 <summary>PC-A</summary>
 <pre><code>
+enable
+configure terminal
 C:\>ping 192.168.0.2
 
 Pinging 192.168.0.2 with 32 bytes of data:

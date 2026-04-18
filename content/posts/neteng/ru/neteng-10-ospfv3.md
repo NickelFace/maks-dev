@@ -33,6 +33,8 @@ build:
 <details>
 <summary>R14</summary>
 <pre><code>
+enable
+configure terminal
 ipv6 router ospf 1
  router-id 14.14.14.14
  area 101 stub no-summary
@@ -48,12 +50,16 @@ interface Ethernet0/1
 interface Ethernet0/3
  ipv6 address FE80:6::14 link-local
  ipv6 ospf 1 area 101
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
 <details>
 <summary>R15</summary>
 <pre><code>
+enable
+configure terminal
 ipv6 router ospf 1
  router-id 15.15.15.15
  distribute-list prefix-list PL6 in
@@ -72,12 +78,16 @@ interface Ethernet0/3
 
 ipv6 prefix-list PL6 seq 5 deny 2002:ACAD:DB8:7::/64 le 128
 ipv6 prefix-list PL6 seq 10 permit ::/0 le 128
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
 <details>
 <summary>R12</summary>
 <pre><code>
+enable
+configure terminal
 ipv6 router ospf 1
  router-id 12.12.12.12
 
@@ -92,12 +102,16 @@ interface Ethernet0/2
 interface Ethernet0/3
  ipv6 address FE80:2::12 link-local
  ipv6 ospf 1 area 0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
 <details>
 <summary>R13</summary>
 <pre><code>
+enable
+configure terminal
 ipv6 router ospf 1
  router-id 13.13.13.13
 
@@ -112,12 +126,16 @@ interface Ethernet0/2
 interface Ethernet0/3
  ipv6 address FE80:5::13 link-local
  ipv6 ospf 1 area 0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
 <details>
 <summary>R19</summary>
 <pre><code>
+enable
+configure terminal
 ipv6 router ospf 1
  router-id 19.19.19.19
  area 101 stub
@@ -125,18 +143,24 @@ ipv6 router ospf 1
 interface Ethernet0/0
  ipv6 address FE80:6::19 link-local
  ipv6 ospf 1 area 101
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
 <details>
 <summary>R20</summary>
 <pre><code>
+enable
+configure terminal
 ipv6 router ospf 1
  router-id 20.20.20.20
 
 interface Ethernet0/0
  ipv6 address FE80:3::20 link-local
  ipv6 ospf 1 area 102
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

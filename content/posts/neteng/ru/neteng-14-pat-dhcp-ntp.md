@@ -13,33 +13,35 @@ build:
   render: always
 ---
 
-# Основные протоколы сети интернет
+## PAT, DHCP, NTP
 
-## Домашнее задание
-
-**Основные протоколы сети интернет**
+### Домашнее задание
 
 Цель: Настроить DHCP в офисе Москва. Настроить синхронизацию времени в офисе Москва. Настроить NAT в офисе Москва, С.-Петербург и Чокурдах.
 
-В этой самостоятельной работе мы ожидаем, что вы самостоятельно:
-
-1. Настроите NAT(PAT) на R14 и R15. Трансляция должна осуществляться в адрес автономной системы AS1001
-2. Настроите NAT(PAT) на R18. Трансляция должна осуществляться в пул из 5 адресов автономной системы AS2042
-3. Настроите статический NAT для R20
-4. Настроите NAT так, чтобы R19 был доступен с любого узла для удаленного управления
-5. Настроите статический NAT(PAT) для офиса Чокурдах
-6. Настроите DHCP сервер в офисе Москва на маршрутизаторах R12 и R13. VPC1 и VPC7 должны получать сетевые настройки по DHCP
-7. Настроите NTP сервер на R12 и R13. Все устройства в офисе Москва должны синхронизировать время с R12 и R13
+1. Настроить NAT(PAT) на R14 и R15. Трансляция должна осуществляться в адрес автономной системы AS1001
+2. Настроить NAT(PAT) на R18. Трансляция должна осуществляться в пул из 5 адресов автономной системы AS2042
+3. Настроить статический NAT для R20
+4. Настроить NAT так, чтобы R19 был доступен с любого узла для удалённого управления
+5. Настроить статический NAT(PAT) для офиса Чокурдах
+6. Настроить DHCP сервер в офисе Москва на маршрутизаторах R12 и R13. VPC1 и VPC7 должны получать сетевые настройки по DHCP
+7. Настроить NTP сервер на R12 и R13. Все устройства в офисе Москва должны синхронизировать время с R12 и R13
 8. Все офисы в лабораторной работе должны иметь IP связность
 9. План работы и изменения зафиксированы в документации
 
-![](/img/neteng/11/1.png)
+![Топология EVE](/img/neteng/11/1.png)
 
-### Настройте NAT(PAT) на R14 и R15. Трансляция должна осуществляться в адрес автономной системы AS1001
+---
 
-R14
+## NAT(PAT) — Москва R14 и R15
 
-```
+Трансляция выполняется в адрес Loopback-интерфейса из пространства AS1001, анонсируемого через BGP.
+
+<details>
+<summary>R14 — настройка NAT</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/0
  ip nat inside
 
@@ -48,27 +50,27 @@ interface Ethernet0/1
 
 interface Ethernet0/2
  ip nat outside
- 
+
 interface Ethernet0/3
  ip nat inside
 
 interface Ethernet1/0
  ip nat inside
- 
- ! Specify the IP to translate internal addresses to:
+
 ip nat pool OVRLD 200.20.20.14 200.20.20.14 netmask 255.255.252.0
+ip nat inside source list 10 pool OVRLD overload
 
-! Enable PAT:
-ip nat inside source list 10 pool OVRLD overload 
+access-list 10 permit 10.10.10.0 0.0.0.31
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-! Define the internal address pool to translate:
-access-list 10 permit 10.10.10.0 0.0.0.31 
-
-```
-
-R15
-
-```
+<details>
+<summary>R15 — настройка NAT</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/0
  ip nat inside
 
@@ -77,67 +79,90 @@ interface Ethernet0/1
 
 interface Ethernet0/2
  ip nat outside
- 
+
 interface Ethernet0/3
  ip nat inside
 
 interface Ethernet1/0
  ip nat inside
- 
- ! Specify the IP to translate internal addresses to:
+
 ip nat pool OVRLD 200.20.20.15 200.20.20.15 netmask 255.255.252.0
+ip nat inside source list 10 pool OVRLD overload
 
-! Enable PAT:
-ip nat inside source list 10 pool OVRLD overload 
+access-list 10 permit 10.10.10.0 0.0.0.31
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-! Define the internal address pool to translate:
-access-list 10 permit 10.10.10.0 0.0.0.31 
+---
 
-```
+## NAT(PAT) — Санкт-Петербург R18
 
-### Настройте NAT(PAT) на R18. Трансляция должна осуществляться в пул из 5 адресов автономной системы AS2042
+R18 имеет два аплинка в Триаду (R24 через e0/2, R26 через e0/3). Трафик делится между двумя провайдерскими подсетями: первая половина NAT за **77.77.77.8/30**, вторая за **77.77.77.12/30**.
 
-R18
+<details>
+<summary>R18 — настройка NAT</summary>
+<pre><code>
+enable
+configure terminal
+interface Ethernet0/0
+ ip nat inside
 
-```
-! Facing Triada (outside):
-interface Ethernet0/2
- ip nat outside
- 
- interface Ethernet0/3
- ip nat outside
- 
-! Facing internal LAN (inside):
 interface Ethernet0/1
  ip nat inside
- 
- interface Ethernet0/0
- ip nat inside
- 
-! Specify the IPs to translate to:
-ip nat pool OVRLD 77.77.77.10 77.77.77.10 netmask 255.255.255.252
+
+interface Ethernet0/2
+ ip nat outside
+
+interface Ethernet0/3
+ ip nat outside
+
+ip nat pool OVRLD  77.77.77.10 77.77.77.10 netmask 255.255.255.252
 ip nat pool OVRLD1 77.77.77.14 77.77.77.14 netmask 255.255.255.252
 
-! Enable NAT:
-ip nat inside source list 10 pool OVRLD overload 
-ip nat inside source list 11 pool OVRLD1 overload 
+ip nat inside source list 10 pool OVRLD  overload
+ip nat inside source list 11 pool OVRLD1 overload
 
-! Define the internal address pools:
 access-list 10 permit 10.10.20.0 0.0.0.3
 access-list 10 permit 172.16.10.0 0.0.0.255
 
 access-list 11 permit 10.10.20.4 0.0.0.3
 access-list 11 permit 10.10.20.8 0.0.0.3
 access-list 11 permit 172.16.11.0 0.0.0.255
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-Первая половина будет NAT за подсеть **77.77.77.8/30**, другая за **77.77.77.12/30**.
+---
 
-### Настройте статический NAT для R20
+## Статический NAT для R20
 
-R15
+Внутренний Loopback-адрес R20 (из пространства 1.1.1.x) статически транслируется в публичный адрес диапазона 200.20.20.0/22. Запись прописана на обоих R14 и R15 для резервирования.
 
-```
+<details>
+<summary>R14 — статический NAT для R20</summary>
+<pre><code>
+enable
+configure terminal
+interface Loopback14
+ ip address 200.20.20.14 255.255.252.0
+
+ip nat inside source static 1.1.1.20 200.20.20.20
+
+router bgp 1001
+ network 200.20.20.0 mask 255.255.252.0
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R15 — статический NAT для R20</summary>
+<pre><code>
+enable
+configure terminal
 interface Loopback15
  ip address 200.20.20.15 255.255.252.0
 
@@ -145,61 +170,54 @@ ip nat inside source static 1.1.1.20 200.20.20.20
 
 router bgp 1001
  network 200.20.20.0 mask 255.255.252.0
- 
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-R14
+Трафик предпочтительно идёт через R15 — настроено на уровне IGP (OSPF) и EGP (BGP). При падении R15 трафик автоматически переключается на R14.
 
-```
-interface Loopback14
- ip address 200.20.20.14 255.255.252.0
-
- ip nat inside source static 1.1.1.20 200.20.20.20
-
-router bgp 1001
-  network 200.20.20.0 mask 255.255.252.0
-```
-
-Проверку в программе WireShark выполнил, трафик sniffer смотрел на R20 на interface e0/0.
-
-Оставлю как есть и сейчас обосную почему:
-
-```
-! Traffic goes only through R15. Achieved at IGP level (OSPF):
-
-R14
+<details>
+<summary>Управление трафиком — OSPF + BGP</summary>
+<pre><code>
+enable
+configure terminal
+! IGP: R15 анонсирует дефолт с меньшей метрикой
+R14:
 router ospf 1
  default-information originate metric 20
 
-R15
+R15:
 router ospf 1
- default-information originate metric
+ default-information originate metric 10
 
-! At EGP level (BGP):
-! All routes from R21 are pre-marked with Local Preference 150, which beats R14.
-! R14 pre-advertises a worse path using AS-path prepend.
+! EGP: маршруты от R21 помечаются LP=150, что предпочтительнее R14.
+! R14 увеличивает AS-path на выход к Киторн, делая свой путь менее предпочтительным.
 
-R15
+R15:
 router bgp 1001
  neighbor 111.111.111.2 route-map LP in
 
 route-map LP permit 10
  set local-preference 150
- 
- R14
- route-map SET-ASPATH permit 10
-  set as-path prepend 1001 1001 1001
+
+R14:
+route-map SET-ASPATH permit 10
+ set as-path prepend 1001 1001 1001
 
 router bgp 1001
  neighbor 100.100.100.2 route-map SET-ASPATH out
- 
-! Verify from two routers:
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-! Labytnangi
+Проверка с traceroute из Лабытнанги и Санкт-Петербурга:
+
+<details>
+<summary>R27 / R32 — traceroute до 200.20.20.20</summary>
+<pre><code>
 R27>traceroute 200.20.20.20
-Type escape sequence to abort.
-Tracing the route to 200.20.20.20
-VRF info: (vrf in name/id, vrf out name/id)
   1 210.110.35.1 1 msec 0 msec 1 msec
   2 10.10.30.5 0 msec 0 msec 1 msec
   3 10.10.30.2 1 msec 1 msec 1 msec
@@ -207,11 +225,7 @@ VRF info: (vrf in name/id, vrf out name/id)
   5 111.111.111.1 2 msec 2 msec 1 msec
   6 200.20.20.20 2 msec *  3 msec
 
-! SPb
 R32>traceroute 200.20.20.20
-Type escape sequence to abort.
-Tracing the route to 200.20.20.20
-VRF info: (vrf in name/id, vrf out name/id)
   1 10.10.20.9 0 msec 1 msec 0 msec
   2 10.10.20.5 1 msec 0 msec 1 msec
   3 77.77.77.13 [AS 520] 2 msec 1 msec 1 msec
@@ -219,16 +233,30 @@ VRF info: (vrf in name/id, vrf out name/id)
   5 111.111.111.5 [AS 301] 1 msec 1 msec 1 msec
   6 111.111.111.1 [AS 301] 2 msec 1 msec 1 msec
   7 200.20.20.20 [AS 1001] 3 msec
+</code></pre>
+</details>
 
-```
+---
 
-Итог: при смерти R15 весь трафик автоматом будет попадать на R14. Если и этого будет недостаточно, то подниму HSRP на R14 / R15.
+## NAT для R19 — удалённое управление через SSH
 
-### Настройте NAT так, чтобы R19 был доступен с любого узла для удаленного управления
+Порт-статический NAT транслирует SSH-порт R19 (TCP/22) в публичный адрес AS1001. Настроено на обоих R14 и R15.
 
-R15
+<details>
+<summary>R14 / R15 — статический PAT для SSH</summary>
+<pre><code>
+enable
+configure terminal
+! R14:
+interface Loopback14
+ ip address 200.20.20.14 255.255.252.0
 
-```
+router bgp 1001
+ network 200.20.20.0 mask 255.255.252.0
+
+ip nat inside source static tcp 1.1.1.19 22 200.20.20.19 22 extendable
+
+! R15:
 interface Loopback15
  ip address 200.20.20.15 255.255.252.0
 
@@ -236,101 +264,100 @@ router bgp 1001
  network 200.20.20.0 mask 255.255.252.0
 
 ip nat inside source static tcp 1.1.1.19 22 200.20.20.19 22 extendable
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-```
-
-R14
-
-```
-interface Loopback14
- ip address 200.20.20.14 255.255.252.0
-
-router bgp 1001
- 	network 200.20.20.0 mask 255.255.252.0
-
-ip nat inside source static tcp 1.1.1.19 22 200.20.20.19 22 extendable
-```
-
-R19
-
-```
-Hostname R19
+<details>
+<summary>R19 — настройка SSH-сервера</summary>
+<pre><code>
+enable
+configure terminal
+hostname R19
 ip domain-name Test
 crypto key generate rsa
-[Enter]
-1024
+! [Enter] → 1024
+
 line vty 0 4
-transport input ssh
-login local
+ transport input ssh
+ login local
+
 username admin secret cisco
 ip ssh version 2
 enable secret cisco
 
 interface Loopback19
  ip address 1.1.1.19 255.255.255.255
- 
+
 router ospf 1
  network 1.1.1.19 0.0.0.0 area 101
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-```
+---
 
-### Настройте статический NAT(PAT) для офиса Чокурдах
+## Статический NAT — Чокурдах (R28)
 
-R28
+Для Чокурдах нужен минимум /29: –1 сеть, –1 Loopback, –1 broadcast, –2 для статических записей NAT = минимум 5 адресов.
 
-```
-interface ethernet 0/1
-  ip nat outside
+<details>
+<summary>R28 — настройка NAT</summary>
+<pre><code>
+enable
+configure terminal
+interface Ethernet0/0
+ ip nat outside
 
-interface ethernet 0/0
-  ip nat outside
+interface Ethernet0/1
+ ip nat outside
 
-interface ethernet 0/2
-  ip nat inside
+interface Ethernet0/2
+ ip nat inside
 
-! Minimum 5 addresses are needed:
-! -1 for network
-! -1 for Loopback
-! -1 for broadcast
-! -2 for static NAT
-! Minimum mask: /29
-
-interface Loopback 28
+interface Loopback28
  ip address 111.110.35.1 255.255.255.248
 
 ip nat inside source static 172.16.40.30 111.110.35.5
 ip nat inside source static 172.16.40.31 111.110.35.6
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-Этого мало для работы, поэтому маршрут должен быть известен всем по BGP, а также пропишем статический маршрут для прилежащих устройств.
+Префикс /29 должен быть анонсирован через BGP, а у смежных роутеров прописан статический маршрут на R28.
 
-R26 / R25
-
-```
+<details>
+<summary>R25 / R26 — BGP-анонс + статика + проверка</summary>
+<pre><code>
+enable
+configure terminal
 router bgp 520
  network 111.110.35.0 mask 255.255.255.248
- 
-ip route 111.110.35.0 255.255.255.248 111.110.35.14  ! (111.110.35.10 for R25)
 
--------------------------------------------
-! Verify:
+! R26:
+ip route 111.110.35.0 255.255.255.248 111.110.35.14
+! R25:
+ip route 111.110.35.0 255.255.255.248 111.110.35.10
 
+! Проверка:
 R25#ping 111.110.35.5
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 111.110.35.5, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+!!!!!  Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+
 R25#ping 111.110.35.6
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 111.110.35.6, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/3 ms
-```
+!!!!!  Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/3 ms
+</code></pre>
+</details>
 
-### Настройте DHCP сервер в офисе Москва на маршрутизаторах R12 и R13. VPC1 и VPC7 должны получать сетевые настройки по DHCP
+---
 
-R12
+## DHCP — Москва (R12 и R13)
 
+R12 обслуживает VPC1, R13 — VPC7.
+
+R12:
 ```
 ip dhcp excluded-address 172.16.0.1
 ip dhcp pool DHCP12
@@ -338,8 +365,7 @@ ip dhcp pool DHCP12
  default-router 172.16.0.1
 ```
 
-R13
-
+R13:
 ```
 ip dhcp excluded-address 172.16.1.1
 ip dhcp pool DHCP13
@@ -347,41 +373,38 @@ ip dhcp pool DHCP13
  default-router 172.16.1.1
 ```
 
-Для выполнения работы я добавлял различные VLAN на Switch, подробности работы смотрим в документации.
+Результат:
 
-**Результат:**
-
-VPC1
-
+VPC1:
 ```
 VPCS> dhcp -r
 DDORA IP 172.16.0.2/24 GW 172.16.0.1
 ```
 
-VPC7
-
+VPC7:
 ```
 VPCS> dhcp -r
 DDORA IP 172.16.1.2/24 GW 172.16.1.1
 ```
 
-### Настройте NTP сервер на R12 и R13. Все устройства в офисе Москва должны синхронизировать время с R12 и R13
+---
 
-Сначала настроим NTP сервера:
+## NTP — офис Москва
 
-R13
+R12 и R13 — NTP-мастера (stratum 5). Рассылают время по VLAN 33 и аплинк-интерфейсам. R14, R15, R19, R20 синхронизируются по unicast с Loopback-адресами. Свичи синхронизируются по broadcast в management-VLAN.
 
-```
+<details>
+<summary>R13 — NTP-сервер</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/0.33
  encapsulation dot1Q 33
  ip address 1.2.1.253 255.255.255.0
- ip nat inside
- ip virtual-reassembly in
  standby version 2
  standby 0 ip 1.2.1.1
  standby 0 preempt
  ntp broadcast
-
 
 interface Ethernet0/2
  ntp broadcast
@@ -392,16 +415,19 @@ interface Ethernet0/3
 ntp source Loopback13
 ntp master 5
 ntp update-calendar
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-R12
-
-```
+<details>
+<summary>R12 — NTP-сервер</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/0.33
  encapsulation dot1Q 33
  ip address 1.2.1.252 255.255.255.0
- ip nat inside
- ip virtual-reassembly in
  standby version 2
  standby 0 ip 1.2.1.1
  standby 0 preempt
@@ -416,170 +442,410 @@ interface Ethernet0/3
 ntp source Loopback12
 ntp master 5
 ntp update-calendar
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-Потом настроим NTP клиентов:
-
-R14
-
-```
+<details>
+<summary>R14 — NTP-клиент + show ntp associations</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/0
  ntp broadcast client
-!
+
 interface Ethernet0/1
  ntp broadcast client
 
 ntp server 1.1.1.12
 ntp server 1.1.1.13
 
------------------------------------------
 R14#show ntp associations
-
   address         ref clock       st   when   poll reach  delay  offset   disp
 * 10.10.10.18     127.127.1.1      5     44     64   376  1.000  -0.500  2.890
 +~1.1.1.12        127.127.1.1      5    151    256   377  0.000   0.000  2.541
 +~1.1.1.13        127.127.1.1      5     34     64   377  0.000   0.000  4.007
 + 10.10.10.22     127.127.1.1      5     34     64   376  0.000   0.000  2.902
- * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-```
-
-R15
-
-```
+<details>
+<summary>R15 — NTP-клиент + show ntp associations</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/0
  ntp broadcast client
-!
+
 interface Ethernet0/1
  ntp broadcast client
 
 ntp server 1.1.1.12
 ntp server 1.1.1.13
 
------------------------------------------
 R15#show ntp associations
-
   address         ref clock       st   when   poll reach  delay  offset   disp
 +~1.1.1.12        127.127.1.1      5    110    128   377  0.000   0.000  5.376
 +~1.1.1.13        127.127.1.1      5     95    128   377  0.000   0.000  3.409
 * 10.10.10.6      127.127.1.1      5     13     64   377  1.000   0.500  2.894
- * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
+</code></pre>
+</details>
 
-```
-
-R20
-
-```
+<details>
+<summary>R20 — NTP-клиент + show ntp associations</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/0
  ntp broadcast client
 
 ntp server 1.1.1.12
 ntp server 1.1.1.13
 
------------------------------------------
 R20#show ntp associations
-
   address         ref clock       st   when   poll reach  delay  offset   disp
 *~1.1.1.12        127.127.1.1      5    612   1024   377  1.000  -0.500  2.038
 +~1.1.1.13        127.127.1.1      5    158   1024   377  0.000   0.000  2.046
- * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-R19
-
-```
+<details>
+<summary>R19 — NTP-клиент + show ntp associations</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/0
  ntp broadcast client
 
 ntp server 1.1.1.12
 ntp server 1.1.1.13
 
------------------------------------------
 R19#show ntp associations
-
   address         ref clock       st   when   poll reach  delay  offset   disp
 *~1.1.1.12        127.127.1.1      5    810   1024   377  1.000  -0.500  2.008
 +~1.1.1.13        127.127.1.1      5    613   1024   377  1.000  -0.500  1.974
- * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-А теперь свичи:
+Свичи получают время по broadcast в VLAN 33 — прямая unicast-настройка не нужна, так как R12/R13 находятся в том же широковещательном домене через HSRP.
 
-SW2 / SW3 / SW4 / SW5
-
-```
-! Using SW4 as an example:
-------------------------------
-! Add VLAN for management:
-Vlan 33
+<details>
+<summary>SW2 / SW3 / SW4 / SW5 — NTP (пример SW4)</summary>
+<pre><code>
+enable
+configure terminal
+vlan 33
  name MANAGEMENT
 
 interface Vlan33
  ip address 1.2.1.4 255.255.255.0
  ntp broadcast client
- 
+
 ip default-gateway 1.2.1.1
 
-! Did not configure NTP server 1.1.1.12(13) directly on switches since they operate
-! in the same broadcast domain as R12/R13 via HSRP.
-
-! Result:
 SW4#show ntp status
 Clock is synchronized, stratum 6, reference is 1.2.1.252
-nominal freq is 250.0000 Hz, actual freq is 250.0001 Hz, precision is 2**10
-ntp uptime is 579100 (1/100 of seconds), resolution is 4000
-reference time is E29A4D78.2353F830 (23:19:52.138 EET Sun Jun 21 2020)
-clock offset is -0.5000 msec, root delay is 1.00 msec
-root dispersion is 7.81 msec, peer dispersion is 2.90 msec
-loopfilter state is 'CTRL' (Normal Controlled Loop), drift is -0.000000355 s/s
-system poll interval is 64, last update was 59 sec ago.
 
------------------------------------------------------------------------------
 SW4#show ntp associations
-
   address         ref clock       st   when   poll reach  delay  offset   disp
 * 1.2.1.252       127.127.1.1      5      8     64   377  1.000  -6.500  2.908
 + 1.2.1.253       127.127.1.1      5     43     64   377  1.000  -0.500  2.874
- * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-```
+---
 
-Не стал растягивать из того большую ДЗ, подробности настроек всегда можно заглянуть в документации.
+## Проверка IP-связности
 
-### Все офисы в лабораторной работе должны иметь IP связность
-
-Проверяем с R15
-
-```
+<details>
+<summary>R15 — ping до всех удалённых офисов</summary>
+<pre><code>
 R15>ping 210.110.35.2
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 210.110.35.2, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/3 ms
+!!!!!  Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/3 ms
+
 R15>ping 111.110.35.10
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 111.110.35.10, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+!!!!!  Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+
 R15>ping 111.110.35.14
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 111.110.35.14, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms
+!!!!!  Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms
+
 R15>ping 77.77.77.10
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 77.77.77.10, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+!!!!!  Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+
 R15>ping 77.77.77.14
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 77.77.77.14, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
-```
+!!!!!  Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+</code></pre>
+</details>
 
-### План работы и изменения зафиксированы в документации
+---
 
-**Полные конфигурации роутеров:**
+## Полные конфигурации роутеров
 
-https://e9exu-my.sharepoint.com/:f:/g/personal/nickelface_ermaon_com/Euh_hOXWUWRAr0awcVlpJVYBzobOZWNdcKt4VLkLif40EA?e=GGNmyl
+> R21, R22, R23, R24, R25, R26 — конфигурации не изменились по сравнению с лабораторной 13.
+
+<details>
+<summary>R14 (AS 1001) — изменения лаб. 14</summary>
+<pre><code>
+enable
+configure terminal
+interface Loopback14
+ ip address 200.20.20.14 255.255.252.0
+
+interface Ethernet0/0
+ ip nat inside
+ ntp broadcast client
+
+interface Ethernet0/1
+ ip nat inside
+ ntp broadcast client
+
+interface Ethernet0/2
+ ip nat outside
+
+interface Ethernet0/3
+ ip nat inside
+
+interface Ethernet1/0
+ ip nat inside
+
+ip nat pool OVRLD 200.20.20.14 200.20.20.14 netmask 255.255.252.0
+ip nat inside source list 10 pool OVRLD overload
+ip nat inside source static 1.1.1.20 200.20.20.20
+ip nat inside source static tcp 1.1.1.19 22 200.20.20.19 22 extendable
+
+access-list 10 permit 10.10.10.0 0.0.0.31
+
+ntp server 1.1.1.12
+ntp server 1.1.1.13
+
+route-map SET-ASPATH permit 10
+ set as-path prepend 1001 1001 1001
+
+router bgp 1001
+ network 200.20.20.0 mask 255.255.252.0
+ neighbor 100.100.100.2 route-map SET-ASPATH out
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R15 (AS 1001) — изменения лаб. 14</summary>
+<pre><code>
+enable
+configure terminal
+interface Loopback15
+ ip address 200.20.20.15 255.255.252.0
+
+interface Ethernet0/0
+ ip nat inside
+ ntp broadcast client
+
+interface Ethernet0/1
+ ip nat inside
+ ntp broadcast client
+
+interface Ethernet0/2
+ ip nat outside
+
+interface Ethernet0/3
+ ip nat inside
+
+interface Ethernet1/0
+ ip nat inside
+
+ip nat pool OVRLD 200.20.20.15 200.20.20.15 netmask 255.255.252.0
+ip nat inside source list 10 pool OVRLD overload
+ip nat inside source static 1.1.1.20 200.20.20.20
+ip nat inside source static tcp 1.1.1.19 22 200.20.20.19 22 extendable
+
+access-list 10 permit 10.10.10.0 0.0.0.31
+
+ntp server 1.1.1.12
+ntp server 1.1.1.13
+
+route-map LP permit 10
+ set local-preference 150
+
+router bgp 1001
+ network 200.20.20.0 mask 255.255.252.0
+ neighbor 111.111.111.2 route-map LP in
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R18 — Санкт-Петербург (AS 2042) — изменения лаб. 14</summary>
+<pre><code>
+enable
+configure terminal
+interface Ethernet0/0
+ ip nat inside
+
+interface Ethernet0/1
+ ip nat inside
+
+interface Ethernet0/2
+ ip nat outside
+
+interface Ethernet0/3
+ ip nat outside
+
+ip nat pool OVRLD  77.77.77.10 77.77.77.10 netmask 255.255.255.252
+ip nat pool OVRLD1 77.77.77.14 77.77.77.14 netmask 255.255.255.252
+
+ip nat inside source list 10 pool OVRLD  overload
+ip nat inside source list 11 pool OVRLD1 overload
+
+access-list 10 permit 10.10.20.0 0.0.0.3
+access-list 10 permit 172.16.10.0 0.0.0.255
+
+access-list 11 permit 10.10.20.4 0.0.0.3
+access-list 11 permit 10.10.20.8 0.0.0.3
+access-list 11 permit 172.16.11.0 0.0.0.255
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R28 — Чокурдах — изменения лаб. 14</summary>
+<pre><code>
+enable
+configure terminal
+interface Ethernet0/0
+ ip nat outside
+
+interface Ethernet0/1
+ ip nat outside
+
+interface Ethernet0/2
+ ip nat inside
+
+interface Loopback28
+ ip address 111.110.35.1 255.255.255.248
+
+ip nat inside source static 172.16.40.30 111.110.35.5
+ip nat inside source static 172.16.40.31 111.110.35.6
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R12 — DHCP + NTP-сервер</summary>
+<pre><code>
+enable
+configure terminal
+interface Loopback12
+ ip address 1.1.1.12 255.255.255.255
+
+interface Ethernet0/0.33
+ encapsulation dot1Q 33
+ ip address 1.2.1.252 255.255.255.0
+ standby version 2
+ standby 0 ip 1.2.1.1
+ standby 0 preempt
+ ntp broadcast
+
+interface Ethernet0/2
+ ntp broadcast
+
+interface Ethernet0/3
+ ntp broadcast
+
+ip dhcp excluded-address 172.16.0.1
+ip dhcp pool DHCP12
+ network 172.16.0.0 255.255.255.0
+ default-router 172.16.0.1
+
+ntp source Loopback12
+ntp master 5
+ntp update-calendar
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R13 — DHCP + NTP-сервер</summary>
+<pre><code>
+enable
+configure terminal
+interface Loopback13
+ ip address 1.1.1.13 255.255.255.255
+
+interface Ethernet0/0.33
+ encapsulation dot1Q 33
+ ip address 1.2.1.253 255.255.255.0
+ standby version 2
+ standby 0 ip 1.2.1.1
+ standby 0 preempt
+ ntp broadcast
+
+interface Ethernet0/2
+ ntp broadcast
+
+interface Ethernet0/3
+ ntp broadcast
+
+ip dhcp excluded-address 172.16.1.1
+ip dhcp pool DHCP13
+ network 172.16.1.0 255.255.255.0
+ default-router 172.16.1.1
+
+ntp source Loopback13
+ntp master 5
+ntp update-calendar
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+<details>
+<summary>R19 — SSH + OSPF</summary>
+<pre><code>
+enable
+configure terminal
+hostname R19
+ip domain-name Test
+crypto key generate rsa
+! [Enter] → 1024
+
+line vty 0 4
+ transport input ssh
+ login local
+
+username admin secret cisco
+ip ssh version 2
+enable secret cisco
+
+interface Loopback19
+ ip address 1.1.1.19 255.255.255.255
+
+interface Ethernet0/0
+ ntp broadcast client
+
+router ospf 1
+ network 1.1.1.19 0.0.0.0 area 101
+
+ntp server 1.1.1.12
+ntp server 1.1.1.13
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+---
+
+*Network Engineer Course | Lab 14*

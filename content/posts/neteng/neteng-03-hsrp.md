@@ -65,6 +65,8 @@ interface Ethernet0/0
  duplex full
  no shutdown
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -96,6 +98,8 @@ interface Serial1/1
 interface Loopback0
  ip address 209.165.200.225 255.255.255.224
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -125,6 +129,8 @@ interface Ethernet0/0
  duplex full
  no shutdown
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -149,32 +155,44 @@ ip 192.168.1.33 192.168.1.3 24
 <details>
 <summary>R1</summary>
 <pre><code>
+enable
+configure terminal
 router rip
  version 2
  network 10.0.0.0
  network 192.168.1.0
  no auto-summary
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2</summary>
 <pre><code>
+enable
+configure terminal
 router rip
  version 2
  network 10.0.0.0
  default-information originate
  no auto-summary
 ip route 0.0.0.0 0.0.0.0 Loopback0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3</summary>
 <pre><code>
+enable
+configure terminal
 router rip
  version 2
  network 10.0.0.0
  network 192.168.1.0
  no auto-summary
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -198,19 +216,27 @@ HSRP provides a virtual IP address shared between R1 and R3. R1 becomes Active w
 <details>
 <summary>R1 (Active)</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet0/0
  standby 1 ip 192.168.1.254
  standby version 2
  standby 1 priority 150
  standby 1 preempt
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3 (Standby)</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet0/0
  standby 1 ip 192.168.1.254
  standby version 2
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -231,7 +257,11 @@ ip 192.168.1.33 192.168.1.254 24
 <details>
 <summary>S1, S3 (management gateway)</summary>
 <pre><code>
+enable
+configure terminal
 ip default-gateway 192.168.1.254
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -246,21 +276,29 @@ show standby brief
 <details>
 <summary>R1 — Active</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-if)#do show standby brief
                      P indicates configured to preempt.
                      |
 Interface   Grp  Pri P State   Active          Standby         Virtual IP
 Gig6/0      1    150 P Active  local           192.168.1.3     192.168.1.254
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3 — Standby</summary>
 <pre><code>
+enable
+configure terminal
 R3(config-if)#do sh stan bri
                      P indicates configured to preempt.
                      |
 Interface   Grp  Pri P State   Active          Standby         Virtual IP
 Gig9/0      1    100   Standby 192.168.1.1     local           192.168.1.254
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -269,6 +307,8 @@ Detailed state:
 <details>
 <summary>R1 show standby</summary>
 <pre><code>
+enable
+configure terminal
 R1(config)#do sh stand
 GigabitEthernet6/0 - Group 1 (version 2)
   State is Active
@@ -283,6 +323,8 @@ GigabitEthernet6/0 - Group 1 (version 2)
   Standby router is 192.168.1.3, priority 100 (expires in 8 sec)
   Priority 150 (configured 150)
   Group name is hsrp-Gig6/0-1 (default)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -311,6 +353,8 @@ Test failover — ping `209.165.200.225` and disconnect R1's uplink. R3 takes ov
 <details>
 <summary>PC-A ping during failover</summary>
 <pre><code>
+enable
+configure terminal
 C:\>ping 209.165.200.225
 
 Pinging 209.165.200.225 with 32 bytes of data:
@@ -329,11 +373,15 @@ After R1 disconnect — R3 becomes Active:
 <details>
 <summary>R3 — after R1 disconnect</summary>
 <pre><code>
+enable
+configure terminal
 R3(config-if)#do sh stan bri
                      P indicates configured to preempt.
                      |
 Interface   Grp  Pri P State   Active          Standby         Virtual IP
 Gig9/0      1    100 P Active  local           192.168.1.1     192.168.1.254
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -365,11 +413,15 @@ After R1 reconnects, it remains Standby because R3's priority (200) is now highe
 <details>
 <summary>R1 — after R3 priority raised</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-if)#do sh stan bri
                      P indicates configured to preempt.
                      |
 Interface   Grp  Pri P State   Active          Standby         Virtual IP
 Gig6/0      1    100 P Standby 192.168.1.3     local           192.168.1.254
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

@@ -81,6 +81,8 @@ line con 0
  logging synchronous
 banner motd "This is a secure system. Authorized Access Only!"
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -109,6 +111,8 @@ line con 0
  logging synchronous
 banner motd "This is a secure system. Authorized Access Only!"
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -137,6 +141,8 @@ line con 0
  logging synchronous
 banner motd "This is a secure system. Authorized Access Only!"
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -149,6 +155,8 @@ Configure EIGRP AS 1, passive LAN interface, and set bandwidth on serial links. 
 <details>
 <summary>R1 — EIGRP AS 1, S0/0/0 = 1024 Kbps, S0/0/1 = 64 Kbps</summary>
 <pre><code>
+enable
+configure terminal
 router eigrp 1
  network 192.168.12.0 0.0.0.3
  network 192.168.13.0 0.0.0.3
@@ -158,11 +166,15 @@ interface Serial0/0
  bandwidth 1024
 interface Serial1/0
  bandwidth 64
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2 — EIGRP AS 1, S0/0/0 = 1024 Kbps</summary>
 <pre><code>
+enable
+configure terminal
 router eigrp 1
  network 192.168.2.0 0.0.0.255
  network 192.168.12.0 0.0.0.3
@@ -170,11 +182,15 @@ router eigrp 1
  passive-interface GigabitEthernet2/0
 interface Serial0/0
  bandwidth 1024
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3 — EIGRP AS 1, S0/0/0 = 64 Kbps</summary>
 <pre><code>
+enable
+configure terminal
 router eigrp 1
  network 192.168.3.0 0.0.0.255
  network 192.168.13.0 0.0.0.3
@@ -182,6 +198,8 @@ router eigrp 1
  passive-interface GigabitEthernet2/0
 interface Serial0/0
  bandwidth 64
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -190,6 +208,8 @@ Verify end-to-end connectivity — all PCs should ping each other:
 <details>
 <summary>PC-A → PC-C ping</summary>
 <pre><code>
+enable
+configure terminal
 C:\>ping 192.168.3.3
 
 Pinging 192.168.3.3 with 32 bytes of data:
@@ -252,6 +272,8 @@ Auto-summary is **enabled** by default. Now add loopback interfaces on R1 and ad
 <details>
 <summary>R1 — loopback addresses and EIGRP network statements</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback1
  ip address 192.168.11.1 255.255.255.252
 interface Loopback5
@@ -266,6 +288,8 @@ router eigrp 1
  network 192.168.11.5 0.0.0.3
  network 192.168.11.9 0.0.0.3
  network 192.168.11.13 0.0.0.3
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -274,6 +298,8 @@ With auto-summary active, R2 sees all four loopbacks summarized into a single cl
 <details>
 <summary>R2 — show ip route eigrp (auto-summary active)</summary>
 <pre><code>
+enable
+configure terminal
 R2(config-if)#do sh ip route eigrp
 D    192.168.1.0/24 [90/3014400] via 192.168.12.1, 00:39:04, Serial0/0
 D    192.168.3.0/24 [90/2172416] via 192.168.23.2, 00:12:37, Serial1/0
@@ -284,6 +310,8 @@ D    192.168.13.0/24 [90/41024000] via 192.168.12.1, 00:14:19, Serial0/0
                      [90/41024000] via 192.168.23.2, 00:12:37, Serial1/0
      192.168.23.0/24 is variably subnetted, 2 subnets, 2 masks
 D       192.168.23.0/24 is a summary, 00:12:40, Null0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -292,13 +320,19 @@ Disable auto-summary on R1 — the four /30 loopbacks now appear individually:
 <details>
 <summary>R1 — no auto-summary</summary>
 <pre><code>
+enable
+configure terminal
 router eigrp 1
  no auto-summary
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2 — show ip route eigrp (after no auto-summary on R1)</summary>
 <pre><code>
+enable
+configure terminal
 R2(config)#do show ip route eigrp
 D    192.168.1.0/24 [90/3014400] via 192.168.12.1, 00:00:29, Serial0/0
 D    192.168.3.0/24 [90/2172416] via 192.168.23.2, 00:38:45, Serial1/0
@@ -313,6 +347,8 @@ D       192.168.13.0/24 [90/41024000] via 192.168.23.2, 00:38:45, Serial1/0
 D       192.168.13.0/30 [90/41024000] via 192.168.12.1, 00:00:29, Serial0/0
      192.168.23.0/24 is variably subnetted, 2 subnets, 2 masks
 D       192.168.23.0/24 is a summary, 00:38:48, Null0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -321,6 +357,8 @@ Repeat the same on R3 — add loopback interfaces, advertise them, disable auto-
 <details>
 <summary>R3 — loopbacks + EIGRP + no auto-summary</summary>
 <pre><code>
+enable
+configure terminal
 interface Loopback1
  ip address 192.168.33.1 255.255.255.252
 interface Loopback5
@@ -336,6 +374,8 @@ router eigrp 1
  network 192.168.33.9 0.0.0.3
  network 192.168.33.13 0.0.0.3
  no auto-summary
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -391,11 +431,15 @@ On R1 verify the redistributed default route — it appears as EIGRP external (E
 <details>
 <summary>R1 — show ip route eigrp (default route visible)</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-router)#do show ip route eigrp
 D    192.168.2.0/24 [90/3014400] via 192.168.12.2, 00:18:18, Serial0/0
 D    192.168.3.0/24 [90/3526400] via 192.168.12.2, 00:13:13, Serial0/0
      ...
 D*EX 0.0.0.0/0 [170/4291840] via 192.168.12.2, 00:02:08, Serial0/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -442,34 +486,46 @@ Default: hello = **5 s**, hold-time = **15 s**. Set hello = 60 s, hold-time = 18
 <details>
 <summary>R1</summary>
 <pre><code>
+enable
+configure terminal
 interface Serial0/0
  ip hello-interval eigrp 1 60
  ip hold-time eigrp 1 180
 interface Serial1/0
  ip hello-interval eigrp 1 60
  ip hold-time eigrp 1 180
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2</summary>
 <pre><code>
+enable
+configure terminal
 interface Serial0/0
  ip hello-interval eigrp 1 60
  ip hold-time eigrp 1 180
 interface Serial1/0
  ip hello-interval eigrp 1 60
  ip hold-time eigrp 1 180
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3</summary>
 <pre><code>
+enable
+configure terminal
 interface Serial0/0
  ip hello-interval eigrp 1 60
  ip hold-time eigrp 1 180
 interface Serial1/0
  ip hello-interval eigrp 1 60
  ip hold-time eigrp 1 180
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

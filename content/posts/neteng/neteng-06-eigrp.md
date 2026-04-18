@@ -69,6 +69,8 @@ line con 0
  logging synchronous
 banner motd "This is a secure system. Authorized Access Only!"
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -97,6 +99,8 @@ line con 0
  logging synchronous
 banner motd "This is a secure system. Authorized Access Only!"
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -125,6 +129,8 @@ line con 0
  logging synchronous
 banner motd "This is a secure system. Authorized Access Only!"
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -137,28 +143,40 @@ Enable EIGRP AS 10 and advertise directly connected networks on each router:
 <details>
 <summary>R1</summary>
 <pre><code>
+enable
+configure terminal
 router eigrp 10
  network 10.1.1.0 0.0.0.3
  network 192.168.1.0 0.0.0.255
  network 10.3.3.0 0.0.0.3
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2</summary>
 <pre><code>
+enable
+configure terminal
 router eigrp 10
  network 10.1.1.0 0.0.0.3
  network 192.168.2.0 0.0.0.255
  network 10.2.2.0 0.0.0.3
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3</summary>
 <pre><code>
+enable
+configure terminal
 router eigrp 10
  network 10.2.2.0 0.0.0.3
  network 192.168.3.0 0.0.0.255
  network 10.3.3.0 0.0.0.3
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -173,34 +191,46 @@ Wildcard masks are recommended because IOS requires them for non-classful subnet
 <details>
 <summary>R1 — show ip eigrp neighbors</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-router)#do show ip eigrp neighbors
 IP-EIGRP neighbors for process 10
 H   Address         Interface      Hold Uptime    SRTT   RTO   Q   Seq
                                    (sec)          (ms)        Cnt  Num
 0   10.1.1.2        Se0/0          11   00:32:24  40     1000  0   9
 1   10.3.3.2        Se1/0          11   00:32:11  40     1000  0   14
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2 — show ip eigrp neighbors</summary>
 <pre><code>
+enable
+configure terminal
 R2(config-router)#do show ip eigrp neighbors
 IP-EIGRP neighbors for process 10
 H   Address         Interface      Hold Uptime    SRTT   RTO   Q   Seq
                                    (sec)          (ms)        Cnt  Num
 0   10.1.1.1        Se0/0          10   00:34:17  40     1000  0   9
 1   10.2.2.1        Se1/0          11   00:34:04  40     1000  0   13
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3 — show ip eigrp neighbors</summary>
 <pre><code>
+enable
+configure terminal
 R3(config)#do show ip eigrp neighbor
 IP-EIGRP neighbors for process 10
 H   Address         Interface      Hold Uptime    SRTT   RTO   Q   Seq
                                    (sec)          (ms)        Cnt  Num
 0   10.2.2.2        Se1/0          11   00:35:19  40     1000  0   10
 1   10.3.3.1        Se0/0          13   00:35:18  40     1000  0   10
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -209,6 +239,8 @@ H   Address         Interface      Hold Uptime    SRTT   RTO   Q   Seq
 <details>
 <summary>R1 — show ip route eigrp</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-router)#do show ip route eigrp
      10.0.0.0/8 is variably subnetted, 4 subnets, 2 masks
 D       10.0.0.0/8 is a summary, 00:41:44, Null0
@@ -216,6 +248,8 @@ D       10.2.2.0/30 [90/21024000] via 10.1.1.2, 00:38:32, Serial0/0
                     [90/21024000] via 10.3.3.2, 00:38:19, Serial1/0
 D    192.168.2.0/24 [90/20514560] via 10.1.1.2, 00:38:32, Serial0/0
 D    192.168.3.0/24 [90/20514560] via 10.3.3.2, 00:38:19, Serial1/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -311,28 +345,40 @@ Set bandwidth on all routers — R1–R2 links: 2000 Kbps, R1–R3 link: 64 Kbps
 <details>
 <summary>R1</summary>
 <pre><code>
+enable
+configure terminal
 interface Serial0/0
  bandwidth 2000
 interface Serial1/0
  bandwidth 64
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2</summary>
 <pre><code>
+enable
+configure terminal
 interface Serial0/0
  bandwidth 2000
 interface Serial1/0
  bandwidth 2000
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3</summary>
 <pre><code>
+enable
+configure terminal
 interface Serial0/0
  bandwidth 64
 interface Serial1/0
  bandwidth 2000
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

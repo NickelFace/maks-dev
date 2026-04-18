@@ -58,6 +58,8 @@ ip address 192.168.1.1 255.255.255.0
 no shutdown
 exit
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -83,6 +85,8 @@ ip address 192.168.1.2 255.255.255.0
 no shutdown
 exit
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -108,6 +112,8 @@ ip address 192.168.1.3 255.255.255.0
 no shutdown
 exit
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -143,6 +149,8 @@ First disable all ports, then bring up only Et0/0 and Et0/2 as trunks:
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 interface range Ethernet 0/0 - 3
 shutdown
 exit
@@ -150,11 +158,15 @@ interface range Ethernet 0/0, Ethernet 0/2
 switchport trunk encapsulation dot1q
 switchport mode trunk
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 interface range Ethernet 0/0 - 3
 shutdown
 exit
@@ -162,11 +174,15 @@ interface range Ethernet 0/0, Ethernet 0/2
 switchport trunk encapsulation dot1q
 switchport mode trunk
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 interface range Ethernet 0/0 - 3
 shutdown
 exit
@@ -174,6 +190,8 @@ interface range Ethernet 0/0, Ethernet 0/2
 switchport trunk encapsulation dot1q
 switchport mode trunk
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -273,8 +291,12 @@ S3 currently has its Et0/0 (toward S2) blocked. Lower the cost on S3's root port
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/2
 spanning-tree cost 90
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -304,8 +326,12 @@ Revert the cost change:
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 interface Ethernet 0/2
 no spanning-tree cost
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -318,10 +344,14 @@ Enable the redundant interfaces on all switches to bring up parallel links:
 <details>
 <summary>S1, S2, S3</summary>
 <pre><code>
+enable
+configure terminal
 interface range Ethernet 0/1, Ethernet 0/3
 switchport trunk encapsulation dot1q
 switchport mode trunk
 no shutdown
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

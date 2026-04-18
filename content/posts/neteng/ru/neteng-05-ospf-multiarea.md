@@ -80,6 +80,8 @@ line con 0
  login
 banner motd "This is a secure system. Authorized Access Only!"
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -109,6 +111,8 @@ line con 0
  login
 banner motd "This is a secure system. Authorized Access Only!"
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -136,6 +140,8 @@ line con 0
  login
 banner motd "This is a secure system. Authorized Access Only!"
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -144,22 +150,30 @@ do copy run start
 <details>
 <summary>R1 — show ip interface brief</summary>
 <pre><code>
+enable
+configure terminal
 R1(config)#do show ip interface brief
 Interface    IP-Address       OK?  Method  Status    Protocol
 Serial0/0    192.168.12.1     YES  manual  up        up
 Loopback0    209.165.200.225  YES  manual  up        up
 Loopback1    192.168.1.1      YES  manual  up        up
 Loopback2    192.168.2.1      YES  manual  up        up
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2 — show ip interface brief</summary>
 <pre><code>
+enable
+configure terminal
 R2(config)#do show ip interface brief
 Interface    IP-Address       OK?  Method  Status    Protocol
 Serial0/0    192.168.12.2     YES  manual  up        up
 Serial1/0    192.168.23.1     YES  manual  up        up
 Loopback6    192.168.6.1      YES  manual  up        up
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -182,6 +196,8 @@ Loopback5    192.168.5.1      YES  manual  up        up
 <details>
 <summary>R1 (Area 0 + Area 1, ASBR)</summary>
 <pre><code>
+enable
+configure terminal
 router ospf 1
  router-id 1.1.1.1
  network 192.168.1.0 0.0.0.255 area 1
@@ -193,11 +209,15 @@ router ospf 1
  default-information originate
 ip route 0.0.0.0 0.0.0.0 Loopback0
 do clear ip ospf process
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2 (Area 0 + Area 3, ABR)</summary>
 <pre><code>
+enable
+configure terminal
 router ospf 1
  router-id 2.2.2.2
  network 192.168.6.0 0.0.0.255 area 3
@@ -205,11 +225,15 @@ router ospf 1
  network 192.168.23.0 0.0.0.3 area 3
  passive-interface Loopback6
 do clear ip ospf process
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3 (Area 3, внутренний)</summary>
 <pre><code>
+enable
+configure terminal
 router ospf 1
  router-id 3.3.3.3
  network 192.168.23.0 0.0.0.3 area 3
@@ -218,6 +242,8 @@ router ospf 1
  passive-interface Loopback4
  passive-interface Loopback5
 do clear ip ospf process
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -232,10 +258,14 @@ show ip ospf interface
 <details>
 <summary>R1 — show ip ospf neighbor</summary>
 <pre><code>
+enable
+configure terminal
 R1(config)#do show ip ospf neighbor
 
 Neighbor ID  Pri  State     Dead Time  Address        Interface
 2.2.2.2        0  FULL/ -   00:00:38   192.168.12.2   Serial0/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -260,6 +290,8 @@ Neighbor ID  Pri  State     Dead Time  Address        Interface
 <details>
 <summary>R1 — show ip protocols</summary>
 <pre><code>
+enable
+configure terminal
 R1(config)#do show ip protocols
 
 Routing Protocol is "ospf 1"
@@ -285,11 +317,15 @@ Routing Protocol is "ospf 1"
     192.168.6.1        110      00:10:58
     209.165.200.225    110      00:09:19
   Distance: (default is 110)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2 — show ip protocols</summary>
 <pre><code>
+enable
+configure terminal
 R2(config-router)#do show ip protocols
 
 Routing Protocol is "ospf 1"
@@ -313,6 +349,8 @@ Routing Protocol is "ospf 1"
     192.168.6.1        110      00:12:20
     209.165.200.225    110      00:10:41
   Distance: (default is 110)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -345,6 +383,8 @@ Routing Protocol is "ospf 1"
 <details>
 <summary>R1 — show ip ospf interface</summary>
 <pre><code>
+enable
+configure terminal
 R1(config)#do show ip ospf interface
 
 Loopback1 is up, line protocol is up
@@ -358,6 +398,8 @@ Loopback2 is up, line protocol is up
 Serial0/0 is up, line protocol is up
   Internet address is 192.168.12.1/30, Area 0
   Process ID 1, Router ID 1.1.1.1, Network Type POINT-TO-POINT, Cost: 64
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -366,6 +408,8 @@ Serial0/0 is up, line protocol is up
 <details>
 <summary>R1 — show ip route ospf</summary>
 <pre><code>
+enable
+configure terminal
 R1(config)#do show ip route ospf
   192.168.4.0/32 is subnetted, 1 subnets
 O IA  192.168.4.1 [110/129] via 192.168.12.2, 00:55:49, Serial0/0
@@ -375,11 +419,15 @@ O IA  192.168.5.1 [110/129] via 192.168.12.2, 00:55:49, Serial0/0
 O IA  192.168.6.1 [110/65] via 192.168.12.2, 00:55:49, Serial0/0
   192.168.23.0/30 is subnetted, 1 subnets
 O IA  192.168.23.0 [110/128] via 192.168.12.2, 00:55:49, Serial0/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2 — show ip route ospf</summary>
 <pre><code>
+enable
+configure terminal
 R2(config)#do sh ip route ospf
   192.168.1.0/32 is subnetted, 1 subnets
 O IA  192.168.1.1 [110/65] via 192.168.12.1, 00:56:14, Serial0/0
@@ -390,6 +438,8 @@ O    192.168.4.1 [110/65] via 192.168.23.2, 00:55:37, Serial1/0
   192.168.5.0/32 is subnetted, 1 subnets
 O    192.168.5.1 [110/65] via 192.168.23.2, 00:55:37, Serial1/0
 O*E2 0.0.0.0/0 [110/1] via 192.168.12.1, 00:48:05, Serial0/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -413,6 +463,8 @@ O*E2 0.0.0.0/0 [110/1] via 192.168.23.1, 00:48:37, Serial0/0
 <details>
 <summary>R1 — show ip ospf database</summary>
 <pre><code>
+enable
+configure terminal
 R1(config)#do show ip ospf database
         OSPF Router with ID (1.1.1.1) (Process ID 1)
 
@@ -445,11 +497,15 @@ Link ID        ADV Router  Age   Seq#        Checksum
 Type-5 AS External Link States
 Link ID  ADV Router  Age   Seq#        Checksum  Tag
 0.0.0.0  1.1.1.1     1274  0x80000002  0x00fcd0  1
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2 — show ip ospf database</summary>
 <pre><code>
+enable
+configure terminal
 R2(config)#do show ip ospf database
         OSPF Router with ID (2.2.2.2) (Process ID 1)
 
@@ -485,6 +541,8 @@ Link ID    ADV Router  Age   Seq#        Checksum
 Type-5 AS External Link States
 Link ID  ADV Router  Age   Seq#        Checksum  Tag
 0.0.0.0  1.1.1.1     1333  0x80000002  0x00fcd0  1
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -521,28 +579,40 @@ Link ID  ADV Router  Age   Seq#        Checksum  Tag
 <details>
 <summary>R1</summary>
 <pre><code>
+enable
+configure terminal
 interface Serial0/0
  ip ospf authentication message-digest
  ip ospf message-digest-key 1 md5 Cisco123
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R2</summary>
 <pre><code>
+enable
+configure terminal
 interface Serial0/0
  ip ospf authentication message-digest
  ip ospf message-digest-key 1 md5 Cisco123
 interface Serial1/0
  ip ospf authentication message-digest
  ip ospf message-digest-key 1 md5 Cisco123
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>R3</summary>
 <pre><code>
+enable
+configure terminal
 interface Serial0/0
  ip ospf authentication message-digest
  ip ospf message-digest-key 1 md5 Cisco123
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -551,10 +621,14 @@ interface Serial0/0
 <details>
 <summary>R1 — show ip ospf neighbor</summary>
 <pre><code>
+enable
+configure terminal
 R1(config)#do show ip ospf neighbor
 
 Neighbor ID  Pri  State     Dead Time  Address        Interface
 2.2.2.2        0  FULL/ -   00:00:38   192.168.12.2   Serial0/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -628,10 +702,14 @@ R2(config-router)# area 3 range 192.168.4.0 255.255.254.0
 <details>
 <summary>R1 — show ip route ospf (после area 3 range)</summary>
 <pre><code>
+enable
+configure terminal
 R1(config-if)#do sh ip rout os
 O IA  192.168.4.0 [110/129] via 192.168.12.2, 00:00:08, Serial0/0
 O    192.168.6.1 [110/65] via 192.168.12.2, 00:59:53, Serial0/0
 O IA  192.168.23.0 [110/128] via 192.168.12.2, 00:59:53, Serial0/0
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

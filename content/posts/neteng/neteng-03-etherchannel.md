@@ -71,6 +71,8 @@ switchport mode access
 switchport access vlan 10
 no shutdown
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -109,6 +111,8 @@ switchport mode access
 switchport access vlan 10
 no shutdown
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
@@ -147,6 +151,8 @@ switchport mode access
 switchport access vlan 10
 no shutdown
 do copy run start
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -159,6 +165,8 @@ PAgP (Port Aggregation Protocol) is a Cisco proprietary protocol. Modes: `desira
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 interface range f0/3-4
 channel-group 1 mode desirable
 switchport mode trunk
@@ -169,11 +177,15 @@ interface port-channel 1
 switchport mode trunk
 switchport trunk native vlan 99
 switchport trunk allowed vlan 1,10,99
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 interface range f0/3-4
 channel-group 1 mode auto
 switchport mode trunk
@@ -184,6 +196,8 @@ interface port-channel 1
 switchport mode trunk
 switchport trunk native vlan 99
 switchport trunk allowed vlan 1,10,99
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -196,6 +210,8 @@ show etherchannel summary
 <details>
 <summary>S1 output</summary>
 <pre><code>
+enable
+configure terminal
 Flags:  D - down        P - bundled in port-channel
         I - stand-alone s - suspended
         H - Hot-standby (LACP only)
@@ -216,6 +232,8 @@ Number of aggregators:           1
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+----------------------------------------------
 1      Po1(SU)           PAgP   Et1/2(P) Et1/3(P)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -230,6 +248,8 @@ show spanning-tree
 <details>
 <summary>S3 output</summary>
 <pre><code>
+enable
+configure terminal
 VLAN0001
   Spanning tree enabled protocol ieee
   Root ID    Priority    32769
@@ -246,6 +266,8 @@ VLAN0001
 Interface           Role Sts Cost      Prio.Nbr Type
 ------------------- ---- --- --------- -------- --------------------------------
 Po1                 Root FWD 56        128.65   P2p
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -260,6 +282,8 @@ LACP (Link Aggregation Control Protocol) is an open standard (IEEE 802.3ad). Mod
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 interface range f0/1-2
 channel-group 2 mode active
 switchport mode trunk
@@ -270,11 +294,15 @@ interface port-channel 2
 switchport mode trunk
 switchport trunk native vlan 99
 switchport trunk allowed vlan 1,10,99
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 interface range f0/1-2
 channel-group 2 mode passive
 switchport mode trunk
@@ -285,6 +313,8 @@ interface port-channel 2
 switchport mode trunk
 switchport trunk native vlan 99
 switchport trunk allowed vlan 1,10,99
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -293,6 +323,8 @@ switchport trunk allowed vlan 1,10,99
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 interface range f0/3-4
 channel-group 3 mode active
 switchport mode trunk
@@ -303,11 +335,15 @@ interface port-channel 3
 switchport mode trunk
 switchport trunk native vlan 99
 switchport trunk allowed vlan 1,10,99
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 interface range f0/1-2
 channel-group 3 mode passive
 switchport mode trunk
@@ -318,6 +354,8 @@ interface port-channel 3
 switchport mode trunk
 switchport trunk native vlan 99
 switchport trunk allowed vlan 1,10,99
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -330,6 +368,8 @@ show etherchannel summary
 <details>
 <summary>S1</summary>
 <pre><code>
+enable
+configure terminal
 Number of channel-groups in use: 2
 Number of aggregators:           2
 
@@ -337,24 +377,34 @@ Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+----------------------------------------------
 1      Po1(SU)           PAgP   Et1/2(P) Et1/3(P)
 2      Po2(SU)           LACP   Et0/1(P) Et0/2(P)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S2</summary>
 <pre><code>
+enable
+configure terminal
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+----------------------------------------------
 2      Po2(SU)           LACP   Fa0/1(P) Fa0/2(P)
 3      Po3(SU)           LACP   Fa0/3(P) Fa0/4(P)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 <details>
 <summary>S3</summary>
 <pre><code>
+enable
+configure terminal
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+----------------------------------------------
 1      Po1(SU)           PAgP   Et1/2(P) Et1/3(P)
 3      Po3(SU)           LACP   Fa0/1(P) Fa0/2(P)
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

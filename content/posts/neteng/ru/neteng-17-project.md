@@ -13,38 +13,40 @@ build:
   render: always
 ---
 
-# «Организация сети офиса»
+## Организация сети офиса
 
 ![](/img/neteng/17/Corporate.png)
 
-В этом файле я укажу настроенные конфигурации устройств, а темы как защита сети, почему настраивал так или иначе буду разбивать на более мелкие файлы, для удобства восприятия.
+В этом файле укажу настроенные конфигурации устройств, а темы как защита сети, почему настраивал так или иначе буду разбивать на более мелкие файлы, для удобства восприятия.
 
-## Разбиваем на части:
+## Разделы
 
 1. [Адресация сети](#1)
 2. [OSPF и проверка связности](#2)
-3. [STP](#3)
+3. [STP, HSRP](#3)
 4. [DHCP и защита L2](#4)
-5. [ISP и выход в интернет, PAT, FTP, 3-й блок Distribution (Server Farm), NTP](#5)
+5. [ISP, PAT, FTP, NTP](#5)
 
-### <a name="1">Адресация сети предприятия</a>
+---
 
-Из частного диапазона адресов была выбрана **172.16.0.0/16** и **10.0.0.0/8**, чтобы избежать пересечения сетей, когда будем в будущем настраивать удаленную работу сотрудникам предприятия.
+## <a name="1">Адресация сети предприятия</a>
 
-При построении будущей модели предприятия было решено строить 3х уровневую иерархическую модель предприятия, предложенную компанией Cisco: **Enterprise Campus Architecture**. Так как планируется, что 80% трафика будет задействовано внутри предприятия и 20% внешнего трафика.
+Из частного диапазона адресов была выбрана **172.16.0.0/16** и **10.0.0.0/8**, чтобы избежать пересечения сетей, когда будем в будущем настраивать удалённую работу сотрудникам предприятия.
+
+При построении модели предприятия было решено строить 3-уровневую иерархическую модель, предложенную компанией Cisco: **Enterprise Campus Architecture**. Планируется, что 80% трафика будет задействовано внутри предприятия и 20% — внешний.
 
 **Access Layer** — подразумевает, что на 1 устройство ляжет не более 5% от общего трафика всего предприятия в среднем.
 
 **Distribution Layer** — подразумевает, что на 1 устройство ляжет не более 20% от общего трафика всего предприятия в среднем.
 
-**Core Layer** — подразумевает, что на 1 устройство ляжет не более 80% от общего трафика всего предприятия в среднем (но может и под 100% и это будет тоже нормально).
+**Core Layer** — подразумевает, что на 1 устройство ляжет не более 80% от общего трафика всего предприятия в среднем (может быть и до 100% — это нормально).
 
-Далее трафик был поделен на 9 VLAN-ов:
+Трафик поделён на 9 VLAN-ов:
 
 ```
 2    ENGINEER
 3    ACCOUNTING
-4    LAWYER 
+4    LAWYER
 5    SKLAD
 6    PROVISION
 7    IT
@@ -52,7 +54,7 @@ build:
 21   MANAGEMENT
 ```
 
-А также 20 VLAN MANAGEMENT был добавлен, когда разворачивал Windows Server в 3 distribution блоке. Всю сеть предприятия можно поделить на **3 блока** Distribution, которые объединены иерархически.
+VLAN 20 MANAGEMENT был добавлен при развёртывании Windows Server в 3-м блоке Distribution. Всю сеть предприятия можно поделить на **3 блока** Distribution, объединённых иерархически:
 
 *Блок 1*: D-SW1 и D-SW2
 
@@ -60,35 +62,31 @@ build:
 
 *Блок 3*: FarmDistSW1 и FarmDistSW2
 
-Всё что ниже этих устройств — это L2, всё что выше этих устройств — L3.
+Всё что ниже этих устройств — L2, всё что выше — L3.
 
-#### <a name="3">Создание VLAN, работа с HSRP и STP.</a>
+---
 
-Для первых 2х блоков и перехода в L3 использовался протокол резервирования первого перехода — **HSRP**. И первая проблема, с которой столкнулся, это STP, а точнее PVST, который строит дерево за каждый VLAN. Проблема в том, что STP блокирует порты, и вследствие чего трафик идет через Access коммутатор, нарушая идеологию иерархического построения сети.
+### <a name="3">STP, HSRP</a>
 
-За первый блок D-SW1 и D-SW2 у нас 3 домена трафика: VLAN 2, 3, 20. Это означает, что у нас будет 3 STP дерева, которые должны строиться согласно иерархической идеологии. Именно поэтому мы обязаны вручную прописать Root Primary, а также Root Secondary.
+Для первых 2-х блоков и перехода в L3 использовался протокол резервирования первого перехода — **HSRP**. Первая проблема — STP, а точнее PVST, который строит дерево за каждый VLAN. STP блокирует порты, и вследствие чего трафик идёт через Access коммутатор, нарушая идеологию иерархического построения сети.
+
+За первый блок D-SW1 и D-SW2 у нас 3 домена трафика: VLAN 2, 3, 20. Будет 3 STP дерева, которые должны строиться согласно иерархической идеологии — вручную прописываем Root Primary и Root Secondary.
 
 ![](/img/neteng/17/DistributionBlock1.png)
 
-Аналогичная ситуация складывается и во 2ом блоке, где уже 5 STP деревьев нужно построить.
+Аналогичная ситуация во 2-м блоке, где уже 5 STP деревьев нужно построить.
 
 ![](/img/neteng/17/DistributionBlock2.png)
 
-Укажу команды по данной настройке и для примера возьму **D-SW1**
+Пример на **D-SW1**:
 
-**D-SW1**
-
-```
-! Set root per VLAN:
-
+<details>
+<summary>D-SW1 — приоритеты STP + HSRP + Loopback</summary>
+<pre><code>
+enable
+configure terminal
 spanning-tree vlan 2,20 priority 24576
 spanning-tree vlan 3 priority 28672
-
-! Did not restrict specific VLANs on trunk ports since D-SW access is physically restricted
-! (server room locked with a key).
- 
-! HSRP per VLAN + ip helper-address to forward DHCP requests to the server
-! (which may be across multiple L2 segments):
 
 interface Vlan2
  ip address 172.16.2.251 255.255.255.0
@@ -96,66 +94,73 @@ interface Vlan2
  standby 0 ip 172.16.2.1
  standby 0 priority 150
  standby 0 preempt
- 
- interface Vlan3
+
+interface Vlan3
  ip address 172.16.3.251 255.255.255.0
  ip helper-address 5.5.5.11
  standby 0 ip 172.16.3.1
  standby 0 preempt
- 
-! Loopback assigned on every device participating in OSPF:
- 
+
 interface Loopback0
-  ip address 5.5.5.1 255.255.255.255 
-```
+ ip address 5.5.5.1 255.255.255.255
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
 Аналогичная настройка присутствует на остальных L3 Switch уровня Distribution.
 
-### <a name="2">OSPF и проверка связности</a>
+---
 
-Далее было прописан адрес на каждом интерфейсе Router или Switch L3 в режиме роутера. И организован протокол динамической маршрутизации OSPF.
+## <a name="2">OSPF и проверка связности</a>
 
-**D-SW1**
+На каждом интерфейсе Router или Switch L3 прописан IP-адрес и настроен протокол динамической маршрутизации OSPF.
 
-```
+<details>
+<summary>D-SW1 — настройка OSPF</summary>
+<pre><code>
+enable
+configure terminal
 router ospf 1
  router-id 1.1.1.1
- network 5.5.5.1 0.0.0.0 area 0  
+ network 5.5.5.1 0.0.0.0 area 0
  network 10.0.1.0 0.0.0.3 area 0
  network 10.0.2.0 0.0.0.3 area 0
- network 172.16.2.0 0.0.0.255 area 0  
+ network 172.16.2.0 0.0.0.255 area 0
  network 172.16.3.0 0.0.0.255 area 0
  network 172.16.20.0 0.0.0.255 area 0
-
-! Reduced dead-interval to 20 for faster convergence on link failure:
 
 interface Ethernet1/2
  no switchport
  ip address 10.0.1.1 255.255.255.252
  ip ospf dead-interval 20
  duplex auto
-!         
+
 interface Ethernet1/3
  no switchport
  ip address 10.0.2.1 255.255.255.252
  ip ospf dead-interval 20
  duplex auto
- 
-! Considered adding an additional OSPF area but decided against it
-! since the network has relatively few devices.
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-На этом этапе была проведено тестирование оборудования на отказоустойчивость и на скорость сходимости в случае сбоя.
+На этом этапе было проведено тестирование оборудования на отказоустойчивость и скорость сходимости в случае сбоя.
 
-### <a name="4">DHCP, а также настройка L2 Security</a>
+---
+
+## <a name="4">DHCP и защита L2</a>
 
 ![](/img/neteng/17/Corporate.png)
 
-**DHCP**
+### DHCP
 
-```
-! Exclude default gateways and VLAN interface addresses from DHCP pool:
-
+<details>
+<summary>DHCP-сервер — исключения + пулы (все VLAN)</summary>
+<pre><code>
+enable
+configure terminal
 ip dhcp excluded-address 172.16.2.1
 ip dhcp excluded-address 172.16.3.1
 ip dhcp excluded-address 172.16.4.1
@@ -172,59 +177,60 @@ ip dhcp excluded-address 172.16.4.253 172.16.4.254
 ip dhcp excluded-address 172.16.5.253 172.16.5.254
 ip dhcp excluded-address 172.16.6.253 172.16.6.254
 ip dhcp excluded-address 172.16.7.253 172.16.7.254
-!         
+
 ip dhcp pool VLAN2
  network 172.16.2.0 255.255.255.0
- default-router 172.16.2.1 
- dns-server 192.168.1.1 
-!         
+ default-router 172.16.2.1
+ dns-server 192.168.1.1
+
 ip dhcp pool VLAN3
  network 172.16.3.0 255.255.255.0
- default-router 172.16.3.1 
- dns-server 192.168.1.1 
-!         
+ default-router 172.16.3.1
+ dns-server 192.168.1.1
+
 ip dhcp pool VLAN4
  network 172.16.4.0 255.255.255.0
- default-router 172.16.4.1 
- dns-server 192.168.1.1 
-!         
+ default-router 172.16.4.1
+ dns-server 192.168.1.1
+
 ip dhcp pool VLAN5
  network 172.16.5.0 255.255.255.0
- default-router 172.16.5.1 
- dns-server 192.168.1.1 
-!         
+ default-router 172.16.5.1
+ dns-server 192.168.1.1
+
 ip dhcp pool VLAN6
  network 172.16.6.0 255.255.255.0
- default-router 172.16.6.1 
- dns-server 192.168.1.1 
-!         
+ default-router 172.16.6.1
+ dns-server 192.168.1.1
+
 ip dhcp pool VLAN7
  network 172.16.7.0 255.255.255.0
- default-router 172.16.7.1 
- dns-server 192.168.1.1 
-```
+ default-router 172.16.7.1
+ dns-server 192.168.1.1
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-Проверим работу DHCP
-
-```
+<details>
+<summary>VPCS — проверка получения адреса по DHCP</summary>
+<pre><code>
 VPCS> ip dhcp
 DORA IP 172.16.2.2/24 GW 172.16.2.1
 
 VPCS> show ip
-
 NAME        : VPCS[1]
 IP/MASK     : 172.16.2.2/24
 GATEWAY     : 172.16.2.1
-DNS         : 192.168.1.1  
+DNS         : 192.168.1.1
 DHCP SERVER : 10.0.19.1
 DHCP LEASE  : 86394, 86400/43200/75600
 MAC         : 00:50:79:66:68:1d
-LPORT       : 20000
-RHOST:PORT  : 127.0.0.1:30000
 MTU         : 1500
-```
+</code></pre>
+</details>
 
-Далее приступим к настройке коммутируемой среды:
+Настройка средств защиты коммутируемой среды:
 
 1. **Port-security**
 2. **~~Storm Control~~**
@@ -232,135 +238,144 @@ MTU         : 1500
 4. **~~IP Source Guard~~**
 5. **Dynamic ARP Inspection**
 
-К сожалению, мне придется отказаться от некоторых технологий по причине не поддержки в данной прошивке устройства.
+От некоторых технологий пришлось отказаться по причине их неподдержки в данной прошивке.
 
-#### Port-security
+### Port-security
 
-Это функция коммутатора, позволяющая указать MAC-адреса хостов, которым разрешено передавать данные через порт. Основная её функция — это защита от атаки на переполнение MAC коммутатора. Поэтому sticky считаю использовать нецелесообразно, так как каждый порт ограничили 2 MAC адресами. Второй вариант — ограничиться 10 адресами и добавить sticky, тогда в этом случае можно забыть про это минимум на полгода. Я выбрал первый вариант, так как его можно настроить единожды, а потом не вспоминать про sticky.
+Функция коммутатора, позволяющая ограничить MAC-адреса, которым разрешено передавать данные через порт. Основная защита от атаки переполнения MAC-таблицы. Sticky не используется — на каждый порт ограничено 2 MAC-адреса, статический режим достаточен.
 
-**AccSW1**
-
-```
+<details>
+<summary>AccSW1 — port-security на access-портах</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/2
  switchport access vlan 2
  switchport mode access
  switchport port-security maximum 2
  switchport port-security
-!         
+
 interface Ethernet0/3
  switchport access vlan 2
  switchport mode access
  switchport port-security maximum 2
  switchport port-security
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-Данной настройкой указал максимальное количество устройств за портом. Прописывается это безусловно *только на access портах* коммутаторов уровня доступа.
+Настраивается **только на access-портах** коммутаторов уровня доступа.
 
-#### ~~Storm Control~~
+### ~~Storm Control~~
 
-Эта технология позволяет защититься от широковещательного шторма. Его принцип — срезать такой трафик при его увеличении на определенный уровень загрузки порта или коммутатора. Настраивается на всех портах коммутатора. К сожалению, данная технология не поддерживается на этих образах.
+Защита от широковещательного шторма — срезает трафик при превышении порогового уровня нагрузки. Настраивается на всех портах. К сожалению, данная технология не поддерживается на этих образах.
 
-#### DHCP Snooping
+### DHCP Snooping
 
-Это функция коммутатора, предназначенная для защиты от атак с использованием протокола DHCP.
+Защита от атак с использованием DHCP. Различает доверенные (в сторону сервера) и недоверенные (клиентские) порты.
 
-**AccSW1**
-
-```
-! Mark uplink ports as trusted — DHCP Offers are expected only from these:
-
+<details>
+<summary>AccSW1 — DHCP Snooping</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/0
  ip dhcp snooping trust
-         
+
 interface Ethernet0/1
  ip dhcp snooping trust
- 
-! Enable globally and per VLAN:
-ip dhcp snooping 
+
+ip dhcp snooping
 ip dhcp snooping vlan 2
 no ip dhcp snooping information option
-! Removes DHCP option 82 added by snooping — without this, DHCP Discover frames get
-! option 82 appended and are dropped at the Distribution layer.
-
 ip dhcp relay information trust-all
-! Marks the upstream DHCP server (outside the local segment) as trusted.
-
-! Rate-limit DHCP requests on access ports:
 
 interface Ethernet0/2
  ip dhcp snooping limit rate 10
-         
+
 interface Ethernet0/3
  ip dhcp snooping limit rate 10
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-#### ~~IP Source Guard~~
+`no ip dhcp snooping information option` убирает option 82, которую snooping добавляет к DHCP Discover — без этого кадры сбрасываются на уровне Distribution.
 
-Функция коммутатора, которая ограничивает IP-трафик на интерфейсах 2го уровня, фильтруя трафик на основании таблицы привязок DHCP snooping и статических соответствий. Функция используется для борьбы с IP-spoofing.
+### ~~IP Source Guard~~
 
-```
-AccSW1(config-if)#ip verify source port-security 
-```
+Ограничивает IP-трафик на L2 интерфейсах на основе таблицы привязок DHCP snooping. Защита от IP-spoofing.
 
-Так как после ввода данной команды у меня перестаёт ходить трафик, а troubleshooting не дал результата, то я отказался от данной технологии.
+`AccSW1(config-if)# ip verify source port-security`
 
-#### Dynamic ARP Inspection
+После ввода этой команды трафик переставал ходить, troubleshooting результата не дал — технология не используется.
 
-Функция коммутатора, предназначенная для защиты от атак с использованием протокола ARP.
+### Dynamic ARP Inspection
 
-**AccSW1**
+Защита от ARP-spoofing атак.
 
-```
+<details>
+<summary>AccSW1 — Dynamic ARP Inspection</summary>
+<pre><code>
+enable
+configure terminal
 ip arp inspection vlan 2
 
 interface Ethernet0/0
  ip arp inspection trust
-!         
+
 interface Ethernet0/1
  ip arp inspection trust
-!         
+
 interface Ethernet0/2
  ip arp inspection limit rate 2
-!         
+
 interface Ethernet0/3
  ip arp inspection limit rate 2
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-### <a name="5">FTP, AAA server (Tacacs+), 3 Distribution block, ISP, PAT</a>
+---
+
+## <a name="5">FTP, AAA server (Tacacs+), 3-й блок Distribution, ISP, PAT</a>
 
 ![](/img/neteng/17/DistributionBlock3.png)
 
-Выход в интернет реализован через 3 Distribution block, который выходит к Edge роутерам. Edge роутеры в свою очередь реализуют механизм PAT для преобразования серых адресов в один публичный. Для резервирования к провайдеру подключаемся по схеме dual homed.
+Выход в интернет реализован через 3-й блок Distribution, который выходит к Edge-роутерам. Edge-роутеры реализуют механизм PAT для преобразования частных адресов в один публичный. Для резервирования подключаемся к провайдеру по схеме dual homed.
 
-#### PAT
+### PAT
 
-**E-R1**
-
-```
-! PAT configuration:
-
+<details>
+<summary>E-R1 — настройка PAT</summary>
+<pre><code>
+enable
+configure terminal
 interface Ethernet0/0
  ip address 10.0.12.2 255.255.255.252
  ip nat inside
-         
+
 interface Ethernet0/1
  ip address 10.0.13.2 255.255.255.252
  ip nat inside
-         
+
 interface Ethernet0/2
  ip address 212.22.48.6 255.255.255.252
  ip nat outside
 
 ip nat inside source list 1 interface Ethernet0/2 overload
 ip route 0.0.0.0 0.0.0.0 212.22.48.5
-                
+
 access-list 1 permit 172.16.0.0 0.0.15.255
 access-list 1 permit 172.20.20.0 0.0.0.255
-```
+end
+copy running-config startup-config
+</code></pre>
+</details>
 
-Провайдер в свою очередь тоже использует NAT(PAT), но нас это не интересует.
-
-Далее поднимаем Windows Server 2012 и на нём FTP Server. Данную машину резервируем 2-мя сетевыми адаптерами типа мост. И на её основе реализуем отказоустойчивый переход HSRP.
+Windows Server 2012 с FTP-сервером развёрнут в 3-м блоке с 2-мя сетевыми адаптерами типа «мост» для резервирования через HSRP.
 
 ```
 interface Vlan20
@@ -374,65 +389,56 @@ interface Ethernet1/3
  switchport mode access
 ```
 
-Также на каждом блоке организован **Etherchannel**:
+### LACP
 
-#### LACP
+EtherChannel настроен на каждом блоке Distribution.
 
-```
+<details>
+<summary>D-SW4 — LACP EtherChannel конфигурация + проверка</summary>
+<pre><code>
+enable
+configure terminal
 interface Port-channel1
  switchport trunk encapsulation dot1q
  switchport mode trunk
- 
+
 interface Ethernet1/0
  switchport trunk encapsulation dot1q
  switchport mode trunk
  channel-group 1 mode active
-!         
+
 interface Ethernet1/1
  switchport trunk encapsulation dot1q
  switchport mode trunk
  channel-group 1 mode active
- 
- port-channel load-balance src-dst-mac
--------------------------------------------------------------------------------- 
+
+port-channel load-balance src-dst-mac
+
 D-SW4#show etherchannel summary
-Flags:  D - down        P - bundled in port-channel
-        I - stand-alone s - suspended
-        H - Hot-standby (LACP only)
-        R - Layer3      S - Layer2
-        U - in use      f - failed to allocate aggregator
-
-        M - not in use, minimum links not met
-        u - unsuitable for bundling
-        w - waiting to be aggregated
-        d - default port
-
-
-Number of channel-groups in use: 1
-Number of aggregators:           1
-
 Group  Port-channel  Protocol    Ports
 ------+-------------+-----------+-----------------------------------------------
 1      Po1(SU)         LACP      Et1/0(P)    Et1/1(P)
+end
+copy running-config startup-config
+</code></pre>
+</details>
+
+### FTP
+
+Автоматическое архивирование конфигураций на FTP-сервер на всех устройствах:
+
+**login**: admin | **password**: cisco
+
 ```
-
-#### FTP
-
-Пропишем на всех устройствах доступ к FTP серверу
-
-**login**: admin  
-**password**: cisco
-
-```
-archive   
+archive
  path ftp://admin:cisco@172.20.20.5/FarmDistSW1.txt
  write-memory
  time-period 360
 ```
 
-#### NTP
+### NTP
 
-На Edge роутерах поднимем NTP-server
+На Edge-роутерах (NTP-серверы):
 
 ```
 ntp source Loopback0
@@ -442,10 +448,14 @@ ntp server ntp3.stratum2.ru
 ntp server 1.ru.pool.ntp.org prefer
 ```
 
-На клиентах
+На клиентах:
 
 ```
 ntp update-calendar
 ntp server 5.5.5.8
 ntp server 5.5.5.7 prefer
 ```
+
+---
+
+*Network Engineer Course | Lab 17*

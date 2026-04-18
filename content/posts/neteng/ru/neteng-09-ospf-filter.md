@@ -74,6 +74,8 @@ router ospf 1
  default-information originate
 
 ip route 0.0.0.0 0.0.0.0 100.100.100.2
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -117,6 +119,8 @@ ip route 0.0.0.0 0.0.0.0 111.111.111.2
 
 ip prefix-list PL1 seq 5 deny 10.10.10.12/30
 ip prefix-list PL1 seq 10 permit 0.0.0.0/0 le 32
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -152,6 +156,8 @@ router ospf 1
  network 10.10.10.8 0.0.0.3 area 0
  network 10.10.10.16 0.0.0.3 area 0
  network 172.16.0.0 0.0.0.255 area 10
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -183,6 +189,8 @@ router ospf 1
  network 10.10.10.4 0.0.0.3 area 0
  network 10.10.10.20 0.0.0.3 area 0
  network 172.16.1.0 0.0.0.255 area 10
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -249,6 +257,8 @@ router ospf 1
  router-id 19.19.19.19
  area 101 stub
  network 10.10.10.12 0.0.0.3 area 101
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -287,6 +297,8 @@ line con 0
 router ospf 1
  router-id 20.20.20.20
  network 10.10.10.0 0.0.0.3 area 102
+end
+copy running-config startup-config
 </code></pre>
 </details>
 

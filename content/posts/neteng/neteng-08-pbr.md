@@ -86,6 +86,8 @@ route-map TEST permit 10
 
 interface Ethernet0/2
  ip policy route-map TEST
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -94,6 +96,8 @@ VPC30 trace before and after applying the route-map:
 <details>
 <summary>VPC30</summary>
 <pre><code>
+enable
+configure terminal
 ! Before route-map
 VPCS> trace 215.215.215.215
 trace to 215.215.215.215, 8 hops max, press Ctrl+C to stop
@@ -106,6 +110,8 @@ trace to 215.215.215.215, 8 hops max, press Ctrl+C to stop
  1   172.16.40.1   0.629 ms  0.560 ms  0.463 ms
  2   111.110.35.13   0.902 ms  0.655 ms  0.590 ms
  3   *10.10.30.9   0.882 ms (ICMP type:3, code:3, Destination port unreachable)  *
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -118,6 +124,8 @@ Two IP SLA probes monitor reachability to each provider next-hop. Tracked object
 <details>
 <summary>R28</summary>
 <pre><code>
+enable
+configure terminal
 ip sla 1
  icmp-echo 111.110.35.9 source-interface Ethernet0/1
  frequency 5
@@ -139,6 +147,8 @@ route-map TEST permit 10
  match ip address ACL1
  set ip next-hop verify-availability 111.110.35.9 10 track 1
  set ip next-hop verify-availability 111.110.35.13 15 track 2
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
@@ -186,9 +196,13 @@ route-map TEST, permit, sequence 10
 <details>
 <summary>R27</summary>
 <pre><code>
+enable
+configure terminal
 R27(config)#do sh run | s route
 ip route 0.0.0.0 0.0.0.0 210.110.35.1
 ipv6 route ::/0 2CAD:1995:B0DA:A::25
+end
+copy running-config startup-config
 </code></pre>
 </details>
 
