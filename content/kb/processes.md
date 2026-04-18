@@ -8,20 +8,20 @@ date: 2026-04-14
 ---
 
 <div class="intro-card">
-Управление процессами и сервисами: мониторинг (<strong>ps, top</strong>), сигналы (<strong>kill</strong>), приоритеты (<strong>nice/renice</strong>), управление сервисами (<strong>systemctl</strong>), планировщик (<strong>cron</strong>), логи (<strong>journald</strong>).
+Process and service management: monitoring (<strong>ps, top</strong>), signals (<strong>kill</strong>), priorities (<strong>nice/renice</strong>), service management (<strong>systemctl</strong>), scheduling (<strong>cron</strong>), logs (<strong>journald</strong>).
 </div>
 
 <div class="cert-coming-soon" style="margin-top:32px">
   <div class="coming-icon">🚧</div>
-  <div>Контент в разработке</div>
+  <div>Content in development</div>
 </div>
 
-**Планируется:**
-- `ps aux / ps -ef` — снимок процессов, фильтрация
-- `top / htop` — интерактивный мониторинг, горячие клавиши
-- `kill / killall / pkill` — отправка сигналов; SIGTERM vs SIGKILL
-- `nice / renice` — приоритет CPU (nice -20..19)
-- `systemctl` — start/stop/enable/status/mask, unit-файлы
-- `journalctl` — фильтрация по unit, времени, приоритету
-- `cron / crontab` — синтаксис, специальные строки (@reboot, @daily)
-- `at / anacron` — разовые задачи
+**Planned:**
+- `ps aux / ps -ef` — process snapshot, filtering
+- `top / htop` — interactive monitoring, hotkeys
+- `kill / killall / pkill` — sending signals; SIGTERM vs SIGKILL
+- `nice / renice` — CPU priority (nice -20..19)
+- `systemctl` — start/stop/enable/status/mask, unit files
+- `journalctl` — filter by unit, time, priority
+- `cron / crontab` — syntax, special strings (@reboot, @daily)
+- `at / anacron` — one-time tasks

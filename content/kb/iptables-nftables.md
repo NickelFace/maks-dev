@@ -1,6 +1,6 @@
 ---
 title: "iptables / nftables"
-description: "Файрвол Linux: цепочки, таблицы, NAT, синтаксис правил"
+description: "Linux firewall: chains, tables, NAT, rule syntax"
 icon: "🔥"
 group: "Security"
 tags: ["Security", "iptables", "nftables", "Linux", "Firewall"]
@@ -8,19 +8,19 @@ date: 2026-04-14
 ---
 
 <div class="intro-card">
-Углублённый справочник по файрволу Linux: <strong>iptables</strong> (синтаксис правил, цепочки, NAT, сохранение) и <strong>nftables</strong> (современный синтаксис, миграция с iptables).
+In-depth Linux firewall reference: <strong>iptables</strong> (rule syntax, chains, NAT, persistence) and <strong>nftables</strong> (modern syntax, migration from iptables).
 </div>
 
 <div class="cert-coming-soon" style="margin-top:32px">
   <div class="coming-icon">🚧</div>
-  <div>Контент в разработке</div>
+  <div>Content in development</div>
 </div>
 
-**Планируется:**
-- iptables — таблицы (filter/nat/mangle/raw), цепочки, приоритеты
-- iptables — конкретные паттерны: stateful firewall, rate limiting, port knocking
-- iptables — сохранение и восстановление (iptables-save/restore, netfilter-persistent)
-- nftables — синтаксис: tables, chains, rules, sets
-- nftables — аналоги iptables-правил в nft
+**Planned:**
+- iptables — tables (filter/nat/mangle/raw), chains, priorities
+- iptables — common patterns: stateful firewall, rate limiting, port knocking
+- iptables — save and restore (iptables-save/restore, netfilter-persistent)
+- nftables — syntax: tables, chains, rules, sets
+- nftables — iptables rule equivalents in nft
 - firewalld — zones, services, rich rules, `firewall-cmd`
-- Типичные схемы: simple server firewall, NAT router, DMZ
+- Common setups: simple server firewall, NAT router, DMZ

@@ -8,19 +8,19 @@ date: 2026-04-14
 ---
 
 <div class="intro-card">
-Справочник по файловой системе Linux: поиск файлов (<strong>find</strong>), дисковое пространство (<strong>du/df</strong>), открытые файлы (<strong>lsof</strong>), права доступа (<strong>chmod/chown/ACL</strong>), монтирование и <strong>LVM</strong>.
+Linux filesystem reference: file search (<strong>find</strong>), disk usage (<strong>du/df</strong>), open files (<strong>lsof</strong>), permissions (<strong>chmod/chown/ACL</strong>), mounting and <strong>LVM</strong>.
 </div>
 
 <div class="cert-coming-soon" style="margin-top:32px">
   <div class="coming-icon">🚧</div>
-  <div>Контент в разработке</div>
+  <div>Content in development</div>
 </div>
 
-**Планируется:**
-- `find` — поиск по имени, типу, дате, размеру, правам; `-exec`; `-print0`
-- `du / df` — анализ использования диска, сортировка по размеру
-- `lsof` — открытые файлы, сокеты, процессы
-- `chmod / chown / umask` — права доступа
-- `setfacl / getfacl` — ACL расширенные права
-- `mount / umount / fstab` — монтирование ФС
+**Planned:**
+- `find` — search by name, type, date, size, permissions; `-exec`; `-print0`
+- `du / df` — disk usage analysis, sort by size
+- `lsof` — open files, sockets, processes
+- `chmod / chown / umask` — permissions
+- `setfacl / getfacl` — extended ACL permissions
+- `mount / umount / fstab` — filesystem mounting
 - LVM: `pvcreate, vgcreate, lvcreate, lvextend, resize2fs`
