@@ -343,3 +343,213 @@ systemctl start  mnt-external.automount
 13. Чем `lsblk -f` отличается от `blkid`? → `lsblk -f` выводит таблицей с размером и точкой монтирования; `blkid` компактнее, удобен для скриптов.
 14. Как найти процессы, держащие файлы на занятой ФС? → `lsof /dev/sdXN`.
 15. Что делает опция `sync` и почему её не рекомендуют для флеш-накопителей? → Запись выполняется синхронно; на флеш сокращает срок службы из-за ограниченного числа циклов записи.
+
+---
+
+## Упражнения
+
+### Упражнение 1 — Монтирование ext4 как read-only с опциями
+
+Смонтировать ext4 на `/dev/sdc1` в `/mnt/external` только для чтения, с опциями `noatime` и `async`.
+
+<details>
+<summary>Ответ</summary>
+
+```bash
+mount -t ext4 -o noatime,async,ro /dev/sdc1 /mnt/external
+```
+
+</details>
+
+---
+
+### Упражнение 2 — Что держит занятую ФС
+
+При попытке отмонтировать `/dev/sdd2` появляется `target is busy`. Как узнать, какие файлы открыты?
+
+<details>
+<summary>Ответ</summary>
+
+```bash
+lsof /dev/sdd2
+```
+
+Вывод покажет: имя процесса, PID, пользователя и открытый файл. После закрытия программы ФС можно отмонтировать.
+
+</details>
+
+---
+
+### Упражнение 3 — noauto и mount -a
+
+В `/etc/fstab` есть запись:
+
+```
+/dev/sdb1  /data  ext4  noatime,noauto,async
+```
+
+Будет ли эта ФС смонтирована командой `mount -a`?
+
+<details>
+<summary>Ответ</summary>
+
+Нет. Параметр `noauto` заставляет `mount -a` пропускать эту запись. Монтировать нужно вручную.
+
+</details>
+
+---
+
+### Упражнение 4 — UUID файловой системы
+
+Как узнать UUID файловой системы на `/dev/sdb1`?
+
+<details>
+<summary>Ответ</summary>
+
+```bash
+lsblk -f /dev/sdb1
+# или
+blkid /dev/sdb1
+```
+
+`lsblk -f` выводит таблицей с типом, меткой, UUID, свободным местом и точкой монтирования. `blkid` даёт компактный вывод, удобный для скриптов.
+
+</details>
+
+---
+
+### Упражнение 5 — Перемонтирование в read-only
+
+ФС exFAT смонтирована в `/mnt/data`. Как перемонтировать только для чтения?
+
+<details>
+<summary>Ответ</summary>
+
+При `remount` указывать тип и UUID не нужно — достаточно точки монтирования:
+
+```bash
+mount -o remount,ro /mnt/data
+```
+
+</details>
+
+---
+
+### Упражнение 6 — Список ext3 и ntfs монтирований
+
+Как получить список всех смонтированных ФС типа ext3 и ntfs?
+
+<details>
+<summary>Ответ</summary>
+
+```bash
+mount -t ext3,ntfs
+```
+
+</details>
+
+---
+
+### Упражнение 7 — nouser и обычный пользователь
+
+В `/etc/fstab`:
+
+```
+/dev/sdc1  /backup  ext4  noatime,nouser,async
+```
+
+Может ли обычный пользователь смонтировать эту ФС командой `mount /backup`?
+
+<details>
+<summary>Ответ</summary>
+
+Нет. Опция `nouser` запрещает монтирование обычными пользователями — только root.
+
+Для разрешения пользователям используется `user` (любой пользователь) или `group` (пользователи из группы-владельца устройства).
+
+</details>
+
+---
+
+### Упражнение 8 — Принудительное отмонтирование сетевой ФС
+
+Сетевая ФС на `/mnt/server` стала недоступна из-за потери связи. Как принудительно отмонтировать её, или перевести в read-only если не получится?
+
+<details>
+<summary>Ответ</summary>
+
+```bash
+umount -fr /mnt/server
+```
+
+`-f` — принудительное отмонтирование. `-r` — если не удалось, перевести в режим только для чтения.
+
+</details>
+
+---
+
+### Упражнение 9 — Запись /etc/fstab для btrfs Backup
+
+Написать строку fstab, которая монтирует btrfs с меткой `Backup` в `/mnt/backup` с настройками по умолчанию и без права выполнения бинарных файлов.
+
+<details>
+<summary>Ответ</summary>
+
+```
+LABEL=Backup  /mnt/backup  btrfs  defaults,noexec  0  0
+```
+
+`defaults` включает `exec`. Добавление `noexec` отменяет его — последний параметр побеждает.
+
+DUMP и PASS: `0 0` — не использовать `dump`, не проверять при загрузке.
+
+</details>
+
+---
+
+### Упражнение 10 — Эквивалент mount unit в /etc/fstab
+
+Дан systemd mount unit:
+
+```ini
+[Unit]
+Description=External data disk
+
+[Mount]
+What=/dev/disk/by-uuid/56C11DCC5D2E1334
+Where=/mnt/external
+Type=ntfs
+Options=defaults
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Какой будет эквивалентная строка в `/etc/fstab`? Как должен называться unit-файл и куда его положить?
+
+<details>
+<summary>Ответ</summary>
+
+Эквивалент в fstab:
+
+```
+UUID=56C11DCC5D2E1334  /mnt/external  ntfs  defaults  0  0
+```
+
+`What=/dev/disk/by-uuid/UUID` — путь к симлинку, созданному udev. В fstab тот же UUID записывается через `UUID=`.
+
+Имя файла: `mnt-external.mount` в каталоге `/etc/systemd/system/`.
+
+Правило именования: символы `/` в пути точки монтирования заменяются на `-`:
+
+| Точка монтирования | Имя файла |
+|---|---|
+| `/mnt/external` | `mnt-external.mount` |
+| `/var/log/db` | `var-log-db.mount` |
+| `/` | `-.mount` |
+
+</details>
+
+---
+
+*LPIC-1 Study Notes | Topic 104: Devices, Linux Filesystems, Filesystem Hierarchy Standard*

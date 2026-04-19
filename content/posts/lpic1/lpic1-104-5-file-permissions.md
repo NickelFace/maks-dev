@@ -318,3 +318,223 @@ Uppercase is a diagnostic signal: the special bit is set but without `x` it is l
 8. Where to put `umask` to persist across sessions? → `~/.bashrc`, `~/.profile`, or `/etc/profile`.
 9. What does `chmod` without `-R` do on a directory? → Changes the directory's own permissions only; files inside are unaffected.
 10. How to remove all special permissions with octal notation? → Use `0` as the leading digit: `chmod 0755 file`.
+
+---
+
+## Exercises
+
+### Exercise 1 — Show a directory's own permissions
+
+Create `emptydir` with `mkdir emptydir`. Show the permissions on the directory itself (not its contents).
+
+<details>
+<summary>Answer</summary>
+
+```bash
+ls -ld emptydir
+```
+
+Without `-d`, `ls` lists the directory's contents. The `-d` flag makes it show the directory's own attributes.
+
+</details>
+
+---
+
+### Exercise 2 — chmod in symbolic mode
+
+Create `emptyfile` with `touch emptyfile`. In a single `chmod` command using symbolic mode: add execute for the owner and remove write and execute from group and others.
+
+<details>
+<summary>Answer</summary>
+
+```bash
+chmod u+x,go-wx emptyfile
+```
+
+`u+x` — add execute for owner. `go-wx` — remove write and execute from group and others. Multiple changes are comma-separated with no spaces.
+
+</details>
+
+---
+
+### Exercise 3 — Calculate permissions from umask
+
+What permissions will new files have if umask is `027`?
+
+<details>
+<summary>Answer</summary>
+
+`rw-r-----` (640).
+
+Calculation: `666 - 027 = 640`. Files never get `x` by default, so the `x` bits in the mask have no effect on files.
+
+</details>
+
+---
+
+### Exercise 4 — Parse permissions and remove SGID
+
+```
+-rwxr-sr-x 1 carol root 33 Dec 11 10:36 test.sh
+```
+
+What are the owner's permissions? How do you remove the special permission with octal notation?
+
+<details>
+<summary>Answer</summary>
+
+Owner permissions — characters 2–4: `rwx`. Owner can read, write, and execute.
+
+Converting to octal: `rwx`=7, `r-x` for group (`s` is in the `x` position, so `x` is present)=5, `r-x`=5 → regular permissions are `755`.
+
+To remove the special permission, pass `0` as the 4th digit:
+
+```bash
+chmod 0755 test.sh
+```
+
+</details>
+
+---
+
+### Exercise 5 — Block device ownership
+
+```
+$ ls -l /dev/sdb1
+brw-rw---- 1 root disk 8, 17 Dec 21 18:51 /dev/sdb1
+```
+
+What type of file is this? Who can write to it?
+
+<details>
+<summary>Answer</summary>
+
+First character `b` — block device (typically a disk).
+
+Write access: owner (`root`) and any member of the `disk` group. Others have no access.
+
+</details>
+
+---
+
+### Exercise 6 — Octal notation for four files
+
+Express permissions in four-digit octal notation:
+
+```
+drwxr-xr-t 2 carol carol  4,0K Dec 20 18:46 Another_Directory
+----r--r-- 1 carol carol     0 Dec 11 10:55 foo.bar
+-rw-rw-r-- 1 carol carol  1,2G Dec 20 18:22 HugeFile.zip
+drwxr-sr-x 2 carol users 4,0K Jan 18 17:26 Sample_Directory
+```
+
+<details>
+<summary>Answer</summary>
+
+| File | Octal | Notes |
+|---|---|---|
+| `Another_Directory` | **1755** | sticky=1; `rwx`=7, `r-x`=5, `r-x`=5 |
+| `foo.bar` | **0044** | no special bits; `---`=0, `r--`=4, `r--`=4 |
+| `HugeFile.zip` | **0664** | no special bits; `rw-`=6, `rw-`=6, `r--`=4 |
+| `Sample_Directory` | **2755** | SGID=2; `rwx`=7, `r-x`=5, `r-x`=5 |
+
+</details>
+
+---
+
+### Exercise 7 — chmod with one or two digits
+
+After `chmod 000 emptyfile`, what happens with `chmod 4 emptyfile`? With `chmod 44 emptyfile`? What does this reveal about how `chmod` reads numeric values?
+
+<details>
+<summary>Answer</summary>
+
+After `chmod 4 emptyfile`: `-------r--` — **others** only changed.
+
+After `chmod 44 emptyfile`: `----r--r--` — **group and others** changed.
+
+`chmod` reads digits right to left:
+
+| Digits given | What changes |
+|---|---|
+| 1 | others only |
+| 2 | group + others |
+| 3 | owner + group + others |
+| 4 | special bits + all three groups |
+
+</details>
+
+---
+
+### Exercise 8 — /tmp sticky bit and file deletion
+
+```
+drwxrwxrwt 19 root root 16K /tmp
+```
+
+Owner, group, and others all have full permissions. Can a regular user delete another user's files in `/tmp`?
+
+<details>
+<summary>Answer</summary>
+
+No. `/tmp` is world-writable, but the **sticky bit** (`t`) is set. It means only the file's owner or the directory's owner can delete or rename files inside.
+
+A regular user can only delete their own files in `/tmp`.
+
+</details>
+
+---
+
+### Exercise 9 — SUID and uppercase S
+
+`test.sh` has `-rwsr-xr-x` (SUID set). After running `chmod u-x test.sh`, `ls -l` shows `-rwSr-xr-x`. What happened? What does the uppercase `S` mean?
+
+<details>
+<summary>Answer</summary>
+
+Execute permission was removed from the owner. Since `s` occupies the `x` position, the system uses letter case to encode whether `x` is also present:
+
+| Symbol | Special bit | `x` present? |
+|---|---|---|
+| `s` (lowercase) | set | yes |
+| `S` (uppercase) | set | **no** |
+| `t` (lowercase) | sticky set | yes |
+| `T` (uppercase) | sticky set | **no** |
+
+Uppercase is a diagnostic signal: the special bit is set, but without `x` it is likely useless.
+
+</details>
+
+---
+
+### Exercise 10 — Shared directory with SGID and sticky bit
+
+Create a `Box` directory where all new files automatically belong to group `users`, and only the file's creator can delete it.
+
+<details>
+<summary>Answer</summary>
+
+Step 1 — create the directory:
+
+```bash
+mkdir Box
+```
+
+Step 2 — assign group ownership and set SGID (new files inherit the parent's group):
+
+```bash
+chown :users Box/
+chmod g+wxs,o+t Box/
+```
+
+Result:
+
+```
+drwxrwsr-t 2 carol users 4,0K Jan 18 19:09 Box
+```
+
+</details>
+
+---
+
+*LPIC-1 Study Notes | Topic 104: Devices, Linux Filesystems, Filesystem Hierarchy Standard*

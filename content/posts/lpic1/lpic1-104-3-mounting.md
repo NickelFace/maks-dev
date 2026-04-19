@@ -341,3 +341,213 @@ systemctl enable mnt-external.mount
 13. Difference between `lsblk -f` and `blkid`? → `lsblk -f` shows a table with free space and mount point; `blkid` gives compact output suitable for scripts.
 14. How to find processes holding files on a busy filesystem? → `lsof /dev/sdXN`.
 15. Why is `sync` not recommended for flash storage? → Writes happen synchronously, wearing out flash cells faster due to limited write cycles.
+
+---
+
+## Exercises
+
+### Exercise 1 — Mount ext4 read-only with options
+
+Mount ext4 on `/dev/sdc1` to `/mnt/external` read-only, with options `noatime` and `async`.
+
+<details>
+<summary>Answer</summary>
+
+```bash
+mount -t ext4 -o noatime,async,ro /dev/sdc1 /mnt/external
+```
+
+</details>
+
+---
+
+### Exercise 2 — Find what is holding a busy filesystem
+
+Unmounting `/dev/sdd2` returns `target is busy`. How do you find which files are open?
+
+<details>
+<summary>Answer</summary>
+
+```bash
+lsof /dev/sdd2
+```
+
+Output shows: process name, PID, user, and the open file. Close the program, then unmount.
+
+</details>
+
+---
+
+### Exercise 3 — noauto and mount -a
+
+`/etc/fstab` contains:
+
+```
+/dev/sdb1  /data  ext4  noatime,noauto,async
+```
+
+Will this filesystem be mounted by `mount -a`?
+
+<details>
+<summary>Answer</summary>
+
+No. The `noauto` option tells `mount -a` to skip this entry. The filesystem must be mounted manually.
+
+</details>
+
+---
+
+### Exercise 4 — Finding a filesystem's UUID
+
+How do you find the UUID of the filesystem on `/dev/sdb1`?
+
+<details>
+<summary>Answer</summary>
+
+```bash
+lsblk -f /dev/sdb1
+# or
+blkid /dev/sdb1
+```
+
+`lsblk -f` shows a table with type, label, UUID, free space and mount point. `blkid` gives compact output, convenient for scripts. Both are in the 104.3 objectives.
+
+</details>
+
+---
+
+### Exercise 5 — Remount as read-only
+
+An exFAT filesystem is mounted at `/mnt/data`. How do you remount it read-only?
+
+<details>
+<summary>Answer</summary>
+
+When remounting, type and UUID are not needed — mount point alone is sufficient:
+
+```bash
+mount -o remount,ro /mnt/data
+```
+
+</details>
+
+---
+
+### Exercise 6 — List ext3 and ntfs mounts
+
+How do you list all mounted filesystems of type ext3 and ntfs?
+
+<details>
+<summary>Answer</summary>
+
+```bash
+mount -t ext3,ntfs
+```
+
+</details>
+
+---
+
+### Exercise 7 — nouser and regular user mounting
+
+`/etc/fstab` contains:
+
+```
+/dev/sdc1  /backup  ext4  noatime,nouser,async
+```
+
+Can a regular user mount this filesystem with `mount /backup`?
+
+<details>
+<summary>Answer</summary>
+
+No. The `nouser` option allows only root to mount this filesystem.
+
+To allow regular users: use `user` (any user) or `group` (users in the device's group).
+
+</details>
+
+---
+
+### Exercise 8 — Force-unmount an unreachable network filesystem
+
+A network filesystem at `/mnt/server` has become unreachable due to connection loss. How do you force-unmount it, or fall back to read-only if that fails?
+
+<details>
+<summary>Answer</summary>
+
+```bash
+umount -fr /mnt/server
+```
+
+`-f` forces unmount; `-r` falls back to remounting read-only if unmounting fails.
+
+</details>
+
+---
+
+### Exercise 9 — fstab entry for btrfs Backup
+
+Write an `/etc/fstab` line that mounts a btrfs volume with label `Backup` at `/mnt/backup` with default options but no binary execution.
+
+<details>
+<summary>Answer</summary>
+
+```
+LABEL=Backup  /mnt/backup  btrfs  defaults,noexec  0  0
+```
+
+`defaults` includes `exec`. Adding `noexec` overrides it — the last matching option wins.
+
+DUMP and PASS are `0 0`: skip `dump` backup, skip fsck on boot.
+
+</details>
+
+---
+
+### Exercise 10 — fstab equivalent of a mount unit
+
+Given this systemd mount unit:
+
+```ini
+[Unit]
+Description=External data disk
+
+[Mount]
+What=/dev/disk/by-uuid/56C11DCC5D2E1334
+Where=/mnt/external
+Type=ntfs
+Options=defaults
+
+[Install]
+WantedBy=multi-user.target
+```
+
+What is the equivalent `/etc/fstab` line, and what must the unit file be named and where should it go?
+
+<details>
+<summary>Answer</summary>
+
+fstab equivalent:
+
+```
+UUID=56C11DCC5D2E1334  /mnt/external  ntfs  defaults  0  0
+```
+
+`What=/dev/disk/by-uuid/UUID` is a symlink path created by udev. In fstab, the same UUID is written as `UUID=`.
+
+Unit file: `mnt-external.mount` in `/etc/systemd/system/`.
+
+Naming rule: replace each `/` in the mount point path with `-`:
+
+| Mount point | File name |
+|---|---|
+| `/mnt/external` | `mnt-external.mount` |
+| `/var/log/db` | `var-log-db.mount` |
+| `/` | `-.mount` |
+
+</details>
+
+---
+
+*LPIC-1 Study Notes | Topic 104: Devices, Linux Filesystems, Filesystem Hierarchy Standard*

@@ -326,3 +326,198 @@ xfs_repair -l /dev/sdc1 -n /dev/sda1
 13. Difference between `-c` and `-C` in `tune2fs`? → `-c` sets the maximum mount count; `-C` sets the current counter value.
 14. What is `mount count` in `tune2fs -l`? → number of times the filesystem has been mounted; triggers `e2fsck` when it reaches maximum mount count.
 15. What does `-e remount-ro` do in `tune2fs`? → on filesystem error, remount read-only to stop further writes.
+
+---
+
+## Exercises
+
+### Exercise 1 — Show only files in the current directory with du
+
+Use `du` to check how much space files in the current directory take up — excluding subdirectories.
+
+<details>
+<summary>Answer</summary>
+
+```bash
+du -Shd 0
+```
+
+`-S` separates the current directory's accounting from its subdirectories. `-d 0` limits recursion depth to zero — no subdirectory lines in output. Without `-S`, the total would still include nested files, so both flags are needed together.
+
+</details>
+
+---
+
+### Exercise 2 — df filtered to ext4 with custom columns
+
+Display information for each ext4 filesystem. Columns in order: device, mount point, total inodes, available inodes, usage percentage.
+
+<details>
+<summary>Answer</summary>
+
+```bash
+df -t ext4 --output=source,target,itotal,iavail,pcent
+```
+
+`-t ext4` filters by type. `--output=...` sets the column list and order. `pcent` shows the percentage of **used** space — there is no separate "free percentage" field.
+
+</details>
+
+---
+
+### Exercise 3 — e2fsck in non-interactive mode
+
+Run `e2fsck` on `/dev/sdc1` non-interactively, automatically fixing most errors.
+
+<details>
+<summary>Answer</summary>
+
+```bash
+e2fsck -p /dev/sdc1
+```
+
+With `-p`, the tool fixes what it can without human input. If it encounters an error requiring administrator intervention, it prints a description and exits. Alternatives: `-y` answers yes to everything; `-n` answers no and opens the filesystem read-only.
+
+</details>
+
+---
+
+### Exercise 4 — Convert ext2 to ext3, reset mount counter, set label
+
+`/dev/sdb1` is ext2. Convert to ext3, reset the mount counter, and change the label to `UserData`.
+
+<details>
+<summary>Answer</summary>
+
+```bash
+tune2fs -j -C 0 -L UserData /dev/sdb1
+```
+
+- `-j` — add journal (ext2 → ext3 conversion)
+- `-C 0` (uppercase) — reset current mount count to 0
+- `-L UserData` — set label
+
+Case matters: `-c` (lowercase) sets the maximum mount count; `-C` (uppercase) sets the current counter value.
+
+</details>
+
+---
+
+### Exercise 5 — Check XFS without making any changes
+
+Check an XFS filesystem for errors without performing any repair.
+
+<details>
+<summary>Answer</summary>
+
+```bash
+xfs_repair -n /dev/sdb1
+```
+
+`-n` = no modify: filesystem is scanned, errors are reported, nothing is written to disk.
+
+</details>
+
+---
+
+### Exercise 6 — Effect of tune2fs -c 9 when mount count is 8
+
+An ext4 filesystem on `/dev/sda1` has `Mount count: 8` and `Maximum mount count: -1`. What happens on the next boot if you run `tune2fs -c 9 /dev/sda1`?
+
+<details>
+<summary>Answer</summary>
+
+The command sets the maximum mount count to 9. Since the current count is 8, on the next boot the count will reach 9 — equal to the maximum — and the system will automatically run a filesystem check.
+
+The original value of `-1` meant the mount-count check was disabled entirely.
+
+</details>
+
+---
+
+### Exercise 7 — Calculate file size from du output
+
+`du -h` output:
+
+```
+216K ./somedir/anotherdir
+224K ./somedir
+232K .
+```
+
+How much space do files in the current directory (only, no subdirectories) take? How to rewrite the command to show this explicitly?
+
+<details>
+<summary>Answer</summary>
+
+Of the total 232 KB, the `somedir` subtree accounts for 224 KB. Files in the current directory alone: 232 − 224 = **8 KB**.
+
+To see this explicitly:
+
+```bash
+du -Sh
+```
+
+`-S` separates each directory's own files from its subdirectories. Add `-d 0` to suppress subdirectory lines entirely.
+
+</details>
+
+---
+
+### Exercise 8 — Effect of tune2fs -j -J device= -i 30d
+
+What happens to the ext2 filesystem on `/dev/sdb1` when you run:
+
+```bash
+tune2fs -j /dev/sdb1 -J device=/dev/sdc1 -i 30d
+```
+
+<details>
+<summary>Answer</summary>
+
+A journal is added, converting `/dev/sdb1` to ext3. The journal is stored on the separate device `/dev/sdc1`. The filesystem will be automatically checked every 30 days.
+
+- `-j` — creates the journal, upgrades to ext3
+- `-J device=` — places the journal on a separate disk (performance and reliability)
+- `-i 30d` — sets a 30-day automatic check interval
+
+</details>
+
+---
+
+### Exercise 9 — Check XFS with external log section
+
+Check XFS `/dev/sda1` whose log section is on `/dev/sdc1`, without making any changes.
+
+<details>
+<summary>Answer</summary>
+
+```bash
+xfs_repair -l /dev/sdc1 -n /dev/sda1
+```
+
+`-l` (lowercase L) specifies the external log device. Do not confuse with `-L` (uppercase), which **zeroes out** a corrupt log.
+
+`-n` is always safe and appropriate for initial diagnosis.
+
+</details>
+
+---
+
+### Exercise 10 — Difference between -T and -t in df
+
+What is the difference between the `-T` and `-t` options of `df`?
+
+<details>
+<summary>Answer</summary>
+
+- `-T` (uppercase) **adds** a filesystem type column to output. All filesystems remain in the output.
+- `-t TYPE` (lowercase) is a **filter** — only filesystems of the specified type are shown.
+
+The complementary flag `-x TYPE` excludes filesystems of the specified type.
+
+</details>
+
+---
+
+*LPIC-1 Study Notes | Topic 104: Devices, Linux Filesystems, Filesystem Hierarchy Standard*

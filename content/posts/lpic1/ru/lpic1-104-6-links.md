@@ -212,3 +212,191 @@ mv link /новый/путь
 8. Как создать `c.txt` с тем же инодом, что и `a.txt`? → `ln a.txt c.txt`.
 9. Увеличивает ли символьная ссылка счётчик ссылок цели? → **Нет**.
 10. Почему относительная символьная ссылка ломается при перемещении? → Путь к цели интерпретируется относительно расположения ссылки; в новом месте такого файла нет.
+
+---
+
+## Упражнения
+
+### Упражнение 1 — Включить sticky bit через chmod
+
+Какой параметр в символьном режиме `chmod` включает sticky bit на каталоге?
+
+<details>
+<summary>Ответ</summary>
+
+```bash
+chmod +t /path/to/dir
+# или явно для остальных:
+chmod o+t /path/to/dir
+```
+
+Символ sticky bit — `t`. Чтобы включить — передаётся `+t`.
+
+</details>
+
+---
+
+### Упражнение 2 — Создать символьную ссылку
+
+В каталоге `/home/carol/Documents` лежит файл `document.txt`. Создать в текущем каталоге символьную ссылку на него с именем `text.txt`.
+
+<details>
+<summary>Ответ</summary>
+
+```bash
+ln -s /home/carol/Documents/document.txt text.txt
+```
+
+Флаг `-s` создаёт символьную ссылку. Полный путь предотвращает поломку ссылки при перемещении.
+
+</details>
+
+---
+
+### Упражнение 3 — Жёсткая ссылка против копии
+
+Объяснить разницу между жёсткой ссылкой на файл и копией этого файла.
+
+<details>
+<summary>Ответ</summary>
+
+**Жёсткая ссылка** — второе имя для одного и того же файла. Ссылка и оригинал указывают на одни данные на диске. Изменения через любое из имён видны через остальные.
+
+**Копия** — полностью независимая сущность: новый инод, новые блоки на диске. Изменения в копии не влияют на оригинал.
+
+</details>
+
+---
+
+### Упражнение 4 — Удаление цели символьной ссылки
+
+Создаём файл, жёсткую ссылку и символьную ссылку:
+
+```bash
+touch recipes.txt
+ln recipes.txt receitas.txt
+ln -s receitas.txt rezepte.txt
+```
+
+Что произойдёт с `rezepte.txt` после `rm receitas.txt`?
+
+<details>
+<summary>Ответ</summary>
+
+`rezepte.txt` станет **битой ссылкой**. Символьные ссылки указывают на **имена**, а не на иноды. Имени `receitas.txt` больше нет — ссылка ведёт в никуда.
+
+Сами данные на диске сохранились: они доступны через `recipes.txt` (жёсткую ссылку с тем же инодом), но символьная ссылка об этом ничего не знает.
+
+</details>
+
+---
+
+### Упражнение 5 — Жёсткая ссылка на флешку
+
+Флешка смонтирована в `/media/youruser/FlashA`. Выполняем:
+
+```bash
+ln /media/youruser/FlashA/esquema.pdf ~/schematics.pdf
+```
+
+Что произойдёт? Почему?
+
+<details>
+<summary>Ответ</summary>
+
+Ошибка `Invalid cross-device link`. Жёсткие ссылки не работают между разными устройствами/ФС: инод имеет смысл только внутри своей ФС.
+
+Решение — символьная ссылка:
+
+```bash
+ln -s /media/youruser/FlashA/esquema.pdf ~/schematics.pdf
+```
+
+</details>
+
+---
+
+### Упражнение 6 — Анализ вывода ls по счётчику ссылок
+
+```
+-rw-rw-r-- 1 carol carol 2,8M jun 17 15:45 compressed.zip
+-rw-r--r-- 4 carol carol  77K jun 17 17:25 document.txt
+-rw-rw-r-- 1 carol carol 216K jun 17 17:25 image.png
+-rw-r--r-- 4 carol carol  77K jun 17 17:25 text.txt
+```
+
+Сколько ссылок указывает на `document.txt`? Жёсткие или символьные? Какой параметр `ls` показывает инод?
+
+<details>
+<summary>Ответ</summary>
+
+Link count = **4**. Стартовый счётчик = 1 (само имя), значит добавлено **3 жёсткие ссылки**.
+
+Это **жёсткие** ссылки — символьные не увеличивают link count цели.
+
+Параметр **`-i`**:
+
+```bash
+ls -lahi
+# 5388833 -rw-r--r-- 4 carol carol  77K document.txt
+# 5388833 -rw-r--r-- 4 carol carol  77K text.txt
+```
+
+`document.txt` и `text.txt` имеют одинаковый инод `5388833` → `text.txt` одна из тех жёстких ссылок.
+
+</details>
+
+---
+
+### Упражнение 7 — Перемещение относительной символьной ссылки
+
+Структура каталогов:
+
+```
+~/Documents/
+├── clients.txt          ("John, Michael, Bob")
+└── somedir/
+    ├── clients.txt      ("Bill, Luke, Karl")
+    └── partners.txt -> clients.txt   (относительная ссылка)
+```
+
+После `mv ~/Documents/somedir/partners.txt ~/Documents/` что покажет `less ~/Documents/partners.txt`?
+
+<details>
+<summary>Ответ</summary>
+
+Ссылка сработает, но покажет `~/Documents/clients.txt` — строку `John, Michael, Bob` — **не тот файл, что ожидался**.
+
+`partners.txt` указывает на `clients.txt` **относительно своего расположения**. После перемещения из `somedir/` в `Documents/` ссылка ищет `clients.txt` рядом с собой — и находит `Documents/clients.txt` вместо `somedir/clients.txt`.
+
+Решение: всегда используй **абсолютный путь** при создании символьной ссылки:
+
+```bash
+ln -s /home/carol/Documents/somedir/clients.txt partners.txt
+```
+
+</details>
+
+---
+
+### Упражнение 8 — Права доступа символьной ссылки
+
+```
+-rw-r--r-- 1 carol carol 19 Jun 24 11:12 clients.txt
+lrwxrwxrwx 1 carol carol 11 Jun 24 11:13 partners.txt -> clients.txt
+```
+
+Какие фактические права доступа у `partners.txt`?
+
+<details>
+<summary>Ответ</summary>
+
+`rw-r--r--` — права цели (`clients.txt`).
+
+Символьная ссылка всегда показывает `lrwxrwxrwx` в `ls -l`, но это её собственные атрибуты. Реальный доступ через ссылку определяется **правами цели**.
+
+</details>
+
+---
+
+*LPIC-1 Study Notes | Topic 104: Devices, Linux Filesystems, Filesystem Hierarchy Standard*
