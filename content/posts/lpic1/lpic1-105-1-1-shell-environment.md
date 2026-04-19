@@ -5,7 +5,7 @@ description: "Shell types, startup files, environment variables, aliases, functi
 tags: ["Linux", "LPIC-1", "bash", "shell", "environment", "alias", "source", "skel"]
 categories: ["LPIC-1"]
 page_lang: "en"
-lang_pair: "/posts/lpic1/ru/lpic1-105-1-shell-environment/"
+lang_pair: "/posts/lpic1/ru/lpic1-105-1-1-shell-environment/"
 ---
 
 > **Exam weight: 4** — LPIC-1 v5, Exam 102

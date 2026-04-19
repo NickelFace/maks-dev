@@ -5,7 +5,7 @@ description: "Local and global variables, export, env, common environment variab
 tags: ["Linux", "LPIC-1", "bash", "shell", "environment", "export", "alias", "PATH"]
 categories: ["LPIC-1"]
 page_lang: "en"
-lang_pair: "/posts/lpic1/ru/lpic1-105-1-shell-variables/"
+lang_pair: "/posts/lpic1/ru/lpic1-105-1-2-shell-variables/"
 ---
 
 > **Exam weight: 4** — LPIC-1 v5, Exam 102 | Part 2 of 105.1

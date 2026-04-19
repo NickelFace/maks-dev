@@ -5,7 +5,7 @@ description: "Alias quoting, dynamic vs static expansion, Bash functions, specia
 tags: ["Linux", "LPIC-1", "bash", "alias", "function", "shell", "environment"]
 categories: ["LPIC-1"]
 page_lang: "en"
-lang_pair: "/posts/lpic1/ru/lpic1-105-1-aliases-functions/"
+lang_pair: "/posts/lpic1/ru/lpic1-105-1-3-aliases-functions/"
 ---
 
 > **Exam weight: 4** — LPIC-1 v5, Exam 102 | Part 3 of 105.1

@@ -5,7 +5,7 @@ description: "Локальные и глобальные переменные, e
 tags: ["Linux", "LPIC-1", "bash", "оболочка", "окружение", "export", "alias", "PATH"]
 categories: ["LPIC-1"]
 page_lang: "ru"
-lang_pair: "/posts/lpic1/lpic1-105-1-shell-variables/"
+lang_pair: "/posts/lpic1/lpic1-105-1-2-shell-variables/"
 pagefind_ignore: true
 build:
   list: never

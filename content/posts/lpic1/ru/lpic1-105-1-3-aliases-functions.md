@@ -5,7 +5,7 @@ description: "Кавычки в псевдонимах, динамическое
 tags: ["Linux", "LPIC-1", "bash", "alias", "function", "оболочка", "окружение"]
 categories: ["LPIC-1"]
 page_lang: "ru"
-lang_pair: "/posts/lpic1/lpic1-105-1-aliases-functions/"
+lang_pair: "/posts/lpic1/lpic1-105-1-3-aliases-functions/"
 pagefind_ignore: true
 build:
   list: never
