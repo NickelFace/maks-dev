@@ -371,7 +371,7 @@ Thanks.
 
 ---
 
-## Quick Reference — Additions
+## Quick Reference
 
 ```bash
 # Special variables
