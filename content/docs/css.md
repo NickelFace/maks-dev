@@ -15,7 +15,7 @@ Styles are split into 8 files by **scope** (area of application):
 |---|---|---|
 | `global.css` | everywhere | Variables, nav, base components, dot-grid pagination |
 | `mobile.css` | everywhere | Mobile nav, breakpoints |
-| `fonts.css` | everywhere | `@font-face` for JetBrains Mono and Unbounded |
+| `fonts.css` | everywhere | `@font-face` for Inter (body), JetBrains Mono (code), Unbounded (headings) |
 | `prose.css` | posts, about, kb, docs | Article typography, NS cards/tabs/ref-panel, section divider |
 | `home.css` | `/` only | Hero, recent posts, KB grid, cert-grid |
 | `cert.css` | `/certs/*` | Cert hero, resource tiles, accordion topics |
@@ -47,15 +47,22 @@ Variables are declared on `[data-theme="dark"]` and `[data-theme="light"]`:
 | `--accent2` | `#7c3aed` | `#7c3aed` | Secondary accent (purple) |
 | `--accent3` | `#10b981` | `#10b981` | Third accent (green) |
 | `--warn` | `#f59e0b` | `#f59e0b` | Warning (amber) |
-| `--bg` | `#0a0e17` | `#f5f7fa` | Main background |
-| `--bg2` | `#111827` | `#ffffff` | Cards, panels |
-| `--bg3` | `#1a2235` | `#eef2f8` | Hover states |
-| `--border` | `#1e2d45` | `#d1dbe8` | Borders |
+| `--danger` | `#ef4444` | `#ef4444` | Danger / error (red) |
+| `--bg` | `#13151f` | `#f5f7fa` | Main background |
+| `--bg2` | `#1c1f2e` | `#ffffff` | Cards, panels |
+| `--bg3` | `#252840` | `#eef2f8` | Hover states |
+| `--border` | `#2d3356` | `#d1dbe8` | Borders |
+| `--border2` | `#353a60` | `#c2cfe0` | Secondary borders |
 | `--text` | `#e2e8f0` | `#1a2235` | Primary text |
 | `--text2` | `#94a3b8` | `#475569` | Secondary text |
 | `--text3` | `#64748b` | `#94a3b8` | Muted text (date, meta) |
-| `--glow` | `rgba(0,212,255,0.08)` | `rgba(0,150,180,0.08)` | Hover highlight |
+| `--glow` | `rgba(0,212,255,0.08)` | `rgba(0,150,180,0.06)` | Hover highlight |
 | `--tag-bg` | `rgba(0,212,255,0.08)` | `rgba(0,150,180,0.08)` | Tag background |
+| `--tag-color` | `#67e8f9` | `#0369a1` | Tag text color |
+| `--grid-line` | `rgba(0,212,255,0.03)` | `rgba(0,150,180,0.04)` | Dot-grid background lines |
+| `--shadow` | `0 4px 24px rgba(0,0,0,0.5)` | `0 4px 24px rgba(0,0,0,0.10)` | Box shadow |
+| `--nav-blur` | `rgba(19,21,31,0.85)` | `rgba(245,247,250,0.90)` | Nav backdrop blur color |
+| `--code-bg` | `#0d1520` | `#f6f8fa` | Code block background |
 
 **Per-component variables** (set via inline `style=""`):
 | Variable | Used by | Description |
@@ -72,7 +79,7 @@ Variables are declared on `[data-theme="dark"]` and `[data-theme="light"]`:
 | Class / Selector | Description |
 |---|---|
 | `*, *::before, *::after` | `box-sizing: border-box`, margin/padding reset |
-| `body` | `background: var(--bg)`, `color: var(--text)`, system font |
+| `body` | `background: var(--bg)`, `color: var(--text)`, `font-family: 'Inter', system-ui, sans-serif` |
 | `a` | `color: inherit`, `text-decoration: none` |
 
 ### Navigation (desktop)
@@ -100,7 +107,7 @@ Variables are declared on `[data-theme="dark"]` and `[data-theme="light"]`:
 | `.panel-head` | Flex panel header: `.panel-title` + `.panel-more` |
 | `.sec-title` | H2 section heading (Unbounded font, gradient) |
 
-### Articles (post-card)
+### Articles (post-card — blog list)
 
 | Class | Description |
 |---|---|
@@ -110,6 +117,17 @@ Variables are declared on `[data-theme="dark"]` and `[data-theme="light"]`:
 | `.post-card-title` | Article title in card |
 | `.post-card-desc` | Short description |
 
+### Article header (single page)
+
+Defined in `prose.css`. Used in `_default/single.html` for all article pages.
+
+| Class | Description |
+|---|---|
+| `.post-header` | Wraps `h1` + `.post-meta`. `border-bottom` separator, `margin-bottom: 28px` |
+| `.post-meta` | Flex column: date on top, tags row below |
+| `.post-meta .post-date` | Date in `dd/mm/yyyy` format. `color: var(--text3)` |
+| `.post-meta-tags` | Flex-wrap row of tag links |
+
 ### Tags
 
 | Class | Description |
@@ -118,6 +136,26 @@ Variables are declared on `[data-theme="dark"]` and `[data-theme="light"]`:
 | `.tag:hover` | `border-color: var(--accent)`, `color: var(--accent)` |
 | `.tag.active` | Active filter on `/tags/` |
 | `.tag-lg` | Larger tag on `/tags/` page |
+
+### Knowledge Base cards
+
+| Class | Description |
+|---|---|
+| `.kb-cards` | Grid: `auto-fill`, min 220px columns, gap 12px |
+| `.kb-card` | Card: `position: relative`, hover lifts 2px, border accent on hover |
+| `.kb-card-icon` | Emoji icon, `font-size: 20px` |
+| `.kb-card-title` | Card title: 13px, semi-bold |
+| `.kb-card-desc` | Description: 11.5px, `var(--text3)` |
+| `.kb-card-tags` | Flex-wrap row of small tags |
+| `.kb-card-meta` | Page count badge: `position: absolute`, bottom-right corner, pill style |
+| `.kb-card-section` | Section card variant: `border-color: var(--border2)`, `padding-bottom: 32px` |
+| `.kb-section-title` | Group heading above a `.kb-cards` grid |
+| `.kb-empty` | Empty state message |
+
+### Sticky footer
+
+`body` uses `display: flex; flex-direction: column` + `min-height: 100vh`.  
+`footer` has `margin-top: auto` — always pushed to bottom of viewport on short pages.
 
 ### Pagination (dot-grid)
 
@@ -164,7 +202,7 @@ Shared by both blog (`pagination.html` partial) and quiz (hardcoded in `ccna-qui
 
 | Breakpoint | What changes |
 |---|---|
-| `max-width: 860px` | Desktop nav hidden, mobile nav + bottom bar visible |
+| `max-width: 860px` | Desktop nav hidden, mobile nav + bottom bar visible; `footer` hidden |
 | `max-width: 560px` | Reduced padding; `.cert-grid` → 2 columns |
 
 ---

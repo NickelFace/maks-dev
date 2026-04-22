@@ -90,14 +90,14 @@ CSS reads the attribute via `[data-theme="light"]` and switches variables. The v
 
 ```
 .page.prose-page
-  .breadcrumb          ← maks.top / {section} / {title}
+  breadcrumb.html      ← partial: maks.top / {section} / {title}
   article
     .post-header
       h1               ← .Title
       .post-meta
-        .post-date     ← .Date.Format "2006-01-02"
-        (readingtime)  ← .Params.readingtime (if set)
-        .tag × N       ← range .Params.tags → links to /tags/{tag}/
+        .post-date     ← .Date.Format "02/01/2006"  (dd/mm/yyyy)
+        .post-meta-tags
+          .tag × N     ← range .Params.tags → links to /tags/{tag}/
     .prose             ← {{ .Content }} (markdown body → HTML)
     .back-link         ← ← Back to {section}
   .toc-aside           ← empty div, populated by JS
@@ -203,6 +203,39 @@ Then inserts `{{ partial "certs-widget.html" . }}` — the same cards as on the 
 ```
 
 **Function `toggleTopic(btn)`:** toggles `.open` class on `.cert-topic`, animates `max-height` on `.cert-topic-body`.
+
+---
+
+## kb/section.html — KB index and sub-sections
+
+**Path:** `themes/maks/layouts/kb/section.html`  
+**Rendered for:** `/kb/` (root index) and `/kb/{sub-section}/` (sub-section landing pages)  
+**Note:** Hugo prefers `section.html` over `list.html` for section index pages — `kb/list.html` is kept for reference but is not used.
+
+Uses `{{ if .Sections }}` to branch between two layouts:
+
+**Root `/kb/` (has child sections):**
+```
+.page
+  breadcrumb.html
+  h1 "Knowledge Base"
+  .kb-section-title "Site Documentation"
+  .kb-cards  ← docs pages
+  .kb-section-title {group}  ← for each group: "Linux Core", "Networking", etc.
+  .kb-cards
+    .kb-card.kb-card-section × N  ← sub-sections (from .Sections)
+    .kb-card × N                  ← regular kb pages with Params.group
+```
+
+**Sub-section `/kb/{name}/` (no child sections):**
+```
+.page
+  breadcrumb.html
+  h1 ← .Title
+  p.sec-desc ← .Description
+  .kb-cards
+    .kb-card × N  ← .Pages.ByTitle
+```
 
 ---
 

@@ -90,6 +90,7 @@ maks.top/
 │
 ├── static/                          # Глобальные статические файлы
 │   ├── img/quiz/                    # 247 JPEG-изображений из PDF CCNA
+│   ├── roadmap/index.html           # Статическая страница роадмапа (/roadmap/)
 │   └── CNAME                        # Кастомный домен для GitHub Pages
 │
 └── themes/maks/                     # Кастомная тема
@@ -135,7 +136,7 @@ maks.top/
             ├── quiz.css             # CCNA квиз: карточки, варианты, баллы
             ├── ns.css               # Только layout страницы linux-namespaces
             ├── chroma.css           # Подсветка синтаксиса (Dracula / GitHub)
-            ├── fonts.css            # @font-face для self-hosted шрифтов
+            ├── fonts.css            # @font-face: Inter (body), JetBrains Mono, Unbounded
             └── mobile.css           # Мобильная навигация и breakpoints
 ```
 

@@ -86,6 +86,7 @@ maks.top/
 │
 ├── static/                          # Global static files
 │   ├── img/quiz/                    # 247 JPEG images extracted from CCNA PDF
+│   ├── roadmap/index.html           # Static roadmap page (/roadmap/)
 │   └── CNAME                        # Custom domain for GitHub Pages
 │
 └── themes/maks/                     # Custom theme
@@ -131,7 +132,7 @@ maks.top/
             ├── quiz.css             # CCNA quiz cards, options, scoring badges
             ├── ns.css               # linux-namespaces page layout only
             ├── chroma.css           # Syntax highlighting: Dracula (dark) / GitHub (light)
-            ├── fonts.css            # @font-face for self-hosted fonts
+            ├── fonts.css            # @font-face: Inter (body), JetBrains Mono, Unbounded
             └── mobile.css           # Mobile nav and breakpoints
 ```
 

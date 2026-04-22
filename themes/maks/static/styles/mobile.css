@@ -363,7 +363,7 @@ a.page-btn:hover {
 
   /* Page padding — account for bottom nav */
   .page { padding: 24px 16px 80px !important; }
-  footer { padding-bottom: 80px; }
+  footer { display: none !important; }
 
   /* Grid → single column */
   .main-grid { grid-template-columns: 1fr !important; gap: 12px !important; }

@@ -19,7 +19,7 @@ tags: ["docs"]
 |---|---|---|
 | `global.css` | везде | Переменные, nav, базовые компоненты, dot-grid пагинация |
 | `mobile.css` | везде | Мобильная навигация, breakpoints |
-| `fonts.css` | везде | `@font-face` для JetBrains Mono и Unbounded |
+| `fonts.css` | везде | `@font-face` для Inter (body), JetBrains Mono (код), Unbounded (заголовки) |
 | `prose.css` | posts, about, kb, docs | Типографика, NS-карточки/tabs/ref-panel, section divider |
 | `home.css` | только `/` | Hero, recent posts, KB grid, cert-grid |
 | `cert.css` | `/certs/*` | Cert hero, плитки ресурсов, аккордеон тем |
@@ -51,15 +51,22 @@ tags: ["docs"]
 | `--accent2` | `#7c3aed` | `#7c3aed` | Вторичный акцент (фиолетовый) |
 | `--accent3` | `#10b981` | `#10b981` | Третий акцент (зелёный) |
 | `--warn` | `#f59e0b` | `#f59e0b` | Предупреждение (amber) |
-| `--bg` | `#0a0e17` | `#f5f7fa` | Основной фон |
-| `--bg2` | `#111827` | `#ffffff` | Карточки, панели |
-| `--bg3` | `#1a2235` | `#eef2f8` | Hover-состояния |
-| `--border` | `#1e2d45` | `#d1dbe8` | Границы |
+| `--danger` | `#ef4444` | `#ef4444` | Ошибка / опасность (красный) |
+| `--bg` | `#13151f` | `#f5f7fa` | Основной фон |
+| `--bg2` | `#1c1f2e` | `#ffffff` | Карточки, панели |
+| `--bg3` | `#252840` | `#eef2f8` | Hover-состояния |
+| `--border` | `#2d3356` | `#d1dbe8` | Границы |
+| `--border2` | `#353a60` | `#c2cfe0` | Вторичные границы |
 | `--text` | `#e2e8f0` | `#1a2235` | Основной текст |
 | `--text2` | `#94a3b8` | `#475569` | Вторичный текст |
 | `--text3` | `#64748b` | `#94a3b8` | Приглушённый текст |
-| `--glow` | `rgba(0,212,255,0.08)` | `rgba(0,150,180,0.08)` | Hover-подсветка |
+| `--glow` | `rgba(0,212,255,0.08)` | `rgba(0,150,180,0.06)` | Hover-подсветка |
 | `--tag-bg` | `rgba(0,212,255,0.08)` | `rgba(0,150,180,0.08)` | Фон тегов |
+| `--tag-color` | `#67e8f9` | `#0369a1` | Цвет текста тегов |
+| `--grid-line` | `rgba(0,212,255,0.03)` | `rgba(0,150,180,0.04)` | Линии dot-grid фона |
+| `--shadow` | `0 4px 24px rgba(0,0,0,0.5)` | `0 4px 24px rgba(0,0,0,0.10)` | Box shadow |
+| `--nav-blur` | `rgba(19,21,31,0.85)` | `rgba(245,247,250,0.90)` | Фон навигации (backdrop blur) |
+| `--code-bg` | `#0d1520` | `#f6f8fa` | Фон блоков кода |
 
 **Переменные компонентов** (задаются через inline `style=""`):
 | Переменная | Используется | Описание |
@@ -76,7 +83,7 @@ tags: ["docs"]
 | Класс / Селектор | Описание |
 |---|---|
 | `*, *::before, *::after` | `box-sizing: border-box`, сброс margin/padding |
-| `body` | `background: var(--bg)`, системный шрифт |
+| `body` | `background: var(--bg)`, `font-family: 'Inter', system-ui, sans-serif` |
 | `a` | `color: inherit`, без подчёркивания |
 
 ### Навигация (десктоп)

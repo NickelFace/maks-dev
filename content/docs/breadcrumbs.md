@@ -1,7 +1,7 @@
 ---
 title: "Breadcrumbs"
-date: 2026-04-13
-description: "How breadcrumbs are implemented across templates — markup, CSS, and differences by page type"
+date: 2026-04-22
+description: "How breadcrumbs are implemented across templates — partial, CSS, and KB sub-section support"
 page_lang: "en"
 lang_pair: "/docs/ru/breadcrumbs/"
 tags: ["docs"]
@@ -9,17 +9,52 @@ tags: ["docs"]
 
 ## Overview
 
-Breadcrumbs are plain HTML — no partial, no shortcode. Each template that needs them includes the `.breadcrumb` block directly. There is no shared breadcrumb partial.
+Breadcrumbs are implemented as a **shared partial** at `themes/maks/layouts/partials/breadcrumb.html`.
 
-**Pages that have breadcrumbs:**
+Every template that needs them calls:
+```html
+{{ partial "breadcrumb.html" . }}
+```
 
-| Page | Template | Breadcrumb |
-|---|---|---|
-| `/posts/lpic2-*/` | `_default/single.html` | `maks.top / posts / Page Title` |
-| `/posts/linux-namespaces/` | `posts/linux-namespaces.html` | `maks.top / posts / Page Title` |
-| `/certs/lpic-2/` | `certs/single.html` | `maks.top / Page Title` |
+**Templates using the partial:**
 
-**Pages without breadcrumbs:** `/` (home), `/posts/` (list), `/tags/`, `/about/`.
+| Template | Pages |
+|---|---|
+| `_default/single.html` | All posts, docs, KB pages |
+| `kb/section.html` | KB index and sub-section landing pages |
+| `certs/single.html` | Cert overview pages |
+| `posts/linux-namespaces.html` | Linux namespaces article |
+
+---
+
+## Partial logic
+
+```
+themes/maks/layouts/partials/breadcrumb.html
+```
+
+The partial renders different segments depending on page type:
+
+| Case | Output |
+|---|---|
+| `eq .Section "certs"` | `maks.top / Page Title` (no section link — no certs index) |
+| `.IsSection` | `maks.top / section-name` (section index — current page as plain text) |
+| KB sub-page (`Section=kb`, depth=2) | `maks.top / kb / Parent Section Title / Page Title` |
+| Other regular pages | `maks.top / section / Page Title` |
+
+---
+
+## KB sub-section support
+
+For pages like `/kb/cisco-services/nat-dhcp/`, the partial detects a second path segment from `.File.Dir` and checks if it's a known cert section (`$certMap`) or a KB page:
+
+```go
+{{ if eq $.Section "kb" }}
+  <a href="{{ (printf "/%s/%s/" $.Section $sub) | relURL }}">{{ $.Parent.Title | default $sub }}</a>
+{{ end }}
+```
+
+This makes the middle crumb (`Cisco — Network Services`) a clickable link to the sub-section index.
 
 ---
 
@@ -29,100 +64,27 @@ Breadcrumbs are plain HTML — no partial, no shortcode. Each template that need
 .breadcrumb       { font-size: 11px; color: var(--text3); margin-bottom: 24px; }
 .breadcrumb a     { color: var(--text3); text-decoration: none; }
 .breadcrumb a:hover { color: var(--accent); }
-.breadcrumb span  { margin: 0 6px; }   /* the "/" separator */
+.breadcrumb span  { margin: 0 6px; }
 ```
 
-All breadcrumb links are `--text3` (muted) by default, turning `--accent` (cyan) on hover. The `/` separators are plain `<span>` elements with horizontal margin.
+All breadcrumb links are `--text3` (muted) by default, turning `--accent` on hover.
 
 ---
 
-## Per-template implementation
+## Cert section map
 
-### `_default/single.html` — prose articles
+The partial has a `$certMap` dict mapping sub-folder names to cert page URLs:
 
-Used by all posts except `linux-namespaces`, and by `docs/` pages.
-
-```html
-<div class="breadcrumb">
-  <a href="{{ "/" | relURL }}">maks.top</a>
-  <span>/</span>
-  <a href="{{ .Section | relURL }}">{{ .Section }}</a>
-  <span>/</span>
-  {{ .Title }}
-</div>
+```go
+{{ $certMap := dict
+    "neteng"  "/certs/network-engineer/"
+    "netarch" "/certs/network-architect/"
+    "lpic1"   "/certs/lpic-1/"
+    "lpic2"   "/certs/lpic-2/"
+}}
 ```
 
-**Dynamic middle segment** — uses `.Section` for both the URL and the label:
-
-| Page | `.Section` value | Result |
-|---|---|---|
-| `/posts/lpic2-200-1/` | `posts` | `maks.top / posts / LPIC-2 200.1 ...` |
-| `/docs/overview/` | `docs` | `maks.top / docs / Project Overview` |
-| `/kb/some-topic/` | `kb` | `maks.top / kb / Topic Title` |
-
-The last segment (current page) is plain text — not a link.
-
----
-
-### `posts/linux-namespaces.html` — interactive article
-
-Hardcoded instead of using `.Section` — functionally identical but with explicit path strings:
-
-```html
-<div class="breadcrumb">
-  <a href="{{ "/" | relURL }}">maks.top</a><span>/</span>
-  <a href="{{ "/posts/" | relURL }}">posts</a><span>/</span>
-  <span style="color:var(--text2)">{{ .Title }}</span>
-</div>
-```
-
-**Differences from `_default/single.html`:**
-- Middle link is hardcoded as `"/posts/"` instead of `{{ .Section | relURL }}`
-- Current page title wrapped in `<span style="color:var(--text2)">` instead of plain text — slightly brighter than `--text3`
-- Separators placed inline without spaces: `</a><span>/</span>` vs `</a> <span>/</span>`
-
-These are cosmetic inconsistencies. Both render the same visual result.
-
----
-
-### `certs/single.html` — certification pages
-
-Two segments only — no section link:
-
-```html
-<div class="breadcrumb">
-  <a href="{{ "/" | relURL }}">maks.top</a>
-  <span>/</span>
-  <span style="color:var(--text2)">{{ .Title }}</span>
-</div>
-```
-
-`/certs/` is skipped because there's no certs index page — clicking it would 404. The cert pages sit directly under root in the nav, so the two-segment breadcrumb `maks.top / LPIC-2` is accurate.
-
----
-
-## Why no breadcrumb partial?
-
-Three templates, three slightly different structures — the middle segment differs by context. Hugo's `.Section` handles the general case in `_default/single.html`, but `linux-namespaces.html` hardcodes it and `certs/single.html` omits it entirely.
-
-If breadcrumbs need to expand to more levels in the future, extract into a partial:
-
-```
-themes/maks/layouts/partials/breadcrumb.html
-```
-
-```html
-{{/*  Call: {{ partial "breadcrumb.html" . }}  */}}
-<div class="breadcrumb">
-  <a href="{{ "/" | relURL }}">maks.top</a>
-  {{ with .Section }}
-  <span>/</span>
-  <a href="{{ . | relURL }}">{{ . }}</a>
-  {{ end }}
-  <span>/</span>
-  <span style="color:var(--text2)">{{ .Title }}</span>
-</div>
-```
+Used for posts in `/posts/neteng/`, `/posts/lpic1/` etc. — their middle breadcrumb segment links to the corresponding cert page instead of the posts sub-folder.
 
 ---
 
