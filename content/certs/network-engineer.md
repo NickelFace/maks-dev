@@ -4,6 +4,7 @@ cert_badge: "🔌"
 cert_color: "#22c55e"
 description: "Network Engineer Course — Cisco routing and switching labs"
 post_prefix: "neteng"
+cert_url: "https://otus.ru/certificate/22c44457902541e6aba62359ca47b0f9/en/"
 exams:
   - code: "1"
     title: "Network Engineer Course"

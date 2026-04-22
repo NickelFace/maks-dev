@@ -33,6 +33,25 @@
   line-height: 1.6;
 }
 
+.cert-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: color-mix(in srgb, var(--cert-color) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cert-color) 40%, transparent);
+  border-radius: 6px;
+  color: var(--cert-color);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background .15s, border-color .15s;
+}
+.cert-btn:hover {
+  background: color-mix(in srgb, var(--cert-color) 22%, transparent);
+  border-color: var(--cert-color);
+}
+
 /* ── resource tiles (ns-map-btn pattern) ── */
 .cert-resources {
   display: flex;

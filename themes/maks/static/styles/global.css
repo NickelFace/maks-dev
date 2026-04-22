@@ -462,6 +462,17 @@ button.tag {
   white-space: nowrap;
 }
 
+.cert-card-cert-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--cert-color);
+  opacity: 0.8;
+  transition: opacity .15s;
+}
+.cert-card-cert-link:hover { opacity: 1; }
+
 /* ═══════════════════════════════════════
    KB ITEMS
 ═══════════════════════════════════════ */

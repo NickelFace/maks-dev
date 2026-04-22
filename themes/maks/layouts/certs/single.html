@@ -24,6 +24,9 @@
       <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
     </div>
     {{ end }}
+    {{ with .Params.cert_url }}
+    <a href="{{ . }}" target="_blank" rel="noopener" class="cert-btn">Certificate ↗</a>
+    {{ end }}
   </div>
 
   {{ with .Params.resources }}
