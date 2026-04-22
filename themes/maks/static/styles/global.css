@@ -195,6 +195,7 @@ nav.desk-nav {
 .page {
   position: relative;
   z-index: 1;
+  width: 100%;
   max-width: 1100px;
   margin: 0 auto;
   padding: 48px 32px 80px;
