@@ -166,4 +166,106 @@ Used when flash is corrupted or IOS image is missing. **TFTP only — FTP is not
 
 ---
 
+## Configuration Register
+
+The 16-bit config register controls boot behavior. View with `show version` (last line).
+
+<div class="ref-panel">
+<div class="ref-panel-head">Common Config Register Values</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Value</th><th>Behavior</th></tr></thead>
+<tbody>
+<tr><td class="mono">0x2100</td><td class="desc">Boot into ROMMON (manual recovery mode)</td></tr>
+<tr><td class="mono">0x2101</td><td class="desc">Boot first image found in flash</td></tr>
+<tr><td class="mono">0x2102</td><td class="desc">Normal boot — follow boot system commands in startup-config (default)</td></tr>
+<tr><td class="mono">0x2142</td><td class="desc">Ignore startup-config on boot — used for password recovery</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="ref-panel">
+<div class="ref-panel-head">Config Register Commands</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Command</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td class="mono">show version</td><td class="desc">Show current and next-boot config register values</td></tr>
+<tr><td class="mono">config-register 0x2102</td><td class="desc">Set register from global config mode</td></tr>
+<tr><td class="mono">confreg 0x2102</td><td class="desc">Set register from ROMMON prompt</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+---
+
+## IOS Image Naming
+
+Format: `platform-featureset-format.version.bin`
+
+<div class="ref-panel">
+<div class="ref-panel-head">IOS Filename Breakdown</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Field</th><th>Example</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td class="mono">Platform</td><td class="desc">c2800nm</td><td class="desc">Hardware platform (c2800 series, NM slot)</td></tr>
+<tr><td class="mono">Feature set</td><td class="desc">advipservicesk9</td><td class="desc">Feature set — IP Services + crypto (k9)</td></tr>
+<tr><td class="mono">Format</td><td class="desc">mz</td><td class="desc">m = runs from RAM; z = compressed (zipped)</td></tr>
+<tr><td class="mono">Version</td><td class="desc">124-25.bin</td><td class="desc">IOS 12.4(25)</td></tr>
+</tbody>
+</table>
+
+Example: `c2800nm-advipservicesk9-mz.124-25.bin`
+
+| Format code | Meaning |
+|---|---|
+| m | Runs from RAM (relocated) |
+| z | Compressed image |
+| f | Runs from Flash |
+| l | Relocated to RAM |
+</div>
+</div>
+
+---
+
+## Supervisor Redundancy (Catalyst)
+
+Applies to chassis switches with redundant supervisor modules (Cat 4500, 6500, etc.).
+
+<div class="ref-panel">
+<div class="ref-panel-head">Redundancy Modes</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Mode</th><th>Standby behavior</th><th>Failover time</th></tr></thead>
+<tbody>
+<tr><td class="mono">RPR</td><td class="desc">Standby boots only after active fails</td><td class="desc">&gt; 2 minutes</td></tr>
+<tr><td class="mono">RPR+</td><td class="desc">OS loaded on standby; data/protocols load only on failover</td><td class="desc">~30 seconds</td></tr>
+<tr><td class="mono">SSO</td><td class="desc">Standby fully mirrors active config in real time</td><td class="desc">~1 second</td></tr>
+</tbody>
+</table>
+
+> RPR = Route Processor Redundancy · SSO = Stateful Switchover
+</div>
+</div>
+
+<div class="ref-panel">
+<div class="ref-panel-head">Redundancy Commands</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Command</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td class="mono">redundancy</td><td class="desc">Enter redundancy configuration mode</td></tr>
+<tr><td class="mono">mode sso</td><td class="desc">Set redundancy mode to SSO</td></tr>
+<tr><td class="mono">show redundancy</td><td class="desc">Redundancy state and active/standby roles</td></tr>
+<tr><td class="mono">show redundancy states</td><td class="desc">Detailed state of both supervisors</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+---
+
 *Cisco IOS Command Reference | IOS Management*

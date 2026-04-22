@@ -198,6 +198,22 @@ Validates ARP packets against the DHCP Snooping binding table to prevent ARP spo
 ## PoE — Power over Ethernet
 
 <div class="ref-panel">
+<div class="ref-panel-head">PoE IEEE Classes</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Class</th><th>Max PSE output</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td class="mono">Class 0</td><td class="desc">15.4 W</td><td class="desc">Default class (unclassified devices)</td></tr>
+<tr><td class="mono">Class 1</td><td class="desc">4 W</td><td class="desc">Optional — low-power devices</td></tr>
+<tr><td class="mono">Class 2</td><td class="desc">7 W</td><td class="desc">Optional</td></tr>
+<tr><td class="mono">Class 3</td><td class="desc">15.4 W</td><td class="desc">Optional — standard 802.3af devices</td></tr>
+<tr><td class="mono">Class 4</td><td class="desc">51 W</td><td class="desc">802.3at (PoE+) only — not available on 802.3af switches</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="ref-panel">
 <div class="ref-panel-head">PoE Configuration</div>
 <div class="ref-panel-body">
 <table class="cheat-table">

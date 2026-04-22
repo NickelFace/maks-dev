@@ -13,11 +13,16 @@ Cisco IOS cheat sheet for <strong>First Hop Redundancy Protocols</strong>: HSRP 
 
 ## Protocol Comparison
 
-| Protocol | Standard | Preempt default | Load balancing |
+| Feature | HSRP | VRRP | GLBP |
 |---|---|---|---|
-| HSRP | Cisco proprietary | **Off** | No |
-| VRRP | Open (RFC 5798) | **On** | No |
-| GLBP | Cisco proprietary | On | **Yes (AVF)** |
+| Standard | Cisco proprietary | Open (RFC 5798) | Cisco proprietary |
+| Preempt default | **Off** | **On** | On |
+| Load balancing | No | No | **Yes (AVF)** |
+| Hello / Hold timers | 3 s / 10 s | 1 s / 3 s | 3 s / 10 s |
+| Virtual IP = physical IP | No (must differ) | **Yes (allowed)** | No |
+| Multicast address | 224.0.0.2 (v1) · 224.0.0.102 (v2) | 224.0.0.18 | 224.0.0.102 |
+| Authentication | MD5 supported | Removed from RFC; supported on Cisco HW | MD5 supported |
+| Interface tracking | Yes | Yes | Yes (via weighting) |
 
 ---
 

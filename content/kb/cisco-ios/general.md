@@ -166,4 +166,40 @@ Essential Cisco IOS command reference: <strong>exec modes, interface config, sta
 
 ---
 
+## Interface Speed & Duplex
+
+<div class="ref-panel">
+<div class="ref-panel-head">Duplex Negotiation Matrix</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Local \ Remote</th><th>Half</th><th>Full</th><th>Auto</th></tr></thead>
+<tbody>
+<tr><td class="mono">Half</td><td class="desc">Half ✓</td><td class="desc">⚠️ duplex mismatch</td><td class="desc">Half</td></tr>
+<tr><td class="mono">Full</td><td class="desc">⚠️ duplex mismatch</td><td class="desc">Full ✓</td><td class="desc">Full ✓</td></tr>
+<tr><td class="mono">Auto</td><td class="desc">Half</td><td class="desc">Full ✓</td><td class="desc">Full ✓ (best negotiated)</td></tr>
+</tbody>
+</table>
+
+> **Important:** if one side has speed fixed to anything other than Auto and duplex is set to Full — auto-negotiation is disabled. The other side will not negotiate and may default to Half, causing a duplex mismatch.
+</div>
+</div>
+
+<div class="ref-panel">
+<div class="ref-panel-head">Speed & Duplex Commands</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Command</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td class="mono">speed 100</td><td class="desc">Force interface speed to 100 Mbps</td></tr>
+<tr><td class="mono">speed auto</td><td class="desc">Auto-negotiate speed (default)</td></tr>
+<tr><td class="mono">duplex full</td><td class="desc">Force full duplex</td></tr>
+<tr><td class="mono">duplex auto</td><td class="desc">Auto-negotiate duplex (default)</td></tr>
+<tr><td class="mono">show int fa0/1</td><td class="desc">Check current speed and duplex settings</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+---
+
 *Cisco IOS Command Reference | General*

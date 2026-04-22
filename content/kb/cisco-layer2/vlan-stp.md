@@ -217,6 +217,136 @@ Configuration is done on the **switch**. Enables inter-VLAN routing on L3 switch
 
 ---
 
+## STP Reference Tables
+
+<div class="ref-panel">
+<div class="ref-panel-head">STP Versions Comparison</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Version</th><th>Standard</th><th>Resources</th><th>Convergence</th><th>Per-VLAN</th></tr></thead>
+<tbody>
+<tr><td class="mono">CST</td><td class="desc">802.1D</td><td class="desc">Low</td><td class="desc">Slow</td><td class="desc">No</td></tr>
+<tr><td class="mono">PVST+</td><td class="desc">Cisco</td><td class="desc">High</td><td class="desc">Slow</td><td class="desc">Yes</td></tr>
+<tr><td class="mono">RSTP</td><td class="desc">802.1W</td><td class="desc">Medium</td><td class="desc">Fast</td><td class="desc">No</td></tr>
+<tr><td class="mono">Rapid PVST+</td><td class="desc">Cisco</td><td class="desc">Very high</td><td class="desc">Fast</td><td class="desc">Yes</td></tr>
+<tr><td class="mono">MSTP</td><td class="desc">802.1S</td><td class="desc">Medium–high</td><td class="desc">Fast</td><td class="desc">Yes</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="ref-panel">
+<div class="ref-panel-head">STP Port States</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>State</th><th>Recv BPDU</th><th>Send BPDU</th><th>Learn MAC</th><th>Forward data</th><th>Duration</th></tr></thead>
+<tbody>
+<tr><td class="mono">Blocking</td><td class="desc">✓</td><td class="desc">✗</td><td class="desc">✗</td><td class="desc">✗</td><td class="desc">Until loop detected</td></tr>
+<tr><td class="mono">Listening</td><td class="desc">✓</td><td class="desc">✓</td><td class="desc">✗</td><td class="desc">✗</td><td class="desc">Forward Delay (15 s)</td></tr>
+<tr><td class="mono">Learning</td><td class="desc">✓</td><td class="desc">✓</td><td class="desc">✓</td><td class="desc">✗</td><td class="desc">Forward Delay (15 s)</td></tr>
+<tr><td class="mono">Forwarding</td><td class="desc">✓</td><td class="desc">✓</td><td class="desc">✓</td><td class="desc">✓</td><td class="desc">Until loop detected</td></tr>
+<tr><td class="mono">Disabled</td><td class="desc">✗</td><td class="desc">✗</td><td class="desc">✗</td><td class="desc">✗</td><td class="desc">Admin down</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="ref-panel">
+<div class="ref-panel-head">STP / RSTP Path Cost by Speed</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Speed</th><th>STP cost (802.1D short)</th><th>RSTP cost (802.1W long)</th></tr></thead>
+<tbody>
+<tr><td class="mono">10 Mbps</td><td class="desc">100</td><td class="desc">2 000 000</td></tr>
+<tr><td class="mono">100 Mbps</td><td class="desc">19</td><td class="desc">200 000</td></tr>
+<tr><td class="mono">1 Gbps</td><td class="desc">4</td><td class="desc">20 000</td></tr>
+<tr><td class="mono">2 Gbps</td><td class="desc">3</td><td class="desc">10 000</td></tr>
+<tr><td class="mono">10 Gbps</td><td class="desc">2</td><td class="desc">2 000</td></tr>
+<tr><td class="mono">100 Gbps</td><td class="desc">—</td><td class="desc">200</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="ref-panel">
+<div class="ref-panel-head">Loop Guard vs UDLD</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Protection</th><th>Loop Guard</th><th>UDLD</th></tr></thead>
+<tbody>
+<tr><td class="desc">STP software-level failure</td><td class="desc">✓</td><td class="desc">✗</td></tr>
+<tr><td class="desc">Incorrect initial cabling</td><td class="desc">✗</td><td class="desc">✓</td></tr>
+<tr><td class="desc">Unidirectional link</td><td class="desc">✓ (if on all alternate ports)</td><td class="desc">✓ (if on all ports)</td></tr>
+</tbody>
+</table>
+
+> Recommended: enable both Loop Guard and UDLD together.
+</div>
+</div>
+
+---
+
+## DTP — Dynamic Trunking Protocol
+
+<div class="ref-panel">
+<div class="ref-panel-head">DTP Negotiation Matrix</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Local \ Remote</th><th>Dynamic auto</th><th>Dynamic desirable</th><th>Trunk</th><th>Access</th></tr></thead>
+<tbody>
+<tr><td class="mono">Dynamic auto</td><td class="desc">Access</td><td class="desc">Trunk</td><td class="desc">Trunk</td><td class="desc">Access</td></tr>
+<tr><td class="mono">Dynamic desirable</td><td class="desc">Trunk</td><td class="desc">Trunk</td><td class="desc">Trunk</td><td class="desc">Access</td></tr>
+<tr><td class="mono">Trunk</td><td class="desc">Trunk</td><td class="desc">Trunk</td><td class="desc">Trunk</td><td class="desc">⚠️ misconfig</td></tr>
+<tr><td class="mono">Access</td><td class="desc">Access</td><td class="desc">Access</td><td class="desc">⚠️ misconfig</td><td class="desc">Access</td></tr>
+</tbody>
+</table>
+
+> Default mode on Cisco switches: **dynamic auto**. Best practice: set mode manually (`trunk` / `access`) and disable DTP with `switchport nonegotiate`.
+</div>
+</div>
+
+---
+
+## EtherChannel Reference Tables
+
+<div class="ref-panel">
+<div class="ref-panel-head">LACP / PAgP Negotiation Modes</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Protocol</th><th>Mode A \ Mode B</th><th>Active / Desirable</th><th>Passive / Auto</th><th>On</th></tr></thead>
+<tbody>
+<tr><td class="mono">LACP</td><td class="desc">Active</td><td class="desc">✓ Trunk formed</td><td class="desc">✓ Trunk formed</td><td class="desc">—</td></tr>
+<tr><td class="mono">LACP</td><td class="desc">Passive</td><td class="desc">✓ Trunk formed</td><td class="desc">✗ No trunk</td><td class="desc">—</td></tr>
+<tr><td class="mono">PAgP</td><td class="desc">Desirable</td><td class="desc">✓ Trunk formed</td><td class="desc">✓ Trunk formed</td><td class="desc">—</td></tr>
+<tr><td class="mono">PAgP</td><td class="desc">Auto</td><td class="desc">✓ Trunk formed</td><td class="desc">✗ No trunk</td><td class="desc">—</td></tr>
+<tr><td class="mono">Static</td><td class="desc">On</td><td class="desc">—</td><td class="desc">—</td><td class="desc">✓ Trunk formed</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="ref-panel">
+<div class="ref-panel-head">EtherChannel Load Balancing Methods</div>
+<div class="ref-panel-body">
+<table class="cheat-table">
+<thead><tr><th>Method</th><th>Hash based on</th><th>Supported platforms</th></tr></thead>
+<tbody>
+<tr><td class="mono">src-ip</td><td class="desc">Source IP address</td><td class="desc">All switches</td></tr>
+<tr><td class="mono">dst-ip</td><td class="desc">Destination IP address</td><td class="desc">All switches</td></tr>
+<tr><td class="mono">src-dst-ip</td><td class="desc">Source + destination IP</td><td class="desc">All switches</td></tr>
+<tr><td class="mono">src-mac</td><td class="desc">Source MAC address</td><td class="desc">All switches</td></tr>
+<tr><td class="mono">dst-mac</td><td class="desc">Destination MAC address</td><td class="desc">All switches</td></tr>
+<tr><td class="mono">src-dst-mac</td><td class="desc">Source + destination MAC</td><td class="desc">All switches</td></tr>
+<tr><td class="mono">src-port</td><td class="desc">Source TCP/UDP port</td><td class="desc">Catalyst 4500, 6500</td></tr>
+<tr><td class="mono">dst-port</td><td class="desc">Destination TCP/UDP port</td><td class="desc">Catalyst 4500, 6500</td></tr>
+<tr><td class="mono">src-dst-port</td><td class="desc">Source + destination port</td><td class="desc">Catalyst 4500, 6500</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+---
+
 ## FlexLinks
 
 Simple active/standby failover — alternative to STP for access layer.
