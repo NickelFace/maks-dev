@@ -77,7 +77,7 @@ Posts live in `content/posts/neteng/` (EN) and `content/posts/neteng/ru/` (RU).
 ### Frontmatter — EN
 ```yaml
 title: "Network Engineer — NN. Title"
-date: YYYY-MM-DD
+date: DD-MM-YYYY
 description: "..."
 tags: [...]
 categories: ["Network Engineer"]
@@ -89,7 +89,7 @@ lang_pair: "/posts/neteng/ru/neteng-NN-slug/"
 ### Frontmatter — RU
 ```yaml
 title: "Network Engineer — NN. Title"
-date: YYYY-MM-DD
+date: DD-MM-YYYY
 description: "..."
 tags: [...]
 categories: ["Network Engineer"]
@@ -175,7 +175,7 @@ description: "..."
 icon: "emoji"
 group: "Linux Core"   # one of the five groups above
 tags: [...]
-date: YYYY-MM-DD
+date: DD-MM-YYYY
 ```
 
 ### Subsections (`content/kb/{name}/`)
@@ -187,7 +187,7 @@ description: "..."
 icon: "emoji"
 group: "Networking"
 tags: [...]
-date: YYYY-MM-DD   # must be a past date — Hugo skips future/today dates by default
+date: DD-MM-YYYY   # must be a past date — Hugo skips future/today dates by default
 ```
 
 ### KB template notes
