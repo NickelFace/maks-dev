@@ -2,7 +2,6 @@
 title: "Cisco RIP — Configuration Reference"
 description: "RIPv2: configuration, timers, summarization, redistribution, diagnostics"
 icon: "🔄"
-group: "Networking"
 tags: ["Cisco", "RIP", "RIPv2", "routing", "dynamic-routing", "IOS"]
 date: 2026-04-22
 ---

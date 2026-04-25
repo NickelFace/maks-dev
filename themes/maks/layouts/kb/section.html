@@ -23,10 +23,14 @@
   </div>
 
   <!-- ═══ QUICK REFERENCES — grouped by Params.group ═══ -->
-  {{ $kbPages := where (where .Site.RegularPages "Section" "kb") "Params.page_lang" "ne" "ru" }}
+  {{ $allKbPages := where (where .Site.RegularPages "Section" "kb") "Params.page_lang" "ne" "ru" }}
+  {{ $kbPages := slice }}
+  {{ range $allKbPages }}
+    {{ if eq .File.Dir "kb/" }}{{ $kbPages = $kbPages | append . }}{{ end }}
+  {{ end }}
   {{ $kbSections := .Sections }}
 
-  {{ $groups := slice "Linux Core" "Networking" "Cloud & DevOps" "Security" }}
+  {{ $groups := slice "Linux Core" "Networking" "Cloud & DevOps" "Security" "Self Learning" }}
   {{ range $groups }}
     {{ $group := . }}
     {{ $gPages := where $kbPages "Params.group" $group }}
@@ -93,7 +97,7 @@
 
   {{ with .Params.tags }}
   <div style="margin-bottom:24px">
-    {{ range . }}<span class="tag">{{ . }}</span> {{ end }}
+    {{ range . }}<span class="tag" style="cursor:default;pointer-events:none">{{ . }}</span> {{ end }}
   </div>
   {{ end }}
 

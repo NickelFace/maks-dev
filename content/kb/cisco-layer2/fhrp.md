@@ -2,7 +2,6 @@
 title: "Cisco FHRP — HSRP, VRRP, GLBP"
 description: "Gateway redundancy: HSRP, VRRP, GLBP configuration and diagnostics"
 icon: "🔁"
-group: "Networking"
 tags: ["Cisco", "HSRP", "VRRP", "GLBP", "FHRP", "redundancy", "gateway", "IOS"]
 date: 2026-04-22
 ---

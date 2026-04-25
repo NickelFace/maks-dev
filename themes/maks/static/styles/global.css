@@ -916,6 +916,12 @@ footer {
 .kb-card-tags .tag {
   font-size: 9.5px;
   padding: 2px 7px;
+  cursor: default;
+  pointer-events: none;
+}
+.kb-card-tags .tag:hover {
+  border-color: var(--border);
+  color: var(--text3);
 }
 .kb-card-meta {
   position: absolute;

@@ -2,7 +2,6 @@
 title: "Cisco OSPF — Configuration Reference"
 description: "OSPF: configuration, areas, filtering, summarization, redistribution, authentication"
 icon: "🔷"
-group: "Networking"
 tags: ["Cisco", "OSPF", "routing", "dynamic-routing", "IOS", "area", "redistribution"]
 date: 2026-04-22
 ---

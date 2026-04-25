@@ -2,7 +2,6 @@
 title: "Cisco NAT & DHCP — Configuration Reference"
 description: "Static NAT, Dynamic NAT, PAT, NVI NAT, DHCP server configuration and diagnostics"
 icon: "🔀"
-group: "Networking"
 tags: ["Cisco", "NAT", "PAT", "DHCP", "IOS", "network-services"]
 date: 2026-04-22
 ---

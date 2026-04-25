@@ -1,30 +1,24 @@
 ---
-title: "Network Engineer — SL. GRE Tunnels"
+title: "GRE Tunnels — Hub-and-Spoke"
+description: "GRE tunnel configuration in Hub-and-Spoke topology with NAT"
+icon: "🔗"
+tags: ["Networking", "GRE", "VPN", "Tunneling", "Cisco"]
 date: 2026-01-17
-description: "Self-study: configuring GRE tunnels in a Hub-and-Spoke topology between a main office and branch offices"
-tags: ["Networking", "GRE", "VPN", "Tunneling", "Cisco", "OTUS"]
-categories: ["Network Engineer"]
-code_toggle: true
-lang_pair: "/posts/neteng/ru/neteng-sl-gre/"
 ---
 
-# GRE Tunnels
-<p class="ru-text">GRE туннели</p>
+<div class="intro-card">
+GRE Hub-and-Spoke: one MainOffice router terminates tunnels to all branches. Branches reach each other via hub. As branch count grows, hub load increases — the limitation that <strong>DMVPN</strong> solves.
+</div>
 
-The problem with GRE is that as the number of remote branches grows, the number of tunnels scales quadratically (each site to every other site).
-<p class="ru-text">Проблема GRE в том, что при увеличении количества удаленных филиалов, возрастает кратно создание туннелей каждый на каждого.</p>
+## Topology
 
 ![](/img/neteng/sl-gre/topology_vpn.png)
 
-The two main topologies are Full-Mesh and Hub-and-Spoke. This example shows how to configure GRE in a Hub-and-Spoke topology.
-<p class="ru-text">Основные 2 вида топологий Full-Mesh и Hub-and-Spoke. В данном примере хочу показать как настроить GRE по типу Hub-and-Spoke.</p>
-
 ![](/img/neteng/sl-gre/GRE.png)
 
-Configuration:
-<p class="ru-text">Далее укажу настройку:</p>
+## Configurations
 
-### **MainOffice**
+### MainOffice
 
 ```
 enable
@@ -80,7 +74,7 @@ end
 wr
 ```
 
-### **Branch**
+### Branch
 
 ```
 enable
@@ -126,7 +120,7 @@ end
 wr
 ```
 
-### **Branch**2
+### Branch2
 
 ```
 enable
@@ -172,8 +166,6 @@ end
 wr
 ```
 
-### Summary
-<p class="ru-text">Итог:</p>
+## Summary
 
-Traffic from one branch is routed to MainOffice, which then forwards it to the other branch. However, this doesn't fully solve the scalability problem — as the number of branches grows, the load on MainOffice increases. That's exactly the problem **DMVPN** is designed to solve.
-<p class="ru-text">Я указал как перенаправить трафик туннеля посредством перенаправления его в главный роутер MainOffice, а он уже в свою очередь направляет этот трафик в другой филиал. Но проблема всё же не решается, так как при увеличении филиалов нагрузка на главный роутер будет возрастать. И с данной задачей уже справится технология **DMVPN**.</p>
+Branch-to-branch traffic routes through MainOffice. Doesn't fully solve scalability — hub load grows with each branch. Next step: **DMVPN**.

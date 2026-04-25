@@ -2,7 +2,6 @@
 title: "Cisco ISP Connection & PBR"
 description: "Multihomed ISP with IP SLA, dynamic NAT failover, BGP dual-homed, PPPoE, Policy-Based Routing"
 icon: "🌐"
-group: "Networking"
 tags: ["Cisco", "ISP", "IP-SLA", "BGP", "PPPoE", "PBR", "NAT", "IOS", "WAN"]
 date: 2026-04-22
 ---

@@ -1,21 +1,24 @@
 ---
-title: "Network Engineer — SL. BGP Route Reflector"
+title: "BGP Route Reflector"
+description: "Configuring a BGP Route Reflector to scale iBGP without full-mesh"
+icon: "🔄"
+tags: ["Networking", "BGP", "Route Reflector", "iBGP", "Cisco"]
 date: 2026-01-26
-description: "Self-study: configuring a BGP Route Reflector to scale iBGP without a full-mesh topology"
-tags: ["Networking", "BGP", "Route Reflector", "iBGP", "Cisco", "OTUS"]
-categories: ["Network Engineer"]
-code_toggle: true
-lang_pair: "/posts/neteng/ru/neteng-sl-bgp-rr/"
 ---
 
-# BGP Route Reflector
+<div class="intro-card">
+iBGP requires full-mesh between all peers — N×(N−1)/2 sessions. A <strong>Route Reflector</strong> (RR) breaks this requirement: clients only peer with the RR, which re-advertises routes to all other clients.
+</div>
 
-![image-20200521142853726](/img/neteng/sl-bgp-rr/1.png)
+## Topology
 
-## Router configurations
-<p class="ru-text">Конфигурация роутеров</p>
+![](/img/neteng/sl-bgp-rr/1.png)
 
-### R1
+R1 is the Route Reflector. R3 and R4 are RR clients.
+
+## Configurations
+
+### R1 — Route Reflector
 
 ```
 interface Loopback0
@@ -44,10 +47,9 @@ router bgp 65000
  neighbor 4.4.4.4 remote-as 65000
  neighbor 4.4.4.4 update-source Loopback0
  neighbor 4.4.4.4 route-reflector-client
-
 ```
 
-### R3
+### R3 — RR client
 
 ```
 interface Loopback0
@@ -73,10 +75,9 @@ router bgp 65000
  network 200.200.200.200 mask 255.255.255.255
  neighbor 1.1.1.1 remote-as 65000
  neighbor 1.1.1.1 update-source Loopback0
-
 ```
 
-### R4
+### R4 — RR client
 
 ```
 interface Loopback0
@@ -97,5 +98,4 @@ router bgp 65000
  bgp log-neighbor-changes
  neighbor 1.1.1.1 remote-as 65000
  neighbor 1.1.1.1 update-source Loopback0
-
 ```

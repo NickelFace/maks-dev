@@ -2,7 +2,6 @@
 title: "Cisco L2 Protocols — PPP & Frame-Relay"
 description: "PPP and Frame-Relay configuration: authentication, multipoint, point-to-point sub-interfaces"
 icon: "🔗"
-group: "Networking"
 tags: ["Cisco", "PPP", "Frame-Relay", "HDLC", "WAN", "IOS", "L2"]
 date: 2026-04-22
 ---

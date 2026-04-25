@@ -2,7 +2,6 @@
 title: "Cisco EIGRP — Configuration Reference"
 description: "EIGRP: configuration, timers, authentication, load balancing, diagnostics"
 icon: "⚡"
-group: "Networking"
 tags: ["Cisco", "EIGRP", "routing", "dynamic-routing", "IOS"]
 date: 2026-04-22
 ---

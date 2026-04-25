@@ -2,7 +2,6 @@
 title: "Cisco VLANs, STP & EtherChannel"
 description: "VLAN, VTP, SVI, STP/RSTP, EtherChannel, FlexLinks — Layer 2 switching commands"
 icon: "🔌"
-group: "Networking"
 tags: ["Cisco", "VLAN", "VTP", "STP", "RSTP", "EtherChannel", "LACP", "IOS", "switching"]
 date: 2026-04-22
 ---

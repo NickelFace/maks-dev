@@ -2,7 +2,6 @@
 title: "Cisco Switch Security"
 description: "Port Security, Storm Control, DHCP Snooping, IP Source Guard, Dynamic ARP Inspection, PoE"
 icon: "🛡️"
-group: "Networking"
 tags: ["Cisco", "security", "port-security", "DHCP-snooping", "DAI", "IOS", "switching", "PoE"]
 date: 2026-04-22
 ---

@@ -2,7 +2,6 @@
 title: "Cisco IOS Management"
 description: "IOS upgrade, password recovery, ROMMON recovery, err-disabled ports"
 icon: "⚙️"
-group: "Networking"
 tags: ["Cisco", "IOS", "ROMMON", "password-recovery", "upgrade", "troubleshooting"]
 date: 2026-04-22
 ---

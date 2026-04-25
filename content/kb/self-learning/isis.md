@@ -1,27 +1,24 @@
 ---
-title: "Network Engineer — SL. IS-IS Protocol"
+title: "IS-IS Protocol — L1/L2 Levels"
+description: "IS-IS configuration with Level-1 and Level-2 areas on a 9-router topology"
+icon: "🗺️"
+tags: ["Networking", "IS-IS", "Routing", "Cisco"]
 date: 2026-02-11
-description: "Самостоятельная работа: настройка IS-IS с уровнями L1 и L2 на многоузловой топологии"
-tags: ["Networking", "IS-IS", "Routing", "Cisco", "OTUS"]
-categories: ["Network Engineer"]
-code_toggle: true
-page_lang: "ru"
-lang_pair: "/posts/neteng/neteng-sl-isis/"
-pagefind_ignore: true
-build:
-  list: never
-  render: always
 ---
 
-# Протокол IS-IS
+<div class="intro-card">
+IS-IS uses <strong>L1</strong> (intra-area) and <strong>L2</strong> (inter-area/backbone) adjacencies. Routers at area boundaries run both levels simultaneously. NET format: <code>49.AREA.SYSID.00</code>.
+</div>
 
-![1](/img/neteng/sl-isis/1.png)
+## Topology
 
-Эта схема показывает как можно настроить IS-IS без фильтрации, то есть обычная связность без накидных механизмов и прочих прелестей управления трафиком.
+![](/img/neteng/sl-isis/1.png)
 
-## Конфигурации устройств:
+Basic connectivity without traffic engineering. Three areas: 49.0001, 49.0002, 49.0003, 49.0004.
 
-### R1
+## Configurations
+
+### R1 — L1 only (area 49.0003)
 
 ```
 interface Ethernet0/0
@@ -37,10 +34,9 @@ interface Ethernet0/1
 router isis
  net 49.0003.0000.0000.0001.00
  is-type level-1
-
 ```
 
-### R2
+### R2 — L1/L2 boundary (area 49.0003)
 
 ```
 interface Ethernet0/0
@@ -60,12 +56,11 @@ interface Ethernet0/2
  ip router isis 
  isis circuit-type level-2-only
 !
-!
 router isis
  net 49.0003.0000.0000.0002.00
 ```
 
-### R3
+### R3 — L1 only (area 49.0003)
 
 ```
 interface Ethernet0/0
@@ -80,16 +75,14 @@ interface Ethernet0/1
  ip router isis 
  isis circuit-type level-1
 !
-!
 router isis
  net 49.0003.0000.0000.0003.00
  is-type level-1
 ```
 
-### R4
+### R4 — L1/L2 boundary (area 49.0003)
 
 ```
-
 interface Ethernet0/0
  no shutdown
  ip address 10.0.24.4 255.255.255.0
@@ -111,7 +104,7 @@ router isis
  net 49.0003.0000.0000.0004.00
 ```
 
-### R5
+### R5 — L2 only (area 49.0004)
 
 ```
 interface Ethernet0/0
@@ -120,12 +113,11 @@ interface Ethernet0/0
  ip router isis 
  isis circuit-type level-2-only
 !
-!
 router isis
  net 49.0004.0000.0000.0005.00
 ```
 
-### R6
+### R6 — L1 only (area 49.0001)
 
 ```
 interface Ethernet0/0
@@ -134,13 +126,12 @@ interface Ethernet0/0
  ip router isis 
  isis circuit-type level-1
 !
-!
 router isis
  net 49.0001.0000.0000.0006.00
  is-type level-1
 ```
 
-### R7
+### R7 — L1/L2 boundary (area 49.0001)
 
 ```
 interface Ethernet0/0
@@ -165,7 +156,7 @@ router isis
  net 49.0001.0000.0000.0007.00
 ```
 
-### R8
+### R8 — L1/L2 boundary (area 49.0002)
 
 ```
 interface Ethernet0/0
@@ -184,7 +175,7 @@ router isis
  net 49.0002.0000.0000.0008.00
 ```
 
-### R9
+### R9 — L1 only (area 49.0002)
 
 ```
 interface Ethernet0/0
@@ -192,7 +183,6 @@ interface Ethernet0/0
  ip address 10.0.89.9 255.255.255.0
  ip router isis 
  isis circuit-type level-1
-!
 !
 router isis
  net 49.0002.0000.0000.0009.00
