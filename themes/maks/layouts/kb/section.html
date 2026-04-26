@@ -38,18 +38,19 @@
     {{ range $kbSections }}
       {{ if eq .Params.group $group }}{{ $gSections = $gSections | append . }}{{ end }}
     {{ end }}
-    {{ if or $gPages $gSections }}
+    {{ $combined := $gSections | append $gPages }}
+    {{ if $combined }}
     <div class="kb-section-title">{{ $group }}</div>
     <div class="kb-cards">
-      {{ range $gSections }}
+      {{ range sort $combined "Title" }}
+      {{ if .IsSection }}
       <a href="{{ .RelPermalink }}" class="kb-card kb-card-section">
         <div class="kb-card-icon">{{ with .Params.icon }}{{ . }}{{ else }}📁{{ end }}</div>
         <div class="kb-card-title">{{ .Title }}</div>
         {{ with .Description }}<div class="kb-card-desc">{{ . }}</div>{{ end }}
         <div class="kb-card-meta">{{ len .Pages }} pages</div>
       </a>
-      {{ end }}
-      {{ range sort $gPages "Title" }}
+      {{ else }}
       <a href="{{ .RelPermalink }}" class="kb-card">
         <div class="kb-card-icon">{{ with .Params.icon }}{{ . }}{{ else }}📋{{ end }}</div>
         <div class="kb-card-title">{{ .Title }}</div>
@@ -60,6 +61,7 @@
         </div>
         {{ end }}
       </a>
+      {{ end }}
       {{ end }}
     </div>
     {{ end }}
