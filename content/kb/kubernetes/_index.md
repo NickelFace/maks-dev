@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes"
-description: "Оркестрация контейнеров: поды, деплойменты, сервисы, конфигурация, масштабирование"
+description: "Container orchestration: pods, deployments, services, config, scaling"
 icon: "☸️"
 group: "Cloud & DevOps"
 tags: ["Kubernetes", "k8s", "Containers", "DevOps"]
