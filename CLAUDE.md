@@ -165,7 +165,7 @@ Template: `themes/maks/layouts/taxonomy/tag.html`
 ## KB section structure
 
 ### Groups
-Five groups render on `/kb/` root: `"Linux Core"`, `"Networking"`, `"Cloud & DevOps"`, `"Security"`, `"Self Learning"`.
+Six groups render on `/kb/` root: `"Linux Core"`, `"Networking"`, `"Cloud & DevOps"`, `"Security"`, `"Self Learning"`, `"Cases"`.
 
 ### Flat pages (directly in `content/kb/`)
 Must have `group:` to appear in the correct KB section block:
