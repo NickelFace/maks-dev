@@ -30,7 +30,7 @@
   {{ end }}
   {{ $kbSections := .Sections }}
 
-  {{ $groups := slice "Linux Core" "Networking" "Cloud & DevOps" "Security" "Self Learning" "Cases" }}
+  {{ $groups := slice "Linux Core" "Networking" "Cloud & DevOps" "Security" "Cases" }}
   {{ range $groups }}
     {{ $group := . }}
     {{ $gPages := where $kbPages "Params.group" $group }}
