@@ -24,7 +24,7 @@
   {{ $kbPages := where .Site.RegularPages "Section" "kb" }}
   {{ $kbSections := .Sections }}
 
-  {{ $groups := slice "Linux Core" "Networking" "Cloud & DevOps" "Security" }}
+  {{ $groups := slice "Linux Core" "Networking" "Cloud & DevOps" "Security" "Cases" }}
   {{ range $groups }}
     {{ $group := . }}
     {{ $gPages := where $kbPages "Params.group" $group }}

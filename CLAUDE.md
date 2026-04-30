@@ -171,7 +171,7 @@ Template: `themes/maks/layouts/taxonomy/tag.html`
 ## KB section structure
 
 ### Groups
-Six groups render on `/kb/` root: `"Linux Core"`, `"Networking"`, `"Cloud & DevOps"`, `"Security"`, `"Self Learning"`, `"Cases"`.
+Five groups render on `/kb/` root: `"Linux Core"`, `"Networking"`, `"Cloud & DevOps"`, `"Security"`, `"Cases"`.
 
 ### Flat pages (directly in `content/kb/`)
 Must have `group:` to appear in the correct KB section block:
@@ -202,8 +202,8 @@ date: DD-MM-YYYY   # must be a past date — Hugo skips future/today dates by de
 - `layouts/kb/list.html` — exists but **not active** (Hugo uses `section.html` first)
 - `$kbPages` in the root template filters to **direct children only** (`.File.Dir == "kb/"`) — subsection articles do not appear in the root listing
 
-### Self Learning section
-Personal lab notes live in `content/kb/self-learning/`. EN only, no RU translations. Images remain at `static/img/neteng/sl-*/`.
+### Network Labs section (Cases group)
+Personal lab notes live in `content/kb/network-labs/`. EN only, no RU translations. Group: `"Cases"`.
 
 ## Breadcrumb partial
 
