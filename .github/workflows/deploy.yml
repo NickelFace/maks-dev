@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
           fetch-depth: 0
@@ -32,6 +32,9 @@ jobs:
           sudo dpkg -i /tmp/hugo.deb
 
       - name: Build
+        env:
+          HUGO_PARAMS_PHONE: ${{ secrets.CONTACT_PHONE }}
+          HUGO_PARAMS_EMAIL: ${{ secrets.CONTACT_EMAIL }}
         run: hugo --minify --gc
 
       - name: Check generated HTML
@@ -44,7 +47,7 @@ jobs:
           pagefind --site public
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./public
 
@@ -57,7 +60,7 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
 
 

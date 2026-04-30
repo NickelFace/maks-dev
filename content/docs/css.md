@@ -9,22 +9,26 @@ tags: ["docs"]
 
 ## CSS architecture
 
-Styles are split into 8 files by **scope** (area of application):
+Styles are split into 9 files by **scope** (area of application):
 
-| File | Loaded | Purpose |
-|---|---|---|
-| `global.css` | everywhere | Variables, nav, base components, dot-grid pagination |
-| `mobile.css` | everywhere | Mobile nav, breakpoints |
-| `fonts.css` | everywhere | `@font-face` for Inter (body), JetBrains Mono (code), Unbounded (headings) |
-| `prose.css` | posts, about, kb, docs | Article typography, NS cards/tabs/ref-panel, section divider |
-| `home.css` | `/` only | Hero, recent posts, KB grid, cert-grid |
-| `cert.css` | `/certs/*` | Cert hero, resource tiles, accordion topics |
-| `quiz.css` | `/ccna-quiz/*` | Quiz cards, option states, scoring badges |
-| `ns.css` | `/posts/linux-namespaces/` | Two-column page layout, TOC sidebar, progress, filter row |
-| `chroma.css` | everywhere | Syntax highlighting (Dracula dark / GitHub light) |
+| File | Location | Loaded | Purpose |
+|---|---|---|---|
+| `critical.css` | `themes/maks/assets/css/` | inlined in `<head>` | FOUC prevention: dark/light `html,body` bg + `no-transition` rule |
+| `global.css` | `themes/maks/static/styles/` | everywhere | Variables, nav, base components, dot-grid pagination |
+| `mobile.css` | `themes/maks/static/styles/` | everywhere | Mobile nav, breakpoints |
+| `fonts.css` | `themes/maks/static/styles/` | everywhere | `@font-face` for Inter (body), JetBrains Mono (code), Unbounded (headings) |
+| `prose.css` | `themes/maks/static/styles/` | posts, about, kb, docs | Article typography, NS cards/tabs/ref-panel, section divider |
+| `home.css` | `themes/maks/static/styles/` | `/` only | Hero, recent posts, KB grid, cert-grid |
+| `cert.css` | `themes/maks/static/styles/` | `/certs/*` | Cert hero, resource tiles, accordion topics |
+| `quiz.css` | `themes/maks/static/styles/` | `/ccna-quiz/*` | Quiz cards, option states, scoring badges |
+| `ns.css` | `themes/maks/static/styles/` | `/posts/linux-namespaces/` | Two-column page layout, TOC sidebar, progress, filter row |
+| `chroma.css` | `themes/maks/static/styles/` | everywhere | Syntax highlighting (Dracula dark / GitHub light) |
 
 Loading in `baseof.html`:
 ```html
+<!-- Inlined via Hugo asset pipeline — single source of truth for FOUC colors -->
+{{ with resources.Get "css/critical.css" | minify }}<style>{{ .Content | safeCSS }}</style>{{ end }}
+
 <link rel="stylesheet" href="/styles/fonts.css">    <!-- always -->
 <link rel="stylesheet" href="/styles/global.css">   <!-- always -->
 <link rel="stylesheet" href="/styles/chroma.css">   <!-- always -->
@@ -34,6 +38,8 @@ Loading in `baseof.html`:
 <link rel="stylesheet" href="/styles/mobile.css">   <!-- always -->
 {{ block "head" . }}{{ end }}  <!-- cert.css / quiz.css / ns.css added here -->
 ```
+
+> **Why `critical.css` is inlined:** Dark/light background colors must be applied before any external CSS loads to prevent a white flash on navigation. `critical.css` lives in `assets/` so Hugo can read and inline it at build time via `resources.Get`. **When changing theme colors, update `critical.css` AND `global.css` `:root` — they must stay in sync.**
 
 ---
 

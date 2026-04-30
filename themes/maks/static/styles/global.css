@@ -730,8 +730,10 @@ button.tag {
 }
  
 
-/* smooth cross-page transitions (Chrome 126+, Safari 18+) */
+/* cross-page transitions — fade disabled to prevent white-frame flash */
 @view-transition { navigation: auto; }
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; }
 
 /* ── dot-grid pagination (all pages visible, wraps) ── */
 .pg-dot-nav {

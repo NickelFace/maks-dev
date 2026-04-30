@@ -6,7 +6,7 @@ tags: ["Networking", "EIGRP", "Routing", "Cisco"]
 categories: ["Network Engineer"]
 code_toggle: true
 page_lang: "en"
-lang_pair: "/posts/neteng/ru/neteng-06-eigrp-v2/"
+lang_pair: "/posts/neteng/ru/neteng-06-eigrp-advanced/"
 ---
 
 ## Lab: Advanced EIGRP for IPv4 Configuration

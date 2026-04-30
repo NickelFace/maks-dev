@@ -20,6 +20,23 @@ cd maks.top
 git checkout hugo
 ```
 
+### Environment variables
+
+`phone` and `email` params are not stored in `hugo.toml` — they're passed via environment variables to keep them out of git history.
+
+Create `.env` in the repo root (it's gitignored):
+
+```bash
+HUGO_PARAMS_PHONE=+1234567890
+HUGO_PARAMS_EMAIL=contact@example.com
+```
+
+Hugo automatically picks up `HUGO_PARAMS_*` variables. The `dev.sh` script loads `.env` before building.
+
+On GitHub Actions, set these as repository secrets (**Settings → Secrets and variables → Actions**):
+- `CONTACT_PHONE`
+- `CONTACT_EMAIL`
+
 ### Running the dev server
 
 Three options depending on what you need:
@@ -27,7 +44,7 @@ Three options depending on what you need:
 ```bash
 # Option 1 — full cycle (like CI): build + index + serve
 ./dev.sh
-# = hugo && npx pagefind --site public && hugo server --disableFastRender
+# loads .env, then: hugo && npx pagefind --site public && hugo server --disableFastRender
 
 # Option 2 — fast iteration (no Pagefind, search won't work)
 hugo server -D
@@ -72,11 +89,11 @@ GitHub Actions (.github/workflows/deploy.yml)
         │      submodules: recursive   ← required! theme is a submodule
         │      fetch-depth: 0          ← full history for .GitInfo
         │
-        ├── 2. peaceiris/actions-hugo@v3
-        │      hugo-version: "latest"
-        │      extended: true          ← required for SASS support
+        ├── 2. wget hugo_extended .deb → dpkg -i
+        │      version pinned via HUGO_VERSION env var in the workflow
         │
         ├── 3. hugo --minify --gc
+        │      env: HUGO_PARAMS_PHONE / HUGO_PARAMS_EMAIL from GitHub Secrets
         │      --minify  compresses HTML/CSS/JS
         │      --gc      removes unused cache files
         │
@@ -146,18 +163,30 @@ This action is commonly seen in Hugo deployment examples but **must not be used 
 
 The current `deploy.yml` does **not** include this step. Don't add it.
 
-### `hugo-version: "latest"` may break on major updates
+### Hugo version pinned in `deploy.yml`
 
-`peaceiris/actions-hugo@v3` with `hugo-version: "latest"` always installs the newest version. If Hugo releases a breaking change, the build may fail unexpectedly.
-
-**Fix if this happens:** pin to a specific version:
+Hugo is installed via `wget` (not `peaceiris/actions-hugo`). The version is set by the `HUGO_VERSION` env var in the workflow:
 
 ```yaml
-- uses: peaceiris/actions-hugo@v3
-  with:
-    hugo-version: "0.145.0"   # pin to last known good version
-    extended: true
+env:
+  HUGO_VERSION: "0.147.1"
 ```
+
+To upgrade: change this value and push. Don't use `peaceiris/actions-hugo` — it was replaced to avoid the action dependency.
+
+### `@view-transition` causes white-frame flash
+
+`@view-transition { navigation: auto; }` in `global.css` enables browser-level cross-fade between pages. The default fade animation shows a transparent/white frame during the transition — this bypasses the inline FOUC prevention script entirely.
+
+**Fix already applied:** the default animation is disabled:
+
+```css
+@view-transition { navigation: auto; }
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; }
+```
+
+Do not remove these overrides without adding a custom animation that avoids the white frame.
 
 ### `public/` edited manually
 

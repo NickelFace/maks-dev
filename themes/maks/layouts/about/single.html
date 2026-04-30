@@ -20,8 +20,19 @@
       <a href="{{ .Site.Params.github }}" class="about-link">GH</a>
       <a href="{{ .Site.Params.linkedin }}" class="about-link">in</a>
       <a href="{{ .Site.Params.telegram }}" class="about-link">✈</a>
-      <a href="mailto:{{ .Site.Params.email }}" class="about-link" title="{{ .Site.Params.email }}">✉</a>
-      <a href="tel:{{ .Site.Params.phone }}" class="about-link" title="{{ .Site.Params.phone }}">✆</a>
+      <span class="about-link obf-link" data-t="mailto" data-v="{{ .Site.Params.email | base64Encode }}">✉</span>
+      <span class="about-link obf-link" data-t="tel" data-v="{{ .Site.Params.phone | base64Encode }}">✆</span>
+<script>
+document.querySelectorAll('.obf-link').forEach(function(el){
+  var v = atob(el.dataset.v);
+  var a = document.createElement('a');
+  a.href = el.dataset.t + ':' + v;
+  a.title = v;
+  a.className = el.className.replace('obf-link','').trim();
+  a.innerHTML = el.innerHTML;
+  el.replaceWith(a);
+});
+</script>
     </div>
   </div>
 

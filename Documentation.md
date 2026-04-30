@@ -90,6 +90,9 @@ maks.top/                              ← repo root (branch: hugo)
 │       └── ru/                        # Russian versions of docs
 └── themes/maks/                       # Theme as git submodule
     ├── theme.toml
+    ├── assets/
+    │   └── css/
+    │       └── critical.css               # Inlined FOUC prevention (bg colors + no-transition)
     ├── layouts/
     │   ├── _default/
     │   │   ├── baseof.html            # Base template (nav, footer, global JS)
@@ -144,10 +147,14 @@ paginate = 10
   github   = "https://github.com/NickelFace"
   linkedin = "https://www.linkedin.com/in/lopunov/"
   telegram = "https://t.me/nickelface"
+  email    = ""   # set via HUGO_PARAMS_EMAIL env var — not stored in git
+  phone    = ""   # set via HUGO_PARAMS_PHONE env var — not stored in git
 
 [markup.goldmark.renderer]
   unsafe = true   # REQUIRED — otherwise HTML/JS in markdown won't render
 ```
+
+`email` and `phone` are passed as environment variables to keep them out of git history. Locally: create `.env` (gitignored) with `HUGO_PARAMS_PHONE` and `HUGO_PARAMS_EMAIL`. On CI: stored as GitHub Secrets `CONTACT_PHONE` / `CONTACT_EMAIL`.
 
 [↑ Navigation](#navigation)
 
@@ -158,7 +165,8 @@ paginate = 10
 ### Load order (in `baseof.html`)
 
 ```
-global.css
+critical.css      (inlined via resources.Get — FOUC prevention)
+→ global.css      (always)
 → home.css        (only if .IsHome)
 → prose.css       (if type: posts, about, or docs)
 → mobile.css      (always, last)
@@ -187,9 +195,9 @@ global.css
 --danger:  #ef4444;   /* Red */
 
 /* Backgrounds (dark) */
---bg:   #0a0e17;   /* Page */
---bg2:  #111827;   /* Cards/panels */
---bg3:  #1a2235;   /* Nested/hover */
+--bg:   #13151f;   /* Page */
+--bg2:  #1c1f2e;   /* Cards/panels */
+--bg3:  #252840;   /* Nested/hover */
 
 /* Text */
 --text:  #e2e8f0;   /* Primary */
@@ -197,22 +205,25 @@ global.css
 --text3: #64748b;   /* Labels/captions */
 
 /* Utility */
---border:    #1e2d45;
+--border:    #2d3356;
+--border2:   #353a60;
 --glow:      rgba(0,212,255,0.08);
 --code-bg:   #0d1520;
---nav-blur:  rgba(10,14,23,0.85);
---radius:    10px;
+--nav-blur:  rgba(19,21,31,0.85);
 ```
 
 Light theme overrides all variables via `[data-theme="light"]`.  
 Toggle: `localStorage('theme')` → `toggleTheme()` in `baseof.html`.
 
+> **FOUC colors** (`html,body` background) are also hardcoded in `themes/maks/assets/css/critical.css`. When changing `--bg` / `--bg` (light), update `critical.css` too.
+
 ### Fonts
 
 | Font | Usage |
 |---|---|
-| `JetBrains Mono` | Body, code, nav |
-| `Unbounded` | H1, panel headers, logo, `.sec-title` |
+| `Inter` | Body text (wt 400–600) |
+| `JetBrains Mono` | Code blocks, monospace UI |
+| `Unbounded` | Display headings, logo, `.sec-title` |
 
 > Deep dive: [content/docs/css.md](content/docs/css.md)
 
@@ -358,7 +369,7 @@ content/
 | Step | What runs |
 |---|---|
 | 1 | `actions/checkout@v4` — `submodules: recursive` (theme is a submodule) |
-| 2 | `peaceiris/actions-hugo@v3` — `extended: true`, `hugo-version: latest` |
+| 2 | `wget hugo_extended .deb → dpkg -i` — version pinned via `HUGO_VERSION` in workflow |
 | 3 | `hugo --minify --gc` |
 | 4 | grep CSS paths check (debug) |
 | 5 | `pagefind --site public` — builds search index |

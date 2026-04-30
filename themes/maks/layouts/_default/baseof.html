@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="color-scheme" content="dark light" id="metaColorScheme">
-<style>html,body{background:#13151f;color:#e2e8f0}html[data-theme="light"],html[data-theme="light"] body{background:#f5f7fa;color:#1a2235}.no-transition,html.no-transition *{transition:none!important}</style>
+{{ with resources.Get "css/critical.css" | minify }}<style>{{ .Content | safeCSS }}</style>{{ end }}
 <script>(function(){var h=document.documentElement;h.classList.add('no-transition');var t=localStorage.getItem('theme');if(t==='light'){h.setAttribute('data-theme','light');var m=document.getElementById('metaColorScheme');if(m)m.content='light dark';}requestAnimationFrame(function(){requestAnimationFrame(function(){h.classList.remove('no-transition');});});})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">

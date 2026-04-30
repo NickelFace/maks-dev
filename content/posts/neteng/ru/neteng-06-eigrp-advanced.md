@@ -6,7 +6,7 @@ tags: ["Networking", "EIGRP", "Routing", "Cisco", "OTUS"]
 categories: ["Network Engineer"]
 code_toggle: true
 page_lang: "ru"
-lang_pair: "/posts/neteng/neteng-06-eigrp-v2/"
+lang_pair: "/posts/neteng/neteng-06-eigrp-advanced/"
 pagefind_ignore: true
 build:
   list: never

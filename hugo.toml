@@ -12,8 +12,8 @@ theme = "maks"
   github      = "https://github.com/NickelFace"
   linkedin    = "https://www.linkedin.com/in/lopunov/"
   telegram    = "https://t.me/nickelface"
-  email       = "contact@example.com"
-  phone       = "+1234567890"
+  email       = ""
+  phone       = ""
 
 [taxonomies]
   tag      = "tags"

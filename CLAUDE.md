@@ -21,7 +21,8 @@ content/
 
 themes/maks/
   layouts/            ← Hugo templates per section
-  static/styles/      ← CSS files
+  assets/css/         ← critical.css (inlined at build time via resources.Get)
+  static/styles/      ← CSS files (loaded as external <link>)
   static/fonts/       ← Self-hosted woff2 (JetBrains Mono, Unbounded)
   static/img/         ← Images
 
@@ -30,17 +31,18 @@ static/img/quiz/      ← 247 JPEG images extracted from CCNA PDF
 ```
 
 ## CSS files and what they cover
-| File | Scope |
-|---|---|
-| `global.css` | Variables, reset, nav, page, KB cards (.kb-card, .kb-card-meta, .kb-card-section), tags, pagination, breadcrumb, sticky footer |
-| `prose.css` | Article body typography, post-header/post-meta, `.intro-card`, `.ref-panel`, `.cheat-table`, `.tabs`, `.code-block`, `.sec` divider (used in KB and posts) |
-| `cert.css` | Cert overview page (hero, accordion topics) |
-| `quiz.css` | CCNA quiz cards, options, scoring badges |
-| `ns.css` | linux-namespaces page only (ns-specific: `.ns-card`, `.ns-grid`, `.ns-map*`, `.stag*`) |
-| `home.css` | Homepage layout |
-| `mobile.css` | Mobile-specific overrides |
-| `fonts.css` | @font-face for self-hosted fonts |
-| `chroma.css` | Hugo syntax highlighting |
+| File | Location | Scope |
+|---|---|---|
+| `critical.css` | `assets/css/` | Inlined in `<head>` via `resources.Get \| minify`. Dark/light `html,body` bg + `no-transition`. **Single source of truth for FOUC colors — update here when changing theme bg.** |
+| `global.css` | `static/styles/` | Variables, reset, nav, page, KB cards (.kb-card, .kb-card-meta, .kb-card-section), tags, pagination, breadcrumb, sticky footer |
+| `prose.css` | `static/styles/` | Article body typography, post-header/post-meta, `.intro-card`, `.ref-panel`, `.cheat-table`, `.tabs`, `.code-block`, `.sec` divider (used in KB and posts) |
+| `cert.css` | `static/styles/` | Cert overview page (hero, accordion topics) |
+| `quiz.css` | `static/styles/` | CCNA quiz cards, options, scoring badges |
+| `ns.css` | `static/styles/` | linux-namespaces page only (ns-specific: `.ns-card`, `.ns-grid`, `.ns-map*`, `.stag*`) |
+| `home.css` | `static/styles/` | Homepage layout |
+| `mobile.css` | `static/styles/` | Mobile-specific overrides |
+| `fonts.css` | `static/styles/` | @font-face for self-hosted fonts |
+| `chroma.css` | `static/styles/` | Hugo syntax highlighting |
 
 ## CSS variables (defined in global.css)
 ```css
@@ -60,7 +62,11 @@ Tags (`<span class="tag">`) are **decorative only** across the whole site — no
 - In `global.css`: `.kb-card-tags .tag:hover` resets border/color to non-accent
 
 ## FOUC prevention
-Inline `<style>` + `<script>` in `<head>` of `baseof.html` sets background color and applies saved theme before any external CSS loads, eliminating white flash on navigation.
+`themes/maks/assets/css/critical.css` is inlined into `<head>` at build time via `{{ with resources.Get "css/critical.css" | minify }}<style>{{ .Content | safeCSS }}</style>{{ end }}`. It sets `html,body` background for both themes and the `no-transition` rule. This is the **single source of truth** — do not hardcode bg colors in `baseof.html` directly.
+
+Inline `<script>` in `<head>` reads `localStorage('theme')`, applies `data-theme="light"` if needed, and removes `no-transition` after double `requestAnimationFrame`.
+
+**`@view-transition { navigation: auto; }`** in `global.css` enables browser page transitions but the default cross-fade shows a white frame that bypasses all inline FOUC logic. The default animation is disabled via `::view-transition-old(root), ::view-transition-new(root) { animation: none; }` — do not remove this override.
 
 ## EN/RU translation system
 Applies to both posts and KB pages.
@@ -209,6 +215,15 @@ Shared partial at `themes/maks/layouts/partials/breadcrumb.html`. Called via `{{
 
 `body { display: flex; flex-direction: column }` + `footer { margin-top: auto }`.
 Footer is hidden on mobile (`display: none`) — replaced by `.mob-bottom-nav`.
+
+## Contact info (phone / email)
+
+`phone` and `email` in `hugo.toml` are set to `""`. Values are injected at build time via env vars:
+- Locally: `.env` file (gitignored) with `HUGO_PARAMS_PHONE` and `HUGO_PARAMS_EMAIL`
+- CI: GitHub Secrets `CONTACT_PHONE` / `CONTACT_EMAIL`, passed to hugo build step
+- `dev.sh` loads `.env` automatically before running hugo
+
+In `about/single.html` the values are rendered as base64 `data-v` attributes and decoded by inline JS — plain text never appears in HTML output.
 
 ## Git rules
 - Branch: `hugo`

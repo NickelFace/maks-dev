@@ -7,5 +7,6 @@ Disallow: /posts/netarch/ru/
 Disallow: /kb/ru/
 Disallow: /kb/cases/ru/
 Disallow: /docs/ru/
+Disallow: /ccna-quiz/
 
 Sitemap: https://maks.top/sitemap.xml

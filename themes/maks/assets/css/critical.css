@@ -1,0 +1,3 @@
+html,body{background:#13151f;color:#e2e8f0}
+html[data-theme="light"],html[data-theme="light"] body{background:#f5f7fa;color:#1a2235}
+.no-transition,html.no-transition *{transition:none!important}

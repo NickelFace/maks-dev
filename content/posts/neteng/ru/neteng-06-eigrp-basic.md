@@ -6,7 +6,7 @@ tags: ["Networking", "EIGRP", "Routing", "Cisco"]
 categories: ["Network Engineer"]
 code_toggle: true
 page_lang: "ru"
-lang_pair: "/posts/neteng/neteng-06-eigrp/"
+lang_pair: "/posts/neteng/neteng-06-eigrp-basic/"
 pagefind_ignore: true
 build:
   list: never
