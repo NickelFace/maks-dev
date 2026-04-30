@@ -5,6 +5,7 @@ description: "SysVinit runlevels, systemd targets, telinit, systemctl isolate, s
 tags: ["Linux", "LPIC-1", "systemd", "SysVinit", "Runlevels"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-101-3-runlevels-boot-targets/"
+page_lang: "en"
 ---
 
 > **Exam weight: 3** — LPIC-1 v5, Exam 101

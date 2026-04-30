@@ -5,6 +5,7 @@ description: "CPU, memory, disk I/O and network monitoring tools: top, vmstat, i
 tags: ["Linux", "Performance", "LPIC-2", "Monitoring", "sysstat"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-200-1-capacity-planning/"
+page_lang: "en"
 ---
 
 > **Exam weight: 6 points** — one of the highest-weighted topics in section 200.

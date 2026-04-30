@@ -5,6 +5,7 @@ description: "Managing the running Linux kernel: modules, /proc, sysctl, udev, h
 tags: ["Linux", "Kernel", "LPIC-2", "udev", "sysctl", "Modules"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-201-3-kernel-runtime-management/"
+page_lang: "en"
 ---
 
 > **Exam weight:** Topic 201.3 carries **4 points** — one of the highest-weighted topics on the LPIC-2 201 exam. Focus on module management commands, `sysctl`, `/proc/sys/`, and `udev`.

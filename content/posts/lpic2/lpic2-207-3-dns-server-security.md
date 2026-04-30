@@ -5,6 +5,7 @@ description: "BIND security: hide version, ACLs, allow-query/allow-transfer, unp
 tags: ["Linux", "LPIC-2", "DNS", "BIND", "DNSSEC", "TSIG", "security"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-207-3-dns-server-security/"
+page_lang: "en"
 ---
 
 > **Exam topic 207.3** — Securing a DNS Server (weight: 2). Covers BIND security strategies, chroot jails, split DNS configuration, TSIG zone transfer authentication, DNSSEC record signing, and DANE certificate binding.

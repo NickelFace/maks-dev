@@ -5,6 +5,7 @@ description: "cat, head, tail, less, nl, od, cut, paste, sort, uniq, tr, sed, sp
 tags: ["Linux", "LPIC-1", "Bash", "Text Processing", "sed", "awk"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-103-2-text-filters/"
+page_lang: "en"
 ---
 
 > **Exam weight: 2** — LPIC-1 v5, Exam 101

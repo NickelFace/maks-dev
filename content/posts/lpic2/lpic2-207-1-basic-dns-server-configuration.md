@@ -5,6 +5,7 @@ description: "BIND components, named.conf structure (options/logging/zone), cach
 tags: ["Linux", "LPIC-2", "DNS", "BIND", "named", "dig"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-207-1-basic-dns-server-configuration/"
+page_lang: "en"
 ---
 
 > **Exam topic 207.1** — Basic DNS Server Configuration (weight: 3). Covers configuring BIND as a caching-only DNS server, `named.conf` structure, zone types, `rndc` management, and DNS diagnostic utilities.

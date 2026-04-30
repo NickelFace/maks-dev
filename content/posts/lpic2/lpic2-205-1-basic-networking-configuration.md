@@ -5,6 +5,7 @@ description: "ifconfig, route, ip addr/route, ARP, loopback interface, default g
 tags: ["Linux", "networking", "LPIC-2", "ip", "ifconfig", "ARP", "wifi"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-205-1-basic-networking-configuration/"
+page_lang: "en"
 ---
 
 > **Exam topic 205.1** — Basic Networking Configuration (weight: 3). Covers configuring wired and wireless network interfaces, routing tables, ARP, and the loopback interface.

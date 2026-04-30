@@ -5,6 +5,7 @@ description: "OpenVPN tunnel modes (tun/tap), PKI and certificate setup, server 
 tags: ["Linux", "LPIC-2", "OpenVPN", "VPN", "PKI", "TLS", "networking"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-212-5-openvpn/"
+page_lang: "en"
 ---
 
 > **Exam topic 212.5** — OpenVPN (weight: 2). Covers OpenVPN tunnel configuration, PKI setup, server/client config files, and routing.

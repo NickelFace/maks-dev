@@ -6,6 +6,7 @@ tags: ["Networking", "EtherChannel", "LACP", "PAgP", "Cisco"]
 categories: ["Network Engineer"]
 code_toggle: true
 lang_pair: "/posts/neteng/ru/neteng-03-etherchannel/"
+page_lang: "en"
 ---
 
 ## Lab: Configuring EtherChannel

@@ -5,6 +5,7 @@ description: "GPG/OpenPGP key management, intrusion detection (fail2ban, portsen
 tags: ["Linux", "LPIC-2", "GPG", "OpenPGP", "fail2ban", "portsentry", "nmap", "lsof", "john", "OpenSSL", "security"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-212-4-security-tasks/"
+page_lang: "en"
 ---
 
 > **Exam topic 212.4** — Security tasks (weight: 3). Covers GPG key management, intrusion detection, OpenSSL certificates, and security auditing tools.

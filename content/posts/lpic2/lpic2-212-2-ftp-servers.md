@@ -5,6 +5,7 @@ description: "FTP active vs passive mode, vsftpd configuration, Pure-FTPd, ProFT
 tags: ["Linux", "LPIC-2", "FTP", "vsftpd", "ProFTPD", "Pure-FTPd", "TLS"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-212-2-ftp-servers/"
+page_lang: "en"
 ---
 
 > **Exam topic 212.2** — Managing FTP Servers (weight: 2). Covers vsftpd configuration, anonymous FTP, access control, TLS, and awareness of Pure-FTPd and ProFTPD.

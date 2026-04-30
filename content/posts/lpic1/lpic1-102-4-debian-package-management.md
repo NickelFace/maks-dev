@@ -5,6 +5,7 @@ description: "dpkg, apt-get, apt-cache, apt-file, sources.list, dependency handl
 tags: ["Linux", "LPIC-1", "Debian", "dpkg", "apt"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-102-4-debian-package-management/"
+page_lang: "en"
 ---
 
 > **Exam weight: 3** — LPIC-1 v5, Exam 101

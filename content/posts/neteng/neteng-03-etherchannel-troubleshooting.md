@@ -6,6 +6,7 @@ tags: ["Networking", "EtherChannel", "Troubleshooting", "Cisco"]
 categories: ["Network Engineer"]
 code_toggle: true
 lang_pair: "/posts/neteng/ru/neteng-03-etherchannel-troubleshooting/"
+page_lang: "en"
 ---
 
 ## Lab: Troubleshooting EtherChannel

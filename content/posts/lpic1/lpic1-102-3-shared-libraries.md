@@ -5,6 +5,7 @@ description: "Shared libraries, naming conventions, ldconfig, /etc/ld.so.conf, L
 tags: ["Linux", "LPIC-1", "Libraries", "ldconfig"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-102-3-shared-libraries/"
+page_lang: "en"
 ---
 
 > **Exam weight: 1** — LPIC-1 v5, Exam 101

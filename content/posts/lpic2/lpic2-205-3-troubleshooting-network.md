@@ -5,6 +5,7 @@ description: "Systematic network diagnostics, TCP Wrappers (hosts.allow/hosts.de
 tags: ["Linux", "networking", "LPIC-2", "troubleshooting", "TCP Wrappers", "NetworkManager"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-205-3-troubleshooting-network/"
+page_lang: "en"
 ---
 
 > **Exam topic 205.3** — Troubleshooting Network Issues (weight: 4). Covers systematically diagnosing and resolving network problems, TCP Wrappers access control, interface/routing configuration, and key diagnostic tools.

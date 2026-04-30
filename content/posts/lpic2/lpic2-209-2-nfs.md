@@ -5,6 +5,7 @@ description: "NFSv3 architecture and daemons, /etc/exports format and options, e
 tags: ["Linux", "LPIC-2", "NFS", "file sharing", "exports", "rpcbind"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-209-2-nfs/"
+page_lang: "en"
 ---
 
 > **Exam topic 209.2** — NFS Server Configuration (weight: 3). Covers NFSv3 setup, `/etc/exports` configuration, NFS utilities, client-side mounting, and access control. LPIC-2 focuses on **NFSv3**.

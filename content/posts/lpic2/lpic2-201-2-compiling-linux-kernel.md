@@ -5,6 +5,7 @@ description: "Full kernel build cycle: source layout, make targets, kernel image
 tags: ["Linux", "Kernel", "LPIC-2", "DKMS", "make"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-201-2-compiling-linux-kernel/"
+page_lang: "en"
 ---
 
 > **Exam weight:** This topic carries **3 points** on the LPIC-2 201 exam. Focus on `make` targets, the paths `/usr/src/linux/.config` and `/lib/modules/kernel-version/`, and the commands `mkinitrd`, `mkinitramfs`, and `depmod`.

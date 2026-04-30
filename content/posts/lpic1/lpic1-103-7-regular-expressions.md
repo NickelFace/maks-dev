@@ -5,6 +5,7 @@ description: "Regular expressions, BRE vs ERE, grep, egrep, fgrep, sed, find wit
 tags: ["Linux", "LPIC-1", "regex", "grep", "sed", "egrep", "find"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-103-7-regular-expressions/"
+page_lang: "en"
 ---
 
 ## What You Need to Know

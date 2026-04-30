@@ -5,6 +5,7 @@ description: "OpenSSH client and server configuration, key-based authentication,
 tags: ["Linux", "LPIC-2", "OpenSSH", "SSH", "SCP", "SFTP", "port forwarding", "X11"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-212-3-openssh/"
+page_lang: "en"
 ---
 
 > **Exam topic 212.3** — Secure shell (OpenSSH) (weight: 4). Covers SSH client and server configuration, key management, port forwarding, and X11 forwarding.

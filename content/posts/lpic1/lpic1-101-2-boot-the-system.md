@@ -5,6 +5,7 @@ description: "Boot sequence, BIOS vs UEFI, GRUB 2, kernel parameters, initramfs,
 tags: ["Linux", "LPIC-1", "Boot", "systemd", "GRUB"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-101-2-boot-the-system/"
+page_lang: "en"
 ---
 
 > **Exam weight: 3** — LPIC-1 v5, Exam 101

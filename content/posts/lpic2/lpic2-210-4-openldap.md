@@ -5,6 +5,7 @@ description: "OpenLDAP slapd configuration (slapd.conf vs slapd-config/LDIF), di
 tags: ["Linux", "LPIC-2", "OpenLDAP", "LDAP", "slapd", "directory server"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-210-4-openldap/"
+page_lang: "en"
 ---
 
 > **Exam topic 210.4** — Configuring an OpenLDAP Server (weight: 4). Covers installing and configuring the slapd daemon, managing the LDAP database, access control, TLS, and integrating Linux clients.

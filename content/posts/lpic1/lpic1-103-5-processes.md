@@ -5,6 +5,7 @@ description: "Job control, nohup, screen, tmux, ps, top, signals, kill, pkill. L
 tags: ["Linux", "LPIC-1", "processes", "ps", "top", "kill", "screen", "tmux", "signals"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-103-5-processes/"
+page_lang: "en"
 ---
 
 ## What You Need to Know

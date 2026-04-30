@@ -5,6 +5,7 @@ description: "Process priorities, niceness, nice, renice, schedtool. LPIC-1 exam
 tags: ["Linux", "LPIC-1", "processes", "nice", "renice", "priority", "scheduler"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-103-6-process-priorities/"
+page_lang: "en"
 ---
 
 ## What You Need to Know

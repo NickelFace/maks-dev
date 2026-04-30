@@ -5,6 +5,7 @@ description: "hdparm, sdparm, tune2fs, sysctl/proc, SSD TRIM, NVMe, iSCSI initia
 tags: ["Linux", "storage", "LPIC-2", "iSCSI", "hdparm", "NVMe", "SAN"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-204-2-storage-device-access/"
+page_lang: "en"
 ---
 
 > **Exam topic 204.2** — Adjusting Storage Device Access. Covers hdparm/sdparm, tune2fs, sysctl, SSD/NVMe, iSCSI configuration, storage identifiers (WWID, WWN, LUN, IQN), and SAN protocols.

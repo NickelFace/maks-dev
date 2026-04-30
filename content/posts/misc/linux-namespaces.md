@@ -7,6 +7,7 @@ views: 1240
 icon: "🌐"
 layout: "linux-namespaces"
 lang_pair: "/posts/misc/ru/linux-namespaces/"
+page_lang: "en"
 ---
 
 <div class="intro-card">

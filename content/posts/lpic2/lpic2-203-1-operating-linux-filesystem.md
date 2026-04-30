@@ -5,6 +5,7 @@ description: "FHS directory layout, mkfs, mount/umount, /etc/fstab format, UUID 
 tags: ["Linux", "Filesystem", "LPIC-2", "fstab", "mount", "UUID", "swap"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-203-1-operating-linux-filesystem/"
+page_lang: "en"
 ---
 
 > **Exam topic 203.1** — Operating the Linux Filesystem. Covers the FHS hierarchy, creating and mounting filesystems, /etc/fstab configuration, UUID management, swap, and systemd mount units.

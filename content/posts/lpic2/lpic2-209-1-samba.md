@@ -5,6 +5,7 @@ description: "Samba daemons (smbd/nmbd/winbindd), smb.conf structure, global dir
 tags: ["Linux", "LPIC-2", "Samba", "SMB", "CIFS", "Winbind", "Active Directory", "file sharing"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-209-1-samba/"
+page_lang: "en"
 ---
 
 > **Exam topic 209.1** — Samba Server Configuration (weight: 5). Covers configuring Samba as a standalone file/print server or AD member server, access control, user management, and mounting SMB shares.

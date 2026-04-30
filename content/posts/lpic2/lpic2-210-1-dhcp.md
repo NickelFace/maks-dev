@@ -5,6 +5,7 @@ description: "ISC DHCPd configuration: dhcpd.conf structure, global parameters, 
 tags: ["Linux", "LPIC-2", "DHCP", "ISC DHCPd", "networking", "radvd"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-210-1-dhcp/"
+page_lang: "en"
 ---
 
 > **Exam topic 210.1** — DHCP Configuration (weight: 2). Covers ISC DHCPd server setup, `dhcpd.conf` structure, lease management, BOOTP support, relay agents, and IPv6 with radvd.

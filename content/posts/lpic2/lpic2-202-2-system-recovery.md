@@ -5,6 +5,7 @@ description: "Linux boot process, GRUB Legacy and GRUB 2, initrd/initramfs, UEFI
 tags: ["Linux", "GRUB", "Boot", "LPIC-2", "Recovery", "UEFI"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-202-2-system-recovery/"
+page_lang: "en"
 ---
 
 ## Linux Boot Process

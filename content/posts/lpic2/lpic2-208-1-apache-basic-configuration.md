@@ -5,6 +5,7 @@ description: "Apache httpd architecture, configuration files, MPM models, DSO mo
 tags: ["Linux", "LPIC-2", "Apache", "HTTP", "VirtualHost", "web server"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-208-1-apache-basic-configuration/"
+page_lang: "en"
 ---
 
 > **Exam topic 208.1** — Basic Apache Configuration (weight: 4). Covers Apache httpd installation, configuration structure, modules, MPM, access control, virtual hosts, and basic performance tuning.

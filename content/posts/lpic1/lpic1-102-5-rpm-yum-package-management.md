@@ -5,6 +5,7 @@ description: "rpm, yum, dnf, zypper — install, query, verify packages, manage 
 tags: ["Linux", "LPIC-1", "RPM", "YUM", "dnf", "zypper"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-102-5-rpm-yum-package-management/"
+page_lang: "en"
 ---
 
 > **Exam weight: 3** — LPIC-1 v5, Exam 101

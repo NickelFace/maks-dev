@@ -5,6 +5,7 @@ description: "Linux kernel architecture, image types, version numbering, kernel 
 tags: ["Linux", "Kernel", "LPIC-2", "Modules"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-201-1-kernel-components/"
+page_lang: "en"
 ---
 
 ## Linux Kernel Architecture

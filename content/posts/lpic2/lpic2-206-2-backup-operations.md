@@ -5,6 +5,7 @@ description: "Backup types (full/incremental/differential), storage media, tar (
 tags: ["Linux", "LPIC-2", "backup", "rsync", "tar", "Amanda", "Bacula", "Bareos"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-206-2-backup-operations/"
+page_lang: "en"
 ---
 
 > **Exam topic 206.2** — Backup Operations (weight: 3). Covers backup strategy, backup types, storage media selection, and the tools used to create, verify, and restore backups.

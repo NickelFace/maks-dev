@@ -5,6 +5,7 @@ description: "AutoFS auto-mounting, ISO9660 extensions (Rock Ridge/Joliet/El Tor
 tags: ["Linux", "Filesystem", "LPIC-2", "AutoFS", "LUKS", "ISO9660", "UDF", "encryption"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-203-3-filesystem-options/"
+page_lang: "en"
 ---
 
 > **Exam topic 203.3** — Creating and Configuring Filesystem Options. Covers AutoFS, ISO9660 and its extensions, UDF, ISO image creation with mkisofs/cdrecord, and encrypted filesystems (dm-crypt, LUKS, eCryptfs).

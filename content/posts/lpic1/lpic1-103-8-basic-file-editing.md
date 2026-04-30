@@ -5,6 +5,7 @@ description: "vi modes, navigation, insert, delete, copy-paste, search, macros, 
 tags: ["Linux", "LPIC-1", "vi", "vim", "nano", "editor", "text editing"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-103-8-basic-file-editing/"
+page_lang: "en"
 ---
 
 ## What You Need to Know

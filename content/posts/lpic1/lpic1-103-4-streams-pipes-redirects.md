@@ -5,6 +5,7 @@ description: "Redirecting stdin, stdout and stderr, pipes, tee, xargs, command s
 tags: ["Linux", "LPIC-1", "pipes", "redirects", "streams", "xargs", "tee"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-103-4-streams-pipes-redirects/"
+page_lang: "en"
 ---
 
 ## What You Need to Know

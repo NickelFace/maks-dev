@@ -5,6 +5,7 @@ description: "Capacity planning, monitoring tools (collectd, Nagios, Icinga2, MR
 tags: ["Linux", "Performance", "LPIC-2", "Monitoring", "Nagios", "Icinga2", "collectd", "Cacti", "MRTG"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-200-2-predict-future-resource-needs/"
+page_lang: "en"
 ---
 
 > **Exam weight: 2 points** out of the total 8 for section 200 Capacity Planning.

@@ -5,6 +5,7 @@ description: "LILO, Syslinux family (SYSLINUX/ISOLINUX/EXTLINUX/PXELINUX), PXE n
 tags: ["Linux", "Boot", "LPIC-2", "PXE", "UEFI", "Syslinux", "systemd-boot", "U-Boot"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-202-3-alternate-bootloaders/"
+page_lang: "en"
 ---
 
 > **Exam topic 202.3** — Alternate Bootloaders. Covers the Syslinux family, PXE network boot (BIOS and UEFI), UEFI Secure Boot with shim.efi/grubx64.efi, systemd-boot, and U-Boot for embedded systems.

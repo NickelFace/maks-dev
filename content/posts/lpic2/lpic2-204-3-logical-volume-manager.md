@@ -5,6 +5,7 @@ description: "LVM architecture (PV/VG/LV), full deployment cycle, extending and 
 tags: ["Linux", "LVM", "LPIC-2", "storage", "Device Mapper"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-204-3-logical-volume-manager/"
+page_lang: "en"
 ---
 
 > **Exam topic 204.3** — Logical Volume Manager. Covers the three-tier LVM architecture, physical/volume/logical volume commands, resizing, snapshots, Device Mapper, and lvm.conf configuration.

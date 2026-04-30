@@ -5,6 +5,7 @@ description: "pwd, uname, man, apropos, type, which, history, environment variab
 tags: ["Linux", "LPIC-1", "Bash", "Shell", "Command Line"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-103-1-work-on-command-line/"
+page_lang: "en"
 ---
 
 > **Exam weight: 4** — LPIC-1 v5, Exam 101

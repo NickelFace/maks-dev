@@ -5,6 +5,7 @@ description: "VPN and IPSEC (ESP/AH/IKE, Openswan), multihomed hosts, network an
 tags: ["Linux", "networking", "LPIC-2", "IPsec", "VPN", "tcpdump", "nmap"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-205-2-advanced-network-configuration/"
+page_lang: "en"
 ---
 
 > **Exam topic 205.2** — Advanced Network Configuration (weight: 4). Covers configuring network devices for various authentication schemes including multihomed configurations, VPN connections, and troubleshooting network problems.

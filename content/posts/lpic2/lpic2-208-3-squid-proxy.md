@@ -5,6 +5,7 @@ description: "Squid 3.x configuration: squid.conf parameters, ACL types, http_ac
 tags: ["Linux", "LPIC-2", "Squid", "proxy", "cache", "ACL"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-208-3-squid-proxy/"
+page_lang: "en"
 ---
 
 > **Exam topic 208.3** — Squid Caching Proxy (weight: 2). Covers Squid 3.x configuration, ACL definitions, access control, client authentication, and redirectors.

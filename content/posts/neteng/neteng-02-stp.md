@@ -6,6 +6,7 @@ tags: ["Networking", "STP", "Spanning Tree", "Cisco"]
 categories: ["Network Engineer"]
 code_toggle: true
 lang_pair: "/posts/neteng/ru/neteng-02-stp/"
+page_lang: "en"
 ---
 
 ## Lab: Deploying a Switched Network with Redundant Links

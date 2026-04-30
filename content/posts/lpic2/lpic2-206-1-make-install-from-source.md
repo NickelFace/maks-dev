@@ -5,6 +5,7 @@ description: "Building from source: tar archives, configure script, Makefile tar
 tags: ["Linux", "LPIC-2", "gcc", "make", "compile", "build"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-206-1-make-install-from-source/"
+page_lang: "en"
 ---
 
 > **Exam topic 206.1** — Make and Install Programs from Source (weight: 2). Covers the full cycle of downloading, configuring, compiling, and installing a program from source code.

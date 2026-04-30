@@ -5,6 +5,7 @@ description: "Hypervisor types, full/para/hybrid virtualisation, guest drivers, 
 tags: ["Linux", "LPIC-1", "Virtualization", "KVM", "cloud-init"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-102-6-linux-virtualization-guest/"
+page_lang: "en"
 ---
 
 > **Exam weight: 1** — LPIC-1 v5, Exam 101

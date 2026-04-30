@@ -5,6 +5,7 @@ description: "/etc/issue, /etc/issue.net, /etc/motd, wall, shutdown (-k/-c/--no-
 tags: ["Linux", "LPIC-2", "wall", "motd", "systemctl", "shutdown"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-206-3-notify-users/"
+page_lang: "en"
 ---
 
 > **Exam topic 206.3** — Notifying Users on System-Related Issues (weight: 1). Covers static login messages, dynamic broadcast messages, and systemd service and target management.

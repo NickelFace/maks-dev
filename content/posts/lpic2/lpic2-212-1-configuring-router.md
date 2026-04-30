@@ -5,6 +5,7 @@ description: "IP forwarding, NAT/masquerading, iptables tables and chains, SNAT/
 tags: ["Linux", "LPIC-2", "iptables", "nftables", "NAT", "routing", "firewall"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-212-1-configuring-router/"
+page_lang: "en"
 ---
 
 > **Exam topic 212.1** — Configuring a Router (weight: 3). Covers IP forwarding, NAT, iptables/nftables packet filtering and address translation.

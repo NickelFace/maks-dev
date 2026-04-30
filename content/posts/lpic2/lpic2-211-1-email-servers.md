@@ -5,6 +5,7 @@ description: "SMTP protocol, Postfix architecture, main.cf and master.cf, aliase
 tags: ["Linux", "LPIC-2", "Postfix", "SMTP", "email", "Sendmail", "Exim", "MTA"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-211-1-email-servers/"
+page_lang: "en"
 ---
 
 > **Exam topic 211.1** — Using E-mail Servers (weight: 4). Covers Postfix configuration, mail queues, aliases, virtual domains, TLS, and Sendmail/Exim awareness.

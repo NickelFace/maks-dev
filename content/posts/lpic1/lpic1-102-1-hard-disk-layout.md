@@ -5,6 +5,7 @@ description: "Disk partitions, mount points, /boot, EFI System Partition, /home,
 tags: ["Linux", "LPIC-1", "Disks", "LVM", "Filesystems"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-102-1-hard-disk-layout/"
+page_lang: "en"
 ---
 
 > **Exam weight: 2** — LPIC-1 v5, Exam 101

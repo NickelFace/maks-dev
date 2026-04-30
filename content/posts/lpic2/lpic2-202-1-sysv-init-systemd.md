@@ -5,6 +5,7 @@ description: "System startup customisation: SysV runlevels, inittab, init script
 tags: ["Linux", "systemd", "SysV", "LPIC-2", "Boot"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-202-1-sysv-init-systemd/"
+page_lang: "en"
 ---
 
 > **Exam weight: 3 points.** You need to manage services via runlevels (SysV) and targets (systemd), understand the boot sequence, and know all the utilities listed here. The exam tests both approaches.

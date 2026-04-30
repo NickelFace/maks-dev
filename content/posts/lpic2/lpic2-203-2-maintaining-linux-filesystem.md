@@ -5,6 +5,7 @@ description: "fsck/e2fsck, tune2fs, dumpe2fs, debugfs, Btrfs subvolumes and snap
 tags: ["Linux", "Filesystem", "LPIC-2", "btrfs", "xfs", "ZFS", "SMART", "fsck"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-203-2-maintaining-linux-filesystem/"
+page_lang: "en"
 ---
 
 > **Exam topic 203.2** — Maintaining a Linux Filesystem. Covers ext2/3/4 tools, Btrfs subvolumes and snapshots, XFS utilities, ZFS awareness, and SMART disk monitoring.

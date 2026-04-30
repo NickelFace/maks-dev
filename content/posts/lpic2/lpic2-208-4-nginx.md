@@ -5,6 +5,7 @@ description: "Nginx architecture, reverse proxy configuration, virtual server se
 tags: ["Linux", "LPIC-2", "Nginx", "reverse proxy", "FastCGI", "web server"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-208-4-nginx/"
+page_lang: "en"
 ---
 
 > **Exam topic 208.4** — Nginx as Web Server and Reverse Proxy (weight: 2). Covers installing and configuring Nginx as a reverse proxy and basic HTTP server.

@@ -5,6 +5,7 @@ description: "BIOS/UEFI, pseudo-filesystems /proc/ /sys/ /dev/, sysfs, udev, dbu
 tags: ["Linux", "LPIC-1", "Hardware", "Kernel"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-101-1-hardware-settings/"
+page_lang: "en"
 ---
 
 > **Exam weight: 2** — LPIC-1 v5, Exam 101

@@ -5,6 +5,7 @@ description: "Copying, moving, deleting files, globbing, find, tar, cpio, dd, an
 tags: ["Linux", "LPIC-1", "files", "find", "tar", "cp", "mv", "rm"]
 categories: ["LPIC-1"]
 lang_pair: "/posts/lpic1/ru/lpic1-103-3-basic-file-management/"
+page_lang: "en"
 ---
 
 ## What You Need to Know

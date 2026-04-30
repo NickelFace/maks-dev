@@ -5,6 +5,7 @@ description: "Zone file syntax, SOA record, resource record types (A/AAAA/PTR/MX
 tags: ["Linux", "LPIC-2", "DNS", "BIND", "zones", "SOA"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-207-2-dns-zone-management/"
+page_lang: "en"
 ---
 
 > **Exam topic 207.2** — Creating and Maintaining DNS Zones (weight: 3). Covers zone file syntax, SOA records, resource record types, forward and reverse zones, master/slave configuration, zone delegation, and zone validation tools.

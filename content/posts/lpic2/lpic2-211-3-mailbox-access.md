@@ -5,6 +5,7 @@ description: "POP3 vs IMAP protocols, Courier MTA awareness, Dovecot IMAP/POP3 c
 tags: ["Linux", "LPIC-2", "Dovecot", "Courier", "IMAP", "POP3", "email", "TLS"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-211-3-mailbox-access/"
+page_lang: "en"
 ---
 
 > **Exam topic 211.3** — Managing Mailbox Access (weight: 2). Covers configuring Dovecot IMAP/POP3, TLS setup, auth mechanisms, and Courier awareness.

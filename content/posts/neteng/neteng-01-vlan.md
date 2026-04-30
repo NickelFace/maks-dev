@@ -6,6 +6,7 @@ tags: ["Networking", "VLAN", "VTP", "Cisco"]
 categories: ["Network Engineer"]
 code_toggle: true
 lang_pair: "/posts/neteng/ru/neteng-01-vlan/"
+page_lang: "en"
 ---
 
 ## Lab: Configuring Extended VLAN, VTP and DTP

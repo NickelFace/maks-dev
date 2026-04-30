@@ -5,6 +5,7 @@ description: "LDAP tree structure, DN/RDN, LDIF format, ldapsearch with filters,
 tags: ["Linux", "LPIC-2", "LDAP", "OpenLDAP", "directory", "authentication"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-210-3-ldap-client/"
+page_lang: "en"
 ---
 
 > **Exam topic 210.3** — LDAP Client Usage (weight: 2). Covers using LDAP command-line client tools, LDIF format, search filters, and understanding the LDAP directory tree structure.

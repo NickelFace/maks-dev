@@ -4,6 +4,7 @@ date: 2026-02-24
 description: "Installing phpLDAPadmin on Ubuntu 24.04, resolving the mpm_event conflict with PHP-FPM, working with the LDAP tree through the GUI, changing passwords, and hands-on exercises."
 tags: ["Linux", "OpenLDAP", "LDAP", "phpLDAPadmin", "Apache", "PHP", "Ubuntu"]
 lang_pair: "/posts/misc/ru/phpldapadmin-practice/"
+page_lang: "en"
 ---
 
 A practical guide to deploying phpLDAPadmin on Ubuntu 24.04 and managing OpenLDAP through a graphical interface. For command-line background, see [LPIC-2 210.4 — Configuring an OpenLDAP Server](/posts/lpic2-210-4-openldap/).

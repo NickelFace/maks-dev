@@ -5,6 +5,7 @@ description: "Procmail recipe syntax and flags, Sieve filter language (RFC 5228)
 tags: ["Linux", "LPIC-2", "Postfix", "Dovecot", "Procmail", "Sieve", "email", "MDA"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-211-2-email-delivery/"
+page_lang: "en"
 ---
 
 > **Exam topic 211.2** — Managing E-Mail Delivery (weight: 2). Covers mail filtering and sorting using procmail (awareness level) and Sieve (scripting level), plus mbox and maildir storage formats.

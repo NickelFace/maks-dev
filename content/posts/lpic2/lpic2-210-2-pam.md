@@ -5,6 +5,7 @@ description: "PAM module types (auth/account/password/session), control flags (r
 tags: ["Linux", "LPIC-2", "PAM", "authentication", "SSSD", "security"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-210-2-pam/"
+page_lang: "en"
 ---
 
 > **Exam topic 210.2** — PAM Authentication (weight: 3). Covers PAM module types, control flags, key PAM modules, `/etc/shadow` format, nsswitch.conf, and SSSD integration.

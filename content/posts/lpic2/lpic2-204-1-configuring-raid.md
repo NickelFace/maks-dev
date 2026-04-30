@@ -5,6 +5,7 @@ description: "RAID levels (0/1/4/5/Linear), hardware vs software RAID, mdadm cre
 tags: ["Linux", "RAID", "LPIC-2", "mdadm", "storage"]
 categories: ["LPIC-2"]
 lang_pair: "/posts/lpic2/ru/lpic2-204-1-configuring-raid/"
+page_lang: "en"
 ---
 
 > **Exam topic 204.1** — Configuring RAID. Covers RAID levels, software RAID with mdadm, /proc/mdstat, mdadm.conf, and complete deployment and disk replacement procedures.
