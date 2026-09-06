@@ -1,8 +1,8 @@
 {{ define "head" }}
 <meta name="robots" content="noindex, nofollow">
-<link rel="stylesheet" href="{{ "styles/chroma.css" | relURL }}">
-<link rel="stylesheet" href="{{ "styles/code.css" | relURL }}">
-<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/chroma.css" }}">
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/code.css" }}">
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/prose.css" }}">
 {{ end }}
 
 {{ define "main" }}
@@ -18,5 +18,5 @@
 {{ end }}
 
 {{ define "scripts" }}
-<script src="{{ "js/code-enhance.js" | relURL }}"></script>
+<script src="{{ partial "asset.html" "js/code-enhance.js" }}"></script>
 {{ end }}

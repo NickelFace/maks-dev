@@ -71,8 +71,8 @@
 
 {{ define "scripts" }}
 {{ if .Params.code_toggle }}<script>document.body.dataset.codeToggle='true';</script>{{ end }}
-<script src="{{ "js/article.js" | relURL }}"></script>
-<script src="{{ "js/code-enhance.js" | relURL }}"></script>
+<script src="{{ partial "asset.html" "js/article.js" }}"></script>
+<script src="{{ partial "asset.html" "js/code-enhance.js" }}"></script>
 {{ if .Page.Store.Get "hasMermaid" }}
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';

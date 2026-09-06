@@ -12,11 +12,11 @@ tags: ["docs"]
 | File | Loaded | Purpose |
 |---|---|---|
 | Inline in `baseof.html` `<script>` | every page | Global functions (theme, menu) |
-| `static/js/article.js` | article pages via `_default/single.html` scripts block | Reading progress bar, ToC, copy buttons, image lightbox |
-| `static/js/pagefind-search.js` | `/posts/` and `/tags/` | Pagefind search UI |
-| `static/js/taxonomy.js` | `/tags/` (after inline POSTS[] data) | Tag filter logic + article grid |
+| `assets/js/article.js` | article pages via `_default/single.html` scripts block | Reading progress bar, ToC, copy buttons, image lightbox |
+| `assets/js/pagefind-search.js` | `/posts/` and `/tags/` | Pagefind search UI |
+| `assets/js/taxonomy.js` | `/tags/` (after inline POSTS[] data) | Tag filter logic + article grid |
 | Inline in `certs/single.html` `{{ block "scripts" }}` | `/certs/*` | Accordion toggle |
-| `static/js/ns.js` | `/posts/linux-namespaces/` | Namespace explorer (data + render) |
+| `assets/js/ns.js` | `/posts/linux-namespaces/` | Namespace explorer (data + render) |
 
 ---
 
@@ -104,7 +104,7 @@ To reset to auto: `localStorage.removeItem('theme')` in browser console.
 
 ## article.js: article page functions
 
-**Path:** `static/js/article.js`, loaded on all single article pages via `_default/single.html` scripts block.
+**Path:** `assets/js/article.js`, loaded on all single article pages via `_default/single.html` scripts block.
 
 ### Reading progress bar
 
@@ -130,7 +130,7 @@ Wraps `<img>` tags inside `.prose` with a click handler that opens the image ful
 
 ## pagefind-search.js: Pagefind search UI
 
-**Path:** `static/js/pagefind-search.js`, loaded on `/posts/` and `/tags/`.
+**Path:** `assets/js/pagefind-search.js`, loaded on `/posts/` and `/tags/`.
 
 Lazy-loads `/pagefind/pagefind.js` on first keypress. Renders results into `#searchResults` (CSS-positioned below `.search-wrap`). Closes on click outside `.search-wrap`.
 
@@ -138,7 +138,7 @@ Lazy-loads `/pagefind/pagefind.js` on first keypress. Renders results into `#sea
 
 ## taxonomy.js: tag filter logic
 
-**Path:** `static/js/taxonomy.js`, loaded on `/tags/` after an inline `<script>` that defines `POSTS[]` and `currentTag`.
+**Path:** `assets/js/taxonomy.js`, loaded on `/tags/` after an inline `<script>` that defines `POSTS[]` and `currentTag`.
 
 Reads `POSTS[]` (Hugo-generated, EN only) and `currentTag` (current tag slug from Hugo) from the page. Builds the tag grid, filters articles, manages the active pill UI.
 
@@ -191,8 +191,8 @@ function toggleTopic(btn) {
 
 ## ns.js: Namespace Explorer
 
-**Path:** `static/js/ns.js`  
-**Loaded:** only on `/posts/linux-namespaces/` via `<script src="{{ "js/ns.js" | relURL }}">`
+**Path:** `assets/js/ns.js`  
+**Loaded:** only on `/posts/linux-namespaces/` via `<script src="{{ partial "asset.html" "js/ns.js" }}">`
 
 Contains:
 - `nsData`: array of objects with data for all namespaces (name, flag, icon, color, summary, desc...)

@@ -1,5 +1,5 @@
 {{ define "head" }}
-<link rel="stylesheet" href="{{ "styles/roadmap.css" | relURL }}">
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/roadmap.css" }}">
 {{ end }}
 
 {{ define "main" }}
@@ -14,5 +14,5 @@
 {{ end }}
 
 {{ define "scripts" }}
-{{ if .Params.store_key }}<script src="{{ "js/roadmap.js" | relURL }}" defer></script>{{ end }}
+{{ if .Params.store_key }}<script src="{{ partial "asset.html" "js/roadmap.js" }}" defer></script>{{ end }}
 {{ end }}

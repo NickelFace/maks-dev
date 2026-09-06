@@ -1,0 +1,23 @@
+{{- /*
+  Resolve a stylesheet or script to a content-fingerprinted URL.
+
+  These files used to be served straight out of static/ at a stable path.
+  Cloudflare fronts the site with cache-control: max-age=14400, so a returning
+  visitor kept the previous CSS for up to four hours after a deploy — which is
+  how a shipped palette change can look like it never shipped. A hash in the
+  filename makes the URL change whenever the bytes change, so a deploy
+  invalidates itself and the long cache becomes a feature rather than a delay.
+
+  CSS is minified; JS is not. Hugo's minifier rewrites the quoted object key
+  "1.10" to the numeric literal 1.10, which JavaScript reads as 1.1 — it cost
+  us a silently wrong count once already (see trainers/progress-console.md).
+  The scripts here are small enough that the saving is not worth re-auditing
+  every one of them for that class of bug.
+*/ -}}
+{{- $r := resources.Get . -}}
+{{- if not $r -}}{{- errorf "partials/asset.html: no such asset %q" . -}}{{- end -}}
+{{- if and hugo.IsProduction (strings.HasSuffix . ".css") -}}
+  {{- $r = $r | minify -}}
+{{- end -}}
+{{- if hugo.IsProduction -}}{{- $r = $r | fingerprint "sha256" -}}{{- end -}}
+{{- $r.RelPermalink -}}

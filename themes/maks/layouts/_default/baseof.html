@@ -40,14 +40,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap">
-<link rel="stylesheet" href="{{ "styles/fonts.css" | relURL }}">
-<link rel="stylesheet" href="{{ "styles/global.css" | relURL }}">
-{{ if or (eq .Type "posts") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}<link rel="stylesheet" href="{{ "styles/chroma.css" | relURL }}">
-<link rel="stylesheet" href="{{ "styles/code.css" | relURL }}">{{ end }}
-{{ if .IsHome }}<link rel="stylesheet" href="{{ "styles/home.css" | relURL }}">{{ end }}
-{{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
-{{ if or (eq .Type "posts") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}<link rel="stylesheet" href="{{ "styles/topology.css" | relURL }}">{{ end }}
-<link rel="stylesheet" href="{{ "styles/mobile.css" | relURL }}">
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/fonts.css" }}">
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/global.css" }}">
+{{ if or (eq .Type "posts") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}<link rel="stylesheet" href="{{ partial "asset.html" "styles/chroma.css" }}">
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/code.css" }}">{{ end }}
+{{ if .IsHome }}<link rel="stylesheet" href="{{ partial "asset.html" "styles/home.css" }}">{{ end }}
+{{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}<link rel="stylesheet" href="{{ partial "asset.html" "styles/prose.css" }}">{{ end }}
+{{ if or (eq .Type "posts") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}<link rel="stylesheet" href="{{ partial "asset.html" "styles/topology.css" }}">{{ end }}
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/mobile.css" }}">
 {{ block "head" . }}{{ end }}
 </head>
 <body{{ if .Params.pagefind_ignore }} data-pagefind-ignore="all"{{ end }}>

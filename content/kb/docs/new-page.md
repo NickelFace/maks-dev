@@ -130,7 +130,7 @@ Minimal structure:
 
 ```html
 {{ define "head" }}
-<link rel="stylesheet" href="{{ "styles/ns.css" | relURL }}">
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/ns.css" }}">
 {{ end }}
 
 {{ define "main" }}
@@ -173,7 +173,7 @@ Minimal structure:
 {{ end }}
 
 {{ define "scripts" }}
-<script src="{{ "js/ns.js" | relURL }}"></script>
+<script src="{{ partial "asset.html" "js/ns.js" }}"></script>
 <script>
   // Initialization goes here - AFTER the external <script src> above
   const MY_DATA = [
@@ -191,7 +191,7 @@ Minimal structure:
 If `ns.css` doesn't cover your components, create a new file:
 
 ```bash
-themes/maks/static/styles/my-topic.css
+themes/maks/assets/styles/my-topic.css
 ```
 
 Then load it in the layout's `{{ define "head" }}` block instead of or alongside `ns.css`.
@@ -216,12 +216,12 @@ buildCards(DATA);
 
 ```bash
 # Create the file
-themes/maks/static/js/my-topic.js
+themes/maks/assets/js/my-topic.js
 ```
 
 ```html
 {{ define "scripts" }}
-<script src="{{ "js/my-topic.js" | relURL }}"></script>
+<script src="{{ partial "asset.html" "js/my-topic.js" }}"></script>
 <script>
   // inline init only - references functions from my-topic.js
   initMyTopic(DATA);

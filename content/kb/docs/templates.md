@@ -47,7 +47,7 @@ This is the foundation of the entire site. Every other template extends `baseof`
 - **Footer**: logo + stack + location + year
 - **`<script>`**, inline: `toggleTheme()`, `setLang()`, `toggleMobMenu()`, `closeMobMenu()`, restore from localStorage
 
-> **Note:** `site.js` is not loaded from baseof! Functions are inlined directly in baseof to guarantee execution order. `site.js` in `static/js/` is a legacy file; its functions are duplicated inline.
+> **Note:** there is no `site.js`. The theme toggle, nav and search-overlay handlers are inlined directly in `baseof.html` so their execution order is guaranteed against the anti-flash script in `<head>`. Earlier revisions of these docs described a legacy `site.js` alongside them; no such file exists in the tree.
 
 ### How theme switching works
 
@@ -107,7 +107,7 @@ Injects `<script type="application/ld+json">` with Schema.org `Article` for all 
 
 ### `scripts` block
 
-Loads `static/js/article.js` (reading bar, ToC, copy buttons, lightbox). If `code_toggle: true` in frontmatter, sets `document.body.dataset.codeToggle = 'true'` before the script loads.
+Loads `assets/js/article.js` (reading bar, ToC, copy buttons, lightbox). If `code_toggle: true` in frontmatter, sets `document.body.dataset.codeToggle = 'true'` before the script loads.
 
 ---
 
@@ -238,7 +238,7 @@ Uses `{{ if .Sections }}` to branch between two layouts:
 **Path:** `themes/maks/layouts/taxonomy/tag.html`  
 **Rendered for:** `/tags/`
 
-Embeds `POSTS[]` array and `currentTag` inline (Hugo-generated, EN only), then loads `static/js/taxonomy.js` which handles all filter/render logic. Clicking a tag button filters the array and re-renders `.posts-list` via `innerHTML`.
+Embeds `POSTS[]` array and `currentTag` inline (Hugo-generated, EN only), then loads `assets/js/taxonomy.js` which handles all filter/render logic. Clicking a tag button filters the array and re-renders `.posts-list` via `innerHTML`.
 
 ---
 

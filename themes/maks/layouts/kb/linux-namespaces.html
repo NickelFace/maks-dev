@@ -1,5 +1,5 @@
 {{ define "head" }}
-<link rel="stylesheet" href="{{ "styles/ns.css" | relURL }}">
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/ns.css" }}">
 {{- if eq .Params.page_lang "en" -}}
 {{- $desc := cond (ne .Description "") .Description .Site.Params.description -}}
 {{- $ld := dict
@@ -120,9 +120,9 @@
 {{ end }}
 
 {{ define "scripts" }}
-<script src="{{ "js/article.js" | relURL }}"></script>
-<script src="{{ "js/code-enhance.js" | relURL }}"></script>
-<script src="{{ "js/ns.js" | relURL }}"></script>
+<script src="{{ partial "asset.html" "js/article.js" }}"></script>
+<script src="{{ partial "asset.html" "js/code-enhance.js" }}"></script>
+<script src="{{ partial "asset.html" "js/ns.js" }}"></script>
 <script>
 function nsSetFilter(f, btn) {
   document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('on'));

@@ -7,6 +7,34 @@ lang_pair: "/kb/docs/ru/css/"
 tags: ["docs"]
 ---
 
+## Fingerprinted URLs
+
+Stylesheets and scripts live in `themes/maks/assets/` and are emitted through
+`partials/asset.html`, which hashes the file's contents into its name:
+
+```
+/styles/global.css  ->  /styles/global.min.bf4b557d…dab.css
+```
+
+Reference one by asset path, never by output path:
+
+```go-html-template
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/global.css" }}">
+```
+
+Cloudflare fronts the site with `cache-control: max-age=14400`. Before
+fingerprinting, a returning visitor kept the previous CSS for up to four hours
+after a deploy, which is how a shipped palette change could look like it had
+never shipped — the server was correct and the browser was four hours behind.
+A content hash makes the URL change whenever the bytes do, so a deploy
+invalidates itself and the long cache stops being a delay.
+
+The partial minifies CSS but deliberately does **not** minify JS: Hugo's
+minifier rewrites the quoted object key `"1.10"` to the numeric literal `1.10`,
+which JavaScript reads as `1.1`. Fingerprinting and minification only run
+under `hugo.IsProduction`, so `hugo server` still serves readable, stable
+filenames.
+
 ## CSS architecture
 
 Styles are split into 11 files by **scope** (area of application):
@@ -14,16 +42,16 @@ Styles are split into 11 files by **scope** (area of application):
 | File | Location | Loaded | Purpose |
 |---|---|---|---|
 | `critical.css` | `themes/maks/assets/css/` | inlined in `<head>` | FOUC prevention: dark/light `html,body` bg + `no-transition` rule |
-| `global.css` | `themes/maks/static/styles/` | everywhere | Variables, nav, base components, dot-grid pagination |
-| `mobile.css` | `themes/maks/static/styles/` | everywhere | Mobile nav, breakpoints |
-| `fonts.css` | `themes/maks/static/styles/` | everywhere | `@font-face` for Inter (body), JetBrains Mono (code). Fraunces loaded via Google Fonts `<link>` in `baseof.html` |
-| `prose.css` | `themes/maks/static/styles/` | posts, about, kb, ccna-labs singles | Article typography, NS cards/tabs/ref-panel, section divider, mobile overflow containment |
-| `home.css` | `themes/maks/static/styles/` | `/` only | Hero, recent posts, KB grid, cert-grid |
-| `cert.css` | `themes/maks/static/styles/` | `/certs/*` | Cert hero, resource tiles, accordion topics, certs index page |
-| `ns.css` | `themes/maks/static/styles/` | `/kb/linux-namespaces/` | Two-column page layout, TOC sidebar, reading progress, cheatsheet filter row |
-| `topology.css` | `themes/maks/static/styles/` | posts, kb, ccna-labs + troubleshooting singles | `.topology` figure + SVG diagram styles |
-| `trainers.css` | `themes/maks/static/styles/` | trainers list + singles | Section chrome, and a re-mapping of the ported drills' own tokens (`--surface`, `--muted`, `--ok`/`--bad`) onto the site palette so they follow the theme switch |
-| `chroma.css` | `themes/maks/static/styles/` | posts, kb, ccna-labs + troubleshooting singles | Syntax highlighting. Also **declares the `--code-*` token palette**, per theme, that `prose.css`, `code.css` and `ns.css` read |
+| `global.css` | `themes/maks/assets/styles/` | everywhere | Variables, nav, base components, dot-grid pagination |
+| `mobile.css` | `themes/maks/assets/styles/` | everywhere | Mobile nav, breakpoints |
+| `fonts.css` | `themes/maks/assets/styles/` | everywhere | `@font-face` for Inter (body), JetBrains Mono (code). Fraunces loaded via Google Fonts `<link>` in `baseof.html` |
+| `prose.css` | `themes/maks/assets/styles/` | posts, about, kb, ccna-labs singles | Article typography, NS cards/tabs/ref-panel, section divider, mobile overflow containment |
+| `home.css` | `themes/maks/assets/styles/` | `/` only | Hero, recent posts, KB grid, cert-grid |
+| `cert.css` | `themes/maks/assets/styles/` | `/certs/*` | Cert hero, resource tiles, accordion topics, certs index page |
+| `ns.css` | `themes/maks/assets/styles/` | `/kb/linux-namespaces/` | Two-column page layout, TOC sidebar, reading progress, cheatsheet filter row |
+| `topology.css` | `themes/maks/assets/styles/` | posts, kb, ccna-labs + troubleshooting singles | `.topology` figure + SVG diagram styles |
+| `trainers.css` | `themes/maks/assets/styles/` | trainers list + singles | Section chrome, and a re-mapping of the ported drills' own tokens (`--surface`, `--muted`, `--ok`/`--bad`) onto the site palette so they follow the theme switch |
+| `chroma.css` | `themes/maks/assets/styles/` | posts, kb, ccna-labs + troubleshooting singles | Syntax highlighting. Also **declares the `--code-*` token palette**, per theme, that `prose.css`, `code.css` and `ns.css` read |
 
 Fenced code blocks are rendered by `themes/maks/layouts/_default/_markup/render-codeblock.html`.
 `render-codeblock-mermaid.html` sits beside it and wins for ```` ```mermaid ````, since Hugo
@@ -34,16 +62,16 @@ Loading in `baseof.html`:
 <!-- Inlined via Hugo asset pipeline - single source of truth for FOUC colors -->
 {{ with resources.Get "css/critical.css" | minify }}<style>{{ .Content | safeCSS }}</style>{{ end }}
 
-<link rel="stylesheet" href="/styles/fonts.css">    <!-- always -->
-<link rel="stylesheet" href="/styles/global.css">   <!-- always -->
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/fonts.css" }}">    <!-- always -->
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/global.css" }}">   <!-- always -->
 {{ if or (eq .Type "posts") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}
-  <link rel="stylesheet" href="/styles/chroma.css">{{ end }}
-{{ if .IsHome }}<link rel="stylesheet" href="/styles/home.css">{{ end }}
+  <link rel="stylesheet" href="{{ partial "asset.html" "styles/chroma.css" }}">{{ end }}
+{{ if .IsHome }}<link rel="stylesheet" href="{{ partial "asset.html" "styles/home.css" }}">{{ end }}
 {{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}
-  <link rel="stylesheet" href="/styles/prose.css">{{ end }}
+  <link rel="stylesheet" href="{{ partial "asset.html" "styles/prose.css" }}">{{ end }}
 {{ if or (eq .Type "posts") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}
-  <link rel="stylesheet" href="/styles/topology.css">{{ end }}
-<link rel="stylesheet" href="/styles/mobile.css">   <!-- always -->
+  <link rel="stylesheet" href="{{ partial "asset.html" "styles/topology.css" }}">{{ end }}
+<link rel="stylesheet" href="{{ partial "asset.html" "styles/mobile.css" }}">   <!-- always -->
 {{ block "head" . }}{{ end }}  <!-- cert.css / ns.css added here -->
 ```
 

@@ -88,7 +88,7 @@ Two separate tag arrays per post:
 
 #### Client-side filter logic
 
-Filter logic lives in **`static/js/taxonomy.js`** (external cacheable file). The inline `<script>` in `tag.html` only defines the data:
+Filter logic lives in **`assets/js/taxonomy.js`** (external cacheable file). The inline `<script>` in `tag.html` only defines the data:
 
 ```js
 // Inline in tag.html (Hugo-generated):

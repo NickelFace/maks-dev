@@ -47,7 +47,7 @@
 {{ end }}
 
 {{ define "scripts" }}
-<script src="{{ "js/pagefind-search.js" | relURL }}"></script>
+<script src="{{ partial "asset.html" "js/pagefind-search.js" }}"></script>
 <script>
 const POSTS = [
   {{ range .Site.RegularPages }}{{ if ne .Params.page_lang "ru" -}}
@@ -63,5 +63,5 @@ const POSTS = [
 ];
 const currentTag = {{ .Data.Term | urlize | jsonify | safeJS }};
 </script>
-<script src="{{ "js/taxonomy.js" | relURL }}"></script>
+<script src="{{ partial "asset.html" "js/taxonomy.js" }}"></script>
 {{ end }}
