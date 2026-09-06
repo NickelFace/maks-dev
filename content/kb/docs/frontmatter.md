@@ -285,6 +285,66 @@ build:
 
 ---
 
+## Fields for troubleshooting pages (`content/troubleshooting/*.md`)
+
+Symptom-first reference pages, filed `ts-NN-slug.md`. English only — the section
+was created after the site went English-only, so there are no RU shadows.
+
+```yaml
+---
+title: "VLANs and Trunks"
+date: 2026-09-06
+description: "One sentence naming the fault classes the page covers."
+tags: ["Troubleshooting", "VLAN", "Trunk", "Cisco"]
+categories: ["Troubleshooting"]
+unit: 3
+---
+```
+
+| Field | Required | Notes |
+|---|---|---|
+| `unit` | yes | Integer 1–7. Drives grouping on `/troubleshooting/`; a page without it does not appear in the index |
+
+Units, in order: 1 method and tools, 2 physical and data link, 3 switching,
+4 routing, 5 IP services, 6 IPv6, 7 security and filtering. The titles live in
+`layouts/troubleshooting/list.html`, so adding a unit means editing that slice
+as well as the front matter.
+
+Ordering inside a unit is by filename, which is why the `NN` prefix matters.
+
+---
+
+## Fields for trainers (`content/trainers/*.md`)
+
+Interactive drills and animations. Each page is front matter plus one
+`{{</* rawhtml */>}}` block; the widget carries its own markup, style and script.
+
+```yaml
+---
+title: "Subnetting"
+date: 2026-09-06
+description: "Shown as the tile text on /trainers/ — say what the drill asks."
+group: "drill"
+order: 1
+topic: "1.5 · IPv4 addressing"
+keys: "<kbd>Enter</kbd> check · <kbd>Space</kbd> reveal · <kbd>&rarr;</kbd> next"
+---
+```
+
+| Field | Required | Notes |
+|---|---|---|
+| `group` | yes | `drill`, `animation` or `tool`. Section on `/trainers/` |
+| `order` | yes | Sort position inside the group |
+| `topic` | no | Blueprint reference, shown small on the tile |
+| `keys` | no | Keyboard hints, rendered above the widget as raw HTML. Must match what the script actually binds — omit it when there are none |
+
+**Do not call this field `kind`.** `kind` is reserved by Hugo as a page-kind
+override. It is a deprecation warning on 0.154 and a hard build failure on
+0.147, which is what the deploy runs — the error is `unknown kind "drill" in
+front matter` and it does not appear locally.
+
+---
+
 ## Fields for the About page (`content/about.md`)
 
 `about.md` uses no custom frontmatter fields, profile data (name, links) comes from `hugo.toml [params]`.

@@ -9,9 +9,69 @@ topic: "4.3 · DNS"
 
 {{< rawhtml >}}
 <style>
+  /* The topology is drawn as physical kit — chassis, RJ45 holes, port LEDs —
+     so every colour carries a role rather than decoration, and each role
+     needs a value per theme. The stage used to be pinned to --code-bg on the
+     assumption that code blocks stay dark in both themes; they no longer do,
+     which left dark device icons floating on a light page. */
+  #dns-app {
+    --d-stage: #0B1017;
+    --d-link: #3b4a5f;
+    --d-chassis: #1e2a3d;
+    --d-chassis-2: #1a2035;
+    --d-recess: #0d1829;
+    --d-recess-2: #0a1628;
+    --d-stand: #2d4a6a;
+    --d-edge-blue: #2d6a9f;
+    --d-edge-grey: #4a5568;
+    --d-port: #0d1421;
+    --d-port-edge: #2d3f5a;
+    --d-led-up: #16a34a;
+    --d-led-warn: #eab308;
+    --d-router: #2a1f0a;
+    --d-router-2: #1e1a0a;
+    --d-router-edge: #b45309;
+    --d-router-arrow: #fbbf24;
+    --d-name-host: #7dd3fc;
+    --d-name-sw: #a8b6c6;
+    --d-sub: #8b9bb0;
+    --d-mac: #6b7c91;
+    --d-subnet: #4e6a8f;
+    --d-screen-txt: #3b82f6;
+    --d-pkt-query: #ef4444;
+    --d-pkt-reply: #22c55e;
+  }
+  [data-theme="light"] #dns-app {
+    --d-stage: #E4EBF2;
+    --d-link: #9AA9BA;
+    --d-chassis: #D5DEE9;
+    --d-chassis-2: #D5DEE9;
+    --d-recess: #EAEFF5;
+    --d-recess-2: #DCE5EE;
+    --d-stand: #B4C3D3;
+    --d-edge-blue: #3E7FB0;
+    --d-edge-grey: #9AA9BA;
+    --d-port: #C3CFDC;
+    --d-port-edge: #8E9CAE;
+    --d-led-up: #15803D;
+    --d-led-warn: #A16207;
+    --d-router: #FAE9CF;
+    --d-router-2: #F6E1C0;
+    --d-router-edge: #B45309;
+    --d-router-arrow: #A9560A;
+    --d-name-host: #0B5578;
+    --d-name-sw: #48555F;
+    --d-sub: #5E6B76;
+    --d-mac: #68757F;
+    --d-subnet: #42658F;
+    --d-screen-txt: #1D4ED8;
+    --d-pkt-query: #C2261E;
+    --d-pkt-reply: #15803D;
+  }
+
   #dns-app { display:flex; flex-direction:column; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
 
-  #dns-topo { position:relative; background:var(--code-bg); border-bottom:1px solid var(--border); height:220px; flex-shrink:0; }
+  #dns-topo { position:relative; background:var(--d-stage); border-bottom:1px solid var(--border); height:220px; flex-shrink:0; }
   svg#dns-net { width:100%; height:100%; display:block; }
 
   #info-panel { padding:14px 18px; background:var(--bg2); border-bottom:1px solid var(--border); min-height:90px; flex-shrink:0; }
@@ -65,102 +125,102 @@ topic: "4.3 · DNS"
     <div id="dns-topo">
       <svg id="dns-net" viewBox="0 0 740 220" xmlns="http://www.w3.org/2000/svg">
         <!-- wires at icon center y=75 -->
-        <line x1="103" y1="75" x2="185" y2="75" stroke="#3b4a5f" stroke-width="2"/>
-        <line x1="245" y1="75" x2="325" y2="75" stroke="#3b4a5f" stroke-width="2"/>
-        <line x1="415" y1="75" x2="490" y2="75" stroke="#3b4a5f" stroke-width="2"/>
-        <line x1="550" y1="75" x2="627" y2="75" stroke="#3b4a5f" stroke-width="2"/>
+        <line x1="103" y1="75" x2="185" y2="75" stroke="var(--d-link)" stroke-width="2"/>
+        <line x1="245" y1="75" x2="325" y2="75" stroke="var(--d-link)" stroke-width="2"/>
+        <line x1="415" y1="75" x2="490" y2="75" stroke="var(--d-link)" stroke-width="2"/>
+        <line x1="550" y1="75" x2="627" y2="75" stroke="var(--d-link)" stroke-width="2"/>
 
         <!-- HOST A — PC icon (x=55 center) -->
         <g id="icon-hosta">
-          <rect x="30" y="48" width="50" height="36" rx="3" fill="#1e2a3d" stroke="#2d6a9f" stroke-width="1.5"/>
-          <rect x="33" y="51" width="44" height="28" rx="2" fill="#0d1829"/>
-          <rect x="51" y="84" width="8" height="7" fill="#1e2a3d"/>
-          <rect x="43" y="91" width="24" height="3" rx="1" fill="#2d4a6a"/>
-          <rect x="35" y="53" width="40" height="24" rx="1" fill="#0a1628" opacity=".8"/>
-          <text x="55" y="68" text-anchor="middle" font-size="10" fill="#3b82f6" font-weight="bold">PC</text>
+          <rect x="30" y="48" width="50" height="36" rx="3" fill="var(--d-chassis)" stroke="var(--d-edge-blue)" stroke-width="1.5"/>
+          <rect x="33" y="51" width="44" height="28" rx="2" fill="var(--d-recess)"/>
+          <rect x="51" y="84" width="8" height="7" fill="var(--d-chassis)"/>
+          <rect x="43" y="91" width="24" height="3" rx="1" fill="var(--d-stand)"/>
+          <rect x="35" y="53" width="40" height="24" rx="1" fill="var(--d-recess-2)" opacity=".8"/>
+          <text x="55" y="68" text-anchor="middle" font-size="10" fill="var(--d-screen-txt)" font-weight="bold">PC</text>
         </g>
-        <text x="55" y="107" text-anchor="middle" font-size="11" fill="#7dd3fc" font-weight="600">Host A</text>
-        <text x="55" y="119" text-anchor="middle" font-size="9" fill="#8b9bb0">10.10.10.10/24</text>
-        <text x="55" y="130" text-anchor="middle" font-size="8" fill="#6b7c91" font-family="monospace">1111.2222.3333</text>
+        <text x="55" y="107" text-anchor="middle" font-size="11" fill="var(--d-name-host)" font-weight="600">Host A</text>
+        <text x="55" y="119" text-anchor="middle" font-size="9" fill="var(--d-sub)">10.10.10.10/24</text>
+        <text x="55" y="130" text-anchor="middle" font-size="8" fill="var(--d-mac)" font-family="monospace">1111.2222.3333</text>
 
         <!-- SWITCH 1 (x=215 center) -->
         <g id="icon-sw1">
-          <rect x="185" y="58" width="60" height="34" rx="4" fill="#1a2035" stroke="#4a5568" stroke-width="1.5"/>
-          <rect x="193" y="63" width="6" height="8" rx="1" fill="#0d1421" stroke="#2d3f5a" stroke-width="1"/>
-          <rect x="202" y="63" width="6" height="8" rx="1" fill="#0d1421" stroke="#2d3f5a" stroke-width="1"/>
-          <rect x="211" y="63" width="6" height="8" rx="1" fill="#0d1421" stroke="#2d3f5a" stroke-width="1"/>
-          <rect x="220" y="63" width="6" height="8" rx="1" fill="#0d1421" stroke="#2d3f5a" stroke-width="1"/>
-          <rect x="229" y="63" width="6" height="8" rx="1" fill="#0d1421" stroke="#2d3f5a" stroke-width="1"/>
-          <circle cx="196" cy="78" r="2" fill="#16a34a"/>
-          <circle cx="205" cy="78" r="2" fill="#16a34a"/>
-          <circle cx="214" cy="78" r="2" fill="#eab308"/>
-          <circle cx="223" cy="78" r="2" fill="#16a34a"/>
-          <circle cx="232" cy="78" r="2" fill="#4a5568"/>
+          <rect x="185" y="58" width="60" height="34" rx="4" fill="var(--d-chassis-2)" stroke="var(--d-edge-grey)" stroke-width="1.5"/>
+          <rect x="193" y="63" width="6" height="8" rx="1" fill="var(--d-port)" stroke="var(--d-port-edge)" stroke-width="1"/>
+          <rect x="202" y="63" width="6" height="8" rx="1" fill="var(--d-port)" stroke="var(--d-port-edge)" stroke-width="1"/>
+          <rect x="211" y="63" width="6" height="8" rx="1" fill="var(--d-port)" stroke="var(--d-port-edge)" stroke-width="1"/>
+          <rect x="220" y="63" width="6" height="8" rx="1" fill="var(--d-port)" stroke="var(--d-port-edge)" stroke-width="1"/>
+          <rect x="229" y="63" width="6" height="8" rx="1" fill="var(--d-port)" stroke="var(--d-port-edge)" stroke-width="1"/>
+          <circle cx="196" cy="78" r="2" fill="var(--d-led-up)"/>
+          <circle cx="205" cy="78" r="2" fill="var(--d-led-up)"/>
+          <circle cx="214" cy="78" r="2" fill="var(--d-led-warn)"/>
+          <circle cx="223" cy="78" r="2" fill="var(--d-led-up)"/>
+          <circle cx="232" cy="78" r="2" fill="var(--d-edge-grey)"/>
         </g>
-        <text x="215" y="107" text-anchor="middle" font-size="11" fill="#a8b6c6" font-weight="600">Switch 1</text>
-        <text x="215" y="119" text-anchor="middle" font-size="9" fill="#8b9bb0">P1&larr;Host A  P2&larr;Router A</text>
+        <text x="215" y="107" text-anchor="middle" font-size="11" fill="var(--d-name-sw)" font-weight="600">Switch 1</text>
+        <text x="215" y="119" text-anchor="middle" font-size="9" fill="var(--d-sub)">P1&larr;Host A  P2&larr;Router A</text>
 
         <!-- ROUTER A (x=370 center) -->
         <g id="icon-rtra">
-          <ellipse cx="370" cy="58" rx="30" ry="8" fill="#2a1f0a" stroke="#b45309" stroke-width="1.5"/>
-          <rect x="340" y="58" width="60" height="28" fill="#1e1a0a" stroke="#b45309" stroke-width="0"/>
-          <line x1="340" y1="58" x2="340" y2="86" stroke="#b45309" stroke-width="1.5"/>
-          <line x1="400" y1="58" x2="400" y2="86" stroke="#b45309" stroke-width="1.5"/>
-          <ellipse cx="370" cy="86" rx="30" ry="8" fill="#2a1f0a" stroke="#b45309" stroke-width="1.5"/>
-          <line x1="355" y1="72" x2="385" y2="72" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#dnsArr)"/>
-          <line x1="385" y1="78" x2="355" y2="78" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#dnsArr2)"/>
+          <ellipse cx="370" cy="58" rx="30" ry="8" fill="var(--d-router)" stroke="var(--d-router-edge)" stroke-width="1.5"/>
+          <rect x="340" y="58" width="60" height="28" fill="var(--d-router-2)" stroke="var(--d-router-edge)" stroke-width="0"/>
+          <line x1="340" y1="58" x2="340" y2="86" stroke="var(--d-router-edge)" stroke-width="1.5"/>
+          <line x1="400" y1="58" x2="400" y2="86" stroke="var(--d-router-edge)" stroke-width="1.5"/>
+          <ellipse cx="370" cy="86" rx="30" ry="8" fill="var(--d-router)" stroke="var(--d-router-edge)" stroke-width="1.5"/>
+          <line x1="355" y1="72" x2="385" y2="72" stroke="var(--d-router-arrow)" stroke-width="1.5" marker-end="url(#dnsArr)"/>
+          <line x1="385" y1="78" x2="355" y2="78" stroke="var(--d-router-arrow)" stroke-width="1.5" marker-end="url(#dnsArr2)"/>
           <defs>
             <marker id="dnsArr" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-              <polygon points="0,0 5,2.5 0,5" fill="#fbbf24"/>
+              <polygon points="0,0 5,2.5 0,5" fill="var(--d-router-arrow)"/>
             </marker>
             <marker id="dnsArr2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-              <polygon points="0,0 5,2.5 0,5" fill="#fbbf24"/>
+              <polygon points="0,0 5,2.5 0,5" fill="var(--d-router-arrow)"/>
             </marker>
           </defs>
         </g>
-        <text x="370" y="107" text-anchor="middle" font-size="11" fill="#fbbf24" font-weight="600">Router A</text>
-        <text x="370" y="119" text-anchor="middle" font-size="9" fill="#8b9bb0">.10.1 &middot; 4444.5555.6666</text>
-        <text x="370" y="130" text-anchor="middle" font-size="9" fill="#8b9bb0">.100.1 &middot; 8888.9999.AAAA</text>
+        <text x="370" y="107" text-anchor="middle" font-size="11" fill="var(--d-router-arrow)" font-weight="600">Router A</text>
+        <text x="370" y="119" text-anchor="middle" font-size="9" fill="var(--d-sub)">.10.1 &middot; 4444.5555.6666</text>
+        <text x="370" y="130" text-anchor="middle" font-size="9" fill="var(--d-sub)">.100.1 &middot; 8888.9999.AAAA</text>
 
         <!-- SWITCH 3 (x=520 center) -->
         <g id="icon-sw3">
-          <rect x="490" y="58" width="60" height="34" rx="4" fill="#1a2035" stroke="#4a5568" stroke-width="1.5"/>
-          <rect x="498" y="63" width="6" height="8" rx="1" fill="#0d1421" stroke="#2d3f5a" stroke-width="1"/>
-          <rect x="507" y="63" width="6" height="8" rx="1" fill="#0d1421" stroke="#2d3f5a" stroke-width="1"/>
-          <rect x="516" y="63" width="6" height="8" rx="1" fill="#0d1421" stroke="#2d3f5a" stroke-width="1"/>
-          <rect x="525" y="63" width="6" height="8" rx="1" fill="#0d1421" stroke="#2d3f5a" stroke-width="1"/>
-          <rect x="534" y="63" width="6" height="8" rx="1" fill="#0d1421" stroke="#2d3f5a" stroke-width="1"/>
-          <circle cx="501" cy="78" r="2" fill="#16a34a"/>
-          <circle cx="510" cy="78" r="2" fill="#eab308"/>
-          <circle cx="519" cy="78" r="2" fill="#16a34a"/>
-          <circle cx="528" cy="78" r="2" fill="#16a34a"/>
-          <circle cx="537" cy="78" r="2" fill="#4a5568"/>
+          <rect x="490" y="58" width="60" height="34" rx="4" fill="var(--d-chassis-2)" stroke="var(--d-edge-grey)" stroke-width="1.5"/>
+          <rect x="498" y="63" width="6" height="8" rx="1" fill="var(--d-port)" stroke="var(--d-port-edge)" stroke-width="1"/>
+          <rect x="507" y="63" width="6" height="8" rx="1" fill="var(--d-port)" stroke="var(--d-port-edge)" stroke-width="1"/>
+          <rect x="516" y="63" width="6" height="8" rx="1" fill="var(--d-port)" stroke="var(--d-port-edge)" stroke-width="1"/>
+          <rect x="525" y="63" width="6" height="8" rx="1" fill="var(--d-port)" stroke="var(--d-port-edge)" stroke-width="1"/>
+          <rect x="534" y="63" width="6" height="8" rx="1" fill="var(--d-port)" stroke="var(--d-port-edge)" stroke-width="1"/>
+          <circle cx="501" cy="78" r="2" fill="var(--d-led-up)"/>
+          <circle cx="510" cy="78" r="2" fill="var(--d-led-warn)"/>
+          <circle cx="519" cy="78" r="2" fill="var(--d-led-up)"/>
+          <circle cx="528" cy="78" r="2" fill="var(--d-led-up)"/>
+          <circle cx="537" cy="78" r="2" fill="var(--d-edge-grey)"/>
         </g>
-        <text x="520" y="107" text-anchor="middle" font-size="11" fill="#a8b6c6" font-weight="600">Switch 3</text>
-        <text x="520" y="119" text-anchor="middle" font-size="9" fill="#8b9bb0">P1&larr;Router A  P2&larr;DNS</text>
+        <text x="520" y="107" text-anchor="middle" font-size="11" fill="var(--d-name-sw)" font-weight="600">Switch 3</text>
+        <text x="520" y="119" text-anchor="middle" font-size="9" fill="var(--d-sub)">P1&larr;Router A  P2&larr;DNS</text>
 
         <!-- DNS SERVER (x=667 center) -->
         <g id="icon-dns">
-          <rect x="637" y="44" width="60" height="14" rx="3" fill="#0d1829" stroke="#2d6a9f" stroke-width="1.5"/>
-          <circle cx="688" cy="51" r="3" fill="#16a34a"/>
-          <rect x="641" y="47" width="30" height="4" rx="1" fill="#1e2a3d"/>
-          <rect x="637" y="60" width="60" height="14" rx="3" fill="#0d1829" stroke="#2d6a9f" stroke-width="1.5"/>
-          <circle cx="688" cy="67" r="3" fill="#16a34a"/>
-          <rect x="641" y="63" width="22" height="4" rx="1" fill="#1e2a3d"/>
-          <rect x="637" y="76" width="60" height="14" rx="3" fill="#0d1829" stroke="#2d6a9f" stroke-width="1.5"/>
-          <circle cx="688" cy="83" r="3" fill="#eab308"/>
-          <rect x="641" y="79" width="26" height="4" rx="1" fill="#1e2a3d"/>
+          <rect x="637" y="44" width="60" height="14" rx="3" fill="var(--d-recess)" stroke="var(--d-edge-blue)" stroke-width="1.5"/>
+          <circle cx="688" cy="51" r="3" fill="var(--d-led-up)"/>
+          <rect x="641" y="47" width="30" height="4" rx="1" fill="var(--d-chassis)"/>
+          <rect x="637" y="60" width="60" height="14" rx="3" fill="var(--d-recess)" stroke="var(--d-edge-blue)" stroke-width="1.5"/>
+          <circle cx="688" cy="67" r="3" fill="var(--d-led-up)"/>
+          <rect x="641" y="63" width="22" height="4" rx="1" fill="var(--d-chassis)"/>
+          <rect x="637" y="76" width="60" height="14" rx="3" fill="var(--d-recess)" stroke="var(--d-edge-blue)" stroke-width="1.5"/>
+          <circle cx="688" cy="83" r="3" fill="var(--d-led-warn)"/>
+          <rect x="641" y="79" width="26" height="4" rx="1" fill="var(--d-chassis)"/>
         </g>
-        <text x="667" y="107" text-anchor="middle" font-size="11" fill="#7dd3fc" font-weight="600">DNS Server</text>
-        <text x="667" y="119" text-anchor="middle" font-size="9" fill="#8b9bb0">10.10.100.10</text>
-        <text x="667" y="130" text-anchor="middle" font-size="8" fill="#6b7c91" font-family="monospace">3333.4444.5555</text>
+        <text x="667" y="107" text-anchor="middle" font-size="11" fill="var(--d-name-host)" font-weight="600">DNS Server</text>
+        <text x="667" y="119" text-anchor="middle" font-size="9" fill="var(--d-sub)">10.10.100.10</text>
+        <text x="667" y="130" text-anchor="middle" font-size="8" fill="var(--d-mac)" font-family="monospace">3333.4444.5555</text>
 
         <!-- Subnet labels -->
-        <text x="135" y="195" text-anchor="middle" font-size="10" fill="#4e6a8f">10.10.10.0/24</text>
-        <text x="435" y="195" text-anchor="middle" font-size="10" fill="#4e6a8f">10.10.100.0/24</text>
+        <text x="135" y="195" text-anchor="middle" font-size="10" fill="var(--d-subnet)">10.10.10.0/24</text>
+        <text x="435" y="195" text-anchor="middle" font-size="10" fill="var(--d-subnet)">10.10.100.0/24</text>
 
-        <circle id="pkt-dot" cx="-20" cy="75" r="8" fill="#ef4444" opacity="0" filter="url(#dnsGlow)"/>
-        <circle id="pkt-dot2" cx="-20" cy="75" r="8" fill="#22c55e" opacity="0" filter="url(#dnsGlow)"/>
+        <circle id="pkt-dot" cx="-20" cy="75" r="8" fill="var(--d-pkt-query)" opacity="0" filter="url(#dnsGlow)"/>
+        <circle id="pkt-dot2" cx="-20" cy="75" r="8" fill="var(--d-pkt-reply)" opacity="0" filter="url(#dnsGlow)"/>
         <defs>
           <filter id="dnsGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="3" result="blur"/>
@@ -289,7 +349,7 @@ function animatePacket(step) {
     activeDot.setAttribute('cx', from);
     activeDot.setAttribute('cy', y);
     activeDot.setAttribute('opacity', '1');
-    activeDot.setAttribute('fill', color === 'red' ? '#ef4444' : '#22c55e');
+    activeDot.setAttribute('fill', color === 'red' ? 'var(--d-pkt-query)' : 'var(--d-pkt-reply)');
     const dur = 900;
     const start = performance.now();
     function frame(now) {

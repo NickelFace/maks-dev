@@ -169,10 +169,23 @@ Hugo is installed via `wget` (not `peaceiris/actions-hugo`). The version is set 
 
 ```yaml
 env:
-  HUGO_VERSION: "0.147.1"
+  HUGO_VERSION: "0.154.5"
 ```
 
 To upgrade: change this value and push. Don't use `peaceiris/actions-hugo`; it was replaced to avoid the action dependency.
+
+**Keep this in step with the Hugo installed locally.** When the two drift, a build that is
+clean on the desktop can still fail here, and the failure only appears after a push. The
+case that proved it: `kind` in front matter is a deprecation warning on 0.154.5 and a hard
+error on 0.147.1, so the trainers section built locally and the deploy died with
+
+```
+Error: error building site: process: readAndProcessContent:
+"content/trainers/binary-decimal.md:1:1": unknown kind "drill" in front matter
+```
+
+Check `hugo version` against the workflow before debugging anything that builds locally and
+fails in CI.
 
 ### `@view-transition` causes white-frame flash
 

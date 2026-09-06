@@ -327,7 +327,83 @@ Link line format: `{id} — {id}` or `{id} — {id} label="{text}"`
 
 **Node kinds:** `router` `switch` `server` `cloud` `pc` `fw` (and fallback generic rect).
 
+`cols` and `rows` are a floor, not a limit: the canvas is sized from the nodes
+actually placed, so a node past the declared grid widens the diagram instead of
+being cropped off the edge.
+
+**Where labels go.** A link label is not simply dropped at the midpoint of its
+line — that midpoint sits exactly on the upper node's caption whenever the link
+is vertical. The shortcode places it by orientation:
+
+| Link shape | Label position |
+|---|---|
+| level (same row), label fits the gap between the icons | midpoint, 6px above the line |
+| level, label wider than the gap | midpoint, 30px above — clear of the icons |
+| vertical or diagonal | 72% of the way down from the upper node |
+
+Node captions and link labels are both drawn on an opaque `--bg2` plate — the
+figure's own surface — so a line passing behind either is cut off rather than
+drawn through the text. Labels render in a layer after the nodes, so a long one
+is never painted over by an icon. A caption longer than 20 runes scales down to
+fit its cell.
+
 Styles are in `topology.css`. Loaded on `posts`, `kb`, `ccna-labs` and `troubleshooting` single pages.
+
+### `step` and `verify`
+
+The two halves of a lab task. Used throughout `content/ccna-labs/`.
+
+```markdown
+{{</* step num="3" dev="R1" title="Enable OSPF on the LAN side" */>}}
+Body is markdown. Code fences inside keep IOS tokenisation and the
+copy-config button — the render hook still fires through `markdownify`.
+{{</* /step */>}}
+
+{{</* verify dev="R1" cmd="show ip ospf neighbor" */>}}
+What the output should say, and what it means if it does not.
+{{</* /verify */>}}
+```
+
+| Parameter | Used by | Description |
+|---|---|---|
+| `num` | `step` | Step number shown in the badge |
+| `dev` | both | Device the step belongs to, shown right-aligned |
+| `title` | `step` | Step heading |
+| `cmd` | `verify` | The command, rendered as `<code>` in the header |
+| `open` | both | `"true"` renders the block already expanded |
+
+Both render a `<details class="lab-step">`. `article.js` adds an
+expand-all/collapse-all bar above the first one on the page, and opens the
+ancestors of whatever a `#hash` points at — a link into a collapsed step
+otherwise scrolls to nothing.
+
+Styles live in `prose.css`, which also has to suppress the theme's generic
+`details summary::before` marker or every step header carries a stray chevron.
+
+### `rawhtml`
+
+```markdown
+{{</* rawhtml */>}}
+<div id="widget">…</div>
+<style>…</style>
+<script>…</script>
+{{</* /rawhtml */>}}
+```
+
+Passes the body through with `safeHTML` and nothing else. It exists because
+Goldmark ends a raw-HTML block at the first blank line, so a self-contained
+widget with blank lines in it would have had everything after the first one
+re-parsed as markdown. Shortcode bodies are never template-parsed either, so JS
+containing `{{` is safe inside.
+
+Used by every page in `content/trainers/`. The only rule: the body must not
+contain the closing tag itself.
+
+### `session`, `file`, `diff`
+
+The three explicit code block types — a terminal session, a source file with a
+path and line numbers, and a unified diff. See `code.css`, and `/dev/code/` for
+one of each rendered live.
 
 ### `ns-card`
 

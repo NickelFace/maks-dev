@@ -23,7 +23,7 @@ Styles are split into 11 files by **scope** (area of application):
 | `ns.css` | `themes/maks/static/styles/` | `/kb/linux-namespaces/` | Two-column page layout, TOC sidebar, reading progress, cheatsheet filter row |
 | `topology.css` | `themes/maks/static/styles/` | posts, kb, ccna-labs + troubleshooting singles | `.topology` figure + SVG diagram styles |
 | `trainers.css` | `themes/maks/static/styles/` | trainers list + singles | Section chrome, and a re-mapping of the ported drills' own tokens (`--surface`, `--muted`, `--ok`/`--bad`) onto the site palette so they follow the theme switch |
-| `chroma.css` | `themes/maks/static/styles/` | posts, kb, ccna-labs singles | Syntax highlighting. Also **declares the `--code-*` token palette** that `prose.css` and `ns.css` read |
+| `chroma.css` | `themes/maks/static/styles/` | posts, kb, ccna-labs + troubleshooting singles | Syntax highlighting. Also **declares the `--code-*` token palette**, per theme, that `prose.css`, `code.css` and `ns.css` read |
 
 Fenced code blocks are rendered by `themes/maks/layouts/_default/_markup/render-codeblock.html`.
 `render-codeblock-mermaid.html` sits beside it and wins for ```` ```mermaid ````, since Hugo
@@ -77,7 +77,7 @@ personality when the auto day/night switch flips.
 | `--tag-bg` | `oklch(0.75 0.10 232 / 0.10)` | `oklch(0.51 0.12 232 / 0.10)` | Tag background |
 | `--shadow` | `0 1px 0 rgba(0,0,0,0.4), 0 16px 40px -20px rgba(0,0,0,0.5)` | `0 1px 0 rgba(19,26,33,0.04), 0 12px 32px -16px rgba(19,26,33,0.18)` | Box shadow |
 | `--nav-blur` | `rgba(14,19,25,0.90)` | `rgba(247,249,251,0.92)` | Nav backdrop blur color |
-| `--code-bg` | `#0A0E13` | `#E9EEF3` | Code block background |
+| `--code-bg` | `#0A0E13` | `#EDF1F7` | Code block well — light since the light code palette landed |
 | `--grid-line` | `transparent` | `transparent` | Reserved |
 | `--radius` | `6px` | `6px` | Border-radius base |
 
@@ -107,28 +107,53 @@ was removed along with the nine `--ns-*` namespace colours. Those components now
 
 ## Code token palette (`chroma.css`)
 
-Syntax highlighting is driven by one token table consumed by both themes, so there is no
-second `[data-theme]` block to keep in sync. `prose.css` and `ns.css` read the same
-variables instead of hard-coding hex values. Tuned for Bash, which is 3 400+ of the site's
-fenced blocks.
+Each theme has its own set. Only the properties are redeclared — there is no second set of
+`.chroma` rules — so a token added here reaches both themes at once, and the hue roles hold
+across them: cyan is always the command, purple always the keyword. `prose.css`, `code.css`
+and `ns.css` read the same variables instead of hard-coding hex. Tuned for Bash, which is
+3 400+ of the site's fenced blocks.
 
-| Variable | Dark | Light | Role | Contrast (dark) |
+| Variable | Dark | Light | Role | Dark / light contrast |
 |---|---|---|---|---|
-| `--code-fg` | `#D6DEE8` | `#1B2530` | Plain text, paths, flags | 19.0:1 |
-| `--code-cmd` | `#7FD1DE` | `#0B5D78` | Commands, builtins, functions | 11.0:1 |
-| `--code-str` | `#D5C08A` | `#8A5A00` | Strings, heredocs | 10.7:1 |
-| `--code-kw` | `#B49BE8` | `#7A3EA8` | Keywords, operators, pipes | 8.1:1 |
-| `--code-var` | `#9DC1F0` | `#1A4E9B` | `$VAR`, `${expansion}` | 10.3:1 |
-| `--code-num` | `#8FD6B4` | `#0F6B4F` | Numbers, added lines | 11.4:1 |
-| `--code-out` | `#94A3B4` | `#4A5764` | Program output, prompts | 7.4:1 |
-| `--code-cmt` | `#7E8C9E` | `#5A6672` | Comments — the contrast floor | 5.5:1 |
-| `--code-err` | `#F08C8C` | `#A32020` | Errors, removed lines | 9.5:1 |
-| `--code-gut` | `#4C596A` | `#97A3AE` | Line numbers (non-text) | — |
-| `--code-hl` | `#16202D` | — | Highlighted line background | — |
+| `--code-fg` | `#D6DEE8` | `#263140` | Plain text, paths, flags | 19.0 / 12.4 |
+| `--code-cmd` | `#7FD1DE` | `#0A6B7C` | Commands, builtins, functions | 11.0 / 5.5 |
+| `--code-str` | `#D5C08A` | `#8A5B12` | Strings, heredocs | 10.7 / 5.0 |
+| `--code-kw` | `#B49BE8` | `#6A3FBF` | Keywords, operators, pipes | 8.1 / 6.0 |
+| `--code-var` | `#9DC1F0` | `#2E5FA8` | `$VAR`, `${expansion}` | 10.3 / 5.6 |
+| `--code-num` | `#8FD6B4` | `#16714F` | Numbers, added lines | 11.4 / 5.3 |
+| `--code-out` | `#94A3B4` | `#4E5A6B` | Program output, prompts | 7.4 / 6.3 |
+| `--code-cmt` | `#7E8C9E` | `#576475` | Comments — the contrast floor | 5.5 / 5.3 |
+| `--code-err` | `#F08C8C` | `#B3261E` | Errors, removed lines | 9.5 / 5.8 |
+| `--code-gut` | `#4C596A` | `#667485` | Line numbers | — / 5.4 |
+| `--code-hl` | `#16202D` | `#DCE6F5` | Highlighted line background | — |
+| `--diff-add-bg` | `#101E19` | `#DFF0E6` | Added diff row | — |
+| `--diff-del-bg` | `#211416` | `#F8E3E1` | Removed diff row | — |
 
 Everything except strings is cool. Strings stay warm deliberately — one warm hue inside a
 code block is the cheapest way to break up a quoted argument, and it is the only place
 warmth survives in the Slate palette.
+
+**The light set is hand-tuned, not derived.** It sits in a narrow 5.0–6.3 band; inverting
+the dark values algorithmically puts cyan and green below AA. If you retune a hue,
+re-measure it.
+
+**Diff tints are properties, not alphas.** The dark rows used to tint with a 10% alpha of
+the row colour, but a 10% alpha of `#16714F` over `#EDF1F7` is invisible, so both themes
+now take a solid value. The 2px rail and the literal `+`/`-` stay — three signals, so the
+block still reads for a red-green colourblind reader.
+
+Making the tints solid exposed a bug they had been hiding: the row spans are
+`display:block` and were joined with `\n`, so inside a `<pre>` every diff line was followed
+by an empty one. `shortcodes/diff.html` now joins the rows with nothing.
+
+**Chrome is separate from syntax.** `--code-chrome-bg`, `--code-chrome-fg`, `--code-border`,
+`--code-inline-bg` and `--code-inline-fg` are page surfaces rather than token colours, so
+they live in `global.css` next to the other theme variables. Inline `<code>` never sits on
+`--code-bg`: a chip matching the block well reads as a broken block.
+
+`/dev/code/` renders one of every block type through the real shortcodes and is `noindex`.
+It is the regression test — open it, toggle the theme, and a palette change is checked in
+about ten seconds.
 
 ### `.cmd` — the command name
 
