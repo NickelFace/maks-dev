@@ -311,9 +311,9 @@ After installation, run `virt-manager` for a graphical interface. For command-li
 
 ## Related topics
 
-- [101.1 Determine and Configure Hardware Settings](/posts/lpic1-101-1-hardware-settings/): BIOS/UEFI and enabling VT-x/AMD-V
-- [102.1 Design Hard Disk Layout](/posts/lpic1-102-1-hard-disk-layout/): partition planning, including for VMs
-- [102.4 Use Debian Package Management](/posts/lpic1-102-4-debian-package-management/): installing libvirt on Debian systems
+- [101.1 Determine and Configure Hardware Settings](/posts/lpic1/lpic1-101-1-hardware-settings/): BIOS/UEFI and enabling VT-x/AMD-V
+- [102.1 Design Hard Disk Layout](/posts/lpic1/lpic1-102-1-hard-disk-layout/): partition planning, including for VMs
+- [102.4 Use Debian Package Management](/posts/lpic1/lpic1-102-4-debian-package-management/): installing libvirt on Debian systems
 
 ---
 

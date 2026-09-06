@@ -467,7 +467,7 @@ Linux kernel images and initial ramdisk (initramfs) images. systemd units are no
 
 ## Related topics
 
-- [101.1 Determine and Configure Hardware Settings](/posts/lpic1-101-1-hardware-settings/): BIOS, UEFI, hardware resources
+- [101.1 Determine and Configure Hardware Settings](/posts/lpic1/lpic1-101-1-hardware-settings/): BIOS, UEFI, hardware resources
 - 101.3 Change Runlevels and Boot Targets: managing runlevels and targets
 - 102.6 Linux as a Virtualization Guest: booting in virtual machines
 

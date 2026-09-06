@@ -178,3 +178,9 @@ details[open] .phase-arrow { transform: rotate(90deg); }
   .trap-row, .trap-header { grid-template-columns: 1fr; }
   .trap-cell:first-child, .trap-header div:first-child { border-right: none; border-bottom: 1px solid var(--border); }
 }
+
+/* An external quick-link is a different promise from an internal one — it
+   leaves the site — so it is tinted with the secondary accent rather than
+   sharing the neutral chrome of the in-site buttons. */
+.ql-btn.ql-ext { border-color: color-mix(in oklab, var(--accent2) 40%, var(--border2)); color: var(--accent2); }
+.ql-btn.ql-ext:hover { border-color: var(--accent2); color: var(--accent2); background: color-mix(in oklab, var(--accent2) 10%, var(--bg2)); }

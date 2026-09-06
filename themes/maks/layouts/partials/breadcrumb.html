@@ -38,6 +38,28 @@
       <span>{{ .Title }}</span>
     {{ end }}
 
+  {{ else if eq .Section "troubleshooting" }}
+    <a href="{{ "/certs/ccna/" | relURL }}">CCNA</a>
+    <span>/</span>
+    {{ if .IsSection }}
+      <span>Troubleshooting</span>
+    {{ else }}
+      <a href="{{ "/troubleshooting/" | relURL }}">Troubleshooting</a>
+      <span>/</span>
+      <span>{{ .Title }}</span>
+    {{ end }}
+
+  {{ else if eq .Section "trainers" }}
+    <a href="{{ "/certs/ccna/" | relURL }}">CCNA</a>
+    <span>/</span>
+    {{ if .IsSection }}
+      <span>Trainers</span>
+    {{ else }}
+      <a href="{{ "/trainers/" | relURL }}">Trainers</a>
+      <span>/</span>
+      <span>{{ .Title }}</span>
+    {{ end }}
+
   {{ else if eq .Section "roadmap" }}
     <a href="{{ "/certs/" | relURL }}">Certs</a>
     <span>/</span>

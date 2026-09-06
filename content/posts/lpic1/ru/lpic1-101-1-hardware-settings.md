@@ -468,7 +468,7 @@ udevadm info -a -n /dev/device
 
 ## Связанные темы
 
-- [101.2 Boot the System](/posts/lpic1-101-2-boot-the-system/) — процесс загрузки системы
+- [101.2 Boot the System](/posts/lpic1/lpic1-101-2-boot-the-system/) — процесс загрузки системы
 - 101.3 Change runlevels / boot targets — уровни запуска
 - 102.1 Design hard disk layout — разметка дисков
 

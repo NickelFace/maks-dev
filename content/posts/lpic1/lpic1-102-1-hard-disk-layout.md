@@ -299,7 +299,7 @@ Create a swap file. The file is prepared with `mkswap` and activated with `swapo
 
 ## Related topics
 
-- [101.2 Boot the System](/posts/lpic1-101-2-boot-the-system/): boot process, role of `/boot`
+- [101.2 Boot the System](/posts/lpic1/lpic1-101-2-boot-the-system/): boot process, role of `/boot`
 - 102.2 Boot Manager: GRUB installation and configuration
 - 104.1 Create Partitions and Filesystems: fdisk, gdisk, parted
 - 104.3 Mount and Unmount Filesystems: mounting, `/etc/fstab`

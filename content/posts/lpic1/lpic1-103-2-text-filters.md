@@ -822,7 +822,7 @@ The `-i` flag makes `grep` case-insensitive. The `|` inside quotes acts as a log
 
 ## Related topics
 
-- [103.1 Work on the Command Line](/posts/lpic1-103-1-work-on-command-line/): shell, I/O redirection and pipelines
+- [103.1 Work on the Command Line](/posts/lpic1/lpic1-103-1-work-on-command-line/): shell, I/O redirection and pipelines
 - 103.3 Perform Basic File Management: file management
 - 103.4 Use Streams, Pipes and Redirects: streams and redirections
 - 103.7 Search Text Files Using Regular Expressions, text editors (vi, nano)

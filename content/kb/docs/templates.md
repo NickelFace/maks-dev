@@ -327,7 +327,7 @@ Link line format: `{id} — {id}` or `{id} — {id} label="{text}"`
 
 **Node kinds:** `router` `switch` `server` `cloud` `pc` `fw` (and fallback generic rect).
 
-Styles are in `topology.css`. Loaded on `posts`, `kb`, and `ccna-labs` single pages.
+Styles are in `topology.css`. Loaded on `posts`, `kb`, `ccna-labs` and `troubleshooting` single pages.
 
 ### `ns-card`
 

@@ -29,7 +29,7 @@ Lab objectives:
 
 ![](/img/netarch/8/Scheme.png)
 
-**Настройка NEXUS:**
+**NEXUS configuration:**
 
 <details>
   <summary>NXOS1</summary>
@@ -814,7 +814,7 @@ wr
 </code></pre>
 </details>
 
-**Настройка Switch:**
+**Switch configuration:**
 
 <details>
   <summary>SW9</summary>
@@ -926,7 +926,7 @@ wr
 </code></pre>
 </details>
 
-**Настройка клиентов:**
+**Client configuration:**
 
 <details>
   <summary>VPC1</summary>

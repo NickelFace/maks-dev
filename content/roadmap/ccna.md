@@ -1,6 +1,6 @@
 ---
 title: "CCNA 200-301 Roadmap"
-description: "CCNA 200-301 Roadmap: 6 exam domains, 36 articles on maks.top, labs, quiz bank, progress tracker"
+description: "CCNA 200-301 Roadmap: 6 exam domains, 36 articles on maks.top, 36 labs, a troubleshooting reference, the NetPath exam trainer and a progress tracker"
 page_lang: "en"
 lang_pair: "/roadmap/ru/ccna/"
 cert_link: "/certs/ccna/"
@@ -12,7 +12,7 @@ total_label: "topics"
 
 <div class="rdm-eyebrow">§ CCNA 200-301 · Cisco Certified Network Associate</div>
 <h1 class="rdm-h1">Networking <em>fundamentals.</em></h1>
-<p class="rdm-lead">Six exam domains, 36 articles on maks.top, 24 Packet Tracer lab walkthroughs and a 489-question quiz bank. Check topics off as you cover them; progress is saved in your browser.</p>
+<p class="rdm-lead">Six exam domains, 36 articles on maks.top, 36 lab walkthroughs, a symptom-first troubleshooting reference and a 489-question quiz bank. Check topics off as you cover them; progress is saved in your browser.</p>
 
 <div class="params-grid">
 <div class="param-card"><div class="param-label">Code</div><div class="param-value">200-301</div></div>
@@ -41,8 +41,10 @@ total_label: "topics"
 
 <div class="quick-links">
 <a href="/certs/ccna/" class="ql-btn">🎓 Cert page</a>
-<a href="/ccna-labs/" class="ql-btn">🔬 Labs (24 walkthroughs)</a>
+<a href="/ccna-labs/" class="ql-btn">🔬 Labs (36 walkthroughs)</a>
+<a href="/troubleshooting/" class="ql-btn">🔧 Troubleshooting</a>
 <a href="/posts/ccna/" class="ql-btn">📚 All articles</a>
+<a href="https://ccna.maks.top/" class="ql-btn ql-ext" target="_blank" rel="noopener">🎯 NetPath exam trainer ↗</a>
 </div>
 
 <hr class="rdm-divider">

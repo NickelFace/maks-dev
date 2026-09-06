@@ -41,6 +41,10 @@ Hugo searches for a template in this order (first match wins):
 | `/certs/ccna/` | `layouts/certs/single.html` → `layouts/_default/single.html` |
 | `/ccna-labs/` | `layouts/ccna-labs/list.html` |
 | `/ccna-labs/ccna-lab-NN/` | `layouts/ccna-labs/single.html` → `layouts/_default/single.html` |
+| `/troubleshooting/` | `layouts/troubleshooting/list.html` |
+| `/troubleshooting/ts-NN-slug/` | `layouts/_default/single.html` |
+| `/trainers/` | `layouts/trainers/list.html` |
+| `/trainers/slug/` | `layouts/trainers/single.html` |
 | `/about/` | `layouts/about/single.html` → `layouts/_default/single.html` |
 | `/` | `layouts/index.html` |
 | `/posts/` | `layouts/posts/list.html` → `layouts/_default/list.html` |
@@ -70,8 +74,10 @@ maks.top/
 │   │   │   └── ru/
 │   │   ├── netarch/                 # Network Architect articles
 │   │   └── misc/                    # Miscellaneous (linux-namespaces, etc.)
-│   ├── ccna-labs/                   # /ccna-labs/ section - 24 lab solutions
+│   ├── ccna-labs/                   # /ccna-labs/ section - 36 lab solutions
 │   │   └── ru/                      # RU translations
+│   ├── troubleshooting/             # /troubleshooting/ section - 20 symptom-first pages
+│   ├── trainers/                    # /trainers/ section - interactive drills and animations
 │   ├── certs/                       # /certs/ section
 │   │   ├── ccna.md                  # CCNA cert page (accordion + resource tiles)
 │   │   ├── lpic-1.md, lpic-2.md     # LPIC cert pages
@@ -235,7 +241,7 @@ Each template has access to `.` (dot), the current page context:
 | `.Params.tags` | []string | From frontmatter `tags:` |
 | `.Permalink` | string | Full page URL |
 | `.RelPermalink` | string | Relative URL |
-| `.Section` | string | Section: "posts", "certs", "ccna-labs", "kb" |
+| `.Section` | string | Section: "posts", "certs", "ccna-labs", "troubleshooting", "trainers", "kb" |
 | `.IsHome` | bool | true only for the home page |
 | `.Site` | Site | Global site object |
 | `.Site.Params` | map | Parameters from `[params]` in hugo.toml |

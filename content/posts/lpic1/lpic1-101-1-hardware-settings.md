@@ -464,7 +464,7 @@ udevadm info -a -n /dev/device
 
 ## Related topics
 
-- [101.2 Boot the System](/posts/lpic1-101-2-boot-the-system/): system boot process
+- [101.2 Boot the System](/posts/lpic1/lpic1-101-2-boot-the-system/): system boot process
 - 101.3 Change runlevels / boot targets: runlevels
 - 102.1 Design hard disk layout: disk partitioning
 

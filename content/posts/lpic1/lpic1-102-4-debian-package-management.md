@@ -500,7 +500,7 @@ This downloads fresh indexes from the repositories listed in `/etc/apt/sources.l
 
 ## Related topics
 
-- [102.3 Manage Shared Libraries](/posts/lpic1-102-3-shared-libraries/): shared libraries that packages depend on
+- [102.3 Manage Shared Libraries](/posts/lpic1/lpic1-102-3-shared-libraries/): shared libraries that packages depend on
 - 102.5 Use RPM and YUM Package Management, equivalent package management on RPM-based systems
 
 ---

@@ -471,7 +471,7 @@ initramfs — это сжатый архив cpio, который можно р�
 
 ## Связанные темы
 
-- [101.1 Determine and Configure Hardware Settings](/posts/lpic1-101-1-hardware-settings/) — BIOS, UEFI, аппаратные ресурсы
+- [101.1 Determine and Configure Hardware Settings](/posts/lpic1/lpic1-101-1-hardware-settings/) — BIOS, UEFI, аппаратные ресурсы
 - 101.3 Change Runlevels and Boot Targets — управление уровнями запуска и целями
 - 102.6 Linux as a Virtualization Guest — загрузка в виртуальных машинах
 

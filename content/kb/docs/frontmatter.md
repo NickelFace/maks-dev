@@ -194,7 +194,7 @@ lang_pair: "/posts/neteng/ru/neteng-NN-slug/"
 ### RU post
 ```yaml
 ---
-title: "Network Engineer NN. Заголовок"
+title: "Network Engineer NN. Title"
 date: 2026-01-01
 description: "..."
 tags: [...]
@@ -235,7 +235,7 @@ lang_pair: "/posts/ccna/ru/ccna-1-01-network-components/"
 
 # RU shadow
 ---
-title: "CCNA 200-301 Заголовок"
+title: "CCNA 200-301 Title"
 page_lang: "ru"
 lang_pair: "/posts/ccna/ccna-1-01-network-components/"
 pagefind_ignore: true
@@ -268,7 +268,7 @@ duration: "30 min"
 
 # RU shadow
 ---
-title: "CCNA Лаб NN: Заголовок"
+title: "CCNA Lab NN: Title"
 page_lang: "ru"
 lang_pair: "/ccna-labs/ccna-lab-NN-slug/"
 pagefind_ignore: true

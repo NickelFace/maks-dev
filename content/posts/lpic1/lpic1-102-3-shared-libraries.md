@@ -341,7 +341,7 @@ Output shows the libraries Bash depends on, such as `libtinfo`, `libdl`, `libc`.
 
 ## Related topics
 
-- [101.2 Boot the System](/posts/lpic1-101-2-boot-the-system/): system boot and the role of the dynamic linker
+- [101.2 Boot the System](/posts/lpic1/lpic1-101-2-boot-the-system/): system boot and the role of the dynamic linker
 - 102.4 Use Debian Package Management: installing packages, including libraries
 - 102.5 Use RPM and YUM Package Management, the same for RPM-based systems
 

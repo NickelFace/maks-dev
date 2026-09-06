@@ -15,7 +15,7 @@ resources:
   - icon: "📝"
     title: "Lab Writeups"
     desc: "All 17 labs: step-by-step walkthroughs"
-    url: "/posts/neteng/"
+    url: "/categories/network-engineer/"
   - icon: "💾"
     title: "GitHub Repository"
     desc: "Configs, topologies, bilingual EN/RU"

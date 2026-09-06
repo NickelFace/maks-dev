@@ -626,7 +626,7 @@ yum whatprovides /bin/wget
 
 ## Related topics
 
-- [102.4 Use Debian Package Management](/posts/lpic1-102-4-debian-package-management/): dpkg and apt
+- [102.4 Use Debian Package Management](/posts/lpic1/lpic1-102-4-debian-package-management/): dpkg and apt
 - 103.1 Work on the Command Line: shell basics
 
 ---

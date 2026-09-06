@@ -76,7 +76,7 @@ default_checked: true
 <div class="topic-item done" data-key="l1-104-3"><input type="checkbox" checked class="topic-cb" data-key="l1-104-3" data-domain="t104"><a href="/posts/lpic1/lpic1-104-3-mounting/" class="topic-link">104.3 Mounting: mount, umount, /etc/fstab, UUID</a><span class="topic-tag">104.3</span></div>
 <div class="topic-item done" data-key="l1-104-5"><input type="checkbox" checked class="topic-cb" data-key="l1-104-5" data-domain="t104"><a href="/posts/lpic1/lpic1-104-5-file-permissions/" class="topic-link">104.5 File Permissions: chmod, chown, SUID/SGID/Sticky, umask, ACL</a><span class="topic-tag">104.5</span></div>
 <div class="topic-item done" data-key="l1-104-6"><input type="checkbox" checked class="topic-cb" data-key="l1-104-6" data-domain="t104"><a href="/posts/lpic1/lpic1-104-6-links/" class="topic-link">104.6 Hard & Symbolic Links: ln, inode, differences</a><span class="topic-tag">104.6</span></div>
-<div class="topic-item done" data-key="l1-104-7"><input type="checkbox" checked class="topic-cb" data-key="l1-104-7" data-domain="t104"><a href="/posts/lpic1/lpic1-104-7-find-fhs/" class="topic-link">104.7 Find Files & FHS: find, locate, updatedb, стандарт FHS</a><span class="topic-tag">104.7</span></div>
+<div class="topic-item done" data-key="l1-104-7"><input type="checkbox" checked class="topic-cb" data-key="l1-104-7" data-domain="t104"><a href="/posts/lpic1/lpic1-104-7-find-fhs/" class="topic-link">104.7 Find Files & FHS: find, locate, updatedb, the FHS standard</a><span class="topic-tag">104.7</span></div>
 </div>
 </details></div>
 

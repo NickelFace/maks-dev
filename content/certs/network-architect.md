@@ -15,7 +15,7 @@ resources:
   - icon: "📝"
     title: "Lab Writeups"
     desc: "All 9 labs: DC fabric, VxLAN EVPN"
-    url: "/posts/netarch/"
+    url: "/categories/network-architect/"
   - icon: "💾"
     title: "GitHub Repository"
     desc: "Topologies and configs, bilingual EN/RU"

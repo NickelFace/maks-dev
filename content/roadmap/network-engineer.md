@@ -39,7 +39,7 @@ total_label: "labs"
 
 <div class="quick-links">
 <a href="/certs/network-engineer/" class="ql-btn">🎓 Cert page</a>
-<a href="/posts/neteng/" class="ql-btn">📝 All labs</a>
+<a href="/categories/network-engineer/" class="ql-btn">📝 All labs</a>
 <a href="https://github.com/NickelFace/OTUS-Network-Engineer" class="ql-btn" target="_blank" rel="noopener">💾 GitHub</a>
 </div>
 

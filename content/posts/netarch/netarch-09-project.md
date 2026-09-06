@@ -802,7 +802,7 @@ wr
 </code></pre>
 </details>
 
-**Настройка Switch:**
+**Switch configuration:**
 
 <details>
   <summary>SW9</summary>
@@ -889,7 +889,7 @@ nve1      10.1.1.6         Up    DP        02:58:21 n/a
 </code></pre>
 </details>
 <details>
-<summary>NX5-NX7(VPC пара)</summary>
+<summary>NX5-NX7 (vPC pair)</summary>
 <pre><code>
 NX5(config-if)# show nve peers 
 Interface Peer-IP          State LearnType Uptime   Router-Mac       
@@ -1638,7 +1638,7 @@ wr
 </code></pre>
 </details>
 
-**Настройка Switch:**
+**Switch configuration:**
 
 <details>
   <summary>SW9</summary>

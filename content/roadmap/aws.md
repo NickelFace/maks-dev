@@ -317,7 +317,7 @@ total_label: "topics"
 <div class="trap-row"><div class="trap-cell">MOST cost-effective infrequent access</div><div class="trap-cell"><strong>S3 IA / Intelligent-Tiering / Glacier</strong> by thresholds</div></div>
 <div class="trap-row"><div class="trap-cell">real-time streaming</div><div class="trap-cell"><strong>Kinesis Data Streams</strong> (not Firehose, buffer 60s)</div></div>
 <div class="trap-row"><div class="trap-cell">decouple components</div><div class="trap-cell"><strong>SQS / SNS / EventBridge</strong></div></div>
-<div class="trap-row"><div class="trap-cell">highly available БД</div><div class="trap-cell"><strong>RDS Multi-AZ / Aurora</strong></div></div>
+<div class="trap-row"><div class="trap-cell">highly available database</div><div class="trap-cell"><strong>RDS Multi-AZ / Aurora</strong></div></div>
 <div class="trap-row"><div class="trap-cell">read scaling DB</div><div class="trap-cell"><strong>Read Replicas / Aurora Replicas / DAX</strong> for DynamoDB</div></div>
 <div class="trap-row"><div class="trap-cell">global static content</div><div class="trap-cell"><strong>CloudFront + S3</strong></div></div>
 <div class="trap-row"><div class="trap-cell">non-HTTP low latency global</div><div class="trap-cell"><strong>Global Accelerator</strong> (not CloudFront)</div></div>

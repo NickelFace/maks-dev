@@ -385,7 +385,7 @@ copy run star
 </code></pre>
 </details>
 <details>
-<summary>Роутер R11</summary>
+<summary>Router R11</summary>
 <pre><code>
 enable
 configure terminal

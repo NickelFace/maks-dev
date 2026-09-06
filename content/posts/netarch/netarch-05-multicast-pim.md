@@ -563,7 +563,7 @@ iface ens3  inet static
         netmask 255.255.255.0
         gateway 10.10.10.1
 </code></pre>
-Запуск источника выполняется командой:
+Start the source with:
 <pre><code> 
 tsplay ./video.ts 239.0.0.100:1234 -loop -i 10.10.10.2 &
 </code></pre>
@@ -580,7 +580,7 @@ iface ens3 inet static
         netmask 255.255.255.0
         gateway 10.10.12.254
 </code></pre>
-Запуск подписки на мультикаст рассылку выполняется командой:
+Subscribe to the multicast group with:
 <pre><code> 
 smcroute -j ens3 239.0.0.100
 </code></pre>
@@ -596,7 +596,7 @@ iface ens3 inet static
         netmask 255.255.255.0
         gateway 10.10.11.254
 </code></pre>
-Запуск подписки на мультикаст рассылку выполняется командой:
+Subscribe to the multicast group with:
 <pre><code> 
 smcroute -j ens3 239.0.0.100
 </code></pre>

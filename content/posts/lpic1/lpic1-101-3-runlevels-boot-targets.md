@@ -330,7 +330,7 @@ A kernel parameter `1` or `S` is set in the bootloader configuration. Kernel par
 
 ## Related topics
 
-- [101.2 Boot the System](/posts/lpic1-101-2-boot-the-system/): bootloader, initramfs, dmesg
+- [101.2 Boot the System](/posts/lpic1/lpic1-101-2-boot-the-system/): bootloader, initramfs, dmesg
 - 101.1 Determine and Configure Hardware Settings: BIOS, hardware resources
 
 ---

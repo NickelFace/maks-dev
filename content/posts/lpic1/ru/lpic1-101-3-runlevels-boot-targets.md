@@ -334,7 +334,7 @@ status tty6          # статус
 
 ## Связанные темы
 
-- [101.2 Boot the System](/posts/lpic1-101-2-boot-the-system/) — загрузчик, initramfs, dmesg
+- [101.2 Boot the System](/posts/lpic1/lpic1-101-2-boot-the-system/) — загрузчик, initramfs, dmesg
 - 101.1 Determine and Configure Hardware Settings — BIOS, аппаратные ресурсы
 
 ---

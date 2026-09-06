@@ -332,7 +332,7 @@ content/posts/neteng/ru/neteng-NN-my-topic.md
 
 ```yaml
 ---
-title: "Network Engineer NN. Тема"
+title: "Network Engineer NN. Topic"
 date: 2026-01-01
 description: "..."
 tags: ["Networking", "OSPF"]
@@ -417,7 +417,7 @@ content/kb/docs/ru/my-topic.md
 
 ```yaml
 ---
-title: "Моя тема"
+title: "My topic"
 page_lang: "ru"
 lang_pair: "/kb/docs/my-topic/"
 pagefind_ignore: true

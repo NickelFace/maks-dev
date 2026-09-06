@@ -533,7 +533,7 @@ The choice depends on the task: if you need variables to expand inside a string,
 
 ## Related topics
 
-- [101.1 Determine and Configure Hardware Settings](/posts/lpic1-101-1-hardware-settings/): hardware and devices
+- [101.1 Determine and Configure Hardware Settings](/posts/lpic1/lpic1-101-1-hardware-settings/): hardware and devices
 - 103.2 Process Text Streams Using Filters: text stream processing
 - 103.3 Perform Basic File Management: file management
 - 105.1 Customise and Use the Shell Environment, shell environment customisation

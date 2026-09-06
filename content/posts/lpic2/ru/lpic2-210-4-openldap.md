@@ -524,4 +524,4 @@ ldapmodify -Y EXTERNAL -H ldapi:/// -f tls.ldif
 
 Для работы с OpenLDAP через GUI и пошагового развёртывания стенда:
 
-**[phpLDAPadmin — практика и траблшутинг](/posts/phpldapadmin-practice/)** — установка phpLDAPadmin на Ubuntu 24.04, решение конфликта `mpm_event` с PHP-FPM, работа с деревом каталога через интерфейс, тренировочные задачи с `ldapsearch`, `ldapmodify`, `ldappasswd`.
+**[phpLDAPadmin — практика и траблшутинг](/posts/misc/phpldapadmin-practice/)** — установка phpLDAPadmin на Ubuntu 24.04, решение конфликта `mpm_event` с PHP-FPM, работа с деревом каталога через интерфейс, тренировочные задачи с `ldapsearch`, `ldapmodify`, `ldappasswd`.

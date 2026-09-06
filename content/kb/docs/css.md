@@ -21,7 +21,8 @@ Styles are split into 11 files by **scope** (area of application):
 | `home.css` | `themes/maks/static/styles/` | `/` only | Hero, recent posts, KB grid, cert-grid |
 | `cert.css` | `themes/maks/static/styles/` | `/certs/*` | Cert hero, resource tiles, accordion topics, certs index page |
 | `ns.css` | `themes/maks/static/styles/` | `/kb/linux-namespaces/` | Two-column page layout, TOC sidebar, reading progress, cheatsheet filter row |
-| `topology.css` | `themes/maks/static/styles/` | posts, kb, ccna-labs singles | `.topology` figure + SVG diagram styles |
+| `topology.css` | `themes/maks/static/styles/` | posts, kb, ccna-labs + troubleshooting singles | `.topology` figure + SVG diagram styles |
+| `trainers.css` | `themes/maks/static/styles/` | trainers list + singles | Section chrome, and a re-mapping of the ported drills' own tokens (`--surface`, `--muted`, `--ok`/`--bad`) onto the site palette so they follow the theme switch |
 | `chroma.css` | `themes/maks/static/styles/` | posts, kb, ccna-labs singles | Syntax highlighting. Also **declares the `--code-*` token palette** that `prose.css` and `ns.css` read |
 
 Fenced code blocks are rendered by `themes/maks/layouts/_default/_markup/render-codeblock.html`.
@@ -35,12 +36,12 @@ Loading in `baseof.html`:
 
 <link rel="stylesheet" href="/styles/fonts.css">    <!-- always -->
 <link rel="stylesheet" href="/styles/global.css">   <!-- always -->
-{{ if or (eq .Type "posts") (eq .Type "kb") (and (eq .Type "ccna-labs") .IsPage) }}
+{{ if or (eq .Type "posts") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}
   <link rel="stylesheet" href="/styles/chroma.css">{{ end }}
 {{ if .IsHome }}<link rel="stylesheet" href="/styles/home.css">{{ end }}
-{{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "kb") (and (eq .Type "ccna-labs") .IsPage) }}
+{{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}
   <link rel="stylesheet" href="/styles/prose.css">{{ end }}
-{{ if or (eq .Type "posts") (eq .Type "kb") (and (eq .Type "ccna-labs") .IsPage) }}
+{{ if or (eq .Type "posts") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}
   <link rel="stylesheet" href="/styles/topology.css">{{ end }}
 <link rel="stylesheet" href="/styles/mobile.css">   <!-- always -->
 {{ block "head" . }}{{ end }}  <!-- cert.css / ns.css added here -->
@@ -151,7 +152,7 @@ surface in muted `--code-out`. Telling a command from its output at a glance is 
 the two must never look alike.
 
 > **Load-order caveat:** `--code-*` is declared in `chroma.css`, which loads only for
-> `posts`, `kb` and `ccna-labs` single pages. `prose.css` also loads on `about`, where
+> `posts`, `kb`, `ccna-labs` and `troubleshooting` single pages. `prose.css` also loads on `about`, where
 > `chroma.css` does **not**. A code block on `/about/` would therefore resolve
 > `var(--code-fg)` to nothing and fall back to the inherited colour. There are no code
 > blocks there today; if one is ever added, move the `--code-*` block into `global.css`.
