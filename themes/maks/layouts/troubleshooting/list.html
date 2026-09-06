@@ -1,0 +1,94 @@
+{{ define "head" }}
+<style>
+.ts-hd { width:100%; border-bottom:1px solid var(--border); }
+.ts-hd-inner { max-width:1100px; margin:0 auto; padding:56px 64px 32px; width:100%; }
+.ts-h1 {
+  font-family:'Fraunces',Georgia,serif; font-size:var(--h1-page);
+  font-weight:400; margin:0; letter-spacing:-0.03em;
+  font-feature-settings:'opsz' 144; color:var(--text);
+}
+.ts-body { max-width:1100px; margin:0 auto; padding:32px 64px 80px; width:100%; }
+
+.ts-unit { margin-bottom:36px; }
+.ts-unit-hd {
+  display:flex; align-items:baseline; gap:12px;
+  padding-bottom:10px; margin-bottom:4px;
+  border-bottom:1px solid var(--border);
+}
+.ts-unit-num {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--accent);
+}
+.ts-unit-title { font-size:14px; font-weight:600; color:var(--text); }
+
+.ts-item {
+  display:grid; grid-template-columns:52px 1fr 20px;
+  gap:20px; padding:14px 0;
+  border-bottom:1px solid var(--border);
+  text-decoration:none; color:var(--text); align-items:center;
+  transition:opacity .12s;
+}
+.ts-item:hover { opacity:.75; }
+.ts-item-num  { font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--accent); }
+.ts-item-title{ font-size:14.5px; font-weight:500; }
+.ts-item-desc { font-size:12.5px; color:var(--text2); margin-top:3px; line-height:1.45; }
+.ts-arrow     { color:var(--text3); font-size:14px; }
+
+@media (max-width:860px) {
+  .ts-hd-inner,.ts-body { padding-left:40px; padding-right:40px; }
+}
+@media (max-width:640px) {
+  .ts-hd-inner { padding:40px 20px 24px; }
+  .ts-body { padding:24px 20px 80px; }
+  .ts-item { grid-template-columns:44px 1fr 18px; gap:12px; }
+}
+</style>
+{{ end }}
+
+{{ define "main" }}
+{{ $pages := where .Pages "Params.unit" "!=" nil }}
+<header class="ts-hd">
+  <div class="ts-hd-inner">
+    {{ partial "breadcrumb.html" . }}
+    <h1 class="ts-h1">Troubleshooting, <em class="h1-em">by symptom.</em></h1>
+    <p style="font-size:15.5px;color:var(--text2);max-width:680px;margin-top:14px;line-height:1.55">
+      {{ len $pages }} pages organised the way a fault actually presents itself: what you see,
+      what causes it, and the command that distinguishes between the candidates. Start with the
+      methodology page if you have no idea where the problem is &mdash; that is what it is for.
+    </p>
+  </div>
+</header>
+
+<div class="ts-body">
+  {{ $units := slice
+    (dict "num" 1 "title" "Method and tools")
+    (dict "num" 2 "title" "Physical and data link")
+    (dict "num" 3 "title" "Switching")
+    (dict "num" 4 "title" "Routing")
+    (dict "num" 5 "title" "IP services")
+    (dict "num" 6 "title" "IPv6")
+    (dict "num" 7 "title" "Security and filtering")
+  }}
+  {{ range $units }}
+    {{ $group := where $pages "Params.unit" (.num) }}
+    {{ if $group }}
+    <section class="ts-unit">
+      <div class="ts-unit-hd">
+        <span class="ts-unit-num">Unit {{ .num }}</span>
+        <span class="ts-unit-title">{{ .title }}</span>
+      </div>
+      {{ range sort $group ".File.BaseFileName" }}
+      <a href="{{ .RelPermalink }}" class="ts-item">
+        <div class="ts-item-num">{{ index (split .File.BaseFileName "-") 1 }}</div>
+        <div>
+          <div class="ts-item-title">{{ .Title }}</div>
+          {{ with .Description }}<div class="ts-item-desc">{{ . }}</div>{{ end }}
+        </div>
+        <div class="ts-arrow">→</div>
+      </a>
+      {{ end }}
+    </section>
+    {{ end }}
+  {{ end }}
+</div>
+{{ end }}
