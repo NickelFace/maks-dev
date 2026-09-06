@@ -116,11 +116,21 @@ real 404. It lists 814 lesson URLs, every one of them under a topic path and
 none under an exam path — so each article now has a canonical topic home,
 while the old course URLs continue to serve it.
 
-Conclusion: nothing is broken, and no link was changed. Rewriting a hundred
-working links to canonical paths is a durability argument rather than a repair,
-and roughly one in ten has no confident target — swapping a working link for an
-approximate one makes the page worse. It stays on the list as an option, not as
-a fix.
+Nothing was broken, then. What the sitemap did make possible was a different
+job: moving each link to the article's canonical home, so it no longer depends
+on an alias for a course that was retired six years ago. Ninety-four links
+across fifty-four files now point at a topic path, every destination confirmed
+present in the sitemap before it was written.
+
+Twelve links stayed where they were, and the reason is the interesting half.
+Six have no canonical equivalent at all — there is no lesson on fibre optic
+cabling, or on TACACS+ versus RADIUS, or a generic default-route page. The
+other six have only a near neighbour: the source article covered collision
+*and* broadcast domains and the closest lesson covers collision domains alone;
+there is no dedicated LACP-versus-PAgP page, only the EtherChannel lesson the
+row above already links to. Those legacy URLs work. Replacing a working link
+with an approximate one, or with a second copy of the link on the line above,
+would have made the page worse in exchange for tidiness.
 
 ## Smaller things
 

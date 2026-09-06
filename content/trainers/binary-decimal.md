@@ -2,7 +2,7 @@
 title: "Binary and Decimal"
 date: 2026-09-06
 description: "Convert a single octet, 0–255, in both directions against the place values 128 64 32 16 8 4 2 1 — until reading a mask in binary stops needing paper."
-kind: "drill"
+group: "drill"
 order: 3
 topic: "1.5 · IPv4 addressing"
 keys: "<kbd>Enter</kbd> check · <kbd>Space</kbd> reveal · <kbd>&rarr;</kbd> next"

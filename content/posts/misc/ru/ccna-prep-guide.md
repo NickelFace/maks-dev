@@ -306,7 +306,7 @@ CCNA сдаётся через Pearson VUE — как в очных центра
 | DarkMayCall Cisco (RU) | [darkmaycal-it.ru/cisco](https://darkmaycal-it.ru/cisco/) |
 | edu-cisco.org (RU) | [edu-cisco.org](https://edu-cisco.org) |
 | Network Education (RU) | [networkeducation.ru](https://www.networkeducation.ru/courses) |
-| Network Lessons | [networklessons.com](https://networklessons.com/cisco/ccna-200-301/how-to-study-for-cisco-ccna-rs) |
+| Network Lessons | [networklessons.com](https://networklessons.com/cisco/ccna-200-301/how-to-study-for-cisco-ccna) |
 
 **Лабораторные работы**
 

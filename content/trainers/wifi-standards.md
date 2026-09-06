@@ -2,7 +2,7 @@
 title: "802.11 Standards"
 date: 2026-09-06
 description: "Six 802.11 standards on one timeline: bands, headline rate, channel widths and MIMO. Click a card for the detail and a memory hook, then check yourself against the comparison table and a five-question quiz."
-kind: "tool"
+group: "tool"
 order: 2
 topic: "1.7 · Wireless"
 keys: "<kbd>Enter</kbd> start the quiz &middot; <kbd>&rarr;</kbd> next question"

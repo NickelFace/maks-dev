@@ -129,7 +129,7 @@ graph LR
 | Ресурс | Описание |
 |---|---|
 | [Cisco Catalyst Center Documentation](https://developer.cisco.com/docs/dna-center/) | Официальная документация Catalyst Center: API, Intent API |
-| [SDN Overview — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/software-defined-networking-sdn) | SDN: разделение control/data plane, OpenFlow, контроллеры |
+| [SDN Overview — networklessons.com](https://networklessons.com/network-automation/introduction-to-sdn-software-defined-networking) | SDN: разделение control/data plane, OpenFlow, контроллеры |
 | [Cisco SD-Access](https://www.cisco.com/c/en/us/solutions/enterprise-networks/software-defined-access/index.html) | SD-Access: fabric, underlay/overlay, policy, segmentation |
 | [Jeremy's IT Lab — SDN and Automation (YouTube)](https://www.youtube.com/watch?v=UdmgpxTq6Yw) | SDN, Catalyst Center, управление и автоматизация из серии Free CCNA |
 | [Cisco DevNet — Catalyst Center Sandbox](https://developer.cisco.com/site/sandbox/) | Бесплатная лаборатория для изучения Catalyst Center API |

@@ -139,7 +139,7 @@ Datagram size [100]: 1500
 |---|---|
 | [RFC 793: TCP](https://www.rfc-editor.org/rfc/rfc793) | Original TCP specification: 3-way handshake, flow control, windowing |
 | [RFC 768: UDP](https://www.rfc-editor.org/rfc/rfc768) | Original UDP specification |
-| [TCP vs UDP (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/tcp-vs-udp) | Comparing TCP and UDP, when to use each |
+| [TCP vs UDP (networklessons.com)](https://networklessons.com/network-fundamentals/introduction-to-tcp-and-udp) | Comparing TCP and UDP, when to use each |
 | [TCP Three-Way Handshake (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/tcp-three-way-handshake) | Detailed explanation of the TCP connection establishment process |
 | [Jeremy's IT Lab: OSI Model & TCP/IP Suite (YouTube)](https://www.youtube.com/watch?v=t-ai8JzhHuY) | TCP, UDP, ports and sockets from the Free CCNA series |
 | [Well-Known Port Numbers (IANA)](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml) | Official IANA port number registry |

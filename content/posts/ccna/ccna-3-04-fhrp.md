@@ -172,7 +172,7 @@ Router# show glbp brief
 |---|---|
 | [RFC 2281: HSRP](https://www.rfc-editor.org/rfc/rfc2281) | Original Hot Standby Router Protocol specification |
 | [RFC 5798: VRRP](https://www.rfc-editor.org/rfc/rfc5798) | Virtual Router Redundancy Protocol v3 (IPv4 and IPv6) |
-| [HSRP (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/hsrp-hot-standby-routing-protocol) | HSRP: active/standby, virtual IP, preempt, versions |
-| [GLBP (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/glbp-gateway-load-balancing-protocol) | Gateway Load Balancing Protocol: load balancing across gateways |
+| [HSRP (networklessons.com)](https://networklessons.com/ip-services/hot-standby-router-protocol-hsrp) | HSRP: active/standby, virtual IP, preempt, versions |
+| [GLBP (networklessons.com)](https://networklessons.com/ip-services/glbp-gateway-load-balancing-protocol) | Gateway Load Balancing Protocol: load balancing across gateways |
 | [Jeremy's IT Lab: FHRP: HSRP, VRRP, GLBP (YouTube)](https://www.youtube.com/watch?v=JNT3kBOGC8s) | HSRP, VRRP, GLBP from the Free CCNA series |
 | [Cisco HSRP Configuration Guide](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipapp_fhrp/configuration/xe-16/fhp-xe-16-book/fhp-hsrp-v1-v2.html) | Official Cisco documentation for HSRP v1 and v2 |

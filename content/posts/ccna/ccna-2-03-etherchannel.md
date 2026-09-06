@@ -164,7 +164,7 @@ Switch# show pagp internal
 | Resource | Description |
 |---|---|
 | [IEEE 802.3ad: LACP Standard](https://standards.ieee.org/ieee/802.3ad/1042/) | Link Aggregation Control Protocol (LACP) standard |
-| [EtherChannel (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/etherchannel) | Full EtherChannel breakdown: LACP, PAgP, static mode |
+| [EtherChannel (networklessons.com)](https://networklessons.com/switching/etherchannel-cisco-ios-catalyst-switch) | Full EtherChannel breakdown: LACP, PAgP, static mode |
 | [LACP vs PAgP (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/lacp-and-pagp) | Protocol comparison: active/passive, desirable/auto modes |
 | [EtherChannel Load Balancing (Cisco)](https://www.cisco.com/c/en/us/support/docs/lan-switching/etherchannel/12023-4.html) | EtherChannel load balancing algorithms |
 | [Jeremy's IT Lab: EtherChannel (YouTube)](https://www.youtube.com/watch?v=sMSKFPjSLZE) | EtherChannel: LACP, PAgP, configuration and verification |

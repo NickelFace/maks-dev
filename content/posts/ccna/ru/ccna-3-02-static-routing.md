@@ -170,9 +170,9 @@ R2(config)# ip route 0.0.0.0 0.0.0.0 10.0.0.2   # к R3
 
 | Ресурс | Описание |
 |---|---|
-| [Static Routing — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/static-routing) | Статические маршруты: next-hop, exit interface, рекурсивный lookup |
+| [Static Routing — networklessons.com](https://networklessons.com/ip-routing/how-to-configure-static-route-on-cisco-ios-router) | Статические маршруты: next-hop, exit interface, рекурсивный lookup |
 | [Default Route — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/default-route) | Маршрут по умолчанию 0.0.0.0/0: настройка и применение |
-| [Floating Static Routes — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/floating-static-route) | Плавающие статические маршруты как backup-путь |
-| [IPv6 Static Routes — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/ipv6-static-routes) | Статические маршруты для IPv6 на Cisco IOS |
+| [Floating Static Routes — networklessons.com](https://networklessons.com/ip-routing/floating-static-route) | Плавающие статические маршруты как backup-путь |
+| [IPv6 Static Routes — networklessons.com](https://networklessons.com/ipv6/how-to-configure-ipv6-static-route) | Статические маршруты для IPv6 на Cisco IOS |
 | [Jeremy's IT Lab — Static Routing (YouTube)](https://www.youtube.com/watch?v=3qKNNJvXGek) | Статическая маршрутизация из серии Free CCNA |
 | [Cisco Static Route Configuration](https://www.cisco.com/c/en/us/support/docs/ip/ip-routing/116217-technote-ios-static-route.html) | Официальная документация Cisco по статическим маршрутам |

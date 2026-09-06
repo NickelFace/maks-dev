@@ -2,7 +2,7 @@
 title: "Subnetting"
 date: 2026-09-06
 description: "Given an IP and a prefix, work out the network address, the broadcast address and the first and last usable host — the calculation the exam makes you repeat under time pressure."
-kind: "drill"
+group: "drill"
 order: 1
 topic: "1.5 · IPv4 addressing"
 keys: "<kbd>Enter</kbd> check · <kbd>Space</kbd> reveal · <kbd>&rarr;</kbd> next"

@@ -211,7 +211,7 @@ Switch# show spanning-tree interface gi0/1 detail
 |---|---|
 | [IEEE 802.1D: STP Standard](https://standards.ieee.org/ieee/802.1D/3399/) | Original Spanning Tree Protocol standard |
 | [IEEE 802.1w: RSTP Standard](https://standards.ieee.org/ieee/802.1w/2935/) | Rapid Spanning Tree Protocol: faster convergence |
-| [STP (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/spanning-tree-protocol-stp) | Full STP breakdown: Root Bridge, port roles, states |
-| [RSTP (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/rapid-spanning-tree-protocol-rstp) | RSTP: differences from STP, proposal/agreement, edge ports |
+| [STP (networklessons.com)](https://networklessons.com/spanning-tree/introduction-to-spanning-tree) | Full STP breakdown: Root Bridge, port roles, states |
+| [RSTP (networklessons.com)](https://networklessons.com/spanning-tree/rapid-spanning-tree-rstp) | RSTP: differences from STP, proposal/agreement, edge ports |
 | [Jeremy's IT Lab: Spanning Tree Protocol (YouTube)](https://www.youtube.com/watch?v=mLi-xDPGpHw) | STP, RSTP, PVST+, PortFast, BPDU Guard from the Free CCNA series |
 | [PortFast and BPDU Guard (Cisco)](https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/17-3/configuration_guide/lyr2/b_173_lyr2_9300_cg/configuring_optional_spanning_tree_features.html) | Official Cisco documentation for PortFast, BPDU Guard, Root Guard |

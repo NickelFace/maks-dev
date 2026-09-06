@@ -165,7 +165,7 @@ Router# show logging | include OSPF       # filter by keyword
 |---|---|
 | [RFC 3411: SNMPv3 Framework](https://www.rfc-editor.org/rfc/rfc3411) | SNMP v3 architecture: USM, View-based Access Control |
 | [RFC 5424: Syslog Protocol](https://www.rfc-editor.org/rfc/rfc5424) | Syslog standard: message formats, severity levels 0–7 |
-| [SNMP (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/snmp-simple-network-management-protocol) | SNMP v1/v2c/v3: OID, MIB, trap, community strings |
-| [Syslog (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/syslog) | Syslog severity levels, logging configuration on Cisco IOS |
+| [SNMP (networklessons.com)](https://networklessons.com/system-management/introduction-to-snmp) | SNMP v1/v2c/v3: OID, MIB, trap, community strings |
+| [Syslog (networklessons.com)](https://networklessons.com/system-management/cisco-ios-syslog-messages) | Syslog severity levels, logging configuration on Cisco IOS |
 | [Jeremy's IT Lab: SNMP (YouTube)](https://www.youtube.com/watch?v=vDkBAdDFiYI) | SNMP v1/v2c/v3, MIB, OID, trap from the Free CCNA series |
 | [Cisco SNMP Configuration Guide](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/snmp/configuration/xe-16/snmp-xe-16-book/nm-snmp-cfg-snmp-support.html) | Official Cisco documentation for SNMP configuration |

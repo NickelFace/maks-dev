@@ -149,7 +149,7 @@ Key word: `synchronized` = normal; `unsynchronized` = problem.
 |---|---|
 | [RFC 5905: NTPv4](https://www.rfc-editor.org/rfc/rfc5905) | Network Time Protocol Version 4: stratum specification, synchronization |
 | [RFC 2131: DHCP](https://www.rfc-editor.org/rfc/rfc2131) | Dynamic Host Configuration Protocol: DORA process |
-| [NTP (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/network-time-protocol) | NTP: stratum, master, client, NTP authentication |
-| [DHCP (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/dhcp-explained) | DHCP: pool, lease, ip helper-address, relay agent |
+| [NTP (networklessons.com)](https://networklessons.com/system-management/cisco-network-time-protocol-ntp) | NTP: stratum, master, client, NTP authentication |
+| [DHCP (networklessons.com)](https://networklessons.com/ip-services/introduction-to-dhcp) | DHCP: pool, lease, ip helper-address, relay agent |
 | [Jeremy's IT Lab: NTP (YouTube)](https://www.youtube.com/watch?v=cNRVYoZ6PPYQ) | NTP stratum, Cisco IOS NTP configuration from the Free CCNA series |
 | [Cisco DHCP Configuration Guide](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr_dhcp/configuration/xe-16/dhcp-xe-16-book/config-dhcp-server.html) | Official documentation for DHCP server, relay, pool |

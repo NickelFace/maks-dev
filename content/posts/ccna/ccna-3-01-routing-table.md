@@ -138,9 +138,9 @@ Router# traceroute 10.1.1.1
 
 | Resource | Description |
 |---|---|
-| [IP Routing (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/ip-routing-explained) | How IP routing works: table, longest prefix match, AD |
-| [Administrative Distance (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/administrative-distance) | AD for different protocols: static, OSPF, EIGRP, RIP |
+| [IP Routing (networklessons.com)](https://networklessons.com/ip-routing/ip-routing-explained) | How IP routing works: table, longest prefix match, AD |
+| [Administrative Distance (networklessons.com)](https://networklessons.com/ip-routing/introduction-to-administrative-distance) | AD for different protocols: static, OSPF, EIGRP, RIP |
 | [CEF: Cisco Express Forwarding](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipswitch_cef/configuration/xe-16/isw-cef-xe-16-book/isw-cef-overview.html) | Official documentation on Cisco Express Forwarding |
 | [Jeremy's IT Lab: Routing Fundamentals (YouTube)](https://www.youtube.com/watch?v=rSqQk33FSVA) | Routing table, longest match, AD from the Free CCNA series |
 | [show ip route: Cisco IOS Command](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/configuration/xe-16/iri-xe-16-book/iri-ip-route-tab.html) | Official reference for the show ip route command |
-| [Longest Prefix Match (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/longest-prefix-match) | Selecting the most specific route |
+| [Longest Prefix Match (networklessons.com)](https://networklessons.com/ip-routing/longest-prefix-match-routing) | Selecting the most specific route |

@@ -142,9 +142,9 @@ Router# traceroute 10.1.1.1
 
 | Ресурс | Описание |
 |---|---|
-| [IP Routing — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/ip-routing-explained) | Как работает IP routing: таблица, longest prefix match, AD |
-| [Administrative Distance — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/administrative-distance) | AD для разных протоколов: static, OSPF, EIGRP, RIP |
+| [IP Routing — networklessons.com](https://networklessons.com/ip-routing/ip-routing-explained) | Как работает IP routing: таблица, longest prefix match, AD |
+| [Administrative Distance — networklessons.com](https://networklessons.com/ip-routing/introduction-to-administrative-distance) | AD для разных протоколов: static, OSPF, EIGRP, RIP |
 | [CEF — Cisco Express Forwarding](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipswitch_cef/configuration/xe-16/isw-cef-xe-16-book/isw-cef-overview.html) | Официальная документация по Cisco Express Forwarding |
 | [Jeremy's IT Lab — Routing Fundamentals (YouTube)](https://www.youtube.com/watch?v=rSqQk33FSVA) | Таблица маршрутизации, longest match, AD из серии Free CCNA |
 | [show ip route — Cisco IOS Command](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_pi/configuration/xe-16/iri-xe-16-book/iri-ip-route-tab.html) | Официальная справка по команде show ip route |
-| [Longest Prefix Match — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/longest-prefix-match) | Принцип выбора наиболее специфичного маршрута |
+| [Longest Prefix Match — networklessons.com](https://networklessons.com/ip-routing/longest-prefix-match-routing) | Принцип выбора наиболее специфичного маршрута |

@@ -188,9 +188,9 @@ Switch(config-if)# spanning-tree guard root
 
 | Resource | Description |
 |---|---|
-| [Port Security (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/port-security-explained) | Port Security: restrict, protect, shutdown, sticky MAC |
-| [DHCP Snooping (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/dhcp-snooping) | DHCP Snooping: trusted/untrusted ports, rogue DHCP protection |
-| [Dynamic ARP Inspection (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/dynamic-arp-inspection) | DAI: ARP spoofing protection, integration with DHCP Snooping |
-| [802.1X (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/802-1x-port-authentication) | Port-based NAC: authenticator, supplicant, auth server |
+| [Port Security (networklessons.com)](https://networklessons.com/switching/how-to-configure-port-security-on-cisco-switch) | Port Security: restrict, protect, shutdown, sticky MAC |
+| [DHCP Snooping (networklessons.com)](https://networklessons.com/switching/dhcp-snooping) | DHCP Snooping: trusted/untrusted ports, rogue DHCP protection |
+| [Dynamic ARP Inspection (networklessons.com)](https://networklessons.com/switching/dai-dynamic-arp-inspection) | DAI: ARP spoofing protection, integration with DHCP Snooping |
+| [802.1X (networklessons.com)](https://networklessons.com/switching/aaa-802-1x-authentication) | Port-based NAC: authenticator, supplicant, auth server |
 | [Jeremy's IT Lab: Layer 2 Security (YouTube)](https://www.youtube.com/watch?v=lMI2Q8Ke1p0) | Port Security, DHCP Snooping, DAI from the Free CCNA series |
 | [Cisco Port Security Configuration](https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9300/software/release/17-3/configuration_guide/sec/b_173_sec_9300_cg/configuring_port_security.html) | Official Cisco guide for Port Security configuration |

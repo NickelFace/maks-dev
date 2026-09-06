@@ -141,7 +141,7 @@ Switch(config-if)# spanning-tree portfast trunk      # speed up port-up transiti
 |---|---|
 | [Cisco WLC Configuration Guide](https://www.cisco.com/c/en/us/td/docs/wireless/controller/9800/config-guide/b_wl_16_10_cg.html) | Official Cisco Wireless LAN Controller documentation |
 | [CAPWAP: RFC 5415](https://www.rfc-editor.org/rfc/rfc5415) | Control and Provisioning of Wireless Access Points (CAPWAP) |
-| [Lightweight AP vs Autonomous AP (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/cisco-wireless-architectures) | Architecture comparison: Autonomous, Lightweight, Cloud-managed |
+| [Lightweight AP vs Autonomous AP (networklessons.com)](https://networklessons.com/wireless/cisco-wireless-network-architectures) | Architecture comparison: Autonomous, Lightweight, Cloud-managed |
 | [FlexConnect (Cisco)](https://www.cisco.com/c/en/us/td/docs/wireless/controller/technotes/flexconnect-design-guide.html) | Cisco FlexConnect: AP operation when WLC connection is lost |
 | [Jeremy's IT Lab: Wireless Architectures (YouTube)](https://www.youtube.com/watch?v=2vMHpH0bX7Y) | Autonomous AP, Lightweight AP, WLC, CAPWAP from the Free CCNA series |
 | [Cisco Catalyst Center Wireless (Cisco)](https://www.cisco.com/c/en/us/products/cloud-systems-management/dna-center/index.html) | Managing wireless networks through Catalyst Center |

@@ -2,7 +2,7 @@
 title: "Life of a DNS Query"
 date: 2026-09-06
 description: "Step a single DNS lookup across a routed network: the ARP that has to happen first, the MAC addresses rewritten at every hop, the IP addresses that never change, and the caches that stop it happening twice. Eight questions at the end."
-kind: "animation"
+group: "animation"
 order: 4
 topic: "4.3 · DNS"
 ---

@@ -2,7 +2,7 @@
 title: "Mask, Wildcard, Block Size"
 date: 2026-09-06
 description: "From a CIDR prefix alone, recover the subnet mask, the wildcard mask an ACL wants, the block size and the usable host count — the four numbers every addressing question starts from."
-kind: "drill"
+group: "drill"
 order: 2
 topic: "1.5 · IPv4 addressing"
 keys: "<kbd>Enter</kbd> check · <kbd>Space</kbd> reveal · <kbd>&rarr;</kbd> next"

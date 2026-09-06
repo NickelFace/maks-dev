@@ -156,7 +156,7 @@ Router# traceroute ipv6 2001:DB8::1
 |---|---|
 | [RFC 4291 — IPv6 Addressing Architecture](https://www.rfc-editor.org/rfc/rfc4291) | Спецификация типов IPv6-адресов: unicast, multicast, anycast |
 | [RFC 4861 — NDP (Neighbor Discovery Protocol)](https://www.rfc-editor.org/rfc/rfc4861) | Протокол обнаружения соседей NDP, замена ARP в IPv6 |
-| [IPv6 Address Types — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/ipv6-address-types) | Global unicast, link-local, loopback, multicast, anycast |
-| [EUI-64 — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/eui-64-explained) | Как EUI-64 формирует Interface ID из MAC-адреса |
+| [IPv6 Address Types — networklessons.com](https://networklessons.com/ipv6/ipv6-address-types) | Global unicast, link-local, loopback, multicast, anycast |
+| [EUI-64 — networklessons.com](https://networklessons.com/ipv6/ipv6-eui-64-explained) | Как EUI-64 формирует Interface ID из MAC-адреса |
 | [Jeremy's IT Lab — IPv6 Addressing (YouTube)](https://www.youtube.com/watch?v=mJPO9W0tq_Q) | IPv6 типы адресов, EUI-64, NDP из серии Free CCNA |
 | [IPv6 Transition Mechanisms — Cisco](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6/configuration/xe-3s/ipv6-xe-3s-book/ip6-tunnel.html) | Dual-stack, tunneling (6to4, ISATAP), NAT64 |

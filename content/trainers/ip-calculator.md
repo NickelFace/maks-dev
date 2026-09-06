@@ -2,7 +2,7 @@
 title: "IP Calculator"
 date: 2026-09-06
 description: "Type an address and a prefix and get the network, broadcast and host range back, with a 32-bit bitmap showing exactly which bits the mask claims. IP, prefix, subnet mask and wildcard all stay in sync — change any one of them and the rest follow."
-kind: "tool"
+group: "tool"
 order: 1
 topic: "1.5 · IPv4 addressing"
 ---

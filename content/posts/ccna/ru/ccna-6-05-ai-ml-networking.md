@@ -169,6 +169,6 @@ graph LR
 
 | Ресурс | Описание |
 |---|---|
-| [AI and ML — networklessons.com](https://networklessons.com/cisco/ccna-200-301/artificial-intelligence-ai-and-machine-learning-ml) | ИИ/МО для CCNA: типы обучения, применения в сетях |
+| [AI and ML — networklessons.com](https://networklessons.com/network-automation/artificial-intelligence-ai-and-machine-learning-ml) | ИИ/МО для CCNA: типы обучения, применения в сетях |
 | [Cisco AI Network Analytics](https://www.cisco.com/c/en/us/products/analytics/ai-network-analytics/index.html) | AI-driven assurance: обнаружение аномалий, прогнозирование |
 | [Cisco Catalyst Center AI Assistant](https://blogs.cisco.com/networking/catalyst-center-ai-assistant) | Запросы на естественном языке и ИИ-инсайты в Catalyst Center |

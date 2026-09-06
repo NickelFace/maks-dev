@@ -2,7 +2,7 @@
 title: "OSPF LSA Flooding"
 date: 2026-09-06
 description: "Watch an LSA propagate hop by hop across a four-router area and see each router's LSDB converge, from Hello to SPF."
-kind: "animation"
+group: "animation"
 order: 1
 topic: "3.4 · OSPF"
 keys: "<kbd>&larr;</kbd> back · <kbd>&rarr;</kbd> next · click a router to open its LSDB"

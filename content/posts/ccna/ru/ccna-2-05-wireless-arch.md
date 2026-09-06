@@ -145,7 +145,7 @@ Switch(config-if)# spanning-tree portfast trunk      # ускорить подн
 |---|---|
 | [Cisco WLC Configuration Guide](https://www.cisco.com/c/en/us/td/docs/wireless/controller/9800/config-guide/b_wl_16_10_cg.html) | Официальная документация по Cisco Wireless LAN Controller |
 | [CAPWAP — RFC 5415](https://www.rfc-editor.org/rfc/rfc5415) | Control and Provisioning of Wireless Access Points (CAPWAP) |
-| [Lightweight AP vs Autonomous AP — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/cisco-wireless-architectures) | Сравнение архитектур: Autonomous, Lightweight, Cloud-managed |
+| [Lightweight AP vs Autonomous AP — networklessons.com](https://networklessons.com/wireless/cisco-wireless-network-architectures) | Сравнение архитектур: Autonomous, Lightweight, Cloud-managed |
 | [FlexConnect — Cisco](https://www.cisco.com/c/en/us/td/docs/wireless/controller/technotes/flexconnect-design-guide.html) | Cisco FlexConnect: работа AP при потере связи с WLC |
 | [Jeremy's IT Lab — Wireless Architectures (YouTube)](https://www.youtube.com/watch?v=2vMHpH0bX7Y) | Autonomous AP, Lightweight AP, WLC, CAPWAP из серии Free CCNA |
 | [Cisco Catalyst Center Wireless — Cisco](https://www.cisco.com/c/en/us/products/cloud-systems-management/dna-center/index.html) | Управление беспроводной сетью через Catalyst Center |

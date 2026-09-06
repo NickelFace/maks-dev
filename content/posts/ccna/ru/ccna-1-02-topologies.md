@@ -99,7 +99,7 @@ graph TD
 
 | Ресурс | Описание |
 |---|---|
-| [Network Topologies — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/network-topologies) | Обзор физических и логических топологий сети |
+| [Network Topologies — networklessons.com](https://networklessons.com/network-fundamentals/network-topologies) | Обзор физических и логических топологий сети |
 | [Three-Tier Network Architecture — Cisco](https://www.cisco.com/c/en/us/td/docs/solutions/Enterprise/Campus/campover.html) | Cisco Campus Network Design: Access, Distribution, Core |
 | [Jeremy's IT Lab — Network Topology Architectures (YouTube)](https://www.youtube.com/watch?v=Wm2rOA2Vrv0) | Урок по топологиям и трёхуровневой модели из серии Free CCNA |
 | [Collision vs Broadcast Domain — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/collision-broadcast-domain) | Разница между коллизионным и широковещательным доменом |

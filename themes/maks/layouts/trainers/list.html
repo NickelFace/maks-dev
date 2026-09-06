@@ -3,7 +3,7 @@
 {{ end }}
 
 {{ define "main" }}
-{{ $items := where .Pages "Params.kind" "!=" nil }}
+{{ $items := where .Pages "Params.group" "!=" nil }}
 <header class="tr-hd">
   <div class="tr-hd-inner">
     {{ partial "breadcrumb.html" . }}
@@ -24,7 +24,7 @@
     (dict "key" "tool"      "title" "Tools"      "note" "calculate and look up")
   }}
   {{ range $groups }}
-    {{ $g := where $items "Params.kind" .key }}
+    {{ $g := where $items "Params.group" .key }}
     {{ if $g }}
     <section class="tr-group">
       <div class="tr-group-hd">

@@ -196,8 +196,8 @@ Router# debug ip ospf events               # события OSPF
 | Ресурс | Описание |
 |---|---|
 | [RFC 2328 — OSPFv2](https://www.rfc-editor.org/rfc/rfc2328) | Официальная спецификация OSPFv2 (IPv4) |
-| [OSPF — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/ospf-neighbor-adjacency) | OSPF: процесс установки соседства, DR/BDR выборы |
+| [OSPF — networklessons.com](https://networklessons.com/ospf/ospf-packets-and-neighbor-discovery) | OSPF: процесс установки соседства, DR/BDR выборы |
 | [OSPF Areas and LSA Types — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/ospf-areas-explained) | Области OSPF, типы LSA 1–7, backbone area 0 |
-| [OSPF Cost Calculation — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/ospf-cost) | Вычисление стоимости OSPF: reference bandwidth, команды |
+| [OSPF Cost Calculation — networklessons.com](https://networklessons.com/ospf/ospf-reference-bandwidth) | Вычисление стоимости OSPF: reference bandwidth, команды |
 | [Jeremy's IT Lab — OSPF (YouTube)](https://www.youtube.com/watch?v=kfvJ8QVJscc) | OSPF: neighbor states, DR/BDR, areas из серии Free CCNA |
 | [Cisco OSPFv2 Configuration Guide](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/iproute_ospf/configuration/xe-16/iro-xe-16-book/iro-cfg.html) | Официальное руководство Cisco по настройке OSPF |

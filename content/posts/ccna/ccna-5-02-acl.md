@@ -192,9 +192,9 @@ Router# clear ip access-list counters
 
 | Resource | Description |
 |---|---|
-| [ACL (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/access-control-list-acl) | Standard vs Extended ACL: syntax, wildcard masks, direction |
+| [ACL (networklessons.com)](https://networklessons.com/network-fundamentals/introduction-to-access-lists-on-cisco-ios-router) | Standard vs Extended ACL: syntax, wildcard masks, direction |
 | [Named ACL (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/named-access-list) | Named ACL: creation, editing, sequence numbers |
 | [ACL Troubleshooting (Cisco)](https://www.cisco.com/c/en/us/support/docs/security/ios-firewall/23602-confaccesslists.html) | Cisco guide for ACL troubleshooting and creation |
-| [Extended ACL (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/extended-access-list) | Extended ACL: filtering by IP, port, and protocol |
+| [Extended ACL (networklessons.com)](https://networklessons.com/network-fundamentals/extended-access-list-example-on-cisco-router) | Extended ACL: filtering by IP, port, and protocol |
 | [Jeremy's IT Lab: Standard ACL (YouTube)](https://www.youtube.com/watch?v=gvJ10sBbmVA) | Standard ACLs from the Free CCNA series |
 | [Jeremy's IT Lab: Extended ACL (YouTube)](https://www.youtube.com/watch?v=UGCuetJ6Fdo) | Extended ACLs from the Free CCNA series |

@@ -165,7 +165,7 @@ A **neural network** is a model loosely inspired by the human brain:
 
 | Resource | Description |
 |---|---|
-| [AI and ML (networklessons.com)](https://networklessons.com/cisco/ccna-200-301/artificial-intelligence-ai-and-machine-learning-ml) | AI/ML for CCNA: types of learning, networking applications |
+| [AI and ML (networklessons.com)](https://networklessons.com/network-automation/artificial-intelligence-ai-and-machine-learning-ml) | AI/ML for CCNA: types of learning, networking applications |
 | [Cisco AI Network Analytics](https://www.cisco.com/c/en/us/products/analytics/ai-network-analytics/index.html) | Cisco's AI-driven assurance platform: anomaly detection, predictions |
 | [Jeremy's IT Lab: AI and ML (YouTube)](https://www.youtube.com/results?search_query=jeremy+it+lab+ccna+AI+ML) | AI/ML from the Free CCNA series |
 | [Cisco Catalyst Center AI Assistant](https://blogs.cisco.com/networking/catalyst-center-ai-assistant) | Natural language queries and AI-driven insights in Catalyst Center |

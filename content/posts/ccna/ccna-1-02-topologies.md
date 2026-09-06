@@ -95,7 +95,7 @@ graph TD
 
 | Resource | Description |
 |---|---|
-| [Network Topologies (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/network-topologies) | Overview of physical and logical network topologies |
+| [Network Topologies (networklessons.com)](https://networklessons.com/network-fundamentals/network-topologies) | Overview of physical and logical network topologies |
 | [Three-Tier Network Architecture (Cisco)](https://www.cisco.com/c/en/us/td/docs/solutions/Enterprise/Campus/campover.html) | Cisco Campus Network Design: Access, Distribution, Core |
 | [Jeremy's IT Lab: Network Topology Architectures (YouTube)](https://www.youtube.com/watch?v=Wm2rOA2Vrv0) | Topologies and three-tier model lesson from the Free CCNA series |
 | [Collision vs Broadcast Domain (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/collision-broadcast-domain) | Difference between collision and broadcast domains |

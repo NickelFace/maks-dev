@@ -118,7 +118,7 @@ lang_pair: "/posts/ccna/ru/ccna-1-07-wireless/"
 | Resource | Description |
 |---|---|
 | [IEEE 802.11 Standards (IEEE)](https://standards.ieee.org/ieee/802.11/7028/) | Official 802.11a/b/g/n/ac/ax standards |
-| [Wireless Standards (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/wireless-lan-overview) | WLAN overview: standards, frequencies, channels, SSID |
+| [Wireless Standards (networklessons.com)](https://networklessons.com/wireless/introduction-wireless-lan) | WLAN overview: standards, frequencies, channels, SSID |
 | [Wi-Fi 6 (802.11ax) (Cisco)](https://www.cisco.com/c/en/us/solutions/enterprise-networks/802-11ax-solution/index.html) | Cisco on Wi-Fi 6: OFDMA, MU-MIMO, improvements over 802.11ac |
 | [Jeremy's IT Lab: Wireless Fundamentals (YouTube)](https://www.youtube.com/watch?v=bPfELUx1BoI) | Wireless fundamentals: standards, frequencies, BSS/ESS |
 | [Channel Planning 2.4 GHz vs 5 GHz (Cisco)](https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-lan-wlan/212016-Best-Practices-for-Wireless-Channel-Pl.html) | Best practices for 2.4/5 GHz channel planning |

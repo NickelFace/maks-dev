@@ -2,7 +2,7 @@
 title: "OSPF Multi-Area LSAs"
 date: 2026-09-06
 description: "How Type 1, 3, 4 and 5 LSAs cross area boundaries, and what each area actually ends up knowing."
-kind: "animation"
+group: "animation"
 order: 2
 topic: "3.4 · OSPF"
 keys: "<kbd>&larr;</kbd> back · <kbd>&rarr;</kbd> next · click a router to open its LSDB"

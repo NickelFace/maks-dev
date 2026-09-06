@@ -119,6 +119,6 @@ Router# show lldp traffic                # статистика
 |---|---|
 | [CDP — Cisco Documentation](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/cdp/configuration/xe-16/cdp-xe-16-book/nm-cdp-discover.html) | Официальная документация Cisco Discovery Protocol |
 | [IEEE 802.1AB — LLDP Standard](https://standards.ieee.org/ieee/802.1AB/6047/) | Стандарт Link Layer Discovery Protocol |
-| [CDP vs LLDP — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/cisco-discovery-protocol-cdp) | Сравнение CDP и LLDP, команды, примеры вывода |
+| [CDP vs LLDP — networklessons.com](https://networklessons.com/system-management/introduction-to-cdp-cisco-discovery-protocol) | Сравнение CDP и LLDP, команды, примеры вывода |
 | [Jeremy's IT Lab — CDP and LLDP (YouTube)](https://www.youtube.com/watch?v=8bQB2eBElzM) | CDP и LLDP из серии Free CCNA: настройка и диагностика |
-| [LLDP-MED — networklessons.com](https://networklessons.com/cisco/ccnp-route/lldp) | LLDP Media Endpoint Discovery, расширения LLDP |
+| [LLDP-MED — networklessons.com](https://networklessons.com/system-management/link-layer-discovery-protocol-lldp) | LLDP Media Endpoint Discovery, расширения LLDP |

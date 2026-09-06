@@ -112,7 +112,7 @@ lang_pair: "/posts/ccna/ru/ccna-5-01-security-concepts/"
 |---|---|
 | [Cisco Security Concepts: Cisco Learning](https://learningnetwork.cisco.com/s/article/network-security-concepts) | Overview of network security concepts from Cisco |
 | [CIA Triad: NIST](https://csrc.nist.gov/glossary/term/cia_triad) | Confidentiality, Integrity, Availability: foundational security principles |
-| [Common Network Threats (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/network-security-threats) | Threats: DoS, DDoS, MITM, phishing, malware |
+| [Common Network Threats (networklessons.com)](https://networklessons.com/cisco/ccna-200-301/network-security-threats-vulnerabilities-and-countermeasures) | Threats: DoS, DDoS, MITM, phishing, malware |
 | [Jeremy's IT Lab: Security Concepts (YouTube)](https://www.youtube.com/watch?v=4_-JN1hqCmw) | CIA triad, threats, and defenses from the Free CCNA series |
 | [Cisco Cybersecurity Essentials](https://www.cisco.com/c/en/us/products/security/index.html) | Cisco security products and concepts |
 | [David Bombal: Network Security Basics (YouTube)](https://www.youtube.com/watch?v=E03gh1PVUGM) | Network security basics: attacks and countermeasures |

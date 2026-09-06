@@ -2,7 +2,7 @@
 title: "Powers of Two"
 date: 2026-09-06
 description: "2^n in both directions for n = 1–8, the arithmetic every subnetting question rests on: answer instantly and block sizes, host counts and mask boundaries all fall out of it."
-kind: "drill"
+group: "drill"
 order: 4
 topic: "1.5 · IPv4 addressing"
 keys: "<kbd>Enter</kbd> check · <kbd>Space</kbd> reveal · <kbd>&rarr;</kbd> next"

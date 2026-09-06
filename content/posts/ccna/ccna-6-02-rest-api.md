@@ -201,6 +201,6 @@ curl -X PUT \
 | [REST API: Cisco DevNet Learning](https://developer.cisco.com/learning/tracks/netprog-eng/netprog-eng-rest-api/) | Official Cisco DevNet REST API course |
 | [HTTP Methods: MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) | GET, POST, PUT, PATCH, DELETE: descriptions and usage |
 | [JSON (json.org)](https://www.json.org/json-en.html) | Official JSON format standard |
-| [REST API (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/rest-api) | REST: principles, HTTP methods, CRUD, status codes |
+| [REST API (networklessons.com)](https://networklessons.com/network-automation/introduction-to-rest-api) | REST: principles, HTTP methods, CRUD, status codes |
 | [Jeremy's IT Lab: REST APIs (YouTube)](https://www.youtube.com/watch?v=G0RM7eS0vw8) | REST API, JSON, Postman from the Free CCNA series |
 | [Cisco Catalyst Center API Reference](https://developer.cisco.com/docs/dna-center/#!api-quick-start) | Intent API and REST endpoints reference for Catalyst Center |

@@ -180,7 +180,7 @@ PC> ssh -l admin 192.168.1.1
 |---|---|
 | [RFC 4251 — SSH Protocol Architecture](https://www.rfc-editor.org/rfc/rfc4251) | Архитектура протокола SSH 2.0 |
 | [SSH Configuration on Cisco — Cisco](https://www.cisco.com/c/en/us/support/docs/security-vpn/secure-shell-ssh/4145-ssh.html) | Официальная инструкция по настройке SSH v2 на Cisco IOS |
-| [SSH — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/ssh-secure-shell) | SSH v2: RSA ключи, VTY, настройка и диагностика |
+| [SSH — networklessons.com](https://networklessons.com/system-management/configure-ssh-cisco-ios) | SSH v2: RSA ключи, VTY, настройка и диагностика |
 | [TFTP vs FTP vs SCP — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/tftp-and-ftp) | Сравнение методов управления файлами: TFTP, FTP, SCP |
 | [Jeremy's IT Lab — SSH Management (YouTube)](https://www.youtube.com/watch?v=jT5jdqkbqsc) | SSH, управление устройствами, резервное копирование IOS |
 | [Cisco IOS File System](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/configuration/xe-16/fundamentals-xe-16-book/cf-file-mgmt.html) | Файловая система IOS: flash, TFTP, копирование конфигурации |

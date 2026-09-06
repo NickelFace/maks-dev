@@ -171,8 +171,8 @@ Router# traceroute 10.0.0.1
 | Ресурс | Описание |
 |---|---|
 | [RFC 1918 — Private Address Space](https://www.rfc-editor.org/rfc/rfc1918) | Стандарт RFC для приватных диапазонов IPv4: 10.x, 172.16-31.x, 192.168.x |
-| [Subnetting — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/subnetting-in-binary) | Полный курс по subnetting с примерами |
-| [VLSM — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/variable-length-subnet-masking-vlsm) | Variable Length Subnet Masking: принципы и практика |
+| [Subnetting — networklessons.com](https://networklessons.com/subnetting/subnetting-in-binary) | Полный курс по subnetting с примерами |
+| [VLSM — networklessons.com](https://networklessons.com/subnetting/variable-length-subnet-mask-vlsm) | Variable Length Subnet Masking: принципы и практика |
 | [Jeremy's IT Lab — IPv4 Addressing (YouTube)](https://www.youtube.com/watch?v=i3WKlVdFhJc) | IPv4 адресация и subnetting из серии Free CCNA |
-| [Wildcard Masks — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/wildcard-mask) | Wildcard маски: отличие от subnet mask, применение в ACL и OSPF |
+| [Wildcard Masks — networklessons.com](https://networklessons.com/network-fundamentals/wildcard-bits-explained) | Wildcard маски: отличие от subnet mask, применение в ACL и OSPF |
 | [Subnet Calculator — Cisco](https://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13788-3.html) | Cisco guide по IP subnetting с примерами расчётов |

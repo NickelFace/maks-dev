@@ -166,9 +166,9 @@ R2(config)# ip route 0.0.0.0 0.0.0.0 10.0.0.2   # toward R3
 
 | Resource | Description |
 |---|---|
-| [Static Routing (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/static-routing) | Static routes: next-hop, exit interface, recursive lookup |
+| [Static Routing (networklessons.com)](https://networklessons.com/ip-routing/how-to-configure-static-route-on-cisco-ios-router) | Static routes: next-hop, exit interface, recursive lookup |
 | [Default Route (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/default-route) | Default route 0.0.0.0/0: configuration and usage |
-| [Floating Static Routes (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/floating-static-route) | Floating static routes as a backup path |
-| [IPv6 Static Routes (networklessons.com)](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/ipv6-static-routes) | Static routes for IPv6 on Cisco IOS |
+| [Floating Static Routes (networklessons.com)](https://networklessons.com/ip-routing/floating-static-route) | Floating static routes as a backup path |
+| [IPv6 Static Routes (networklessons.com)](https://networklessons.com/ipv6/how-to-configure-ipv6-static-route) | Static routes for IPv6 on Cisco IOS |
 | [Jeremy's IT Lab: Static Routing (YouTube)](https://www.youtube.com/watch?v=3qKNNJvXGek) | Static routing from the Free CCNA series |
 | [Cisco Static Route Configuration](https://www.cisco.com/c/en/us/support/docs/ip/ip-routing/116217-technote-ios-static-route.html) | Official Cisco documentation on static routes |

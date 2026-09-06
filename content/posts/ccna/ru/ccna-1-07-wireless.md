@@ -122,7 +122,7 @@ build:
 | Ресурс | Описание |
 |---|---|
 | [IEEE 802.11 Standards — IEEE](https://standards.ieee.org/ieee/802.11/7028/) | Официальные стандарты 802.11a/b/g/n/ac/ax |
-| [Wireless Standards — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/wireless-lan-overview) | Обзор WLAN: стандарты, частоты, каналы, SSID |
+| [Wireless Standards — networklessons.com](https://networklessons.com/wireless/introduction-wireless-lan) | Обзор WLAN: стандарты, частоты, каналы, SSID |
 | [Wi-Fi 6 (802.11ax) — Cisco](https://www.cisco.com/c/en/us/solutions/enterprise-networks/802-11ax-solution/index.html) | Cisco о Wi-Fi 6: OFDMA, MU-MIMO, улучшения vs 802.11ac |
 | [Jeremy's IT Lab — Wireless Fundamentals (YouTube)](https://www.youtube.com/watch?v=bPfELUx1BoI) | Основы беспроводных сетей: стандарты, частоты, BSS/ESS |
 | [Channel Planning 2.4 GHz vs 5 GHz — Cisco](https://www.cisco.com/c/en/us/support/docs/wireless-mobility/wireless-lan-wlan/212016-Best-Practices-for-Wireless-Channel-Pl.html) | Лучшие практики планирования каналов 2.4/5 ГГц |

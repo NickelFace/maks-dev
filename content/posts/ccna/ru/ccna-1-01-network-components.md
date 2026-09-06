@@ -130,7 +130,7 @@ Router# show running-config | exclude !
 |---|---|
 | [Cisco IOS CLI Reference](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/fundamentals/configuration/xe-16/fundamentals-xe-16-book.html) | Официальная документация по CLI Cisco IOS |
 | [Network Devices — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/network-devices) | Подробный разбор сетевых устройств: router, switch, hub, firewall |
-| [OSI Model — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd1-100-105/osi-model) | Объяснение модели OSI по уровням |
+| [OSI Model — networklessons.com](https://networklessons.com/network-fundamentals/introduction-to-the-osi-model) | Объяснение модели OSI по уровням |
 | [Jeremy's IT Lab — Network Devices (YouTube)](https://www.youtube.com/watch?v=H8W9oMZGWdA) | CCNA: сетевые компоненты, роли устройств — серия Free CCNA |
 | [Cisco IOS CLI Modes — Cisco Learning Network](https://learningnetwork.cisco.com) | Режимы CLI: User EXEC, Privileged EXEC, Global Config |
 | [IDS vs IPS — Cisco](https://www.cisco.com/c/en/us/products/security/intrusion-prevention-system-ips/index.html) | Объяснение разницы между IDS и IPS от Cisco |

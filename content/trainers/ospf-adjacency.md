@@ -2,7 +2,7 @@
 title: "OSPF Adjacency and Convergence"
 date: 2026-09-06
 description: "Walk two routers from Down to Full one state at a time, with the reference tables for multicast addresses, timers and administrative distance beside it, then a fifteen-question self-test on the same material."
-kind: "animation"
+group: "animation"
 order: 3
 topic: "3.4 · OSPF"
 keys: "<kbd>1</kbd>&ndash;<kbd>4</kbd> pick &middot; <kbd>Enter</kbd> confirm &middot; <kbd>&rarr;</kbd> next &middot; <kbd>Space</kbd> skip"

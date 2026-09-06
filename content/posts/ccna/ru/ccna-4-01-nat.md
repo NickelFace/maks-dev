@@ -140,8 +140,8 @@ tcp 203.0.113.1:1025  192.168.1.10:1025  8.8.8.8:53        8.8.8.8:53
 | Ресурс | Описание |
 |---|---|
 | [RFC 3022 — NAT](https://www.rfc-editor.org/rfc/rfc3022) | Traditional IP Network Address Translator |
-| [NAT — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/nat-network-address-translation) | Static NAT, Dynamic NAT, PAT: принципы и настройка |
-| [PAT (NAT Overload) — networklessons.com](https://networklessons.com/cisco/ccna-routing-switching-icnd2-200-105/pat-port-address-translation) | Port Address Translation: как множество хостов используют один IP |
+| [NAT — networklessons.com](https://networklessons.com/ip-services/introduction-to-nat-and-pat) | Static NAT, Dynamic NAT, PAT: принципы и настройка |
+| [PAT (NAT Overload) — networklessons.com](https://networklessons.com/ip-services/how-to-configure-pat-on-cisco-ios-router) | Port Address Translation: как множество хостов используют один IP |
 | [NAT Troubleshooting — Cisco](https://www.cisco.com/c/en/us/support/docs/ip/network-address-translation-nat/8605-13.html) | Диагностика NAT: debug ip nat, show ip nat translations |
 | [Jeremy's IT Lab — NAT (YouTube)](https://www.youtube.com/watch?v=nLbB0fYQdYY) | Static NAT, Dynamic NAT, PAT из серии Free CCNA |
 | [Cisco NAT Configuration Guide](https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipaddr_nat/configuration/xe-16/nat-xe-16-book/iadnat-addr-consv.html) | Официальное руководство Cisco по настройке NAT |

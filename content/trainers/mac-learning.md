@@ -2,7 +2,7 @@
 title: "MAC Learning and Flooding"
 date: 2026-09-06
 description: "Six frames arrive at one switch with four hosts in VLAN 1. For each one, call the switch's action — forward out a port, flood, or drop — and watch the MAC address table build itself from the source addresses."
-kind: "drill"
+group: "drill"
 order: 5
 topic: "1.8 · Switching concepts"
 keys: "<kbd>Enter</kbd> check · <kbd>Space</kbd> reveal · <kbd>&rarr;</kbd> next"
