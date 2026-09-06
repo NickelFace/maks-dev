@@ -1,0 +1,22 @@
+{{/*  A verification step: the check you run and the output that proves it.
+
+      {{< verify dev="R1" cmd="show ip ospf neighbor" >}}
+      Expected output, plus what to do when it is empty.
+      {{< /verify >}}
+
+      Same mechanics as {{< step >}}, styled as a check rather than a task so
+      the "do this" and "prove it worked" halves of a lab read differently.
+*/}}
+{{- $dev := .Get "dev" -}}
+{{- $cmd := .Get "cmd" -}}
+<details class="lab-step lab-verify"{{ if eq (.Get "open") "true" }} open{{ end }}>
+  <summary class="lab-step-hd">
+    <span class="lab-step-num lab-verify-num" aria-hidden="true">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </span>
+    <span class="lab-step-title"><code>{{ $cmd }}</code></span>
+    {{- with $dev }}<span class="lab-step-dev">{{ . }}</span>{{ end -}}
+    <svg class="lab-step-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </summary>
+  <div class="lab-step-body">{{ .Inner | markdownify }}</div>
+</details>

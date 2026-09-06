@@ -8,63 +8,103 @@
   font-feature-settings:'opsz' 144; color:var(--text);
 }
 .labs-pg-body { max-width:1200px; margin:0 auto; padding:32px 64px 80px; width:100%; }
+
+.labs-domain { margin-bottom:40px; }
+.labs-domain-hd {
+  display:flex; align-items:baseline; gap:12px;
+  padding-bottom:10px; margin-bottom:4px;
+  border-bottom:1px solid var(--border);
+}
+.labs-domain-num {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--accent);
+}
+.labs-domain-title { font-size:14px; font-weight:600; color:var(--text); }
+.labs-domain-weight {
+  margin-left:auto; font-family:'JetBrains Mono',monospace;
+  font-size:11px; color:var(--text3);
+}
+
 .labs-item {
-  display:grid; grid-template-columns:80px 1fr 140px 100px 24px;
-  gap:24px; padding:18px 0;
+  display:grid; grid-template-columns:64px 1fr 220px 90px 20px;
+  gap:20px; padding:14px 0;
   border-bottom:1px solid var(--border);
   text-decoration:none; color:var(--text); align-items:center;
-  transition:opacity 0.12s;
+  transition:opacity .12s;
 }
-.labs-item:hover { opacity:0.8; }
-.labs-item-num {
-  font-family:'JetBrains Mono',monospace; font-size:13px;
-  color:var(--accent);
-}
-.labs-item-title { font-size:15.5px; font-weight:500; }
-.labs-item-tags { display:flex; gap:8px; margin-top:4px; }
-.labs-item-tag { font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text3); }
-.labs-item-tool { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text3); }
+.labs-item:hover { opacity:.75; }
+.labs-item-num { font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--accent); }
+.labs-item-title { font-size:14.5px; font-weight:500; }
+.labs-item-desc { font-size:12.5px; color:var(--text2); margin-top:3px; line-height:1.45; }
+.labs-item-src  { font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--text3); }
 .labs-item-dur  { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text3); }
-.labs-arrow { color:var(--text3); font-size:14px; }
+.labs-arrow     { color:var(--text3); font-size:14px; }
 
+@media (max-width:1000px) {
+  .labs-item { grid-template-columns:60px 1fr 90px 20px; }
+  .labs-item-src { display:none; }
+}
 @media (max-width:860px) {
   .labs-pg-hd-inner,.labs-pg-body { padding-left:40px; padding-right:40px; }
-  .labs-item { grid-template-columns:64px 1fr 24px; }
-  .labs-item-tool,.labs-item-dur { display:none; }
+  .labs-item { grid-template-columns:56px 1fr 20px; }
+  .labs-item-dur { display:none; }
 }
 @media (max-width:640px) {
   .labs-pg-hd-inner { padding:40px 20px 24px; }
   .labs-pg-body { padding:24px 20px 80px; }
-  .labs-item { grid-template-columns:56px 1fr 20px; gap:12px; }
+  .labs-item { grid-template-columns:48px 1fr 18px; gap:12px; }
+  .labs-item-desc { display:none; }
 }
 </style>
 {{ end }}
 
 {{ define "main" }}
+{{ $labs := where .Pages "Params.domain" "!=" nil }}
 <header class="labs-pg-hd">
   <div class="labs-pg-hd-inner">
     {{ partial "breadcrumb.html" . }}
     <h1 class="labs-pg-h1">CCNA labs, <em class="h1-em">solved &amp; annotated.</em></h1>
-    <p style="font-size:15.5px;color:var(--text2);max-width:640px;margin-top:14px;line-height:1.55">{{ len (where .Pages "Params.page_lang" "ne" "ru") }} hands-on scenarios in Packet Tracer and EVE-NG. Each lab links to the topology, my running config, and what I broke trying to solve it.</p>
+    <p style="font-size:15.5px;color:var(--text2);max-width:680px;margin-top:14px;line-height:1.55">
+      {{ len $labs }} hands-on labs covering the whole 200-301 blueprint, merged from
+      Jeremy&rsquo;s IT Lab and the Flackbox lab guide into one sequence. Every task is a
+      collapsible step you can work through device by device, and every part ends with the
+      verification command that proves it.
+    </p>
   </div>
 </header>
 
 <div class="labs-pg-body">
-  {{ range sort .Pages ".File.BaseFileName" }}
-  {{ if ne .Params.page_lang "ru" }}
-  <a href="{{ .RelPermalink }}" class="labs-item">
-    <div class="labs-item-num">LAB {{ index (split .File.BaseFileName "-") 2 }}</div>
-    <div>
-      <div class="labs-item-title">{{ .Title }}</div>
-      <div class="labs-item-tags">
-        {{ range .Params.tags }}<span class="labs-item-tag">#{{ . }}</span>{{ end }}
+  {{ $domains := slice
+    (dict "num" 1 "title" "Network Fundamentals" "weight" "20%")
+    (dict "num" 2 "title" "Network Access" "weight" "20%")
+    (dict "num" 3 "title" "IP Connectivity" "weight" "25%")
+    (dict "num" 4 "title" "IP Services" "weight" "10%")
+    (dict "num" 5 "title" "Security Fundamentals" "weight" "15%")
+    (dict "num" 6 "title" "Automation and Programmability" "weight" "10%")
+  }}
+  {{ range $domains }}
+    {{ $group := where $labs "Params.domain" (.num) }}
+    {{ if $group }}
+    <section class="labs-domain">
+      <div class="labs-domain-hd">
+        <span class="labs-domain-num">Domain {{ .num }}</span>
+        <span class="labs-domain-title">{{ .title }}</span>
+        <span class="labs-domain-weight">{{ .weight }}</span>
       </div>
-    </div>
-    <div class="labs-item-tool">{{ .Params.tool | default "Packet Tracer" }}</div>
-    <div class="labs-item-dur">{{ .Params.duration | default "n/a" }}</div>
-    <div class="labs-arrow">→</div>
-  </a>
-  {{ end }}
+      {{ range sort $group ".File.BaseFileName" }}
+      <a href="{{ .RelPermalink }}" class="labs-item">
+        <div class="labs-item-num">LAB&nbsp;{{ index (split .File.BaseFileName "-") 2 }}</div>
+        <div>
+          <div class="labs-item-title">{{ replaceRE "^Lab \\d+ · " "" .Title }}</div>
+          {{ with .Description }}<div class="labs-item-desc">{{ . }}</div>{{ end }}
+        </div>
+        <div class="labs-item-src">{{ .Params.sources }}</div>
+        <div class="labs-item-dur">{{ .Params.duration | default "" }}</div>
+        <div class="labs-arrow">→</div>
+      </a>
+      {{ end }}
+    </section>
+    {{ end }}
   {{ end }}
 </div>
 {{ end }}

@@ -86,11 +86,16 @@
   {{- $out := slice -}}
   {{- range $line := split (trim .Inner "\n") "\n" -}}
     {{- $esc := htmlEscape $line -}}
-    {{- $pm := findRE "^[A-Za-z][\\w.-]*(\\([\\w-]+\\))?[#>]" $esc 1 -}}
+    {{- /* Prompt detection runs on the RAW line, not the escaped one: htmlEscape
+           has already turned the user-EXEC ">" into "&gt;" by this point, so
+           matching [#>] against $esc silently missed every "R1>" line and
+           rendered it as program output. Escape the pieces individually after
+           the split instead. */ -}}
+    {{- $pm := findRE "^[A-Za-z][\\w.-]*(\\([\\w-]+\\))?[#>]" $line 1 -}}
     {{- if $pm -}}
       {{- $p     := index $pm 0 -}}
-      {{- $rest  := strings.TrimSpace (strings.TrimPrefix $p $esc) -}}
-      {{- $sigil := substr $p -1 -}}
+      {{- $rest  := htmlEscape (strings.TrimSpace (strings.TrimPrefix $p $line)) -}}
+      {{- $sigil := htmlEscape (substr $p -1) -}}
       {{- $head  := substr $p 0 (sub (len $p) 1) -}}
 
       {{- /* rules 1+2: mode bold, hostname and sigil dimmed */ -}}

@@ -223,3 +223,41 @@ if(document.body.dataset.codeToggle==='true'){
     });
   });
 }
+
+
+/* Lab steps — expand/collapse all, and auto-open a step you deep-link into */
+(function(){
+  const steps=document.querySelectorAll('#articleBody .lab-step');
+  if(!steps.length)return;
+
+  const body=document.getElementById('articleBody');
+  const bar=document.createElement('div');
+  bar.className='lab-toolbar';
+  bar.innerHTML='<button type="button" data-lab="open">expand all</button>'+
+                '<button type="button" data-lab="close">collapse all</button>';
+  const firstStep=steps[0];
+  /* Sit the toolbar just above the first step, whatever section that is in. */
+  (firstStep.parentNode||body).insertBefore(bar,firstStep);
+
+  bar.addEventListener('click',e=>{
+    const btn=e.target.closest('button[data-lab]');
+    if(!btn)return;
+    const open=btn.dataset.lab==='open';
+    steps.forEach(d=>{d.open=open;});
+  });
+
+  /* A link to a heading inside a collapsed step scrolls to nothing, so open
+     the ancestors of whatever the hash points at — on load and on every
+     in-page jump. */
+  function revealHash(){
+    const id=decodeURIComponent(location.hash.slice(1));
+    if(!id)return;
+    const target=document.getElementById(id);
+    if(!target)return;
+    let d=target.closest('details');
+    while(d){d.open=true;d=d.parentElement&&d.parentElement.closest('details');}
+    target.scrollIntoView({block:'start'});
+  }
+  window.addEventListener('hashchange',revealHash);
+  revealHash();
+})();

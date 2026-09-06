@@ -1,0 +1,29 @@
+{{/*  A collapsible lab step.
+
+      {{< step num="3" dev="R1" title="Enable OSPF on the WAN link" >}}
+      Narrative markdown, fenced IOS blocks, tables — anything.
+      {{< /step >}}
+
+      num    step number shown in the left badge. Optional.
+      dev    device the step is typed on (R1, SW2, PC1 …). Optional but
+             strongly preferred: it is what makes a lab followable device
+             by device rather than as one wall of config.
+      title  what the step accomplishes. Required.
+      open   "true" to render the step already expanded.
+
+      The body goes through markdownify, so fenced blocks still hit
+      render-codeblock.html and Cisco output is tokenised and gets its
+      prompt-stripping "copy config" button.
+*/}}
+{{- $num   := .Get "num" -}}
+{{- $dev   := .Get "dev" -}}
+{{- $title := .Get "title" -}}
+<details class="lab-step"{{ if eq (.Get "open") "true" }} open{{ end }}>
+  <summary class="lab-step-hd">
+    {{- with $num }}<span class="lab-step-num">{{ . }}</span>{{ end -}}
+    <span class="lab-step-title">{{ $title }}</span>
+    {{- with $dev }}<span class="lab-step-dev">{{ . }}</span>{{ end -}}
+    <svg class="lab-step-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </summary>
+  <div class="lab-step-body">{{ .Inner | markdownify }}</div>
+</details>
