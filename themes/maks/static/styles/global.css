@@ -28,7 +28,11 @@
   --shadow:    0 1px 0 rgba(0,0,0,0.4), 0 16px 40px -20px rgba(0,0,0,0.5);
   --nav-blur:  rgba(14,19,25,0.90);
   --code-bg:   #0A0E13;
-  --code-inline-bg: #1C242E;
+  --code-chrome-bg: #161D26;   /* label bar above a code block */
+  --code-chrome-fg: #838F9C;
+  --code-border:    #242D38;
+  --code-inline-bg: #1A222C;   /* inline <code> — never --code-bg */
+  --code-inline-fg: #7FD1DE;
   /* h1 scale tokens */
   --h1-hero:    clamp(36px, 5.5vw, 68px);
   --h1-page:    clamp(28px, 4vw, 44px);
@@ -59,8 +63,12 @@
   --radius:    6px;
   --shadow:    0 1px 2px rgba(19,26,33,0.05), 0 6px 16px -10px rgba(19,26,33,0.14);
   --nav-blur:  rgba(232,237,243,0.92);
-  --code-bg:   #0A0E13;        /* unchanged from dark — see chroma.css header */
-  --code-inline-bg: #E2E9F1;   /* inline <code> is type, so it follows the page */
+  --code-bg:   #EDF1F7;        /* the light theme gets its own well */
+  --code-chrome-bg: #E3E9F1;
+  --code-chrome-fg: #576475;
+  --code-border:    #D3DCE7;
+  --code-inline-bg: #DEE7F1;
+  --code-inline-fg: #0A6B7C;
 }
 
 .h1-em { font-style: italic; color: var(--text2); font-weight: inherit; }
@@ -1207,4 +1215,48 @@ footer {
   z-index: 200;
   transition: width .1s;
   width: 0;
+}
+
+/* ═══════════════════════════════════════
+   BACK TO TOP
+   Appears once the reader is a screen and a half down; parks above the
+   mobile bottom nav so it never covers a tab target.
+═══════════════════════════════════════ */
+#toTop {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 150;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border2);
+  border-radius: 50%;
+  background: var(--nav-blur);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: var(--text2);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s, color .15s, border-color .15s;
+}
+#toTop.show { opacity: 1; visibility: visible; transform: none; }
+#toTop:hover { color: var(--accent); border-color: var(--accent); }
+#toTop:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#toTop svg { stroke: currentColor; }
+
+@media (max-width: 860px) {
+  #toTop {
+    right: 16px;
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    width: 38px;
+    height: 38px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #toTop { transition: opacity .18s ease, visibility .18s; transform: none; }
 }

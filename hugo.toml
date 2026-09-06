@@ -20,6 +20,14 @@ theme = "maks"
   og_image    = "/og-default.png"   # default OG image (1200×630px), lives in static/
   home_title  = "Maks Lopunov · Linux & DevOps Knowledge Base"
 
+# ── Russian content is kept in the repo but excluded from the build ──
+# The site is English-only in public. Drop this block to bring RU back.
+[module]
+  [[module.mounts]]
+    source       = "content"
+    target       = "content"
+    excludeFiles = ["**/ru/**"]
+
 [taxonomies]
   tag      = "tags"
   category = "categories"

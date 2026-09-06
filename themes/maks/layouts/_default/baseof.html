@@ -11,7 +11,6 @@
 <title>{{ if .IsHome }}{{ .Site.Params.home_title | default .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
 
 {{- $canonical := .Permalink }}
-{{- if eq .Params.page_lang "ru" }}{{- with .Params.lang_pair }}{{- $canonical = absURL . }}{{- end }}{{- end }}
 <link rel="canonical" href="{{ $canonical }}">
 
 {{- $title  := cond .IsHome (.Site.Params.home_title | default .Site.Title) (printf "%s · %s" .Title .Site.Title) }}
@@ -37,23 +36,19 @@
 {{- with $ogImg }}
 <meta name="twitter:image"       content="{{ . | absURL }}">
 {{- end }}
-{{- if eq .Params.page_lang "ru" }}
-<meta name="robots" content="noindex, nofollow">
-{{- end }}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap">
 <link rel="stylesheet" href="{{ "styles/fonts.css" | relURL }}">
 <link rel="stylesheet" href="{{ "styles/global.css" | relURL }}">
-{{ if or (eq .Type "posts") (eq .Type "kb") (and (eq .Type "ccna-labs") .IsPage) }}<link rel="stylesheet" href="{{ "styles/chroma.css" | relURL }}">
+{{ if or (eq .Type "posts") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}<link rel="stylesheet" href="{{ "styles/chroma.css" | relURL }}">
 <link rel="stylesheet" href="{{ "styles/code.css" | relURL }}">{{ end }}
 {{ if .IsHome }}<link rel="stylesheet" href="{{ "styles/home.css" | relURL }}">{{ end }}
-{{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "kb") (and (eq .Type "ccna-labs") .IsPage) }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
-{{ if or (eq .Type "posts") (eq .Type "kb") (and (eq .Type "ccna-labs") .IsPage) }}<link rel="stylesheet" href="{{ "styles/topology.css" | relURL }}">{{ end }}
+{{ if or (eq .Type "posts") (eq .Type "about") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">{{ end }}
+{{ if or (eq .Type "posts") (eq .Type "kb") (and (or (eq .Type "ccna-labs") (eq .Type "troubleshooting")) .IsPage) }}<link rel="stylesheet" href="{{ "styles/topology.css" | relURL }}">{{ end }}
 <link rel="stylesheet" href="{{ "styles/mobile.css" | relURL }}">
 {{ block "head" . }}{{ end }}
-{{ if or .Params.page_lang .Params.lang_pair }}<meta id="page-lang" data-lang="{{ .Params.page_lang | default "en" }}" data-lang-pair="{{ .Params.lang_pair }}">{{ end }}
 </head>
 <body{{ if .Params.pagefind_ignore }} data-pagefind-ignore="all"{{ end }}>
 
@@ -69,10 +64,6 @@
   </ul>
   <div class="nav-right">
     <span class="nav-suntime" id="navSuntime" aria-label="Sydney sunrise/sunset"></span>
-    <div class="lang-toggle" role="group" aria-label="Language">
-      <button class="lang-btn{{ if ne .Params.page_lang "ru" }} active{{ end }}" onclick="setLang('en')" aria-pressed="{{ if ne .Params.page_lang "ru" }}true{{ else }}false{{ end }}">EN</button>
-      <button class="lang-btn{{ if eq .Params.page_lang "ru" }} active{{ end }}" onclick="setLang('ru')" aria-pressed="{{ if eq .Params.page_lang "ru" }}true{{ else }}false{{ end }}">RU</button>
-    </div>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><use href="{{ "img/icons.svg" | relURL }}#power"></use></svg></button>
   </div>
 </nav>
@@ -81,10 +72,6 @@
 <nav class="mob-nav">
   <a href="{{ "/" | relURL }}" class="nav-logo">maks<span class="nav-dot">.</span>top</a>
   <div class="mob-nav-right">
-    <div class="lang-toggle mob-lang-toggle" role="group" aria-label="Language">
-      <button class="lang-btn{{ if ne .Params.page_lang "ru" }} active{{ end }}" onclick='setLang("en")' aria-pressed="{{ if ne .Params.page_lang "ru" }}true{{ else }}false{{ end }}">EN</button>
-      <button class="lang-btn{{ if eq .Params.page_lang "ru" }} active{{ end }}" onclick='setLang("ru")' aria-pressed="{{ if eq .Params.page_lang "ru" }}true{{ else }}false{{ end }}">RU</button>
-    </div>
     <button class="theme-btn" onclick="toggleTheme()" id="themeBtnMob" aria-label="Toggle theme" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><use href="{{ "img/icons.svg" | relURL }}#power"></use></svg></button>
     <button class="burger" id="burgerBtn" onclick="toggleMobMenu()" aria-label="Menu" aria-expanded="false" aria-controls="mobDrawer">
       <span></span><span></span><span></span>
@@ -99,10 +86,6 @@
   <a href="{{ "/certs/" | relURL }}"{{ if eq .Section "certs" }} class="active"{{ end }}>Certs</a>
   <a href="{{ "/kb/" | relURL }}"{{ if eq .Section "kb" }} class="active"{{ end }}>Knowledge Base</a>
   <a href="{{ "/about/" | relURL }}"{{ if eq .RelPermalink "/about/" }} class="active"{{ end }}>About</a>
-  <div class="mob-drawer-lang" role="group" aria-label="Language">
-    <button class="lang-btn{{ if ne .Params.page_lang "ru" }} active{{ end }}" onclick='setLang("en")' aria-pressed="{{ if ne .Params.page_lang "ru" }}true{{ else }}false{{ end }}">EN</button>
-    <button class="lang-btn{{ if eq .Params.page_lang "ru" }} active{{ end }}" onclick='setLang("ru")' aria-pressed="{{ if eq .Params.page_lang "ru" }}true{{ else }}false{{ end }}">RU</button>
-  </div>
 </div>
 <div class="mob-overlay" id="mobOverlay" onclick="closeMobMenu()"></div>
 
@@ -156,10 +139,6 @@ function toggleTheme(){
   localStorage.setItem('themeTime',Date.now());
   applyTheme(next,false);
 }
-function setLang(lang){
-  var m=document.getElementById('page-lang');
-  if(m&&m.dataset.langPair&&lang!==m.dataset.lang)window.location.href=m.dataset.langPair;
-}
 function toggleMobMenu(){
   var d=document.getElementById('mobDrawer');
   var o=document.getElementById('mobOverlay');
@@ -183,6 +162,32 @@ function closeMobMenu(){
   var isAuto=!s||s==='auto'||expired;
   applyTheme(isAuto?getAutoTheme():s,isAuto);
   if(isAuto){setInterval(function(){applyTheme(getAutoTheme(),true);},600000);}
+})();
+</script>
+
+<!-- ═══ BACK TO TOP ═══ -->
+<button id="toTop" type="button" aria-label="Back to top" title="Back to top">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+<script>
+(function(){
+  var btn=document.getElementById('toTop');
+  if(!btn)return;
+  var shown=false,ticking=false;
+  function sync(){
+    var should=window.scrollY>window.innerHeight*0.9;
+    if(should!==shown){shown=should;btn.classList.toggle('show',should);}
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){ticking=true;requestAnimationFrame(sync);}
+  },{passive:true});
+  btn.addEventListener('click',function(){
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+    if(history.replaceState)history.replaceState(null,'',location.pathname+location.search);
+  });
+  sync();
 })();
 </script>
 

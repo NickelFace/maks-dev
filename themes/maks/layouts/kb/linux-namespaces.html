@@ -44,11 +44,6 @@
       {{ range . }}#{{ . }}<br/>{{ end }}
     </div>
     {{ end }}
-    {{ if .Params.lang_pair }}
-    <div class="pmr-lang">
-      {{ if eq .Params.page_lang "ru" }}RU · <a href="{{ .Params.lang_pair | relURL }}" style="color:var(--text3)">EN available</a>{{ else }}EN · <a href="{{ .Params.lang_pair | relURL }}" style="color:var(--text3)">RU available</a>{{ end }}
-    </div>
-    {{ end }}
   </aside>
 
   <!-- ── article ──
