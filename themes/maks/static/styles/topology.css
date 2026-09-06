@@ -29,8 +29,11 @@
   text-transform: lowercase;
 }
 
-/* Slight visual lift on the connection labels in dark mode */
-[data-theme="light"] .topology .topo-links text {
+/* Link labels are thin accent-coloured mono at 10px; on the light theme that
+   needs a little more weight to hold up. They now live in their own layer
+   (.topo-labels) drawn after the nodes, so the old .topo-links selector had
+   stopped matching anything. */
+[data-theme="light"] .topology .topo-labels text {
   font-weight: 600;
 }
 

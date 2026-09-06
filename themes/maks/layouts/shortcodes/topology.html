@@ -28,12 +28,17 @@
 {{ $cellH   := 110 }}
 {{ $padX    := 30 }}
 {{ $padY    := 24 }}
-{{ $w       := add (mul $cols $cellW) (mul 2 $padX) }}
-{{ $h       := add (mul $rows $cellH) (mul 2 $padY) }}
 
 {{/* Parse body into nodes + links */}}
 {{ $nodes := slice }}
 {{ $links := slice }}
+{{/* cols/rows are what the author declared, but the canvas is sized from the
+     nodes actually placed. The GRE lab declared cols="4" and put SW2 at column
+     4, which is off the end of a 0..3 grid — the switch and its caption were
+     simply clipped off the right edge of the viewBox. Taking the max of the two
+     means a miscounted grid grows instead of cropping. */}}
+{{ $maxCol := 0 }}
+{{ $maxRow := 0 }}
 {{ range (split (trim .Inner "\n") "\n") }}
   {{ $line := trim . " \t" }}
   {{ if and (ne $line "") (not (hasPrefix $line "#")) }}
@@ -77,6 +82,8 @@
             {{ $row = int (trim (index $atParts 1) " \t") }}
           {{ end }}
         {{ end }}
+        {{ if gt $col $maxCol }}{{ $maxCol = $col }}{{ end }}
+        {{ if gt $row $maxRow }}{{ $maxRow = $row }}{{ end }}
         {{ $cx := add $padX (add (mul $col $cellW) (div $cellW 2)) }}
         {{ $cy := add $padY (add (mul $row $cellH) (div $cellH 2)) }}
         {{ $nodes = $nodes | append (dict "kind" $kind "id" $id "sub" $sub "cx" $cx "cy" $cy) }}
@@ -84,6 +91,11 @@
     {{ end }}
   {{ end }}
 {{ end }}
+
+{{ $cols = cond (gt (add $maxCol 1) $cols) (add $maxCol 1) $cols }}
+{{ $rows = cond (gt (add $maxRow 1) $rows) (add $maxRow 1) $rows }}
+{{ $w := add (mul $cols $cellW) (mul 2 $padX) }}
+{{ $h := add (mul $rows $cellH) (mul 2 $padY) }}
 
 {{/* Build map id → node for link rendering */}}
 {{ $nmap := dict }}
@@ -100,13 +112,6 @@
         {{ $b := index $nmap .to }}
         {{ if and $a $b }}
           <line x1="{{ $a.cx }}" y1="{{ $a.cy }}" x2="{{ $b.cx }}" y2="{{ $b.cy }}" />
-          {{ with .label }}
-            {{ $mx := div (add $a.cx $b.cx) 2 }}
-            {{ $my := add (div (add $a.cy $b.cy) 2) -6 }}
-            <text x="{{ $mx }}" y="{{ $my }}" text-anchor="middle"
-                  font-family="JetBrains Mono, monospace" font-size="10"
-                  fill="var(--accent)">{{ . }}</text>
-          {{ end }}
         {{ end }}
       {{ end }}
     </g>
@@ -157,13 +162,96 @@
             <rect x="-20" y="-14" width="40" height="28" rx="2"
                   fill="var(--bg2)" stroke="var(--text)" stroke-width="1.4"/>
           {{ end }}
+          {{/* CAPTION PLATE.
+
+               Links are drawn before nodes, so a line running diagonally past a
+               node passes straight through its caption — in the NTP lab both
+               legs to R2 and SW1 struck through "NTP master · stratum 2". An
+               opaque plate in the figure's own --bg2 surface, sized to the wider
+               of the two lines, cuts the
+               line off behind the text.
+
+               A caption also has only one cell (140px) to live in, and a few
+               are wider than that. Rather than truncating, anything past 20
+               runes is scaled down to fit ~122px. Monospace makes the width
+               predictable: JetBrains Mono advances 0.6em, so runes x 0.6 x
+               font-size, plus a little padding. */}}
+          {{ $idw := add (mul (strings.RuneCount .id) 7) 10 }}
+          {{ $sfs := 9.5 }}
+          {{ $subw := 0 }}
+          {{ with .sub }}
+            {{ $rc := strings.RuneCount . }}
+            {{ if gt $rc 20 }}
+              {{ $sfs = div (math.Round (mul (div 122.0 (mul $rc 0.6)) 10)) 10 }}
+            {{ end }}
+            {{ $subw = add (int (math.Ceil (mul $rc (mul $sfs 0.62)))) 10 }}
+          {{ end }}
+          {{ $pw := cond (gt $subw $idw) $subw $idw }}
+          <rect x="{{ mul (div $pw 2) -1 }}" y="27"
+                width="{{ $pw }}" height="{{ cond (ne .sub "") 26 14 }}"
+                fill="var(--bg2)"/>
           <text y="36" text-anchor="middle" font-size="10.5"
                 fill="var(--text)" font-weight="500">{{ .id }}</text>
           {{ with .sub }}
-            <text y="48" text-anchor="middle" font-size="9.5"
+            <text y="48" text-anchor="middle" font-size="{{ $sfs }}"
                   fill="var(--text3)">{{ . }}</text>
           {{ end }}
         </g>
+      {{ end }}
+    </g>
+
+    {{/* LINK LABELS LAST, in their own layer.
+
+         Two things go wrong if a label is drawn at the plain midpoint of its
+         line inside the links group, and both showed up on real diagrams:
+
+         1. On a VERTICAL link the midpoint is 55px below the upper node — which
+            is exactly where that node's sublabel sits (y+48). "Gi0/1 ↔ Gi0/1"
+            landed on top of "access" in the cabling lab, and "upstream" on top
+            of "NTP master" in the NTP lab. So vertical-ish links put their label
+            at 72% of the way down instead: clear of the caption above (ends ~53)
+            and clear of the lower icon below (starts ~88).
+
+         2. A long label on a horizontal link (an IPv6 prefix is ~108px wide, the
+            gap between two icons is ~96px) runs under the node icons, which are
+            painted after the links. Drawing the labels in a layer of their own
+            after the nodes, over a --bg plate, means the label always wins.
+
+         The plate width is estimated from the rune count — JetBrains Mono
+         advances 0.6em, so 6px per rune at font-size 10, plus padding. */}}
+    <g class="topo-labels" font-family="JetBrains Mono, monospace" font-size="10">
+      {{ range $links }}
+        {{ $a := index $nmap .from }}
+        {{ $b := index $nmap .to }}
+        {{ if and $a $b }}{{ with .label }}
+          {{ $adx := sub $b.cx $a.cx }}{{ if lt $adx 0 }}{{ $adx = mul $adx -1 }}{{ end }}
+          {{ $ady := sub $b.cy $a.cy }}{{ if lt $ady 0 }}{{ $ady = mul $ady -1 }}{{ end }}
+          {{ $lx := 0 }}{{ $ly := 0 }}
+          {{/* A diagonal counts as vertical here, not horizontal: its midpoint
+               still lands in the upper node's caption band. Only a genuinely
+               level link (same row) takes the midpoint route. */}}
+          {{ if gt $ady 20 }}
+            {{ $top := cond (lt $a.cy $b.cy) $a $b }}
+            {{ $bot := cond (lt $a.cy $b.cy) $b $a }}
+            {{ $lx = int (math.Round (add $top.cx (mul (sub $bot.cx $top.cx) 0.72))) }}
+            {{ $ly = int (math.Round (add $top.cy (mul (sub $bot.cy $top.cy) 0.72))) }}
+          {{ else }}
+            {{/* Horizontal-ish: sit just above the line, unless the label is
+                 wider than the clear span between the two icons — "access VLAN
+                 100" is 98px and the gap between two switches is 88px, so it
+                 was cutting into both. Those get lifted above the icons
+                 instead (the widest icon is the switch at 26px half-width, and
+                 the tallest silhouette is the router circle at r=22). */}}
+            {{ $span := sub $adx 68 }}
+            {{ $lx = div (add $a.cx $b.cx) 2 }}
+            {{ $ly = sub (div (add $a.cy $b.cy) 2) (cond (gt (add (mul (strings.RuneCount .) 6) 8) $span) 30 6) }}
+          {{ end }}
+          {{ $tw := add (mul (strings.RuneCount .) 6) 8 }}
+          <rect x="{{ sub $lx (div $tw 2) }}" y="{{ sub $ly 10 }}" width="{{ $tw }}" height="14"
+                rx="2" fill="var(--bg2)"/>
+          <text x="{{ $lx }}" y="{{ $ly }}" text-anchor="middle"
+                fill="var(--accent)">{{ . }}</text>
+        {{ end }}{{ end }}
       {{ end }}
     </g>
   </svg>
