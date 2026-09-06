@@ -46,6 +46,7 @@ This is the foundation of the entire site. Every other template extends `baseof`
 - **Mobile bottom nav** `.mob-bottom-nav`: bottom bar with icons
 - **Footer**: logo + stack + location + year
 - **`<script>`**, inline: `toggleTheme()`, `setLang()`, `toggleMobMenu()`, `closeMobMenu()`, restore from localStorage
+- **Favicons**: `/favicon.ico` (static, three sizes, the dark tile) as the fallback browsers request by convention, then `#favicon` — an SVG the theme script repoints at `favicon-light.svg` or `favicon-dark.svg`. Modern browsers prefer the SVG; the `.ico` covers clients without SVG-icon support and the bare `/favicon.ico` request.
 
 > **Note:** there is no `site.js`. The theme toggle, nav and search-overlay handlers are inlined directly in `baseof.html` so their execution order is guaranteed against the anti-flash script in `<head>`. Earlier revisions of these docs described a legacy `site.js` alongside them; no such file exists in the tree.
 
