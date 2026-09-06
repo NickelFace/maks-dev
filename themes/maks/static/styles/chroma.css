@@ -4,20 +4,26 @@
    code.css (Cisco IOS, sessions, diffs) and for the .comment / .out spans
    that prose.css and the namespace page hand-mark.
 
-   ONE PALETTE, BOTH THEMES.
-   Code blocks stay on the dark well in the light theme too. That is a
-   deliberate consequence of the Recessed light background (option 6c): the
-   page recedes to #E8EDF3 and content rises to near-white above it, so a dark
-   code block reads as the deepest layer rather than as an inversion. It also
-   deletes a whole class of work — there is no second light syntax set to keep
-   in sync, and a screenshot of a code block is valid in both themes.
+   TWO PALETTES, ONE TOKEN SET.
+   An earlier pass kept code blocks on the dark well in both themes, on the
+   theory that the Recessed light background makes a dark block read as the
+   deepest layer. On the live site it does not: the page is #E8EDF3 and cards
+   are #FDFEFF, so a black rectangle in the middle of them reads as a bug, not
+   as a layer. The light theme therefore gets its own well and its own hues.
 
-   Inline <code> inside a paragraph is the exception: it is type, not a block,
-   so it follows the page. That is --code-inline-bg, set per theme in
-   global.css.
+   Only the properties are redeclared — there is no second set of .chroma
+   rules, so a token added here reaches both themes automatically. The hue
+   roles are identical across the two: cyan is always the command, purple
+   always the keyword.
 
-   Every colour below is measured against #0A0E13. Floor is the comment at
-   5.5:1; nothing else is under 7. If you retune a hue, re-measure it.
+   Dark is measured against #0A0E13 and light against #EDF1F7. Both floors are
+   the comment token, at 5.5:1 and 5.3:1. If you retune a hue, re-measure it —
+   the light set sits in a narrow 5.0–6.3 band and an algorithmic inversion of
+   the dark set lands cyan and green below AA.
+
+   Inline <code> never sits on --code-bg: a chip matching the block well reads
+   as a broken block. It has its own pair, in global.css with the other page
+   surfaces.
 ═══════════════════════════════════════ */
 
 :root {
@@ -33,6 +39,26 @@
   --code-gut:  #4C596A;  /* line numbers, dimmed hostnames         */
   --code-hl:   #16202D;  /* highlighted line background            */
 }
+
+[data-theme="light"] {
+  --code-fg:   #263140;  /* plain text, paths, flags        12.4:1 */
+  --code-cmd:  #0A6B7C;  /* commands, builtins, functions    5.5:1 */
+  --code-str:  #8A5B12;  /* strings, heredocs                5.0:1 */
+  --code-kw:   #6A3FBF;  /* keywords, operators, pipes       6.0:1 */
+  --code-num:  #16714F;  /* numbers, added lines             5.3:1 */
+  --code-var:  #2E5FA8;  /* $variables, ${expansions}        5.6:1 */
+  --code-cmt:  #576475;  /* # comments — the floor           5.3:1 */
+  --code-out:  #4E5A6B;  /* program output, prompts          6.3:1 */
+  --code-err:  #B3261E;  /* errors, removed lines            5.8:1 */
+  --code-gut:  #667485;  /* line numbers, dimmed hostnames   5.4:1 */
+  --code-hl:   #DCE6F5;  /* highlighted line background            */
+}
+
+/* Diff rows tint from their own property rather than an alpha of the token.
+   A 10% alpha of #16714F over #EDF1F7 is invisible — light needs solid tints,
+   and once one theme does, both should, so the two stay comparable. */
+:root                { --diff-add-bg: #101E19; --diff-del-bg: #211416; }
+[data-theme="light"] { --diff-add-bg: #DFF0E6; --diff-del-bg: #F8E3E1; }
 
 /* ── Structure ── */
 .code-block .highlight { margin: 0; display: block; }

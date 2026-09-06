@@ -11,6 +11,11 @@
       reads for a red-green colourblind reader. See code.css.
 */}}
 {{- $out := slice -}}
+{{- /* Every row is wrapped and the rows are joined with NOTHING, not with
+       "\n". The row spans are display:block, so inside a <pre> a newline
+       between two of them renders a second, empty line — the diff came out
+       double-spaced. It only became obvious once the row tints went solid for
+       the light theme; at 10% alpha the blank bands were invisible. */ -}}
 {{- range $line := split (trim .Inner "\n") "\n" -}}
   {{- $esc := htmlEscape $line -}}
   {{- if hasPrefix $esc "@@" -}}
@@ -20,7 +25,7 @@
   {{- else if and (hasPrefix $esc "-") (not (hasPrefix $esc "---")) -}}
     {{- $out = $out | append (printf "<span class=\"d-del\">%s</span>" $esc) -}}
   {{- else -}}
-    {{- $out = $out | append $esc -}}
+    {{- $out = $out | append (printf "<span class=\"d-ctx\">%s</span>" $esc) -}}
   {{- end -}}
 {{- end -}}
 <div class="code-block" data-kind="diff">
@@ -32,5 +37,5 @@
     <span class="file-lang">diff</span>
     <button class="copy-btn" onclick="cpPre(this)">copy</button>
   </div>
-  <pre class="diff-pre"><code>{{ delimit $out "\n" | safeHTML }}</code></pre>
+  <pre class="diff-pre"><code>{{ delimit $out "" | safeHTML }}</code></pre>
 </div>

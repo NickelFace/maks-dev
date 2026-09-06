@@ -1,0 +1,22 @@
+{{ define "head" }}
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="{{ "styles/chroma.css" | relURL }}">
+<link rel="stylesheet" href="{{ "styles/code.css" | relURL }}">
+<link rel="stylesheet" href="{{ "styles/prose.css" | relURL }}">
+{{ end }}
+
+{{ define "main" }}
+{{/* Deliberately not the three-column prose shell: this page is a swatch
+     board, and the rails would only narrow the blocks it exists to show. */}}
+<div style="max-width:900px;margin:0 auto;padding:56px 40px 96px">
+  <h1 class="prose-h1">{{ .Title }}</h1>
+  {{ with .Description }}<p class="prose-lead">{{ . }}</p>{{ end }}
+  <div class="prose" id="articleBody">
+    {{ .Content }}
+  </div>
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+<script src="{{ "js/code-enhance.js" | relURL }}"></script>
+{{ end }}
