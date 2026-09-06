@@ -11,7 +11,7 @@ build:
   render: always
 ---
 
-Практическое руководство по развёртыванию phpLDAPadmin на Ubuntu 24.04 и работе с OpenLDAP через графический интерфейс. Для понимания команд рекомендуется прочитать [LPIC-2 210.4 — Configuring an OpenLDAP Server](/posts/lpic2-210-4-openldap/).
+Практическое руководство по развёртыванию phpLDAPadmin на Ubuntu 24.04 и работе с OpenLDAP через графический интерфейс. Для понимания команд рекомендуется прочитать [LPIC-2 210.4 — Configuring an OpenLDAP Server](/posts/lpic2/lpic2-210-4-openldap/).
 
 ---
 
