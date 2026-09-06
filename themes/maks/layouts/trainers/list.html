@@ -1,0 +1,66 @@
+{{ define "head" }}
+<link rel="stylesheet" href="{{ "styles/trainers.css" | relURL }}">
+{{ end }}
+
+{{ define "main" }}
+{{ $items := where .Pages "Params.kind" "!=" nil }}
+<header class="tr-hd">
+  <div class="tr-hd-inner">
+    {{ partial "breadcrumb.html" . }}
+    <h1 class="tr-h1">Trainers &amp; <em class="h1-em">animations.</em></h1>
+    <p class="tr-lead">
+      {{ len $items }} interactive pieces: timed drills for the arithmetic the exam
+      makes you do under pressure, and step-through animations for the protocol
+      behaviour that a static diagram cannot show. Everything runs in the browser
+      &mdash; nothing is sent anywhere, and nothing is stored.
+    </p>
+  </div>
+</header>
+
+<div class="tr-body">
+  {{ $groups := slice
+    (dict "key" "drill"     "title" "Drills"     "note" "speed and accuracy")
+    (dict "key" "animation" "title" "Animations" "note" "step through the protocol")
+    (dict "key" "tool"      "title" "Tools"      "note" "calculate and look up")
+  }}
+  {{ range $groups }}
+    {{ $g := where $items "Params.kind" .key }}
+    {{ if $g }}
+    <section class="tr-group">
+      <div class="tr-group-hd">
+        <span class="tr-group-kind">{{ .title }}</span>
+        <span class="tr-group-note">{{ .note }}</span>
+      </div>
+      <div class="tr-grid">
+        {{ range sort $g "Params.order" }}
+        <a href="{{ .RelPermalink }}" class="tr-tile">
+          <h3>{{ .Title }}</h3>
+          <p>{{ .Description }}</p>
+          {{ with .Params.topic }}<span class="tr-tag">{{ . }}</span>{{ end }}
+        </a>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+  {{ end }}
+
+  <section class="tr-group">
+    <div class="tr-group-hd">
+      <span class="tr-group-kind">Elsewhere</span>
+      <span class="tr-group-note">separate sites</span>
+    </div>
+    <div class="tr-grid">
+      <a href="https://ccna.maks.top/" class="tr-tile tr-ext" target="_blank" rel="noopener">
+        <h3>NetPath exam trainer &nearr;</h3>
+        <p>A full 200-301 question bank weighted by the six official domains, with drag-and-drop items and a per-domain score report.</p>
+        <span class="tr-tag">ccna.maks.top</span>
+      </a>
+      <a href="http://www.subnettingquestions.com/" class="tr-tile tr-ext" target="_blank" rel="noopener">
+        <h3>subnettingquestions.com &nearr;</h3>
+        <p>Endless randomised subnetting questions with instant checking. Useful once the drills here stop being hard.</p>
+        <span class="tr-tag">third-party</span>
+      </a>
+    </div>
+  </section>
+</div>
+{{ end }}

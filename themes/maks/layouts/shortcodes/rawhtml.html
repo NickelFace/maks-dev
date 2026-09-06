@@ -1,0 +1,9 @@
+{{- /*
+  Pass the body through untouched.
+
+  Needed because the interactive trainers are whole HTML documents with blank
+  lines in them, and Goldmark ends a raw-HTML block at the first blank line —
+  everything after it would be re-parsed as markdown and mangled. Shortcode
+  bodies are never template-parsed, so JS containing braces is safe here too.
+*/ -}}
+{{ .Inner | safeHTML }}

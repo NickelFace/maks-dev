@@ -1,0 +1,23 @@
+{{ define "head" }}
+<link rel="stylesheet" href="{{ "styles/trainers.css" | relURL }}">
+{{ end }}
+
+{{ define "main" }}
+<header class="tr-hd">
+  <div class="tr-hd-inner">
+    {{ partial "breadcrumb.html" . }}
+    <h1 class="tr-h1">{{ .Title }}</h1>
+    {{ with .Description }}<p class="tr-lead">{{ . }}</p>{{ end }}
+  </div>
+</header>
+
+<div class="tr-body tr-narrow trainer-page">
+  {{ with .Params.keys }}
+  <p class="tr-keys">{{ . | safeHTML }}</p>
+  {{ end }}
+  {{ .Content }}
+  <div style="margin-top:48px;font-family:'JetBrains Mono',monospace;font-size:12px">
+    <a href="{{ "/trainers/" | relURL }}" style="color:var(--text3);text-decoration:none">&larr; All trainers</a>
+  </div>
+</div>
+{{ end }}
